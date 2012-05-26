@@ -1,0 +1,8 @@
+#compdef emacs
+
+_arguments -C -s \
+    '--daemon' \
+    '--debug-init' \
+    '--help' \
+  '*:file:_files' && return 0
+return 1
