@@ -68,6 +68,18 @@ setopt pushd_ignore_dups
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
 
 ###########################################################
+# color settings
+
+# grep
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='01;33'
+
+# source-hightlight
+#  yaourt -S souce-highlight
+export LESS='-R'
+export LESSOPEN='| /usr/bin/src-hilite-lesspipe.sh %s'
+
+###########################################################
 # ~/.bash_aliases, instead of adding them here directly.
 #if [ -f ~/.aliases ]; then
 #    . ~/.aliases
