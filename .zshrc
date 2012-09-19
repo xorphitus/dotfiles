@@ -2,6 +2,9 @@ export BROWSER=google-chrome
 export FILEMANAGER=pcmanfm
 export ERLANG_HOME=/usr/lib/erlang
 export ENSIME_ROOT=$HOME/lib/aemoncannon-ensime-38627ca/src/main/
+export GEM_HOME=~/.gem/ruby/1.9.1/
+
+export PATH=${PATH}:${GEM_HOME}/bin
 
 fpath=($HOME/.zsh $fpath)
 
@@ -66,6 +69,11 @@ setopt pushd_ignore_dups
 # pythonbrew
 # https://github.com/utahta/pythonbrew
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+
+###########################################################
+# rbenv
+# https://github.com/sstephenson/rbenv/
+eval "$(rbenv init -)"
 
 ###########################################################
 # color settings

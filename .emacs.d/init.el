@@ -8,7 +8,10 @@
 (setq explicit-shell-file-name shell-file-name)
 
 ;; set load path
-(add-to-list 'load-path "~/.emacs.d/elisp")
+;;(add-to-list 'load-path "~/.emacs.d/elisp")
+(let ((default-directory "~/.emacs.d/elisp/"))
+   (setq load-path (cons default-directory load-path))
+    (normal-top-level-add-subdirs-to-load-path))
 (let ((default-directory "~/.emacs.d/elpa/"))
     (setq load-path (cons default-directory load-path))
     (normal-top-level-add-subdirs-to-load-path))
@@ -48,6 +51,7 @@
 	       'coffee-mode-hook
 	       'js2-mode-hook
                'scala-mode-hook
+               'ruby-mode-hook
 	       ))
   (add-hook hook (lambda ()
                    ;; line number
@@ -74,6 +78,16 @@
 
 ;; magit.el
 (require 'magit)
+
+;; tabber.el
+;;(if window-system
+;;    (progn
+;;      (require 'tabbar)
+;;      (global-set-key [C-tab] 'tabbar-forward)
+;;      (global-set-key [(control shift iso-lefttab)] 'tabbar-backward)
+;;      (tabbar-mode)
+;;      )
+;;  )
 
 ;;; GUI settings
 
@@ -272,6 +286,7 @@ static char * arrow_right[] = {
 
 ;; edit dired result directory
 (require 'wdired)
+(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;; auto-install.el
 ;;  http://www.emacswiki.org/emacs/download/auto-install.el
@@ -291,6 +306,12 @@ static char * arrow_right[] = {
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
+
+;; yasnippet
+(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet-0.6.1c")
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/plugins/yasnippet-0.6.1c/snippets")
 
 ;; redo+
 ;;  http://www.emacswiki.org/emacs/download/redo+.el
@@ -349,7 +370,7 @@ static char * arrow_right[] = {
 (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
 (add-hook 'coffee-mode-hook
     '(lambda()
-        (set (make-local-variable 'tab-width) 4)))
+        (set (make-local-variable 'tab-width) 2)))
 
 ;;;
 ;;; ActionScript
@@ -519,3 +540,22 @@ static char * arrow_right[] = {
 ;; (add-to-list 'exec-path "/usr/share/ensime")
 ;; (require 'ensime)
 ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+
+;;; Ruby
+
+;; ruby-block.el
+(require 'ruby-block)
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+(ruby-block-mode t)
+(setq ruby-block-highlight-toggle t)
+
+;; flymake-ruby
+(require 'flymake-ruby)
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+
+;; Rinari
+;;  https://github.com/eschulte/rinari
+(require 'rinari)
+
