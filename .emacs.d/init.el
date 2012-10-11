@@ -52,6 +52,7 @@
 	       'js2-mode-hook
                'scala-mode-hook
                'ruby-mode-hook
+               'haml-mode-hook
 	       ))
   (add-hook hook (lambda ()
                    ;; line number
@@ -548,6 +549,7 @@ static char * arrow_right[] = {
 (require 'ruby-block)
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake" . ruby-mode))
 (ruby-block-mode t)
 (setq ruby-block-highlight-toggle t)
 
@@ -559,3 +561,10 @@ static char * arrow_right[] = {
 ;;  https://github.com/eschulte/rinari
 (require 'rinari)
 
+;;; CSS
+(add-to-list 'auto-mode-alist '("\\.less" . css-mode))
+
+;;; haml
+(require 'haml-mode)
+(require 'flymake-haml)
+(add-hook 'haml-mode-hook 'flymake-haml-load)
