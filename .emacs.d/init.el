@@ -90,6 +90,12 @@
 ;;      )
 ;;  )
 
+;; twittering-mode.el
+(require 'twittering-mode)
+(setq twittering-mode-status-format
+      "%C{%Y/%m/%d %H:%M:%S} %s > %T // from %f%L%r%R")
+(setq twittering-mode-username "xorphitus")
+
 ;;; GUI settings
 
 ;; windmove
@@ -273,6 +279,7 @@ static char * arrow_right[] = {
 ;;  'package-list-packages
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; rectanble select
 ;;  GUI: C-Ret
@@ -352,6 +359,22 @@ static char * arrow_right[] = {
 ;;  http://d.hatena.ne.jp/kiwanami/20120305/1330939440
 (require 'edbi)
 (autoload 'edbi:open-db-viewer "edbi")
+
+;;; Todo
+
+;; org-toodledo
+(require 'org-toodledo)
+
+;; Useful key bindings for org-mode
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-unset-key "\C-o")
+            (local-set-key "\C-od" 'org-toodledo-mark-task-deleted)
+            (local-set-key "\C-os" 'org-toodledo-sync)))
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+            (local-unset-key "\C-o")
+            (local-set-key "\C-od" 'org-toodledo-agenda-mark-task-deleted)))
 
 ;;;
 ;;; JavaScript
