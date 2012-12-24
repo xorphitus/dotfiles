@@ -1,0 +1,6 @@
+for i in `find /Applications -maxdepth 1 -name '*.app' | sed 's/ /,/'` ;do
+    app=`echo $i | sed 's/\/Applications\///' | sed 's/.app//'`
+    command="open -a `echo $app | sed 's/,/\\\ /'`"
+    alias_name=`echo $app | sed 's/,/-/' | tr A-Z a-z`
+    alias $alias_name=$command
+done

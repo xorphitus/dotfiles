@@ -1,0 +1,64 @@
+export FILEMANAGER=pcmanfm
+
+function wcon() {
+    PID_FILE="/run/dhcpd-wlan0.pid"
+    if [ -d ${PID_FILE} ]; then
+        sudo kill -9 `cat ${PID_FILE}`
+    fi
+
+    #iwconfig wlan0 mode ad-hoc
+    sudo ifconfig wlan0 up
+
+    # without encription
+    # iwconfig wlan0 essid {ESSID}
+
+    # WEP
+    # iwconfig wlan0 essid {ESSID} key {KEY}
+
+    # WPA/WPA2
+    #echo ctrl_interface=DIR=/var/run/wpa_wpa_supplicant GROUP=wheel > /etc/wpa_supplicant.conf
+    #wpa_passphrase {wireless_ssid} {secretpassphrase} >> /etc/wpa_supplicant.conf
+    sudo wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
+
+    sudo dhcpcd wlan0
+}
+
+###########################################################
+# for Arch Linux
+if [ -e /etc/arch-release ]; then
+    function _yaourt() {
+        local install_flg=0
+        if [ $# != 0 ]; then
+            for i in $*; do
+                if [ $i = '-S' ]; then
+            	install_flg=1
+            	break
+                fi
+            done
+        fi
+        yaourt $@
+     
+        if [ $install_flg -gt 0 ]; then
+            rehash
+        fi
+    }
+    alias yaourt='_yaourt'
+     
+    function _pacman() {
+        local install_flg=0
+        if [ $# != 0 ]; then
+            for i in $*; do
+                if [ $i = '-S' ]; then
+            	install_flg=1
+            	break
+                fi
+            done
+        fi
+        pacman $@
+     
+        if [ $install_flg -gt 0 ]; then
+            rehash
+        fi
+    }
+    alias pacman='_pacman'
+fi
