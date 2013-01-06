@@ -23,6 +23,16 @@
 ;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; file name completion ignore case
+(setq completion-ignore-case t)
+
+;; auto reload buffer which modified by external programs
+(global-auto-revert-mode 1)
+
+;; easy to descern buffers of same name files
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
 ;;; look and feel
 
 ;; skip startup screen
@@ -38,6 +48,20 @@
 (show-paren-mode 1)
 ;; high light inner text of paren when over window
 (setq show-paren-style 'mixed)
+
+;; high light current line
+(defface hlline-face
+  '((((class color)
+      (background dark))
+     (:background "dark slate gray"))
+    (((class color)
+      (background light))
+     (:background "#98FB98"))
+    (t
+     ()))
+  "*Face used by hl-line.")
+(setq hl-line-face 'hlline-face)
+(global-hl-line-mode)
 
 ;; styles for coding
 (dolist (hook (list
