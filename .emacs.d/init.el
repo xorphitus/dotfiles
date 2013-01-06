@@ -8,7 +8,6 @@
 (setq explicit-shell-file-name shell-file-name)
 
 ;; set load path
-;;(add-to-list 'load-path "~/.emacs.d/elisp")
 (let ((default-directory "~/.emacs.d/elisp/"))
    (setq load-path (cons default-directory load-path))
     (normal-top-level-add-subdirs-to-load-path))
@@ -118,23 +117,12 @@
 ;; Japanese input
 
 ;; mozc
-;;(require 'mozc)
-;;(set-language-environment "Japanese")
-;;(setq default-input-method "japanese-mozc")
-;;(global-set-key (kbd "C-o") 'toggle-input-method)
+(when (eq system-type 'gnu/linux)
+  (require 'mozc)
+  (set-language-environment "Japanese")
+  (setq default-input-method "japanese-mozc")
+  (global-set-key (kbd "C-o") 'toggle-input-method))
 
-;; anthy
-(load-library "anthy")
-(setq default-input-method "japanese-anthy")
-
-;; e2wm
-;;  http://d.hatena.ne.jp/kiwanami/20100528/1275038929
-;;  require: window-layout.el, e2wm.el
-(require 'e2wm)
-(global-set-key (kbd "M-+") 'e2wm:start-management)
-;(if window-system
-;    (e2wm:start-management)
-;)
 
 ;; set color, window size
 (if window-system
@@ -148,105 +136,6 @@
       ;;(set-frame-parameter nil 'fullscreen 'fullboth)
       )
 )
-
-;; change look and feel with powerline.el
-;;  http://www.emacswiki.org/emacs/powerline.el
-;;
-;; can't see 'arrow style' mode-line w/ -nw option.
-(defun arrow-right-xpm (color1 color2)
-  "Return an XPM right arrow string representing."
-  (format "/* XPM */
-static char * arrow_right[] = {
-\"12 18 2 1\",
-\".	c %s\",
-\" 	c %s\",
-\".           \",
-\"..          \",
-\"...         \",
-\"....        \",
-\".....       \",
-\"......      \",
-\".......     \",
-\"........    \",
-\".........   \",
-\".........   \",
-\"........    \",
-\".......     \",
-\"......      \",
-\".....       \",
-\"....        \",
-\"...         \",
-\"..          \",
-\".           \"};"  color1 color2))
-
-(defun arrow-left-xpm (color1 color2)
-  "Return an XPM right arrow string representing."
-  (format "/* XPM */
-static char * arrow_right[] = {
-\"12 18 2 1\",
-\".	c %s\",
-\" 	c %s\",
-\"           .\",
-\"          ..\",
-\"         ...\",
-\"        ....\",
-\"       .....\",
-\"      ......\",
-\"     .......\",
-\"    ........\",
-\"   .........\",
-\"   .........\",
-\"    ........\",
-\"     .......\",
-\"      ......\",
-\"       .....\",
-\"        ....\",
-\"         ...\",
-\"          ..\",
-\"           .\"};"  color2 color1))
-
-
-(defconst color1 "#00c")
-(defconst color2 "#009")
-
-(defvar arrow-right-1 (create-image (arrow-right-xpm color1 color2) 'xpm t :ascent 'center))
-(defvar arrow-right-2 (create-image (arrow-right-xpm color2 "None") 'xpm t :ascent 'center))
-(defvar arrow-left-1  (create-image (arrow-left-xpm color2 color1) 'xpm t :ascent 'center))
-(defvar arrow-left-2  (create-image (arrow-left-xpm "None" color2) 'xpm t :ascent 'center))
-
-(setq-default mode-line-format
- (list  '(:eval (concat (propertize " %b " 'face 'mode-line-color-1)
-                        (propertize " " 'display arrow-right-1)))
-        '(:eval (concat (propertize " %m " 'face 'mode-line-color-2)
-                        (propertize " " 'display arrow-right-2)))
-
-        ;; Justify right by filling with spaces to right fringe - 16
-        ;; (16 should be computed rahter than hardcoded)
-        '(:eval (propertize " " 'display '((space :align-to (- right-fringe 17)))))
-
-        '(:eval (concat (propertize " " 'display arrow-left-2)
-                        (propertize " %p " 'face 'mode-line-color-2)))
-        '(:eval (concat (propertize " " 'display arrow-left-1)
-                        (propertize "%4l:%2c  " 'face 'mode-line-color-1)))
-))
-
-(make-face 'mode-line-color-1)
-(set-face-attribute 'mode-line-color-1 nil
-                    :foreground "#fff"
-                    :background color1)
-
-(make-face 'mode-line-color-2)
-(set-face-attribute 'mode-line-color-2 nil
-                    :foreground "#fff"
-                    :background color2)
-
-(set-face-attribute 'mode-line nil
-                    :foreground "#fff"
-                    :background "#000"
-                    :box nil)
-(set-face-attribute 'mode-line-inactive nil
-                    :foreground "#fff"
-                    :background "#000")
 
 ;;; other behaviors
 
@@ -327,9 +216,6 @@ static char * arrow_right[] = {
 
 ;; migemo
 ;(require 'migemo)
-
-;; evernote
-;(require 'evernote-mode)
 
 ;; flymake
 (require 'flymake)
@@ -432,22 +318,6 @@ static char * arrow_right[] = {
             (use-anything-show-completion 'anything-ipython-complete
                '(length initial-pattern)))))
 
-;(add-hook 'python-mode-hook
-;    ;; for outline-mode
-;    (lambda ()
-;        (set (make-variable-buffer-local 'beginning-of-defun-function)
-;            'py-beginning-of-def-or-class)
-;        (setq outline-regexp "def\\|class "))
-;    ;; for ElDoc
-;    '(lambda () (eldoc-mode 1)) t
-;)
-
-;(defun py-next-block ()
-;    "go to the next block.  Cf. `forward-sexp' for lisp-mode"
-;    (interactive)
-;    (py-mark-block nil 't)
-;    (back-to-indentation))
-
 ;; flymake
 ;;  required package: pylint, pyflakes, python-mode.el
 (when (load "flymake" t)
@@ -482,13 +352,6 @@ static char * arrow_right[] = {
 ;        (require 'pymacs)
 ;        (pymacs-load "ropemacs" "rope-")
 ;        (setq ropemacs-enable-autoimport t)))
-
-
-(defun pybrew ()
-  (interactive)
-  (message (concat "echo " (read-from-minibuffer))))
-  ;(shell-command (concat "echo " (read-from-minibuffer))))
-  ;(shell-command (concat "pythonbrew " (buffer-time-stamp))))
 
 ;;;
 ;;; C/C++
