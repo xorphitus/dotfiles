@@ -23,6 +23,21 @@
 ;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; file name completion ignore case
+(setq completion-ignore-case t)
+
+;; auto reload buffer which modified by external programs
+(global-auto-revert-mode 1)
+
+;; easy to descern buffers of same name files
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+;; emacs server
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;;; look and feel
 
 ;; skip startup screen
@@ -38,6 +53,20 @@
 (show-paren-mode 1)
 ;; high light inner text of paren when over window
 (setq show-paren-style 'mixed)
+
+;; high light current line
+(defface hlline-face
+  '((((class color)
+      (background light))
+     (:background "dark slate gray"))
+    (((class color)
+      (background dark))
+     (:background "#000000"))
+    (t
+     ()))
+  "*Face used by hl-line.")
+(setq hl-line-face 'hlline-face)
+(global-hl-line-mode)
 
 ;; styles for coding
 (dolist (hook (list
@@ -66,6 +95,42 @@
 ;; indent
 (setq-default indent-tabs-mode nil)
 
+;;; Window splitting
+
+;; http://d.hatena.ne.jp/rubikitch/20100210/emacs
+(defun other-window-or-split ()
+  (interactive)
+  (when (one-window-p)
+    (split-window-horizontally))
+  (other-window 1))
+
+(global-set-key (kbd "C-z") 'other-window-or-split)
+
+;; popwin.el
+;;  http://d.hatena.ne.jp/m2ym/20110120/1295524932
+;;  http://shibayu36.hatenablog.com/entry/2012/12/29/001418
+(setq pop-up-windows nil)
+(require 'popwin nil t)
+(when (require 'popwin nil t)
+  (setq anything-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
+  (push '("*Completions*" :height 0.4) popwin:special-display-config)
+  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
+  )
+
+;; tabber.el
+;;(if window-system
+;;    (progn
+;;      (require 'tabbar)
+;;      (global-set-key [C-tab] 'tabbar-forward)
+;;      (global-set-key [(control shift iso-lefttab)] 'tabbar-backward)
+;;      (tabbar-mode)
+;;      )
+;;  )
+
+;;; utility
+
 ;; quickrun.el
 ;; http://d.hatena.ne.jp/syohex/20111201/1322665378
 (require 'quickrun)
@@ -78,16 +143,6 @@
 
 ;; magit.el
 (require 'magit)
-
-;; tabber.el
-;;(if window-system
-;;    (progn
-;;      (require 'tabbar)
-;;      (global-set-key [C-tab] 'tabbar-forward)
-;;      (global-set-key [(control shift iso-lefttab)] 'tabbar-backward)
-;;      (tabbar-mode)
-;;      )
-;;  )
 
 ;; twittering-mode.el
 (require 'twittering-mode)
@@ -145,7 +200,7 @@
 (defun beginning-of-indented-line (current-point)
   (interactive "d")
   (if (string-match
-       "^[ ¥t]+$"
+       "^[ \t]+$"
        (save-excursion
 	 (buffer-substring-no-properties
 	  (progn (beginning-of-line) (point))
@@ -203,6 +258,8 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
+;; select completion target by using C-n/C-p
+(setq ac-use-menu-map t)
 
 ;; yasnippet
 (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet-0.6.1c")
@@ -213,6 +270,10 @@
 ;; redo+
 ;;  http://www.emacswiki.org/emacs/download/redo+.el
 (require 'redo+)
+
+;; undo-tree.el
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
 
 ;; migemo
 ;(require 'migemo)
