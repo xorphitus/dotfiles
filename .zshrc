@@ -1,5 +1,6 @@
 ###########################################################
 # general
+export EDITOR=emacsclient
 export BROWSER=google-chrome
 
 fpath=(${HOME}/.zsh ${fpath})
@@ -8,7 +9,8 @@ bindkey -e
 
 autoload -Uz colors
 colors
-setopt prompt_subst
+
+autoload -Uz add-zsh-hook
 
 setopt auto_cd
 
@@ -18,43 +20,42 @@ bindkey '^@' backward-delete-char
 setopt no_beep
 setopt no_list_beep
 setopt auto_list
-#unsetopt bash_auto_list
-unsetopt list_ambiguous
-unsetopt menu_complete
-setopt auto_menu
-setopt always_last_prompt
-setopt complete_in_word
-#setopt always_to_end
 setopt list_types
+#setopt always_to_end
 #setopt recexact
-setopt auto_remove_slash
-setopt auto_param_keys
-setopt extended_glob
 
 ###########################################################
 # completion
 autoload -U compinit
 compinit
 
-# color
-eval `dircolors -b`
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*:(processes|jobs)' menu yes select=2
 
-###########################################################
-# prompt
-PROMPT='%n:%l@%m$ '
-RPROMPT='%~'
+# color
+# set LS_COLORS
+eval `dircolors -b`
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+## option
+#unsetopt bash_auto_list
+unsetopt list_ambiguous
+unsetopt menu_complete
+setopt auto_menu
+setopt always_last_prompt
+setopt complete_in_word
+setopt auto_remove_slash
+setopt extended_glob
+setopt auto_param_keys
+setopt magic_equal_subst
 
 ###########################################################
 # history
 setopt hist_ignore_all_dups
 setopt hist_ignore_dups
 setopt hist_ignore_space
-export HISTFILE=$HOME/.zsh_history
+export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=1000
 export SAVEHIST=500
 setopt extended_history
@@ -63,6 +64,51 @@ setopt share_history
 setopt auto_pushd
 
 setopt pushd_ignore_dups
+
+
+###########################################################
+# vcs_info
+#  http://mollifier.hatenablog.com/entry/20100906/p1
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git svn hg bzr
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
+zstyle ':vcs_info:bzr:*' use-simple true
+ 
+autoload -Uz is-at-least
+if is-at-least 4.3.10; then
+  zstyle ':vcs_info:git:*' check-for-changes true
+  zstyle ':vcs_info:git:*' stagedstr "+"
+  zstyle ':vcs_info:git:*' unstagedstr "-"
+  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u'
+  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
+fi
+ 
+function _update_vcs_info_msg() {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    psvar[2]=$(_git_not_pushed)
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+
+function _git_not_pushed() {
+    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]; then
+        head="$(git rev-parse HEAD)"
+        for x in $(git rev-parse --remotes)
+        do
+            if [ "$head" = "$x" ]; then
+                return 0
+            fi
+        done
+        echo "|?"
+    fi
+    #return 0
+    echo ok
+}
+
+add-zsh-hook precmd _update_vcs_info_msg
 
 ###########################################################
 # erlang
@@ -81,12 +127,22 @@ export ENSIME_ROOT=${HOME}/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
 # ruby
-export GEM_HOME=~/.gem/ruby/1.9.1/
+export GEM_HOME=~/.gem/ruby/1.9.1
 export PATH=${PATH}:${GEM_HOME}/bin
 
 # rbenv
 # https://github.com/sstephenson/rbenv/
 eval "$(rbenv init -)"
+
+function _info-rbenv() {
+    local info
+    info=`rbenv version | cut -d ' ' -f 1`
+    if [[ $info = "system" ]]; then
+        echo -n ""
+    else
+        echo -n $info
+    fi
+}
 
 ###########################################################
 # less
@@ -112,6 +168,7 @@ alias lla='ls -la'
 alias w3mg='w3m http://www.google.co.jp/'
 alias google-chrome='google-chrome -allow-file-access-from-files'
 alias pybrew='pythonbrew'
+alias e='emacsclient -n'
 
 ###########################################################
 # functions
@@ -135,9 +192,18 @@ function psg() {
 
 ###########################################################
 # for each platforms
-case $OSTYPE {
+case ${OSTYPE} {
     linux*)
         . ${HOME}/.zshrc.linux;;
     darwin*)
         . ${HOME}/.zshrc.mac;;
 }
+
+###########################################################
+# prompt
+setopt prompt_subst
+
+PROMPT="%{${fg[yellow]}%}[%~]%{${reset_color}%}
+%n@%m$ "
+
+RPROMPT="%1(v|%F{green}%1v%f|)${vcs_info_git_pushed}"
