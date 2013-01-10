@@ -57,10 +57,10 @@
 ;; high light current line
 (defface hlline-face
   '((((class color)
-      (background light))
+      (background dark))
      (:background "dark slate gray"))
     (((class color)
-      (background dark))
+      (background light))
      (:background "#000000"))
     (t
      ()))
