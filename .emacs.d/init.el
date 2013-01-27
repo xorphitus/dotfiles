@@ -15,16 +15,12 @@
     (setq load-path (cons default-directory load-path))
     (normal-top-level-add-subdirs-to-load-path))
 
-;; reload ~/.emacs/init.d
-(defun reload-elisp ()
-  (interactive)
-  (load-library "~/.emacs/init.el"))
-
 ;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; file name completion ignore case
 (setq completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
 
 ;; auto reload buffer which modified by external programs
 (global-auto-revert-mode 1)
@@ -515,3 +511,12 @@
 (require 'haml-mode)
 (require 'flymake-haml)
 (add-hook 'haml-mode-hook 'flymake-haml-load)
+
+;;; UTF-8
+(set-default-coding-systems 'utf-8)
+(set-language-environment "Japanese")
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8-unix)

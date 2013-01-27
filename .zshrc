@@ -1,6 +1,7 @@
 ###########################################################
 # general
 export EDITOR=emacsclient
+export ALTERNATE_EDITOR=vim
 export BROWSER=google-chrome
 
 fpath=(${HOME}/.zsh ${fpath})
@@ -129,6 +130,8 @@ export ENSIME_ROOT=${HOME}/lib/aemoncannon-ensime-38627ca/src/main/
 # ruby
 export GEM_HOME=~/.gem/ruby/1.9.1
 export PATH=${PATH}:${GEM_HOME}/bin
+
+alias be='bundle exec'
 
 # rbenv
 # https://github.com/sstephenson/rbenv/
