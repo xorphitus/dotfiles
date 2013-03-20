@@ -146,6 +146,9 @@
       "%C{%Y/%m/%d %H:%M:%S} %s > %T // from %f%L%r%R")
 (setq twittering-mode-username "xorphitus")
 
+;; junk file
+(require 'open-junk-file)
+
 ;;; GUI settings
 
 ;; windmove
@@ -248,6 +251,7 @@
 ;;  http://www.emacswiki.org/cgi-bin/wiki/download/anything-config.el
 (require 'anything-startup)
 (require 'color-theme)
+(define-key global-map (kbd "\C-x b") 'anything)
 
 ;; auto-complete
 ;;  http://cx4a.org/software/auto-complete/index.ja.html
