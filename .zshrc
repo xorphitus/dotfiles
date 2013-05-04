@@ -128,7 +128,7 @@ export ENSIME_ROOT=${HOME}/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
 # ruby
-export GEM_HOME=~/.gem/ruby/1.9.1
+export GEM_HOME=~/.gem/ruby/2.0.0
 export PATH=${PATH}:${GEM_HOME}/bin
 
 alias be='bundle exec'
@@ -146,6 +146,12 @@ function _info-rbenv() {
         echo -n $info
     fi
 }
+
+###########################################################
+# nodejs
+for i in `find ~/node_modules/ -name 'bin' -type d` ;do
+    export PATH=${PATH}:${i}
+done
 
 ###########################################################
 # less
