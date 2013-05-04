@@ -530,6 +530,10 @@
 (require 'haml-mode)
 (add-hook 'haml-mode-hook 'flycheck-mode)
 
+;;; Sass
+(require 'sass-mode)
+(add-hook 'sass-mode-hook 'flycheck-mode)
+
 ;;; UTF-8
 (set-default-coding-systems 'utf-8)
 (set-language-environment "Japanese")
