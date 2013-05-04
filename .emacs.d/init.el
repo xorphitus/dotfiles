@@ -269,7 +269,7 @@
 
 ;; redo+
 ;;  http://www.emacswiki.org/emacs/download/redo+.el
-(require 'redo+)
+;;(require 'redo+)
 
 ;; undo-tree.el
 (when (require 'undo-tree nil t)
@@ -331,6 +331,10 @@
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
+;; flycheck
+;;  npm: jshint
+(add-hook 'js2-mode-hook 'flycheck-mode)
+
 ;;;
 ;;; CoffeeScript
 
@@ -342,6 +346,10 @@
 (add-hook 'coffee-mode-hook
     '(lambda()
         (set (make-local-variable 'tab-width) 2)))
+
+;; flycheck
+;;  npm: coffeelint
+(add-hook 'coffee-mode-hook 'flycheck-mode)
 
 ;;;
 ;;; ActionScript
@@ -405,6 +413,10 @@
 (add-hook 'python-mode-hook
 	  '(lambda ()
 	     (flymake-mode t)))
+
+;; flycheck
+;;  required package: pylint
+;;(add-hook 'python-mode-hook 'flycheck-mode)
 
 ;; rope
 ;;  required package: pymacs, ropemode
@@ -482,6 +494,9 @@
 (require 'scala-mode-auto)
 (add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
 
+;; flycheck
+(add-hook 'scala-mode-hook 'flycheck-mode)
+
 ;; ;; requre ensime
 ;; ;;  https://github.com/aemoncannon/ensime
 ;; (add-to-list 'load-path "/usr/share/ensime/elisp")
@@ -500,9 +515,9 @@
 (ruby-block-mode t)
 (setq ruby-block-highlight-toggle t)
 
-;; flymake-ruby
-(require 'flymake-ruby)
-(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+;; flycheck
+;;  gem: rubocop
+(add-hook 'ruby-mode-hook 'flycheck-mode)
 
 ;; Rinari
 ;;  https://github.com/eschulte/rinari
@@ -511,10 +526,9 @@
 ;;; CSS
 (add-to-list 'auto-mode-alist '("\\.less" . css-mode))
 
-;;; haml
+;;; Haml
 (require 'haml-mode)
-(require 'flymake-haml)
-(add-hook 'haml-mode-hook 'flymake-haml-load)
+(add-hook 'haml-mode-hook 'flycheck-mode)
 
 ;;; UTF-8
 (set-default-coding-systems 'utf-8)
