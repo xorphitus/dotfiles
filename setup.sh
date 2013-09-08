@@ -1,5 +1,10 @@
 #!/bin/sh
-cd `dirname $0`
+DIR=`dirname $0`
+cd $DIR
 for f in $(find . -maxdepth 1 -name '.?*'); do
-    ln -s $f ~
+    FILE=`echo $f | sed -e "s/\.\///"`
+    if [ $FILE == '.git' -a $FILE == '.gitignore' ]; then
+        continue
+    fi
+    ln -s $DIR/$FILE $HOME/$FILE
 done
