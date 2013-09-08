@@ -3,9 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads (sass-mode) "sass-mode" "sass-mode.el" (20869 10317
-;;;;;;  940790 488000))
-;;; Generated autoloads from sass-mode.el
+;;;### (autoloads (sass-mode) "sass-mode" "../../../../.emacs.d/elpa/sass-mode-20101019.30/sass-mode.el"
+;;;;;;  "9c5390e8c77e0fec238f94f6e671d5b2")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/sass-mode-20101019.30/sass-mode.el
 
 (autoload 'sass-mode "sass-mode" "\
 Major mode for editing Sass files.
@@ -16,8 +16,9 @@ Major mode for editing Sass files.
 
 ;;;***
 
-;;;### (autoloads nil nil ("sass-mode-pkg.el") (20869 10318 20316
-;;;;;;  470000))
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/sass-mode-20101019.30/sass-mode-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/sass-mode-20101019.30/sass-mode.el")
+;;;;;;  (21036 40642 953080 904000))
 
 ;;;***
 
