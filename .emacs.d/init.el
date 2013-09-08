@@ -262,10 +262,8 @@
 (setq ac-use-menu-map t)
 
 ;; yasnippet
-(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet-0.6.1c")
 (require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/plugins/yasnippet-0.6.1c/snippets")
+(yas-global-mode 1)
 
 ;; redo+
 ;;  http://www.emacswiki.org/emacs/download/redo+.el
