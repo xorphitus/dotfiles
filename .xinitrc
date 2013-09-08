@@ -24,6 +24,9 @@ compton &
 tint2 &
 conky &
 terminator -mb -e tmux &
+/usr/lib/notification-daemon-1.0/notification-daemon &
+dropboxd &
+skype &
 
 # start window manager
 exec openbox-session
