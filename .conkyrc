@@ -48,6 +48,7 @@ own_window yes
 own_window_class Conky
 own_window_type desktop
 own_window_transparent yes
+own_window_argb_visual yes
 stippled_borders 0
 update_interval 1.0
 uppercase no

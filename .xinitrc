@@ -22,11 +22,11 @@ compton &
 
 # startup apps
 tint2 &
-conky &
 terminator -mb -e tmux &
-/usr/lib/notification-daemon-1.0/notification-daemon &
+dunst &
 dropboxd &
 skype &
+conky &
 
 # start window manager
 exec openbox-session
