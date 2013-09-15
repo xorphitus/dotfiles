@@ -385,44 +385,13 @@
             (use-anything-show-completion 'anything-ipython-complete
                '(length initial-pattern)))))
 
-;; flymake
-;;  required package: pylint, pyflakes, python-mode.el
-(when (load "flymake" t)
-    ;; use pylint
-    ;; require installing pylint (epylint)
-    (defun flymake-pylint-init ()
-        (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-inplace))
-            (local-file (file-relative-name temp-file (file-name-directory buffer-file-name ))))
-            (list "epylint" (list local-file))))
-    (add-to-list 'flymake-allowed-file-name-masks '("\\.py\\'" flymake-pylint-init))
-)
-;(when (load "flymake" t)
-;    ;; use pyflake
-;    ;; require installint pyflakes
-;    (defun flymake-pyflakes-init ()
-;        ; make sure it's not a remote buffer or flymake would not work
-;        (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
-;            (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-inplace))
-;                (local-file (file-relative-name temp-file (file-name-directory buffer-file-name ))))
-;                (list "pyflakes" (list local-file)))))
-;    (add-to-list 'flymake-allowed-file-name-masks '("\\.py\\'" flymake-pyflakes-init))
-;)
-
 (add-hook 'python-mode-hook
 	  '(lambda ()
 	     (flymake-mode t)))
 
 ;; flycheck
 ;;  required package: pylint
-;;(add-hook 'python-mode-hook 'flycheck-mode)
-
-;; rope
-;;  required package: pymacs, ropemode
-;(add-hook 'python-mode-hook
-;    (lambda ()
-;        (require 'pymacs)
-;        (pymacs-load "ropemacs" "rope-")
-;        (setq ropemacs-enable-autoimport t)))
+(add-hook 'python-mode-hook 'flycheck-mode)
 
 ;;;
 ;;; C/C++
