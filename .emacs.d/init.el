@@ -247,6 +247,15 @@
      (define-key helm-map (kbd "C-h") 'delete-backward-char)
      ))
 
+;; http://d.hatena.ne.jp/syohex/20130302/1362182193
+(require 'helm-ag)
+(global-set-key (kbd "M-g .") 'helm-ag)
+(global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
+
+;; disable helm-find-files in helm-mode (C-x C-f, C-x C-w)
+;; http://qiita.com/akisute3@github/items/7c8ea3970e4cbb7baa97
+(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+
 ;; auto-complete
 ;;  http://cx4a.org/software/auto-complete/index.ja.html
 (require 'auto-complete-config)
