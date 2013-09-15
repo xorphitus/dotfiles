@@ -102,18 +102,6 @@
 
 (global-set-key (kbd "C-z") 'other-window-or-split)
 
-;; popwin.el
-;;  http://d.hatena.ne.jp/m2ym/20110120/1295524932
-;;  http://shibayu36.hatenablog.com/entry/2012/12/29/001418
-(setq pop-up-windows nil)
-(require 'popwin nil t)
-(when (require 'popwin nil t)
-  (setq anything-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
-  (push '("*Completions*" :height 0.4) popwin:special-display-config)
-  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
-  )
 
 ;; tabber.el
 ;;(if window-system
@@ -246,12 +234,18 @@
     (auto-install-update-emacswiki-package-name t)
     (auto-install-compatibility-setup))
 
-;; anything.el
-;;  http://www.emacswiki.org/cgi-bin/wiki/download/anything.el
-;;  http://www.emacswiki.org/cgi-bin/wiki/download/anything-config.el
-(require 'anything-startup)
-(require 'color-theme)
-(define-key global-map (kbd "\C-x b") 'anything)
+;; helm
+(require 'helm-config)
+(helm-mode 1)
+
+(define-key global-map (kbd "C-x h") 'helm-for-files)
+
+;; let C-h backspace in helm
+;; http://mikio.github.io/article/2013/01/31_helmc-h.html
+(eval-after-load 'helm
+  '(progn
+     (define-key helm-map (kbd "C-h") 'delete-backward-char)
+     ))
 
 ;; auto-complete
 ;;  http://cx4a.org/software/auto-complete/index.ja.html
@@ -357,22 +351,6 @@
             (setq indent-level 4)
             (setq python-indent 4)
             (setq tab-width 4)))
-
-
-;; ipython and completion
-;;  required package: ipython, ipython.el, anything-ipyton.el
-(add-hook 'python-mode-hook
-    (lambda ()
-        (setq py-python-command "/usr/bin/ipython")
-        (require 'ipython)
-        (require 'anything-ipython)
-        (when (require 'anything-show-completion nil t)
-            (use-anything-show-completion 'anything-ipython-complete
-               '(length initial-pattern)))))
-
-(add-hook 'python-mode-hook
-	  '(lambda ()
-	     (flymake-mode t)))
 
 ;; flycheck
 ;;  required package: pylint
