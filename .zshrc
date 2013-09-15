@@ -128,30 +128,18 @@ export ENSIME_ROOT=${HOME}/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
 # ruby
-export GEM_HOME=~/.gem/ruby/2.0.0
-export PATH=${PATH}:${GEM_HOME}/bin
-
 alias be='bundle exec'
 
 # rbenv
 # https://github.com/sstephenson/rbenv/
+export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-
-function _info-rbenv() {
-    local info
-    info=`rbenv version | cut -d ' ' -f 1`
-    if [[ $info = "system" ]]; then
-        echo -n ""
-    else
-        echo -n $info
-    fi
-}
 
 ###########################################################
 # nodejs
-for i in `find ~/node_modules/ -name 'bin' -type d` ;do
-    export PATH=${PATH}:${i}
-done
+[[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh
+nvm use 0.11.7
+export NODE_PATH=${NVM_PATH}_modules
 
 ###########################################################
 # less
