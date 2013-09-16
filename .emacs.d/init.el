@@ -423,6 +423,7 @@
 ;;; Markdown
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (setq auto-mode-alist
       (cons '("\\.text" . markdown-mode) auto-mode-alist))
 (put 'dired-find-alternate-file 'disabled nil)
@@ -456,23 +457,39 @@
 (setq ruby-block-highlight-toggle t)
 
 ;; flycheck
-;;  gem: rubocop
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 
 ;; Rinari
 ;;  https://github.com/eschulte/rinari
 (require 'rinari)
 
+;;; HTML
+(add-to-list 'auto-mode-alist '("\\.html" . html-mode))
+(add-hook 'html-mode-hook 'flycheck-mode)
+
 ;;; CSS
-(add-to-list 'auto-mode-alist '("\\.less" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.css" . css-mode))
+(add-hook 'css-mode-hook 'flycheck-mode)
+
+;;; LESS
+(require 'less-css-mode)
+(add-to-list 'auto-mode-alist '("\\.less" . less-css-mode))
+(add-hook 'less-css-mode-hook 'flycheck-mode)
 
 ;;; Haml
 (require 'haml-mode)
+(add-to-list 'auto-mode-alist '("\\.haml" . haml-mode))
 (add-hook 'haml-mode-hook 'flycheck-mode)
 
 ;;; Sass
 (require 'sass-mode)
+(add-to-list 'auto-mode-alist '("\\.sass" . sass-mode))
 (add-hook 'sass-mode-hook 'flycheck-mode)
+
+;;; SCSS
+(require 'scss-mode)
+(add-to-list 'auto-mode-alist '("\\.scss" . scss-mode))
+(add-hook 'scss-mode-hook 'flycheck-mode)
 
 ;;; UTF-8
 (set-default-coding-systems 'utf-8)
