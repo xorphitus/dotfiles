@@ -236,9 +236,12 @@
 
 ;; helm
 (require 'helm-config)
-(helm-mode 1)
 
 (define-key global-map (kbd "C-x h") 'helm-for-files)
+(define-key global-map (kbd "C-x b") 'helm-buffers-list)
+(define-key global-map (kbd "M-x") 'helm-M-x)
+(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+
 
 ;; let C-h backspace in helm
 ;; http://mikio.github.io/article/2013/01/31_helmc-h.html
@@ -247,14 +250,12 @@
      (define-key helm-map (kbd "C-h") 'delete-backward-char)
      ))
 
+;; helm-ag
 ;; http://d.hatena.ne.jp/syohex/20130302/1362182193
 (require 'helm-ag)
 (global-set-key (kbd "M-g .") 'helm-ag)
 (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
 
-;; disable helm-find-files in helm-mode (C-x C-f, C-x C-w)
-;; http://qiita.com/akisute3@github/items/7c8ea3970e4cbb7baa97
-(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 
 ;; auto-complete
 ;;  http://cx4a.org/software/auto-complete/index.ja.html
