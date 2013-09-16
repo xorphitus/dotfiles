@@ -310,6 +310,9 @@
 (autoload 'edbi:open-db-viewer "edbi")
 
 
+;;; Emacs Lisp
+(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+
 ;;;
 ;;; JavaScript
 
@@ -381,19 +384,8 @@
 	     (flyspell-prog-mode)))
 (setq flyspell-issue-welcome-flag nil)
 
-;; flymake without Makefile
-(defun flymake-cc-init ()
-  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-         (local-file  (file-relative-name
-                       temp-file
-                       (file-name-directory buffer-file-name))))
-    (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
-(push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
-
-(add-hook 'c-mode-common-hook
-	  '(lambda ()
-	     (flymake-mode t)))
+;; flycheck
+(add-hook 'c-mode-common-hook 'flycheck-mode)
 
 ;; compile C-c
 (add-hook 'c-mode-common-hook
