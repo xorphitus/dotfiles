@@ -122,9 +122,17 @@ export ENSIME_ROOT=${HOME}/lib/aemoncannon-ensime-38627ca/src/main/
 ###########################################################
 # python
 
-## pythonbrew
-# https://github.com/utahta/pythonbrew
-[[ -s ${HOME}/.pythonbrew/etc/bashrc ]] && source ${HOME}/.pythonbrew/etc/bashrc
+## pythonz
+[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
+
+## virtualenv, virtualenvwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.3
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
+
+# have to create 'default' env
+workon default
 
 ###########################################################
 # ruby
@@ -135,11 +143,18 @@ alias be='bundle exec'
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+rbenv local 2.0.0-p247
+
 ###########################################################
 # nodejs
 [[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh
 nvm use 0.11.7
 export NODE_PATH=${NVM_PATH}_modules
+
+###########################################################
+# php
+export PATH="$HOME/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
 
 ###########################################################
 # less
@@ -164,7 +179,6 @@ alias la='ls -a'
 alias lla='ls -la'
 alias w3mg='w3m http://www.google.co.jp/'
 alias google-chrome='google-chrome -allow-file-access-from-files'
-alias pybrew='pythonbrew'
 alias e='emacsclient -n'
 
 ###########################################################
