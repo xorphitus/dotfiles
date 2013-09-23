@@ -455,13 +455,19 @@
 ;;  https://github.com/eschulte/rinari
 (require 'rinari)
 
+
 ;;; HTML
-(add-to-list 'auto-mode-alist '("\\.html" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.html?" . html-mode))
 (add-hook 'html-mode-hook 'flycheck-mode)
 
 ;;; CSS
 (add-to-list 'auto-mode-alist '("\\.css" . css-mode))
 (add-hook 'css-mode-hook 'flycheck-mode)
+
+;;; Emmet
+(require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
 
 ;;; LESS
 (require 'less-css-mode)
