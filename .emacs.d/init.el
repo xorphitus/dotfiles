@@ -239,7 +239,7 @@
 ;; helm
 (require 'helm-config)
 
-(define-key global-map (kbd "C-x h") 'helm-for-files)
+(define-key global-map (kbd "C-c h") 'helm-for-files)
 (define-key global-map (kbd "C-x b") 'helm-buffers-list)
 (define-key global-map (kbd "M-x") 'helm-M-x)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
