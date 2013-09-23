@@ -1,3 +1,21 @@
 [user]
-	email = xorphitus@gmail.com
-	name = xorphitus
+        email = xorphitus@gmail.com
+        name = xorphitus
+
+[core]
+        pager = less -r
+        editor = emacsclient
+[color]
+        ui = auto
+[push]
+        default = tracking
+[merge]
+        ff = false
+[branch]
+        autosetuprebase = always
+[pull]
+        rebase = true
+[alias]
+        s = status
+        d = diff
+        cho = checkout
