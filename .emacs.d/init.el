@@ -77,6 +77,7 @@
                'scala-mode-hook
                'ruby-mode-hook
                'haml-mode-hook
+               'clojure-mode-hook
 	       ))
   (add-hook hook (lambda ()
                    ;; line number
@@ -211,6 +212,7 @@
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
 
 ;; rectanble select
 ;;  GUI: C-Ret
@@ -509,6 +511,19 @@
 (require 'scss-mode)
 (add-to-list 'auto-mode-alist '("\\.scss" . scss-mode))
 (add-hook 'scss-mode-hook 'flycheck-mode)
+
+;;; Clojure
+(unless (package-installed-p 'clojure-mode)
+  (package-refresh-contents)
+  (package-install 'clojure-mode))
+
+;; nrepl
+(unless (package-installed-p 'nrepl)
+  (package-install 'nrepl))
+
+;; paredit
+(add-hook 'clojure-mode-hook 'paredit-mode)
+
 
 ;;; UTF-8
 (set-default-coding-systems 'utf-8)
