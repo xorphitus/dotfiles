@@ -132,11 +132,10 @@ export ENSIME_ROOT=${HOME}/lib/aemoncannon-ensime-38627ca/src/main/
 alias be='bundle exec'
 
 # rbenv
-# https://github.com/sstephenson/rbenv/
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-rbenv local 2.0.0-p247
+rbenv global 2.0.0-p247
 
 ###########################################################
 # nodejs
