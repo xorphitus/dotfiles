@@ -122,17 +122,10 @@ export ENSIME_ROOT=${HOME}/lib/aemoncannon-ensime-38627ca/src/main/
 ###########################################################
 # python
 
-## pythonz
-[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
+## pyenv
 
-## virtualenv, virtualenvwrapper
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+# see .zshenv
 
-# have to create 'default' env
-workon default
 
 ###########################################################
 # ruby
@@ -153,8 +146,12 @@ export NODE_PATH=${NVM_PATH}_modules
 
 ###########################################################
 # php
+
+# phpenv
 export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
+
+phpenv global 5.5.3
 
 ###########################################################
 # less
@@ -218,3 +215,4 @@ PROMPT="%{${fg[yellow]}%}[%~]%{${reset_color}%}
 %n@%m$ "
 
 RPROMPT="%1(v|%F{green}%1v%f|)${vcs_info_git_pushed}"
+
