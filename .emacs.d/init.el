@@ -290,6 +290,10 @@
 (load-library "migemo")
 (migemo-init)
 
+;; all-ext
+;;  http://d.hatena.ne.jp/rubikitch/20130202/all
+(require 'all-ext)
+
 ;; flymake
 (require 'flymake)
 ;; it's better to install flymakecursor.el for mouse less operation
