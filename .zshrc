@@ -167,6 +167,12 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='01;33'
 
 ###########################################################
+# zaw
+source ~/zaw/zaw.zsh
+bindkey '^r' zaw-history
+zstyle ':filter-select' max-lines $(($LINES / 2))
+
+###########################################################
 # aliases
 alias ls='ls -F --color=auto'
 alias l='ls'
@@ -176,6 +182,7 @@ alias lla='ls -la'
 alias w3mg='w3m http://www.google.co.jp/'
 alias google-chrome='google-chrome -allow-file-access-from-files'
 alias e='emacsclient -n'
+alias ack='ag'
 
 ###########################################################
 # functions
