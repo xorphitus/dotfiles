@@ -204,6 +204,20 @@ function psg() {
     ps aux | grep $1 | grep -v "grep $1"
 }
 
+function update-home-bin() {
+    targets=('zaw' '.rbenv' '.pyenv' '.nvm' '.phpenv')
+    for target in $targets;
+    do
+        cd ~/${target}
+        if [ -d .git ]; then
+            echo update $target
+            git pull
+        else
+            echo $target is not version controled
+        fi
+    done
+}
+
 ###########################################################
 # for each platforms
 case ${OSTYPE} {
