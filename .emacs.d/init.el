@@ -29,6 +29,12 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
+;; change quit and supend operation
+;; C-x C-c -> "exit" command
+(global-set-key (kbd "C-x C-c") nil)
+(global-set-key (kbd "C-x C-z") nil)
+(defalias 'exit 'save-buffers-kill-emacs)
+
 ;; emacs server
 (require 'server)
 (unless (server-running-p)
