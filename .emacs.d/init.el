@@ -238,10 +238,13 @@
 
 ;; helm
 (require 'helm-config)
+(helm-mode 1)
+
+;; disable helm-find-file
+(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 
 (define-key global-map (kbd "C-c h") 'helm-for-files)
 (define-key global-map (kbd "C-x b") 'helm-buffers-list)
-(define-key global-map (kbd "M-x") 'helm-M-x)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
 
 
