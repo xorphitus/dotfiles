@@ -98,7 +98,7 @@
 ;; indent
 (setq-default indent-tabs-mode nil)
 
-;;; Window splitting
+;; Window splitting
 
 ;; http://d.hatena.ne.jp/rubikitch/20100210/emacs
 (defun other-window-or-split ()
@@ -109,6 +109,8 @@
 
 (global-set-key (kbd "C-z") 'other-window-or-split)
 
+;; ibuffer
+(global-set-key (kbd "C-x C-b")  'ibuffer)
 
 ;; tabber.el
 ;;(if window-system
@@ -493,7 +495,7 @@
 (add-hook 'css-mode-hook 'emmet-mode)
 
 ;;; PHP
-(autoload 'php-mode "php-mode")
+(require 'php-mode)
 (add-to-list 'auto-mode-alist '("\\.php" . php-mode))
 (setq php-mode-force-pear t)
 
