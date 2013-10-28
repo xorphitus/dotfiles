@@ -33,9 +33,12 @@
 (require 'migemo)
 (setq migemo-command "cmigemo")
 (setq migemo-options '("-q" "--emacs"))
-(if (file-exists-p "/usr/share/migemo/utf-8/migemo-dict")
-    (setq migemo-dictionary "/usr/share/migemo/utf-8/migemo-dict")
-  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict"))
+(setq migemo-dictionary
+      (find-if
+       (lambda (dict) (file-exists-p dict))
+         '("/usr/share/migemo/utf-8/migemo-dict"
+           "/usr/share/cmigemo/utf-8/migemo-dict"
+           "/usr/local/share/migemo/utf-8/migemo-dict")))
 (setq migemo-user-dictionary nil)
 (setq migemo-regex-dictionary nil)
 (setq migemo-coding-system 'utf-8-unix)
