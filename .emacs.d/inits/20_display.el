@@ -26,16 +26,6 @@
 (setq hl-line-face 'hlline-face)
 (global-hl-line-mode)
 
-;; tabber.el
-;;(if window-system
-;;    (progn
-;;      (require 'tabbar)
-;;      (global-set-key [C-tab] 'tabbar-forward)
-;;      (global-set-key [(control shift iso-lefttab)] 'tabbar-backward)
-;;      (tabbar-mode)
-;;      )
-;;  )
-
 ;;; GUI settings
 
 ;; windmove
