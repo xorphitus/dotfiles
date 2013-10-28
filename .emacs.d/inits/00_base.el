@@ -81,4 +81,10 @@
 
 ;; specify browser
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium-browser")
+      browse-url-generic-program
+      (find-if
+       (lambda (browser) (executable-find browser))
+       '("chromium-browser"
+         "google-chrome"
+         "google-chrome-beta"
+         "firefox")))
