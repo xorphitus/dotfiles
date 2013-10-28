@@ -24,6 +24,17 @@
 (define-key global-map (kbd "C-x b") 'helm-buffers-list)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
 
+;; http://www49.atwiki.jp/ntemacs/pages/32.html
+;; helm-for-files can be very heavy
+;; it's caused by helm-source-files-in-current-dir when using 'tramp'
+(setq helm-for-files-preferred-list
+      '(helm-source-buffers-list
+        helm-source-bookmarks
+        helm-source-recentf
+        helm-source-file-cache
+        ;; helm-source-files-in-current-dir
+        helm-source-locate))
+
 ;; let C-h backspace in helm
 ;; http://mikio.github.io/article/2013/01/31_helmc-h.html
 (eval-after-load 'helm
