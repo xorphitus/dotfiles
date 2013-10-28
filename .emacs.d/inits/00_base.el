@@ -94,3 +94,7 @@
   (set-language-environment "Japanese")
   (setq default-input-method "japanese-mozc")
   (global-set-key (kbd "C-o") 'toggle-input-method))
+
+;; specify browser
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium-browser")
