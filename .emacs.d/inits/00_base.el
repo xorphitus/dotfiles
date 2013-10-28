@@ -19,30 +19,14 @@
 (unless (server-running-p)
   (server-start))
 
-;; styles for coding
-(dolist (hook (list
-               'text-mode-hook
-	       'c-mode-common-hook
-	       'emacs-lisp-mode-hook
-	       'lisp-interaction-mode-hook
-	       'lisp-mode-hook
-	       'python-mode-hook
-	       'coffee-mode-hook
-	       'js2-mode-hook
-               'scala-mode-hook
-               'ruby-mode-hook
-               'haml-mode-hook
-               'clojure-mode-hook
-	       ))
-  (add-hook hook (lambda ()
-                   ;; line number
-		   (linum-mode t)
-		   (set-face-attribute 'linum nil :foreground "#f00" :height 0.9)
-		   (setq linum-format "%4d.")
-                   ;; clarify whitespace at line tails
-                   (setq show-trailing-whitespace t)
-                   (set-face-background 'trailing-whitespace "#ff0")
-		   )))
+;; line number
+(linum-mode t)
+(set-face-attribute 'linum nil :foreground "#f00" :height 0.9)
+(setq linum-format "%4d.")
+
+;; clarify whitespace at line tails
+(setq show-trailing-whitespace t)
+(set-face-background 'trailing-whitespace "#ff0")
 
 ;; indent
 (setq-default indent-tabs-mode nil)
