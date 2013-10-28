@@ -68,6 +68,13 @@
             (popup-tip (format "[%s] %s" line text))))
             (setq count (1- count)))))
 
+;; flycheck
+(if window-system
+    (setq flycheck-display-errors-function
+          '(lambda (errors)
+             (-when-let (messages (-keep #'flycheck-error-message errors))
+               (popup-tip (s-join "\n\n" messages))))))
+
 ;; junk file
 (require 'open-junk-file)
 
