@@ -155,7 +155,7 @@ phpenv global 5.5.3
 ###########################################################
 # less
 export PAGER='less'
-export LESS='-R --LONG-PROMPT'
+export LESS='-iMR --LONG-PROMPT'
 
 ## source-hightlight
 #  yaourt -S souce-highlight
