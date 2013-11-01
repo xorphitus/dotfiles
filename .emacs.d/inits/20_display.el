@@ -56,3 +56,12 @@
       ;; window size
       ;;(set-frame-parameter nil 'fullscreen 'fullboth)
       ))
+
+;; line number
+(global-linum-mode 1)
+(set-face-attribute 'linum nil :foreground "#f00" :height 0.9)
+(setq linum-format "%4d.")
+
+;; clarify whitespace at line tails
+(setq-default show-trailing-whitespace t)
+(set-face-background 'trailing-whitespace "#ff0")

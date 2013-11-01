@@ -19,15 +19,6 @@
 (unless (server-running-p)
   (server-start))
 
-;; line number
-(linum-mode t)
-(set-face-attribute 'linum nil :foreground "#f00" :height 0.9)
-(setq linum-format "%4d.")
-
-;; clarify whitespace at line tails
-(setq show-trailing-whitespace t)
-(set-face-background 'trailing-whitespace "#ff0")
-
 ;; indent
 (setq-default indent-tabs-mode nil)
 
