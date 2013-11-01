@@ -36,7 +36,6 @@
             ;;js2-refactor
             less-css-mode
             markdown-mode
-            mmm-mode
             nrepl
             paredit
             php-mode
@@ -47,6 +46,7 @@
             sass-mode
             scala-mode
             scss-mode
+            web-mode
             ;;; --- others ---
             auto-complete
             auto-install
@@ -54,13 +54,10 @@
             flymake-cursor
             ;;all
             ;;all-ext
-            ;;fuzzy
             helm
             helm-ag
             init-loader
             ;;multiple-cursors
-            ;;redo+
-            ;;tabbar
             magit
             migemo
             popup
