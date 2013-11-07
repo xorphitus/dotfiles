@@ -39,7 +39,6 @@
             nrepl
             paredit
             php-mode
-            open-junk-file
             rinari
             ruby-block
             ruby-compilation
@@ -60,6 +59,7 @@
             ;;multiple-cursors
             magit
             migemo
+            open-junk-file
             popup
             python-mode
             quickrun
