@@ -93,3 +93,7 @@
 ;;  http://www.emacswiki.org/emacs/download/shell-pop.el
 (require 'shell-pop)
 (global-set-key [f8] 'shell-pop)
+
+;; projectile
+(require 'projectile)
+(projectile-global-mode)

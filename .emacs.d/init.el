@@ -55,12 +55,14 @@
             ;;all-ext
             helm
             helm-ag
+            helm-projectile
             init-loader
             ;;multiple-cursors
             magit
             migemo
             open-junk-file
             popup
+            projectile
             python-mode
             quickrun
             shell-pop
