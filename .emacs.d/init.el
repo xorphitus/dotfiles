@@ -25,6 +25,7 @@
                 (package-install pkg)))
           '(;;; --- coding ---
             actionscript-mode
+            cider
             clojure-mode
             coffee-mode
             color-theme
@@ -36,7 +37,6 @@
             ;;js2-refactor
             less-css-mode
             markdown-mode
-            nrepl
             paredit
             php-mode
             rinari
