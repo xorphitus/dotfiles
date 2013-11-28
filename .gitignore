@@ -5,3 +5,8 @@
 .emacs.d/tramp
 .emacs.d/url
 .emacs.d/elpa/archives
+.emacs.d/session.*
+.emacs.d/inits/*_local.el*
+.emacs.d/image-dired
+.emacs.d/jabber-history
+.emacs.d/projectile-bookmarks.eld
