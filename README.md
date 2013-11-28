@@ -19,3 +19,10 @@ ln -s /usr/share/git/diff-highlight /hoge/diff-highlight
 ```
 ln -s /usr/local/Cellar/git/**/contrib/diff-highlight/diff-highlight /hoge/diff-highlight
 ```
+
+### swank-js
+
+```
+$ npm install -g swank-js
+$ ln -s /path/to/node_modules/swank-js/slime-js.el /path/to/elpa/slime-*/contrib
+```

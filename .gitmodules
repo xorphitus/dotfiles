@@ -1,0 +1,3 @@
+[submodule ".emacs.d/elisp/slime"]
+	path = .emacs.d/elisp/slime
+	url = https://github.com/antifuchs/slime.git
