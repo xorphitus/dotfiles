@@ -65,3 +65,9 @@
 ;; clarify whitespace at line tails
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#ff0")
+
+;; show an icon indicating whether a line has been changed
+;; from last commit
+(require 'git-gutter-fringe)
+(global-git-gutter-mode)
+(setq git-gutter-fr:side 'right-fringe)
