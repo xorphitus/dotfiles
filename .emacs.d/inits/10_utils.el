@@ -97,3 +97,19 @@
 ;; projectile
 (require 'projectile)
 (projectile-global-mode)
+
+;; multiple-cursors and enhancer
+(require 'expand-region)
+(require 'multiple-cursors)
+(require 'smartrep)
+
+(global-set-key (kbd "C-,") 'er/expand-region)
+(global-set-key (kbd "C-M-,") 'er/contract-region)
+
+(global-set-key (kbd "<C-M-return>") 'mc/edit-lines)
+(smartrep-define-key
+ global-map "C-." '(("n" . 'mc/mark-next-like-this)
+                    ("p" . 'mc/mark-previous-like-this)
+                    ("P" . 'mc/unmark-next-like-this)
+                    ("N" . 'mc/unmark-previous-like-this)
+                    ("*" . 'mc/mark-all-like-this)))

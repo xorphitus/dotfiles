@@ -49,6 +49,7 @@
             ;;; --- others ---
             auto-complete
             auto-install
+            expand-region
             flycheck
             flymake-cursor
             ;;all
@@ -61,12 +62,14 @@
             ;;multiple-cursors
             magit
             migemo
+            multiple-cursors
             open-junk-file
             popup
             projectile
             python-mode
             quickrun
             shell-pop
+            smartrep
             twittering-mode
             undo-tree
             wgrep
