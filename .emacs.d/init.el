@@ -40,11 +40,13 @@
             paredit
             php-mode
             rinari
+            ruby-electric
             ruby-block
             ruby-compilation
             sass-mode
             scala-mode
             scss-mode
+            slim-mode
             web-mode
             ;;; --- others ---
             auto-complete
@@ -74,7 +76,6 @@
             undo-tree
             wgrep
             yasnippet))))
-
 
 ;; init loader
 (require 'init-loader)
