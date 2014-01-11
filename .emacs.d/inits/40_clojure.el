@@ -3,10 +3,6 @@
   (package-refresh-contents)
   (package-install 'clojure-mode))
 
-;;; paredit
-(add-hook 'clojure-mode-hook 'paredit-mode)
-
-
 ;;; CIDER
 (unless (package-installed-p 'cider)
   (package-install 'cider))
@@ -41,6 +37,3 @@
 
 ;; ;; To make the REPL history wrap around when its end is reached
 ;; (setq cider-repl-wrap-history t)
-
-;; paredit-mode
-(add-hook 'cider-repl-mode-hook 'paredit-mode)
