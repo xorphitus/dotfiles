@@ -71,3 +71,7 @@
 (require 'git-gutter-fringe)
 (global-git-gutter-mode)
 (setq git-gutter-fr:side 'right-fringe)
+
+;; rainbow-delimiters
+(require 'rainbow-delimiters)
+(global-rainbow-delimiters-mode t)

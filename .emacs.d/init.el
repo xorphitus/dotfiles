@@ -70,6 +70,7 @@
             projectile
             python-mode
             quickrun
+            rainbow-delimiters
             shell-pop
             smartrep
             twittering-mode
