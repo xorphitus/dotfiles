@@ -31,6 +31,7 @@
             color-theme
             edbi
             emmet-mode
+            google-c-style
             haml-mode
             ipython
             js2-mode
