@@ -1,5 +1,3 @@
-;;; Clojure
-
 ;;; CIDER
 (add-hook 'clojure-mode-hook 'cider-mode)
 
@@ -24,3 +22,10 @@
 
 ;; ;; To make the REPL history wrap around when its end is reached
 ;; (setq cider-repl-wrap-history t)
+
+;;; ac-nrepl
+(require 'ac-nrepl)
+(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+(add-hook 'cider-mode-hook 'ac-nrepl-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'cider-repl-mode))

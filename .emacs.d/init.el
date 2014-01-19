@@ -24,8 +24,10 @@
             (or (package-installed-p pkg)
                 (package-install pkg)))
           '(;;; --- coding ---
+            ac-nrepl
             actionscript-mode
             cider
+            clojure-cheatsheet
             clojure-mode
             coffee-mode
             color-theme
