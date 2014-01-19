@@ -28,3 +28,7 @@
 ;; smartparens
 ;; highlight block
 (add-hook 'ruby-mode-hook 'show-smartparens-mode)
+
+;; xmpfilter
+(require 'rcodetools)
+(define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
