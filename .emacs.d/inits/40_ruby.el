@@ -29,3 +29,7 @@
   (insert "end")
   (ruby-indent-line t)
   (end-of-line))
+
+;; smartparens
+;; highlight "class, do, if, ..." on "end".
+(add-hook 'ruby-mode-hook 'show-smartparens-mode)

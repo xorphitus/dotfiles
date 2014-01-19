@@ -38,7 +38,6 @@
             ;;js2-refactor
             less-css-mode
             markdown-mode
-            paredit
             php-mode
             rinari
             ruby-electric
@@ -73,6 +72,7 @@
             quickrun
             rainbow-delimiters
             shell-pop
+            smartparens
             smartrep
             twittering-mode
             undo-tree

@@ -113,3 +113,7 @@
                     ("P" . 'mc/unmark-next-like-this)
                     ("N" . 'mc/unmark-previous-like-this)
                     ("*" . 'mc/mark-all-like-this)))
+
+;; smartparens
+(require 'smartparens-config)
+(smartparens-global-mode t)
