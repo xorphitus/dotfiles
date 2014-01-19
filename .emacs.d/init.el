@@ -41,7 +41,6 @@
             php-mode
             rinari
             ruby-electric
-            ruby-block
             ruby-compilation
             sass-mode
             scala-mode

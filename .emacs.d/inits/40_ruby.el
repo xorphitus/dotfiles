@@ -4,11 +4,6 @@
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake" . ruby-mode))
 
-;; ruby-block
-(require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
-
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 
@@ -31,5 +26,5 @@
   (end-of-line))
 
 ;; smartparens
-;; highlight "class, do, if, ..." on "end".
+;; highlight block
 (add-hook 'ruby-mode-hook 'show-smartparens-mode)
