@@ -29,3 +29,11 @@
 (add-hook 'cider-mode-hook 'ac-nrepl-setup)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-repl-mode))
+
+
+;;; ClojureScript
+(add-to-list 'auto-mode-alist '("\\.cljs" . clojurescript-mode))
+
+;; TODO
+;; http://stackoverflow.com/questions/17714106/how-do-i-setup-a-clojurescript-repl-with-emacs
+;; https://github.com/cemerick/austin

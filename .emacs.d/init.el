@@ -29,6 +29,7 @@
             cider
             clojure-cheatsheet
             clojure-mode
+            clojurescript-mode
             coffee-mode
             color-theme
             edbi

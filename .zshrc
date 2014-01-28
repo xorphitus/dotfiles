@@ -153,6 +153,18 @@ eval "$(phpenv init -)"
 phpenv global 5.5.3
 
 ###########################################################
+# ClojureScript
+export CLOJURESCRIPT_HOME=~/opt/clojurescript
+
+function cljs-repljs() {
+    ${CLOJURESCRIPT_HOME}/script/repljs $@
+}
+
+function cljsc() {
+    ${CLOJURESCRIPT_HOME}/bin/cljsc $1 '{:optimizations :advanced}'
+}
+
+###########################################################
 # less
 export PAGER='less'
 export LESS='-iMR --LONG-PROMPT'
@@ -168,7 +180,7 @@ export GREP_COLOR='01;33'
 
 ###########################################################
 # zaw
-source ~/zaw/zaw.zsh
+source ~/opt/zaw/zaw.zsh
 bindkey '^r' zaw-history
 zstyle ':filter-select' max-lines $(($LINES / 2))
 
@@ -205,7 +217,7 @@ function psg() {
 }
 
 function update-home-bin() {
-    targets=('zaw' '.rbenv' '.pyenv' '.nvm' '.phpenv')
+    targets=('.rbenv' '.pyenv' '.nvm' '.phpenv' 'opt/zaw' 'opt/clojurescript')
     for target in $targets;
     do
         cd ~/${target}
