@@ -22,9 +22,10 @@
 (add-to-list 'auto-mode-alist '("\\.haml" . haml-mode))
 (add-hook 'haml-mode-hook 'flycheck-mode)
 
-
 ;;; Slim
 (require 'slim-mode)
+(add-to-list 'auto-mode-alist '("\\.slim" . slim-mode))
+(add-hook 'slim-mode-hook 'flycheck-mode)
 
 ;;; Sass
 (require 'sass-mode)
