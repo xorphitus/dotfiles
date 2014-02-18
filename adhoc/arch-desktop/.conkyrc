@@ -80,3 +80,9 @@ ${color lightgrey} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
 ${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
 ${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
 ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+$hr
+[https://planet.archlinux.org/]
+${rss https://planet.archlinux.org/rss20.xml 1 item_titles 10 }
+$hr
+[https://bbs.archlinux.org/]
+${rss https://bbs.archlinux.org/extern.php?action=feed&type=rss 1 item_titles 4}
