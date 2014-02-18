@@ -59,6 +59,7 @@
             ;;all
             ;;all-ext
             git-gutter-fringe
+            golden-ratio
             helm
             helm-ag
             helm-projectile
@@ -73,6 +74,7 @@
             python-mode
             quickrun
             rainbow-delimiters
+            rotate
             shell-pop
             smartparens
             smartrep

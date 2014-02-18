@@ -75,3 +75,14 @@
 ;; rainbow-delimiters
 (require 'rainbow-delimiters)
 (global-rainbow-delimiters-mode t)
+
+;; golden-ratio
+;; resizing automatically the windows you are working on
+;; to the size specified in the "Golden Ratio"
+(require 'golden-ratio)
+(golden-ratio-mode 1)
+
+;; rotate the window layout
+(require 'rotate)
+(global-set-key (kbd "C-t") 'rotate-layout)
+(global-set-key (kbd "M-t") 'rotate-window)
