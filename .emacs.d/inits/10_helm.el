@@ -1,5 +1,6 @@
 ;; helm
 (require 'helm-config)
+;(autoload 'helm-config "helm-config" nil t)
 (helm-mode 1)
 
 ;; disable helm-find-file
@@ -29,7 +30,7 @@
 
 ;; helm-ag
 ;; http://d.hatena.ne.jp/syohex/20130302/1362182193
-(require 'helm-ag)
+(autoload 'helm-ag "helm-ag" nil t)
 (global-set-key (kbd "M-g .") 'helm-ag)
 (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
 

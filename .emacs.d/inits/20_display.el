@@ -90,7 +90,7 @@
 (golden-ratio-mode 1)
 
 ;; rotate the window layout
-(require 'rotate)
+(autoload 'rotate "rotate" nil t)
 (global-set-key (kbd "C-t") 'rotate-layout)
 (global-set-key (kbd "M-t") 'rotate-window)
 

@@ -19,11 +19,11 @@
 (yas-global-mode 1)
 
 ;; undo-tree.el
-(when (require 'undo-tree nil t)
+(when (autoload 'undo-tree "undo-tree" nil t)
   (global-undo-tree-mode))
 
 ;; migemo
-(require 'migemo)
+(autoload 'migemo "migemo" nil t)
 (setq migemo-command "cmigemo")
 (setq migemo-options '("-q" "--emacs"))
 (setq migemo-dictionary
@@ -72,27 +72,27 @@
                (popup-tip (s-join "\n\n" messages))))))
 
 ;; junk file
-(require 'open-junk-file)
+(autoload 'open-junk-file "open-junk-file" nil t)
 
 ;; magit.el
-(require 'magit)
+(autoload 'magit "magit" nil t)
 
 ;; quickrun.el
 ;; http://d.hatena.ne.jp/syohex/20111201/1322665378
-(require 'quickrun)
+(autoload 'quickrun "quickrun" nil t)
 (global-set-key [(shift f5)] 'quickrun)
 
 ;; shell-pop.el
 ;;  http://www.emacswiki.org/emacs/download/shell-pop.el
-(require 'shell-pop)
+(autoload 'shell-pop "shell-pop" nil t)
 (global-set-key [f8] 'shell-pop)
 
 ;; projectile
-(require 'projectile)
+(autoload 'projectile "projectile" nil t)
 (projectile-global-mode)
 
 ;; multiple-cursors and enhancer
-(require 'expand-region)
+(autoload 'expand-region "expand-region" nil t)
 (require 'multiple-cursors)
 (require 'smartrep)
 
@@ -108,5 +108,5 @@
                     ("*" . 'mc/mark-all-like-this)))
 
 ;; smartparens
-(require 'smartparens-config)
+(autoload 'smartparens-config "smartparens-config" nil t)
 (smartparens-global-mode t)
