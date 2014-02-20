@@ -62,9 +62,16 @@
 (set-face-attribute 'linum nil :foreground "#f00" :height 0.9)
 (setq linum-format "%4d.")
 
-;; clarify whitespace at line tails
+;; clarify whitespaces at line tails
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#ff0")
+
+;; clarify tabs
+(add-hook 'font-lock-mode-hook
+          (lambda ()
+            (font-lock-add-keywords
+             nil
+             '(("\t" 0 'trailing-whitespace prepend)))))
 
 ;; show an icon indicating whether a line has been changed
 ;; from last commit
