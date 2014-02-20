@@ -36,9 +36,9 @@
   (if (string-match
        "^[ \t]+$"
        (save-excursion
-	 (buffer-substring-no-properties
-	  (progn (beginning-of-line) (point))
-	  current-point)))
+         (buffer-substring-no-properties
+          (progn (beginning-of-line) (point))
+          current-point)))
       (beginning-of-line)
     (back-to-indentation)))
 (global-set-key "\C-a" 'beginning-of-indented-line)
