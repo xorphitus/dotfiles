@@ -63,6 +63,7 @@
             helm
             helm-ag
             helm-projectile
+            highlight-indentation
             init-loader
             ;;multiple-cursors
             magit

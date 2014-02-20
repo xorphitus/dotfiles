@@ -16,3 +16,6 @@
 ;; flycheck
 ;;  required package: pylint
 (add-hook 'python-mode-hook 'flycheck-mode)
+
+;; highlight indentation
+(add-hook 'python-mode-hook 'highlight-indentation-mode)

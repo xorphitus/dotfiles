@@ -21,16 +21,19 @@
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("\\.haml" . haml-mode))
 (add-hook 'haml-mode-hook 'flycheck-mode)
+(add-hook 'haml-mode-hook 'highlight-indentation-mode)
 
 ;;; Slim
 (require 'slim-mode)
 (add-to-list 'auto-mode-alist '("\\.slim" . slim-mode))
 (add-hook 'slim-mode-hook 'flycheck-mode)
+(add-hook 'slim-mode-hook 'highlight-indentation-mode)
 
 ;;; Sass
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.sass" . sass-mode))
 (add-hook 'sass-mode-hook 'flycheck-mode)
+(add-hook 'sass-mode-hook 'highlight-indentation-mode)
 
 ;;; SCSS
 (require 'scss-mode)

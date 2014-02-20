@@ -93,3 +93,7 @@
 (require 'rotate)
 (global-set-key (kbd "C-t") 'rotate-layout)
 (global-set-key (kbd "M-t") 'rotate-window)
+
+;; highlight indentation
+(require 'highlight-indentation)
+(set-face-background 'highlight-indentation-face "#131313")

@@ -11,3 +11,6 @@
 ;; flycheck
 ;;  npm: coffeelint
 (add-hook 'coffee-mode-hook 'flycheck-mode)
+
+;; highlight indentation
+(add-hook 'coffee-mode-hook 'highlight-indentation-mode)
