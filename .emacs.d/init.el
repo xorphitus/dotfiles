@@ -34,6 +34,7 @@
             color-theme
             edbi
             emmet-mode
+            esup
             google-c-style
             haml-mode
             ipython
@@ -52,7 +53,6 @@
             web-mode
             ;;; --- others ---
             auto-complete
-            auto-install
             expand-region
             flycheck
             flymake-cursor
