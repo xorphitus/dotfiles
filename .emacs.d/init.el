@@ -25,7 +25,6 @@
                 (package-install pkg)))
           '(;;; --- coding ---
             ac-nrepl
-            actionscript-mode
             cider
             clojure-cheatsheet
             clojure-mode
@@ -79,7 +78,6 @@
             shell-pop
             smartparens
             smartrep
-            twittering-mode
             undo-tree
             wgrep
             yasnippet))))
