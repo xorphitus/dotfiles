@@ -33,7 +33,6 @@
             color-theme
             edbi
             emmet-mode
-            esup
             google-c-style
             haml-mode
             ipython
@@ -52,6 +51,7 @@
             web-mode
             ;;; --- others ---
             auto-complete
+            esup
             expand-region
             flycheck
             flymake-cursor
@@ -64,7 +64,6 @@
             helm-projectile
             highlight-indentation
             init-loader
-            ;;multiple-cursors
             magit
             migemo
             multiple-cursors
