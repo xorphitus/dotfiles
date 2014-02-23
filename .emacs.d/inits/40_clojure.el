@@ -24,12 +24,24 @@
 ;; (setq cider-repl-wrap-history t)
 
 ;;; ac-nrepl
-(require 'ac-nrepl)
+(autoload 'ac-nrepl "ac-nrepl" nil t)
 (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
 (add-hook 'cider-mode-hook 'ac-nrepl-setup)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-repl-mode))
 
+;;; compojure indentation
+(add-hook 'clojure-mode-hook
+          (lambda()
+            (define-clojure-indent
+              (defroutes 'defun)
+              (GET 2)
+              (POST 2)
+              (PUT 2)
+              (DELETE 2)
+              (HEAD 2)
+              (ANY 2)
+              (context 2))))
 
 ;;; ClojureScript
 (add-to-list 'auto-mode-alist '("\\.cljs" . clojurescript-mode))
