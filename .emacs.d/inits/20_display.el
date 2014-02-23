@@ -1,3 +1,6 @@
+;; common variables
+(defvar base-bgcolor "#000000")
+
 ;; skip startup screen
 (setq inhibit-startup-screen t)
 
@@ -19,7 +22,7 @@
      (:background "dark slate gray"))
     (((class color)
       (background light))
-     (:background "#000000"))
+     (:background "Black"))
     (t
      ()))
   "*Face used by hl-line.")
@@ -49,7 +52,7 @@
 (if window-system
     (progn
       ;; color
-      (set-background-color "Black")
+      (set-background-color base-bgcolor)
       (set-foreground-color "White")
       (set-cursor-color "LightGray")
       (set-frame-parameter nil 'alpha 80)
@@ -62,16 +65,34 @@
 (set-face-attribute 'linum nil :foreground "#f00" :height 0.9)
 (setq linum-format "%4d.")
 
-;; clarify whitespaces at line tails
-(setq-default show-trailing-whitespace t)
-(set-face-background 'trailing-whitespace "#ff0")
+;; show spaces
+(autoload 'whitespace "whitespace" nil t)
+(setq whitespace-style
+      '(face
+        tabs
+        tab-mark
+        spaces
+        lines-tail
+        trailing
+        space-before-tab
+        space-after-tab::space))
+;; zenkaku space
+(setq whitespace-space-regexp "\\(\x3000+\\)")
+(global-whitespace-mode t)
 
-;; clarify tabs
-(add-hook 'font-lock-mode-hook
-          (lambda ()
-            (font-lock-add-keywords
-             nil
-             '(("\t" 0 'trailing-whitespace prepend)))))
+(set-face-attribute 'whitespace-trailing nil
+                    :foreground "DeepPink"
+                    :background base-bgcolor
+                    :underline t)
+(set-face-attribute 'whitespace-tab nil
+                    :foreground "LightSkyBlue"
+                    :background base-bgcolor
+                    :underline t)
+;; zenkaku space
+(set-face-attribute 'whitespace-space nil
+                    :foreground "GreenYellow"
+                    :background base-bgcolor
+                    :weight 'bold)
 
 ;; show an icon indicating whether a line has been changed
 ;; from last commit
