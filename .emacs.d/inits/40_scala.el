@@ -1,7 +1,7 @@
 ;;; Scala
 
 ;; scala-mode
-(require 'scala-mode-auto)
+(autoload 'scala-mode-auto "scala-mode-auto" nil t)
 (add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
 
 ;; flycheck

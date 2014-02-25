@@ -3,6 +3,7 @@
 
 ;; python-mode
 ;; (python-mode.el)
+;;(autoload 'python-mode "python-mode" nil t)
 (require 'python-mode)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
