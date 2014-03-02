@@ -6,6 +6,12 @@ execute setup.sh
 
 ### require
 
+#### ddskk
+
+```
+yaourt -Ss emacs-ddskk
+```
+
 #### Ruby
 
 * rbenv
