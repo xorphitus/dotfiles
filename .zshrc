@@ -120,37 +120,38 @@ export ERLANG_HOME=/usr/lib/erlang
 export ENSIME_ROOT=${HOME}/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
+# anyenv
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
+
+###########################################################
 # python
+PYTHON_VERSION="3.3.4"
+pyenv global $PYTHON_VERSION
 
-## pyenv
+export PATH=${PYENV_ROOT}/versions/${PYTHON_VERSION}/bin:$PATH
 
-# see .zshenv
-
+###########################################################
+# php
+phpenv global 5.5.10
 
 ###########################################################
 # ruby
 alias be='bundle exec'
 
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+RUBY_VERSION=2.1.1
+rbenv global $RUBY_VERSION
 
-rbenv global 2.0.0-p247
+export PATH=${RBENV_ROOT}/versions/${RUBY_VERSION}/bin:$PATH
 
 ###########################################################
 # nodejs
-[[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh
-nvm use 0.10.22
-export NODE_PATH=${NVM_PATH}_modules
+NODE_VERSION="v0.10"
+ndenv global $NODE_VERSION
 
-###########################################################
-# php
-
-# phpenv
-export PATH="$HOME/.phpenv/bin:$PATH"
-eval "$(phpenv init -)"
-
-phpenv global 5.5.3
+NODE_ROOT=${NDENV_ROOT}/versions/${NODE_VERSION}
+export NODE_PATH=${NODE_ROOT}/lib/node_modules
+export PATH=${NODE_ROOT}/bin:$PATH
 
 ###########################################################
 # ClojureScript
@@ -201,12 +202,12 @@ alias ack='ag'
 function google() {
     local str opt
     if [ $# != 0 ]; then
-	for i in $*; do
-	    str="$str+$i"
-	done
-	str=`echo $str | sed 's/^\+//'`
-	opt='search?num=50&hl=ja&ie=euc-jp&oe=euc-jp&lr=lang_ja'
-	opt="${opt}&q=${str}"
+        for i in $*; do
+            str="$str+$i"
+        done
+        str=`echo $str | sed 's/^\+//'`
+        opt='search?num=50&hl=ja&ie=euc-jp&oe=euc-jp&lr=lang_ja'
+        opt="${opt}&q=${str}"
     fi
     w3m http://www.google.co.jp/$opt
 }
@@ -217,7 +218,7 @@ function psg() {
 }
 
 function update-home-bin() {
-    targets=('.rbenv' '.pyenv' '.nvm' '.phpenv' 'opt/zaw' 'opt/clojurescript')
+    targets=('.anyenv' 'opt/zaw' 'opt/clojurescript')
     for target in $targets;
     do
         cd ~/${target}
@@ -247,4 +248,3 @@ PROMPT="%{${fg[yellow]}%}[%~]%{${reset_color}%}
 %n@%m$ "
 
 RPROMPT="%1(v|%F{green}%1v%f|)${vcs_info_git_pushed}"
-
