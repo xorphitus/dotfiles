@@ -1,0 +1,84 @@
+(source melpa)
+
+(depends-on "cask")
+(depends-on "dash")
+(depends-on "drag-stuff")
+(depends-on "s")
+
+;; clojure
+(depends-on "ac-nrepl")
+(depends-on "cider")
+(depends-on "clojure-cheatsheet")
+(depends-on "clojure-mode")
+(depends-on "clojurescript-mode")
+(depends-on "kibit-mode")
+
+;; javascript / coffeescript
+(depends-on "coffee-mode")
+(depends-on "js2-mode")
+;;(depends-on "js2-refactor")
+
+;; ruby
+(depends-on "rinari")
+(depends-on "ruby-electric")
+(depends-on "ruby-compilation")
+(depends-on "haml-mode")
+(depends-on "scss-mode")
+(depends-on "slim-mode")
+(depends-on "sass-mode")
+
+;; scala
+(depends-on "scala-mode")
+
+;; c / c++
+(depends-on "google-c-style")
+
+;; python
+(depends-on "ipython")
+
+;; html
+(depends-on "emmet-mode")
+(depends-on "web-mode")
+(depends-on "less-css-mode")
+
+;; markdown
+(depends-on "markdown-mode")
+
+;; php
+(depends-on "php-mode")
+
+;; database
+(depends-on "edbi")
+
+;; other  utils
+;; (depends-on "all")
+;; (depends-on "all-ext")
+(depends-on "auto-complete")
+(depends-on "color-theme")
+(depends-on "esup")
+(depends-on "expand-region")
+(depends-on "flycheck")
+(depends-on "flymake-cursor")
+(depends-on "git-gutter-fringe")
+(depends-on "golden-ratio")
+(depends-on "helm")
+(depends-on "helm-ag")
+(depends-on "helm-projectile")
+(depends-on "highlight-indentation")
+(depends-on "init-loader")
+(depends-on "magit")
+(depends-on "migemo")
+(depends-on "multiple-cursors")
+(depends-on "open-junk-file")
+(depends-on "popup")
+(depends-on "projectile")
+(depends-on "python-mode")
+(depends-on "quickrun")
+(depends-on "rainbow-delimiters")
+(depends-on "rotate")
+(depends-on "shell-pop")
+(depends-on "smartparens")
+(depends-on "smartrep")
+(depends-on "undo-tree")
+(depends-on "wgrep")
+(depends-on "yasnippet")

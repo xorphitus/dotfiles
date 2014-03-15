@@ -16,70 +16,9 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-(defun xorphitus-setup ()
-  (interactive)
-  (progn (package-refresh-contents)
-         (mapc
-          (lambda (pkg)
-            (or (package-installed-p pkg)
-                (package-install pkg)))
-          '(;;; --- coding ---
-            ac-nrepl
-            cider
-            clojure-cheatsheet
-            clojure-mode
-            clojurescript-mode
-            coffee-mode
-            color-theme
-            edbi
-            emmet-mode
-            google-c-style
-            haml-mode
-            ipython
-            js2-mode
-            ;;js2-refactor
-            less-css-mode
-            markdown-mode
-            php-mode
-            rinari
-            ruby-electric
-            ruby-compilation
-            sass-mode
-            scala-mode
-            scss-mode
-            slim-mode
-            web-mode
-            ;;; --- others ---
-            auto-complete
-            esup
-            expand-region
-            flycheck
-            flymake-cursor
-            ;;all
-            ;;all-ext
-            git-gutter-fringe
-            golden-ratio
-            helm
-            helm-ag
-            helm-projectile
-            highlight-indentation
-            init-loader
-            magit
-            migemo
-            multiple-cursors
-            open-junk-file
-            popup
-            projectile
-            python-mode
-            quickrun
-            rainbow-delimiters
-            rotate
-            shell-pop
-            smartparens
-            smartrep
-            undo-tree
-            wgrep
-            yasnippet))))
+;; cask
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
 
 ;; init loader
 (require 'init-loader)

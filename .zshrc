@@ -112,6 +112,12 @@ function _git_not_pushed() {
 add-zsh-hook precmd _update_vcs_info_msg
 
 ###########################################################
+# emacs
+
+# cask
+export PATH="${HOME}/.cask/bin:$PATH"
+
+###########################################################
 # erlang
 export ERLANG_HOME=/usr/lib/erlang
 
