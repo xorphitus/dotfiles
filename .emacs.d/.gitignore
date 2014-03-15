@@ -1,0 +1,16 @@
+.edbi-ds-history
+ac-comphist.dat
+anything-c-adaptive-history
+auto-save-list
+tramp
+url
+elpa/archives
+session.*
+inits/*_local.el*
+inits/*.elc
+image-dired
+jabber-history
+projectile-bookmarks.eld
+wget-log*
+.cask
+.mc-lists.el
