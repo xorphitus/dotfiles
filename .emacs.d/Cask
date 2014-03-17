@@ -49,6 +49,11 @@
 ;; database
 (depends-on "edbi")
 
+;; git
+(depends-on "magit")
+(depends-on "gitignore-mode")
+(depends-on "gitconfig-mode")
+
 ;; other  utils
 ;; (depends-on "all")
 ;; (depends-on "all-ext")
@@ -65,7 +70,6 @@
 (depends-on "helm-projectile")
 (depends-on "highlight-indentation")
 (depends-on "init-loader")
-(depends-on "magit")
 (depends-on "migemo")
 (depends-on "multiple-cursors")
 (depends-on "open-junk-file")
