@@ -10,8 +10,10 @@
 (depends-on "cider")
 (depends-on "clojure-cheatsheet")
 (depends-on "clojure-mode")
-(depends-on "clojurescript-mode")
 (depends-on "kibit-mode")
+(depends-on "slamhound")
+
+(depends-on "clojurescript-mode")
 
 ;; javascript / coffeescript
 (depends-on "coffee-mode")
