@@ -56,16 +56,6 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
-
-;; Japanese input
-
-;; mozc
-(when (eq system-type 'gnu/linux)
-  (require 'mozc)
-  (set-language-environment "Japanese")
-  (setq default-input-method "japanese-mozc")
-  (global-set-key (kbd "C-o") 'toggle-input-method))
-
 ;; specify browser
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program

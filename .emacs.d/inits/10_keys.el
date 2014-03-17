@@ -22,4 +22,5 @@
 (global-set-key "\C-h" 'delete-backward-char)
 
 ;; ddskk
+(global-set-key (kbd "C-o") 'skk-mode)
 (global-set-key (kbd "C-x C-j") 'skk-mode)
