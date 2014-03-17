@@ -27,6 +27,8 @@
 (depends-on "slim-mode")
 (depends-on "sass-mode")
 
+(depends-on "yaml-mode")
+
 ;; scala
 (depends-on "scala-mode")
 
