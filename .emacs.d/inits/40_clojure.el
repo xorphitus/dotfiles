@@ -43,6 +43,9 @@
               (ANY 2)
               (context 2))))
 
+;;; flycheck w/ kibit-mode
+(add-hook 'clojure-mode-hook 'flycheck-mode)
+
 ;;; ClojureScript
 (add-to-list 'auto-mode-alist '("\\.cljs" . clojurescript-mode))
 
