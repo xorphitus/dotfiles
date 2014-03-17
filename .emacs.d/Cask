@@ -78,7 +78,6 @@
 (depends-on "open-junk-file")
 (depends-on "popup")
 (depends-on "projectile")
-(depends-on "python-mode")
 (depends-on "quickrun")
 (depends-on "rainbow-delimiters")
 (depends-on "rotate")
