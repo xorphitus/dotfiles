@@ -7,9 +7,6 @@
 (let ((default-directory "~/.emacs.d/elisp/"))
   (setq load-path (cons default-directory load-path))
   (normal-top-level-add-subdirs-to-load-path))
-(let ((default-directory "~/.emacs.d/elpa/"))
-  (setq load-path (cons default-directory load-path))
-  (normal-top-level-add-subdirs-to-load-path))
 
 ;; elpa
 (setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")

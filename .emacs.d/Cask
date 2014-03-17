@@ -33,9 +33,6 @@
 ;; c / c++
 (depends-on "google-c-style")
 
-;; python
-(depends-on "ipython")
-
 ;; html
 (depends-on "emmet-mode")
 (depends-on "web-mode")
