@@ -10,6 +10,7 @@
 (depends-on "cider")
 (depends-on "clojure-cheatsheet")
 (depends-on "clojure-mode")
+(depends-on "clojure-test-mode")
 (depends-on "kibit-mode")
 (depends-on "slamhound")
 
