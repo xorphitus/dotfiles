@@ -54,7 +54,6 @@ Display the results in a hyperlinked *compilation* buffer."
   (compile (concat "lein kibit " buffer-file-name)))
 
 ;;; ClojureScript
-(add-to-list 'auto-mode-alist '("\\.cljs" . clojurescript-mode))
 
 ;; TODO
 ;; http://stackoverflow.com/questions/17714106/how-do-i-setup-a-clojurescript-repl-with-emacs
