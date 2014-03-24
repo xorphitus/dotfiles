@@ -8,20 +8,8 @@
 ;; from appearing in some buffer switching commands like 'C-x b'
 (setq nrepl-hide-special-buffers t)
 
-;; ;; Prevent the auto-display of the REPL buffer in a separate window after connection is established
-;;(setq cider-repl-pop-to-buffer-on-connect nil)
-
-;; ;; To auto-select the error buffer when it's displayed
-;; (setq cider-auto-select-error-buffer t)
-
 ;; The REPL buffer name  will look like cider project-name:port
 (setq nrepl-buffer-name-show-port t)
-
-;; ;; Make 'C-c C-z' switch to the CIDER REPL buffer in the current window
-;; (setq cider-repl-display-in-current-window t)
-
-;; ;; To make the REPL history wrap around when its end is reached
-;; (setq cider-repl-wrap-history t)
 
 ;;; ac-nrepl
 (autoload 'ac-nrepl "ac-nrepl" nil t)
@@ -43,8 +31,27 @@
               (ANY 2)
               (context 2))))
 
-;;; flycheck w/ kibit-mode
-(add-hook 'clojure-mode-hook 'flycheck-mode)
+;;; kibit
+
+;; Teach compile the syntax of the kibit output
+(autoload 'compile "compile" nil t)
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(kibit "At \\([^:]+\\):\\([[:digit:]]+\\):" 1 2 nil 0))
+(add-to-list 'compilation-error-regexp-alist 'kibit)
+
+;; A convenient command to run "lein kibit" in the project to which
+;; the current emacs buffer belongs to.
+(defun kibit ()
+  "Run kibit on the current project.
+Display the results in a hyperlinked *compilation* buffer."
+  (interactive)
+  (compile "lein kibit"))
+
+(defun kibit-current-file ()
+  "Run kibit on the current file.
+Display the results in a hyperlinked *compilation* buffer."
+  (interactive)
+  (compile (concat "lein kibit " buffer-file-name)))
 
 ;;; ClojureScript
 (add-to-list 'auto-mode-alist '("\\.cljs" . clojurescript-mode))
