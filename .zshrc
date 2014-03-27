@@ -26,6 +26,15 @@ setopt list_types
 #setopt recexact
 
 ###########################################################
+# for each platforms
+case ${OSTYPE} {
+    linux*)
+        . ${HOME}/.zshrc.linux;;
+    darwin*)
+        . ${HOME}/.zshrc.mac;;
+}
+
+###########################################################
 # completion
 autoload -U compinit
 compinit
@@ -235,15 +244,6 @@ function update-home-bin() {
             echo $target is not version controled
         fi
     done
-}
-
-###########################################################
-# for each platforms
-case ${OSTYPE} {
-    linux*)
-        . ${HOME}/.zshrc.linux;;
-    darwin*)
-        . ${HOME}/.zshrc.mac;;
 }
 
 ###########################################################

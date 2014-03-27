@@ -1,6 +1,18 @@
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+
 for i in `find /Applications -maxdepth 1 -name '*.app' | sed 's/ /,/'` ;do
     app=`echo $i | sed 's/\/Applications\///' | sed 's/.app//'`
     command="open -a `echo $app | sed 's/,/\\\ /'`"
     alias_name=`echo $app | sed 's/,/-/' | tr A-Z a-z`
     alias $alias_name=$command
 done
+
+for i in `find ~/Applications -maxdepth 1 -name '*.app' | sed 's/ /,/'` ;do
+    app=`echo $i | sed 's/\/User\/200105\/Applications\///' | sed 's/.app//'`
+    command="open -a `echo $app | sed 's/,/\\\ /'`.app"
+    alias_name=`echo $app | sed 's/,/-/' | tr A-Z a-z | cut -d '/' -f 5`
+    alias $alias_name=$command
+done
+
+alias emacs='open -a /usr/local/Cellar/emacs/24.3/Emacs.app'
+alias emacsclient='/usr/local/Cellar/emacs/24.3/bin/emacsclient'
