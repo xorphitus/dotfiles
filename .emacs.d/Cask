@@ -24,6 +24,7 @@
 (depends-on "rinari")
 (depends-on "ruby-electric")
 (depends-on "ruby-compilation")
+(depends-on "robe")
 (depends-on "haml-mode")
 (depends-on "scss-mode")
 (depends-on "slim-mode")

@@ -32,3 +32,7 @@
 ;; xmpfilter
 (require 'rcodetools)
 (define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
+
+;; robe
+(add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
