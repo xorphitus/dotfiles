@@ -76,6 +76,7 @@
         trailing
         space-before-tab
         space-after-tab::space))
+(setq whitespace-line-column 250)
 ;; zenkaku space
 (setq whitespace-space-regexp "\\(\x3000+\\)")
 (global-whitespace-mode t)
