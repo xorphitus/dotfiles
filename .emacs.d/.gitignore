@@ -5,6 +5,7 @@ auto-save-list
 tramp
 url
 elpa/archives
+el-get
 session.*
 inits/*_local.el*
 inits/*.elc
@@ -14,3 +15,4 @@ projectile-bookmarks.eld
 wget-log*
 .cask
 .mc-lists.el
+elisp/rcodetools.el*

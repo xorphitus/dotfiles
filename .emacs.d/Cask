@@ -5,6 +5,8 @@
 (depends-on "drag-stuff")
 (depends-on "s")
 
+(depends-on "el-get")
+
 ;; clojure
 (depends-on "ac-nrepl")
 (depends-on "cider")
