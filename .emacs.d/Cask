@@ -13,8 +13,6 @@
 (depends-on "clojure-test-mode")
 (depends-on "slamhound")
 
-(depends-on "clojurescript-mode")
-
 ;; javascript / coffeescript
 (depends-on "coffee-mode")
 (depends-on "js2-mode")
