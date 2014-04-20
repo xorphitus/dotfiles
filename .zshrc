@@ -233,7 +233,7 @@ function psg() {
 }
 
 function update-home-bin() {
-    targets=('.anyenv' 'opt/zaw' 'opt/clojurescript')
+    targets=('opt/zaw' 'opt/clojurescript')
     for target in $targets;
     do
         cd ~/${target}
