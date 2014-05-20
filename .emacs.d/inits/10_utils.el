@@ -14,10 +14,6 @@
 ;; select completion target by using C-n/C-p
 (setq ac-use-menu-map t)
 
-;; yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
-
 ;; undo-tree.el
 (when (autoload 'undo-tree "undo-tree" nil t)
   (global-undo-tree-mode))
