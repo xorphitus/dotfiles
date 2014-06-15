@@ -119,3 +119,10 @@
 ;; highlight indentation
 (require 'highlight-indentation)
 (set-face-background 'highlight-indentation-face "#131313")
+
+;; powerline
+(autoload 'powerline "powerline" nil t)
+(powerline-default-theme)
+
+;; smooth-scrolling
+(autoload 'smooth-scrolling "smooth-scrolling" nil t)

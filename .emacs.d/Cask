@@ -57,6 +57,10 @@
 (depends-on "gitignore-mode")
 (depends-on "gitconfig-mode")
 
+;; look and feek
+(depends-on "powerline")
+(depends-on "smooth-scrolling")
+
 ;; other  utils
 ;; (depends-on "all")
 ;; (depends-on "all-ext")
