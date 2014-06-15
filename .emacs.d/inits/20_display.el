@@ -26,7 +26,7 @@
     (t
      ()))
   "*Face used by hl-line.")
-(setq hl-line-face 'hlline-face)
+(setq hl-line-face 'underline)
 (global-hl-line-mode)
 
 ;;; GUI settings
@@ -55,7 +55,7 @@
       (set-background-color base-bgcolor)
       (set-foreground-color "White")
       (set-cursor-color "LightGray")
-      (set-frame-parameter nil 'alpha 80)
+      (set-frame-parameter nil 'alpha 90)
       ;; window size
       ;;(set-frame-parameter nil 'fullscreen 'fullboth)
       ))
