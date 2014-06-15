@@ -106,3 +106,6 @@
 ;; smartparens
 (autoload 'smartparens-config "smartparens-config" nil t)
 (smartparens-global-mode t)
+
+;; anzu
+(global-anzu-mode +1)

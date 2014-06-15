@@ -64,6 +64,7 @@
 ;; other  utils
 ;; (depends-on "all")
 ;; (depends-on "all-ext")
+(depends-on "anzu")
 (depends-on "auto-complete")
 (depends-on "color-theme")
 (depends-on "esup")
