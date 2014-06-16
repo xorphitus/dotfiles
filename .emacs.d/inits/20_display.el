@@ -119,6 +119,8 @@
 ;; highlight indentation
 (require 'highlight-indentation)
 (set-face-background 'highlight-indentation-face "#131313")
+(set-face-background 'highlight-indentation-current-column-face "#1f1f1f")
+(add-hook 'highlight-indentation-mode-hook 'highlight-indentation-current-column-mode)
 
 ;; powerline
 (autoload 'powerline "powerline" nil t)

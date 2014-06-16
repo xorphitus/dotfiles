@@ -36,3 +36,6 @@
 ;; robe
 (add-hook 'ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
+
+;; highlight indentation
+(add-hook 'ruby-mode-hook 'highlight-indentation-mode)

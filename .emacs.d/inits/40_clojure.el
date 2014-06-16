@@ -58,3 +58,6 @@ Display the results in a hyperlinked *compilation* buffer."
 ;; TODO
 ;; http://stackoverflow.com/questions/17714106/how-do-i-setup-a-clojurescript-repl-with-emacs
 ;; https://github.com/cemerick/austin
+
+;;; etc
+(add-hook 'clojure-mode-hook 'highlight-indentation-mode)
