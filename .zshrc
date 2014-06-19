@@ -144,7 +144,7 @@ eval "$(anyenv init -)"
 PYTHON_VERSION="3.3.4"
 pyenv global $PYTHON_VERSION
 
-export PATH=${PYENV_ROOT}/versions/${PYTHON_VERSION}/bin:$PATH
+export PATH=${PYENV_ROOT}/shims:$PATH
 
 ###########################################################
 # php
@@ -154,10 +154,10 @@ phpenv global 5.5.10
 # ruby
 alias be='bundle exec'
 
-RUBY_VERSION=2.1.1
+RUBY_VERSION=2.1.2
 rbenv global $RUBY_VERSION
 
-export PATH=${RBENV_ROOT}/versions/${RUBY_VERSION}/bin:$PATH
+export PATH=${RBENV_ROOT}/shims:$PATH
 
 ###########################################################
 # nodejs
