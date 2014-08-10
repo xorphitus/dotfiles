@@ -26,10 +26,12 @@
   (let ((load-path (cons dir load-path)))
     (dolist (el (init-loader--re-load-files re dir sort))
       (condition-case e
-          (let ((time (car (benchmark-run (load (file-name-sans-extension el))))))
-            (init-loader-log (format "loaded %s. %s" (locate-library el) time)))
-        (error
-         (init-loader-error-log (format "%s. %s" (locate-library el) (error-message-string e))))))))
+          (let ((lib (locate-library el)))
+            (let ((time (car (benchmark-run (load (file-name-sans-extension el))))))
+              (init-loader-log (s-lex-format "loaded #{lib}. #{time}")))
+            (error
+             (let ((err) (error-message-string e))
+               (init-loader-error-log (s-lex-format "#{lib}. #{err}")))))))))
 
 ;;; UTF-8
 (set-default-coding-systems 'utf-8)
