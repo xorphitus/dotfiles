@@ -1,6 +1,5 @@
 ;; helm
 (require 'helm-config)
-;(autoload 'helm-config "helm-config" nil t)
 (helm-mode 1)
 
 ;; disable helm-find-file
@@ -25,8 +24,7 @@
 ;; http://mikio.github.io/article/2013/01/31_helmc-h.html
 (eval-after-load 'helm
   '(progn
-     (define-key helm-map (kbd "C-h") 'delete-backward-char)
-     ))
+     (define-key helm-map (kbd "C-h") 'delete-backward-char)))
 
 ;; helm-ag
 ;; http://d.hatena.ne.jp/syohex/20130302/1362182193

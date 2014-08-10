@@ -27,7 +27,7 @@
     (dolist (el (init-loader--re-load-files re dir sort))
       (condition-case e
           (let ((lib (locate-library el)))
-            (let ((time (car (benchmark-run (load (f-no-ext el))))))
+            (let (time (-> el f-no-ext load benchmark-run car))
               (init-loader-log (s-lex-format "loaded #{lib}. #{time}")))
             (error
              (let ((err) (error-message-string e))

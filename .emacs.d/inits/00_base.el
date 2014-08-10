@@ -33,12 +33,11 @@
 ;; http://d.hatena.ne.jp/gifnksm/20100131/1264956220
 (defun beginning-of-indented-line (current-point)
   (interactive "d")
-  (if (string-match
-       "^[ \t]+$"
-       (save-excursion
-         (buffer-substring-no-properties
-          (progn (beginning-of-line) (point))
-          current-point)))
+  (if (s-match "^[ \t]+$"
+               (save-excursion
+                 (buffer-substring-no-properties
+                  (progn (beginning-of-line) (point))
+                  current-point)))
       (beginning-of-line)
     (back-to-indentation)))
 (global-set-key "\C-a" 'beginning-of-indented-line)
@@ -59,9 +58,10 @@
 ;; specify browser
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program
-      (find-if
-       (lambda (browser) (executable-find browser))
+      (--first
+       (executable-find it)
        '("chromium-browser"
          "google-chrome"
+         "google-chrome-stable"
          "google-chrome-beta"
          "firefox")))

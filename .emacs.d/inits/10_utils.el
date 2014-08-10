@@ -23,11 +23,11 @@
 (setq migemo-command "cmigemo")
 (setq migemo-options '("-q" "--emacs"))
 (setq migemo-dictionary
-      (find-if
-       (lambda (dict) (file-exists-p dict))
-         '("/usr/share/migemo/utf-8/migemo-dict"
-           "/usr/share/cmigemo/utf-8/migemo-dict"
-           "/usr/local/share/migemo/utf-8/migemo-dict")))
+      (--find
+       (file-exists-p it)
+       '("/usr/share/migemo/utf-8/migemo-dict"
+         "/usr/share/cmigemo/utf-8/migemo-dict"
+         "/usr/local/share/migemo/utf-8/migemo-dict")))
 (setq migemo-user-dictionary nil)
 (setq migemo-regex-dictionary nil)
 (setq migemo-coding-system 'utf-8-unix)
@@ -42,23 +42,23 @@
 (require 'flymake)
 ;; it's better to install flymakecursor.el for mouse less operation
 (when (load "flymake" t)
-    (load-library "flymake-cursor"))
+  (load-library "flymake-cursor"))
 ;; showmessage with popup
 ;; https://gist.github.com/292827
 (require 'popup)
 (defun my-popup-flymake-display-error ()
-    (interactive)
-    (let* ((line-no            (flymake-current-line-no))
-           (line-err-info-list (nth 0 (flymake-find-err-info flymake-err-info line-no)))
-           (count              (length line-err-info-list)))
-        (while (> count 0)
-            (when line-err-info-list
-                (let* ((file       (flymake-ler-file (nth (1- count) line-err-info-list)))
-                (full-file (flymake-ler-full-file (nth (1- count) line-err-info-list)))
-                (text      (flymake-ler-text (nth (1- count) line-err-info-list)))
-                (line      (flymake-ler-line (nth (1- count) line-err-info-list))))
-            (popup-tip (format "[%s] %s" line text))))
-            (setq count (1- count)))))
+  (interactive)
+  (let* ((line-no            (flymake-current-line-no))
+         (line-err-info-list (nth 0 (flymake-find-err-info flymake-err-info line-no)))
+         (count              (length line-err-info-list)))
+    (while (> count 0)
+      (when line-err-info-list
+        (let* ((file      (flymake-ler-file (nth (1- count) line-err-info-list)))
+               (full-file (flymake-ler-full-file (nth (1- count) line-err-info-list)))
+               (text      (flymake-ler-text (nth (1- count) line-err-info-list)))
+               (line      (flymake-ler-line (nth (1- count) line-err-info-list))))
+          (popup-tip (s-lex-format "[#{line}] #{text}"))))
+      (setq count (1- count)))))
 
 ;; flycheck
 (if window-system

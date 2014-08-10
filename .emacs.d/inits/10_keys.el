@@ -1,7 +1,10 @@
 ;; change quit and supend operation
+
+;; disable keys
+(--each '("C-x C-c"
+          "C-x C-z")
+  (global-set-key (kbd it) nil))
 ;; C-x C-c -> "exit" command
-(global-set-key (kbd "C-x C-c") nil)
-(global-set-key (kbd "C-x C-z") nil)
 (defalias 'exit 'save-buffers-kill-emacs)
 
 ;; Window splitting
@@ -22,5 +25,6 @@
 (global-set-key "\C-h" 'delete-backward-char)
 
 ;; ddskk
-(global-set-key (kbd "C-o") 'skk-mode)
-(global-set-key (kbd "C-x C-j") 'skk-mode)
+(--each '("C-o"
+          "C-x C-j")
+  (global-set-key (kbd it) 'skk-mode))
