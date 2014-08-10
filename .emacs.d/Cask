@@ -4,6 +4,7 @@
 (depends-on "dash")
 (depends-on "drag-stuff")
 (depends-on "s")
+(depends-on "f")
 
 (depends-on "el-get")
 
