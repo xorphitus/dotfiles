@@ -195,10 +195,32 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='01;33'
 
 ###########################################################
-# zaw
-source ~/opt/zaw/zaw.zsh
-bindkey '^r' zaw-history
-zstyle ':filter-select' max-lines $(($LINES / 2))
+# peco
+
+# select command from history
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(history -n 1 | \
+        eval $tac | \
+        peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+
+# kill proccess from ps
+function peco-proc-kill () {
+    ps ax -o pid,lstart,command | peco --query "$LBUFFER" | awk '{print $1}' | xargs kill
+    zle clear-screen
+}
+zle -N peco-proc-kill
+bindkey '^x^p' peco-proc-kill
 
 ###########################################################
 # aliases
@@ -233,7 +255,7 @@ function psg() {
 }
 
 function update-home-bin() {
-    targets=('opt/zaw' 'opt/clojurescript')
+    targets=('opt/clojurescript')
     for target in $targets;
     do
         cd ~/${target}
