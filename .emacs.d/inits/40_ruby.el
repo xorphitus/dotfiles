@@ -4,6 +4,9 @@
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake" . ruby-mode))
 
+;; disable magic comment
+(defun ruby-mode-set-encoding () nil)
+
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 
