@@ -107,11 +107,11 @@
 
 (global-set-key (kbd "<C-M-return>") 'mc/edit-lines)
 (smartrep-define-key
- global-map "C-." '(("n" . 'mc/mark-next-like-this)
-                    ("p" . 'mc/mark-previous-like-this)
-                    ("P" . 'mc/unmark-next-like-this)
-                    ("N" . 'mc/unmark-previous-like-this)
-                    ("*" . 'mc/mark-all-like-this)))
+    global-map "C-." '(("n" . 'mc/mark-next-like-this)
+                       ("p" . 'mc/mark-previous-like-this)
+                       ("P" . 'mc/unmark-next-like-this)
+                       ("N" . 'mc/unmark-previous-like-this)
+                       ("*" . 'mc/mark-all-like-this)))
 
 ;; smartparens
 (autoload 'smartparens-config "smartparens-config" nil t)

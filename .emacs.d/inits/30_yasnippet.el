@@ -15,10 +15,9 @@
 (define-key yas-minor-mode-map (kbd "M-=") 'yas-insert-snippet)
 
 (defun my-yas/prompt (prompt choices &optional display-fn)
-  (let* ((names
-          (--map (or (and display-fn (funcall display-fn it))
-                     it)
-                 choices))
+  (let* ((names (--map (or (and display-fn (funcall display-fn it))
+                           it)
+                       choices))
          (selected (helm-other-buffer
                     `(((name . ,(format "%s" prompt))
                        (candidates . names)
