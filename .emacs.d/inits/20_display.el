@@ -1,3 +1,13 @@
+;;; display.el --- display settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has display settings.
+
+;;; Code:
+
 ;; common variables
 (defvar base-bgcolor "#000000")
 

@@ -1,3 +1,13 @@
+;;; yasnippet.el --- yasnippet settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has yasnippet settings.
+
+;;; Code:
+
 (require 'yasnippet)
 (yas-global-mode 1)
 

@@ -1,6 +1,13 @@
-;;; xorphitus elisp
+;;; init.el --- xorphitus elisp
 
-;; enable common lisp
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This is an entry point of xorphitus elisp.
+
+;;; Code:
+
 (require 'cl)
 
 ;; set load path
@@ -38,5 +45,5 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
-(setq default-buffer-file-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8-unix)

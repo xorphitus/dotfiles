@@ -1,3 +1,13 @@
+;;; clojure.el --- clojure settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has clojure settings.
+
+;;; Code:
+
 ;;; CIDER
 (add-hook 'clojure-mode-hook 'cider-mode)
 

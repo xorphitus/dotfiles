@@ -1,3 +1,13 @@
+;;; utils.el --- basic utility settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has basic utility settings.
+
+;;; Code:
+
 ;; edit grep result directry
 ;;  https://raw.github.com/mhayashi1120/Emacs-wgrep/master/wgrep.el
 (require 'wgrep)

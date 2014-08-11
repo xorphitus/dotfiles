@@ -1,3 +1,13 @@
+;;; html.el --- HTML, HTML Templates CSS and CSS preprocessors settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has settings for HTML, HTML Templates CSS and CSS preprocessors.
+
+;;; Code:
+
 ;;; HTML
 (add-to-list 'auto-mode-alist '("\\.html?" . html-mode))
 (add-hook 'html-mode-hook 'flycheck-mode)

@@ -1,7 +1,14 @@
-;;;
-;;; CoffeeScript
+;;; coffeescript.el --- CoffeeScript settings
 
-;; cofee-mode
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has CoffeeScript settings.
+
+;;; Code:
+
+;; coffee-mode
 ;; https://github.com/defunkt/coffee-mode
 (autoload 'coffee-mode "coffee-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))

@@ -1,3 +1,13 @@
+;;; el-get.el --- el-get settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has settings for el-get.
+
+;;; Code:
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)

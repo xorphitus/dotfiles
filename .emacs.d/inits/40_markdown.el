@@ -1,4 +1,13 @@
-;;; Markdown
+;;; markdown.el --- Markdown settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has Markdown settings.
+
+;;; Code:
+
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))

@@ -1,5 +1,12 @@
-;;;
-;;; C/C++
+;;; c++.el --- C/C++ settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has C/C++ settings.
+
+;;; Code:
 
 (defun add-c-hooks (hook)
   "add hook only c-mode-hook, c++-mode-hook. since c-mode-common-hook includes others hooks"

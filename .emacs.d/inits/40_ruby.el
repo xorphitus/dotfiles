@@ -1,4 +1,12 @@
-;;; Ruby
+;;; ruby.el --- Ruby settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has Ruby settings.
+
+;;; Code:
 
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))

@@ -1,5 +1,12 @@
-;;;
-;;; JavaScript
+;;; javascript.el --- JavaScript settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has JavaScript settings.
+
+;;; Code:
 
 ;; js2-mode (forked by id:mooz, fixing identation)
 ;;  https://raw.github.com/mooz/js2-mode/master/js2-mode.el

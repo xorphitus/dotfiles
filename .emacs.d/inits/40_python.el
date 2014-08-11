@@ -1,5 +1,13 @@
-;;;
-;;; Python
+;;; python.el --- Python settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has Python settings.
+
+;;; Code:
+
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
 (add-hook 'python-mode-hook

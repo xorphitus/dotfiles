@@ -1,4 +1,12 @@
-;;; Scala
+;;; scala.el --- Scala settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has Scala settings.
+
+;;; Code:
 
 ;; scala-mode
 (autoload 'scala-mode-auto "scala-mode-auto" nil t)

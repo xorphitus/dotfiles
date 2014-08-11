@@ -1,4 +1,13 @@
-;; helm
+;;; helm.el --- helm settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has helm settings.
+
+;;; Code:
+
 (require 'helm-config)
 (helm-mode 1)
 

@@ -1,3 +1,13 @@
+;;; web.el --- web-mode settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has web-mode settings.
+
+;;; Code:
+
 ;; http://web-mode.org/
 (autoload 'web-mode "web-mode" nil t)
 (add-to-list 'auto-mode-alist '("/\\(views\\|html\\|templates\\)/.*\\.php\\'" . web-mode))

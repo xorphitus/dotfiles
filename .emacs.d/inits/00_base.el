@@ -1,3 +1,13 @@
+;;; base.el --- basic settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has basic settings.
+
+;;; Code:
+
 ;; gc max memory (128MB)
 (setq gc-cons-threshold 134217728)
 

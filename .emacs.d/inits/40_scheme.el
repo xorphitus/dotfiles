@@ -1,3 +1,13 @@
+;;; scheme.el --- Scheme settings
+
+;; Author: xorphitus <xorphitus@gmail.com>
+
+;;; Commentary:
+;;
+;; This file has Scheme settings.
+
+;;; Code:
+
 (setq process-coding-system-alist
       (cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
 (setq scheme-program-name "gosh -i")
