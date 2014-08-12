@@ -138,3 +138,7 @@
 
 ;; smooth-scrolling
 (autoload 'smooth-scrolling "smooth-scrolling" nil t)
+
+;; volatile-highlights
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
