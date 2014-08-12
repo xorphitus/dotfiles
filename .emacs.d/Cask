@@ -63,6 +63,7 @@
 (depends-on "smooth-scrolling")
 
 ;; other  utils
+(depends-on "ace-jump-mode")
 ;; (depends-on "all")
 ;; (depends-on "all-ext")
 (depends-on "anzu")
