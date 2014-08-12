@@ -113,10 +113,6 @@
                        ("N" . 'mc/unmark-previous-like-this)
                        ("*" . 'mc/mark-all-like-this)))
 
-;; smartparens
-(autoload 'smartparens-config "smartparens-config" nil t)
-(smartparens-global-mode t)
-
 ;; anzu
 (global-anzu-mode +1)
 
