@@ -8,4 +8,6 @@
 
 ;;; Code:
 
+(add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
+
 (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
