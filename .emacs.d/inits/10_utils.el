@@ -34,7 +34,7 @@
 (setq migemo-options '("-q" "--emacs"))
 (setq migemo-dictionary
       (--find
-       (file-exists-p it)
+       (f-exists? it)
        '("/usr/share/migemo/utf-8/migemo-dict"
          "/usr/share/cmigemo/utf-8/migemo-dict"
          "/usr/local/share/migemo/utf-8/migemo-dict")))
