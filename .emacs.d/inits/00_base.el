@@ -8,9 +8,6 @@
 
 ;;; Code:
 
-;; gc max memory (128MB)
-(setq gc-cons-threshold 134217728)
-
 ;; show explicit file name
 (setq explicit-shell-file-name shell-file-name)
 

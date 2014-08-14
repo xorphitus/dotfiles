@@ -8,6 +8,9 @@
 
 ;;; Code:
 
+;; gc max memory (128MB)
+(setq gc-cons-threshold 134217728)
+
 (require 'cl)
 
 ;; set load path
