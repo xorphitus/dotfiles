@@ -11,8 +11,6 @@
 ;; gc max memory (128MB)
 (setq gc-cons-threshold 134217728)
 
-(require 'cl)
-
 ;; set load path
 (let ((default-directory "~/.emacs.d/elisp/"))
   (setq load-path (cons default-directory load-path))
