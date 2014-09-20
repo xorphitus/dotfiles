@@ -20,3 +20,5 @@
   (interactive)
   (switch-to-buffer-other-window(get-buffer-create "*scheme*"))
   (run-scheme scheme-program-name))
+
+(add-hook 'scheme-mode-hook 'highlight-indentation-mode)
