@@ -14,9 +14,6 @@
 (add-to-list 'auto-mode-alist '("Berksfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake" . ruby-mode))
 
-;; disable magic comment
-(defun ruby-mode-set-encoding () nil)
-
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 
@@ -52,3 +49,6 @@
 
 ;; highlight indentation
 (add-hook 'ruby-mode-hook 'highlight-indentation-mode)
+
+;; disable magic comment
+(defun ruby-mode-set-encoding () nil)
