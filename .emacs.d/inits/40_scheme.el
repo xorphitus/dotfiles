@@ -22,3 +22,5 @@
   (run-scheme scheme-program-name))
 
 (add-hook 'scheme-mode-hook 'highlight-indentation-mode)
+
+(add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)

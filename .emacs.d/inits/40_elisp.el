@@ -13,3 +13,5 @@
 (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 
 (add-hook 'emacs-lisp-mode-hook 'highlight-indentation-mode)
+
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)

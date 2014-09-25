@@ -63,6 +63,9 @@ Display the results in a hyperlinked *compilation* buffer."
   (interactive)
   (compile (concat "lein kibit " buffer-file-name)))
 
+;; rainbow delimiters
+(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+
 ;;; ClojureScript
 
 ;; TODO

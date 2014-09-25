@@ -113,8 +113,8 @@
 
 ;; rainbow-delimiters
 (require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode t)
 
+;; color settings
 (require 'cl-lib)
 (require 'color)
 (cl-loop
@@ -122,7 +122,6 @@
  do
  (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
    (cl-callf color-saturate-name (face-foreground face) 90)))
-
 
 ;; golden-ratio
 ;; resizing automatically the windows you are working on
