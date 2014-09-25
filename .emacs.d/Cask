@@ -15,6 +15,7 @@
 (depends-on "clojure-mode")
 (depends-on "clojure-test-mode")
 (depends-on "slamhound")
+(depends-on "typed-clojure-mode")
 
 ;; javascript / coffeescript
 (depends-on "coffee-mode")
