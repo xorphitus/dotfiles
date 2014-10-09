@@ -10,4 +10,4 @@
 ;;; Code:
 
 (require 'edbi)
-(autoload 'edbi:open-db-viewer "edbi")
+(lazyload edbi:open-db-viewer)

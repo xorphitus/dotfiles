@@ -37,7 +37,7 @@
 
 ;; helm-ag
 ;; http://d.hatena.ne.jp/syohex/20130302/1362182193
-(autoload 'helm-ag "helm-ag" nil t)
+(lazyload helm-ag)
 (global-set-key (kbd "M-g .") 'helm-ag)
 (global-set-key (kbd "M-g ,") 'helm-ag-pop-stack)
 

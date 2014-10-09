@@ -34,6 +34,6 @@
              (define-key mode-specific-map "c" 'compile)))
 
 ;; google-c-style
-(autoload 'google-c-style "google-c-style" nil t)
+(lazyload google-c-style)
 (add-c-hooks 'google-set-c-style)
 (add-c-hooks 'google-make-newline-indent)

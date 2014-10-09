@@ -76,7 +76,7 @@
 (setq linum-format "%4d.")
 
 ;; show spaces
-(autoload 'whitespace "whitespace" nil t)
+(lazyload whitespace)
 (setq whitespace-style
       '(face
         tabs
@@ -130,7 +130,7 @@
 (golden-ratio-mode 1)
 
 ;; rotate the window layout
-(autoload 'rotate "rotate" nil t)
+(lazyload rotate)
 (global-set-key (kbd "C-t") 'rotate-layout)
 (global-set-key (kbd "M-t") 'rotate-window)
 
@@ -141,11 +141,11 @@
 (add-hook 'highlight-indentation-mode-hook 'highlight-indentation-current-column-mode)
 
 ;; powerline
-(autoload 'powerline "powerline" nil t)
+(lazyload powerline)
 (powerline-default-theme)
 
 ;; smooth-scrolling
-(autoload 'smooth-scrolling "smooth-scrolling" nil t)
+(lazyload smooth-scrolling)
 
 ;; volatile-highlights
 (require 'volatile-highlights)

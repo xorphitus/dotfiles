@@ -25,11 +25,11 @@
 (setq ac-use-menu-map t)
 
 ;; undo-tree.el
-(when (autoload 'undo-tree "undo-tree" nil t)
+(when (lazyload undo-tree)
   (global-undo-tree-mode))
 
 ;; migemo
-(autoload 'migemo "migemo" nil t)
+(lazyload migemo)
 (setq migemo-command "cmigemo")
 (setq migemo-options '("-q" "--emacs"))
 (setq migemo-dictionary
@@ -78,27 +78,27 @@
                (popup-tip (s-join "\n\n" messages))))))
 
 ;; junk file
-(autoload 'open-junk-file "open-junk-file" nil t)
+(lazyload open-junk-file)
 
 ;; magit.el
-(autoload 'magit "magit" nil t)
+(lazyload magit)
 
 ;; quickrun.el
 ;; http://d.hatena.ne.jp/syohex/20111201/1322665378
-(autoload 'quickrun "quickrun" nil t)
+(lazyload quickrun)
 (global-set-key [(shift f5)] 'quickrun)
 
 ;; shell-pop.el
 ;;  http://www.emacswiki.org/emacs/download/shell-pop.el
-(autoload 'shell-pop "shell-pop" nil t)
+(lazyload shell-pop)
 (global-set-key [f8] 'shell-pop)
 
 ;; projectile
-(autoload 'projectile "projectile" nil t)
+(lazyload projectile)
 (projectile-global-mode)
 
 ;; multiple-cursors and enhancer
-(autoload 'expand-region "expand-region" nil t)
+(lazyload expand-region)
 (require 'multiple-cursors)
 (require 'smartrep)
 
@@ -117,10 +117,6 @@
 (global-anzu-mode +1)
 
 ;; ace-jump-mode
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
+(lazyload ace-jump-mode "Emacs quick move minor mode")
 
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)

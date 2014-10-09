@@ -44,7 +44,7 @@
 (define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
 
 ;; inf-ruby
-(autoload 'inf-ruby "inf-ruby" nil t)
+(lazyload inf-ruby)
 (setq inf-ruby-default-implementation "pry")
 (setq inf-ruby-eval-binding "Pry.toplevel_binding")
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)

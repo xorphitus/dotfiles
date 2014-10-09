@@ -9,7 +9,7 @@
 ;;; Code:
 
 ;; scala-mode
-(autoload 'scala-mode-auto "scala-mode-auto" nil t)
+(lazyload scala-mode-auto)
 (add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
 
 ;; flycheck

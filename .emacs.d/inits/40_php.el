@@ -8,7 +8,7 @@
 
 ;;; Code:
 
-(autoload 'php-mode "php-mode" nil t)
+(lazyload php-mode)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (setq php-mode-force-pear t)
 

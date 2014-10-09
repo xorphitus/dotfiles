@@ -22,7 +22,7 @@
 (setq nrepl-buffer-name-show-port t)
 
 ;;; ac-nrepl
-(autoload 'ac-nrepl "ac-nrepl" nil t)
+(lazyload ac-nrepl)
 (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
 (add-hook 'cider-mode-hook 'ac-nrepl-setup)
 (eval-after-load "auto-complete"

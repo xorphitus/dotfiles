@@ -8,7 +8,7 @@
 
 ;;; Code:
 
-(autoload 'smartparens-config "smartparens-config" nil t)
+(lazyload smartparens-config)
 (smartparens-global-mode t)
 
 (show-smartparens-global-mode t)
