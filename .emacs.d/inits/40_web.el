@@ -10,9 +10,9 @@
 
 ;; http://web-mode.org/
 (lazyload web-mode)
-(add-to-list 'auto-mode-alist '("/\\(views\\|html\\|templates\\)/.*\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-auto-mode-alist 'web-mode '("/\\(views\\|html\\|templates\\)/.*\\.php\\'"
+                                    "\\.erb\\'"
+                                    "\\.mustache\\'"))
 
 (add-hook 'web-mode-hook 'flycheck-mode)
 

@@ -11,8 +11,8 @@
 ;; coffee-mode
 ;; https://github.com/defunkt/coffee-mode
 (lazyload coffee-mode)
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+(add-to-auto-mode-alist 'coffee-mode '("\\.coffee$"
+                                       "Cakefile"))
 (custom-set-variables '(coffee-tab-width 2))
 
 ;; flycheck
