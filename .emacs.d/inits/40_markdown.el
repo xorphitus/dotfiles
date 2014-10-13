@@ -10,6 +10,4 @@
 
 (lazyload markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-(setq auto-mode-alist
-      (cons '("\\.text" . markdown-mode) auto-mode-alist))
 (put 'dired-find-alternate-file 'disabled nil)
