@@ -116,7 +116,7 @@
 ;; anzu
 (global-anzu-mode +1)
 
-;; ace-jump-mode
-(lazyload ace-jump-mode "Emacs quick move minor mode")
+;; ace-isearch
+(global-ace-isearch-mode 1)
 
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
