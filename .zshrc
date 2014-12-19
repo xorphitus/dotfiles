@@ -34,6 +34,11 @@ export ALTERNATE_EDITOR=vim
 export BROWSER=google-chrome
 
 ###########################################################
+# emacs
+export PATH="$HOME/.cask/bin:$PATH"
+alias e='emacsclient'
+
+###########################################################
 # erlang
 export ERLANG_HOME=/usr/lib/erlang
 
