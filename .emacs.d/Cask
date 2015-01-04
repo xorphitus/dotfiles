@@ -80,6 +80,7 @@
 (depends-on "golden-ratio")
 (depends-on "helm")
 (depends-on "helm-ag")
+(depends-on "helm-migemo")
 (depends-on "helm-projectile")
 (depends-on "highlight-indentation")
 (depends-on "init-loader")
