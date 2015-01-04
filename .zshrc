@@ -17,7 +17,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle archlinux
 antigen bundle brew-cask
 
-antigen-theme mrtazz
+antigen-theme juanghurtado
 
 ## prezto
 # antigen use prezto
@@ -153,6 +153,9 @@ function psg() {
 }
 
 function update-home-bin() {
+    anyenv update
+    antigen update
+
     targets=('opt/clojurescript')
     for target in $targets;
     do
