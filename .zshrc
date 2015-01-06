@@ -14,9 +14,15 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # for each platforms
-antigen bundle archlinux
-antigen bundle brew
-antigen bundle brew-cask
+case ${OSTYPE} {
+  linux*)
+  antigen bundle archlinux
+  ;;
+  darwin*)
+  antigen bundle brew
+  antigen bundle brew-cask
+  ;;
+}
 
 antigen-theme juanghurtado
 
@@ -38,6 +44,12 @@ export BROWSER=google-chrome
 # emacs
 export PATH="$HOME/.cask/bin:$PATH"
 alias e='emacsclient'
+
+case ${OSTYPE} {
+  darwin*)
+  alias emacs='exec /usr/local/Cellar/emacs/24.4/Emacs.app/Contents/MacOS/Emacs "$@"'
+  ;;
+}
 
 ###########################################################
 # erlang
@@ -169,4 +181,3 @@ function update-home-bin() {
         fi
     done
 }
-
