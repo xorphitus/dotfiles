@@ -15,6 +15,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 
 # for each platforms
 antigen bundle archlinux
+antigen bundle brew
 antigen bundle brew-cask
 
 antigen-theme juanghurtado
