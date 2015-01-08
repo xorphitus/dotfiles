@@ -67,8 +67,6 @@
 
 ;; other  utils
 (depends-on "ace-isearch")
-;; (depends-on "all")
-;; (depends-on "all-ext")
 (depends-on "anzu")
 (depends-on "auto-complete")
 (depends-on "color-theme")
