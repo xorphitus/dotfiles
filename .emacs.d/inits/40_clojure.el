@@ -21,12 +21,15 @@
 ;; The REPL buffer name  will look like cider project-name:port
 (setq nrepl-buffer-name-show-port t)
 
-;;; ac-nrepl
-(lazyload ac-nrepl)
-(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-(add-hook 'cider-mode-hook 'ac-nrepl-setup)
+;;; ac-cider
+(lazyload ac-cider)
+(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
 (eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'cider-repl-mode))
+  '(progn
+     (add-to-list 'ac-modes 'cider-mode)
+     (add-to-list 'ac-modes 'cider-repl-mode)))
 
 ;;; compojure indentation
 (add-hook 'clojure-mode-hook

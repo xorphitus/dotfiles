@@ -10,7 +10,7 @@
 (depends-on "el-get")
 
 ;; clojure
-(depends-on "ac-nrepl")
+(depends-on "ac-cider")
 (depends-on "cider")
 (depends-on "clojure-cheatsheet")
 (depends-on "clojure-mode")
