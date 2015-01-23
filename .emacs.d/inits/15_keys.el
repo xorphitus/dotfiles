@@ -32,8 +32,3 @@
 
 ;;; set key binds
 (global-set-key "\C-h" 'delete-backward-char)
-
-;;; ddskk
-(--each '("C-o"
-          "C-x C-j")
-  (global-set-key (kbd it) 'skk-mode))
