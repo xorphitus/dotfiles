@@ -30,6 +30,11 @@
 (unless (server-running-p)
   (server-start))
 
+;; enable ido
+;; to implebe C-x C-f
+(ido-mode 1)
+(ido-everywhere)
+
 ;; indent
 (setq-default indent-tabs-mode nil)
 

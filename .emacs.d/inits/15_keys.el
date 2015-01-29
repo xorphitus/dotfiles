@@ -27,8 +27,8 @@
 
 (global-set-key (kbd "C-z") 'other-window-or-split)
 
-;;; ibuffer
-(global-set-key (kbd "C-x C-b")  'ibuffer)
+;;; bs-show
+(global-set-key (kbd "C-x C-b") 'bs-show)
 
 ;;; set key binds
 (global-set-key "\C-h" 'delete-backward-char)
