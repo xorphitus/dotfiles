@@ -127,5 +127,3 @@
 
 ;; ace-isearch
 (global-ace-isearch-mode 1)
-
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
