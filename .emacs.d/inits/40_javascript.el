@@ -8,19 +8,20 @@
 
 ;;; Code:
 
-;; js2-mode (forked by id:mooz, fixing identation)
-;;  https://raw.github.com/mooz/js2-mode/master/js2-mode.el
-(lazyload js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;; js2-mode
+(use-package js2-mode
+  :commands js2-mode
+  :mode (("\\.js$" . js2-mode))
+  :init
+  (progn
+    ;; flycheck
+    ;;  npm: jshint
+    (add-hook 'js2-mode-hook 'flycheck-mode)
 
-;; flycheck
-;;  npm: jshint
-(add-hook 'js2-mode-hook 'flycheck-mode)
+    ;; swank-js
+    (slime-setup '(slime-js))
 
-;; swank-js
-(slime-setup '(slime-js))
-
-(global-set-key [f5] 'slime-js-reload)
-(add-hook 'js2-mode-hook
-          (lambda ()
-            (slime-js-minor-mode 1)))
+    (global-set-key [f5] 'slime-js-reload)
+    (add-hook 'js2-mode-hook
+              (lambda ()
+                (slime-js-minor-mode 1)))))

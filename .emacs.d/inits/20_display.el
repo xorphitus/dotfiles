@@ -76,77 +76,85 @@
 (setq linum-format "%4d.")
 
 ;; show spaces
-(lazyload whitespace)
-(setq whitespace-style
-      '(face
-        tabs
-        tab-mark
-        spaces
-        lines-tail
-        trailing
-        space-before-tab
-        space-after-tab::space))
-(setq whitespace-line-column 250)
-;; zenkaku space
-(setq whitespace-space-regexp "\\(\x3000+\\)")
-(global-whitespace-mode t)
-
-(set-face-attribute 'whitespace-trailing nil
-                    :foreground "DeepPink"
-                    :background base-bgcolor
-                    :underline t)
-(set-face-attribute 'whitespace-tab nil
-                    :foreground "LightSkyBlue"
-                    :background base-bgcolor
-                    :underline t)
-;; zenkaku space
-(set-face-attribute 'whitespace-space nil
-                    :foreground "GreenYellow"
-                    :background base-bgcolor
-                    :weight 'bold)
+(use-package whitespace
+  :commands whitespace
+  :init
+  (progn
+    (setq whitespace-style
+          '(face
+            tabs
+            tab-mark
+            spaces
+            lines-tail
+            trailing
+            space-before-tab
+            space-after-tab::space))
+    (setq whitespace-line-column 250)
+    (setq whitespace-space-regexp "\\(\x3000+\\)") ; zenkaku space
+    (global-whitespace-mode t)
+    (set-face-attribute 'whitespace-trailing nil
+                        :foreground "DeepPink"
+                        :background base-bgcolor
+                        :underline t)
+    (set-face-attribute 'whitespace-tab nil
+                        :foreground "LightSkyBlue"
+                        :background base-bgcolor
+                        :underline t)
+    (set-face-attribute 'whitespace-space nil
+                        :foreground "GreenYellow"
+                        :background base-bgcolor
+                        :weight 'bold)))
 
 ;; show an icon indicating whether a line has been changed
 ;; from last commit
-(require 'git-gutter-fringe)
-(global-git-gutter-mode)
-(setq git-gutter-fr:side 'right-fringe)
+(use-package git-gutter-fringe
+  :config
+  (progn
+    (global-git-gutter-mode)
+    (setq git-gutter-fr:side 'right-fringe)))
 
 ;; rainbow-delimiters
-(require 'rainbow-delimiters)
-
-;; color settings
-(require 'cl-lib)
-(require 'color)
-(cl-loop
- for index from 1 to rainbow-delimiters-max-face-count
- do
- (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-   (cl-callf color-saturate-name (face-foreground face) 90)))
+(use-package rainbow-delimiters
+  :config
+  ;; color settings
+  (use-package cl-lib
+    :config
+    (use-package color
+      :config (cl-loop
+               for index from 1 to rainbow-delimiters-max-face-count
+               do
+               (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+                 (cl-callf color-saturate-name (face-foreground face) 90))))))
 
 ;; golden-ratio
 ;; resizing automatically the windows you are working on
 ;; to the size specified in the "Golden Ratio"
-(require 'golden-ratio)
-(golden-ratio-mode 1)
+(use-package golden-ratio
+  :config
+  (golden-ratio-mode 1))
 
 ;; rotate the window layout
-(lazyload rotate)
-(global-set-key (kbd "C-t") 'rotate-layout)
-(global-set-key (kbd "M-t") 'rotate-window)
+(use-package rotate
+  :commands rotate
+  :bind (("C-t" . rotate-layout)
+         ("M-t" . rotate-window)))
 
 ;; highlight indentation
-(require 'highlight-indentation)
-(set-face-background 'highlight-indentation-face "#131313")
-(set-face-background 'highlight-indentation-current-column-face "#1f1f1f")
-(add-hook 'highlight-indentation-mode-hook 'highlight-indentation-current-column-mode)
+;(require 'highlight-indentation)
+;(set-face-background 'highlight-indentation-face "#131313")
+;(set-face-background 'highlight-indentation-current-column-face "#1f1f1f")
+;(add-hook 'highlight-indentation-mode-hook 'highlight-indentation-current-column-mode)
 
 ;; powerline
-(lazyload powerline)
-(powerline-default-theme)
+(use-package powerline
+  :config
+  (powerline-default-theme))
 
 ;; smooth-scrolling
-(lazyload smooth-scrolling)
+(use-package smooth-scrolling
+  :commands smooth-scrolling)
 
 ;; volatile-highlights
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
+(use-package volatile-highlights
+  :config
+  (volatile-highlights-mode t))

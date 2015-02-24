@@ -9,5 +9,6 @@
 
 ;;; Code:
 
-(require 'edbi)
-(lazyload edbi:open-db-viewer)
+(use-package edbi)
+(use-package edbi:open-db-viewer
+  :commands edbi:open-db-viewer)

@@ -19,36 +19,42 @@
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 
 ;; Rinari
-;;  https://github.com/eschulte/rinari
-(require 'rinari)
+(use-package rinari)
 
 ;; ruby-electric
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook
-          (lambda()
-            (ruby-electric-mode t)))
-
-;; bugfix for ruby-electric-space
-;; "Symbol's function definition is void: ruby-insert-end"
-(defun ruby-insert-end ()
-  (interactive)
-  (insert "end")
-  (ruby-indent-line t)
-  (end-of-line))
+(use-package ruby-electric
+  :init
+  (progn
+    (add-hook 'ruby-mode-hook
+              (lambda()
+                (ruby-electric-mode t)))
+    ;; bugfix for ruby-electric-space
+    ;; "Symbol's function definition is void: ruby-insert-end"
+    (defun ruby-insert-end ()
+      (interactive)
+      (insert "end")
+      (ruby-indent-line t)
+      (end-of-line))))
 
 ;; smartparens
 ;; highlight block
 (add-hook 'ruby-mode-hook 'show-smartparens-mode)
 
 ;; xmpfilter
-(require 'rcodetools)
-(define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
+(use-package rcodetools
+  :init
+  (define-key ruby-mode-map (kbd "C-c C-d") 'xmp))
+
 
 ;; inf-ruby
-(lazyload inf-ruby)
-(setq inf-ruby-default-implementation "pry")
-(setq inf-ruby-eval-binding "Pry.toplevel_binding")
-(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
+(use-package inf-ruby
+  :commands inf-ruby
+  :init
+  (progn
+    (setq inf-ruby-default-implementation "pry")
+    (setq inf-ruby-eval-binding "Pry.toplevel_binding")
+    (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)))
+
 
 ;; robe
 (add-hook 'ruby-mode-hook 'robe-mode)

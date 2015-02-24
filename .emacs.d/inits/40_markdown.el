@@ -8,6 +8,8 @@
 
 ;;; Code:
 
-(lazyload markdown-mode)
-(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-(put 'dired-find-alternate-file 'disabled nil)
+(use-package markdown-mode
+  :commands markdown-mode
+  :mode (("\\.md$" . markdown-mode))
+  :init
+  (put 'dired-find-alternate-file 'disabled nil))

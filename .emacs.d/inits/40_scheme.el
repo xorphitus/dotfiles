@@ -12,8 +12,10 @@
       (cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
 (setq scheme-program-name "gosh -i")
 
-(lazyload scheme-mode "Major mode for Scheme.")
-(lazyload run-scheme "Run an inferior Scheme process.")
+(use-package scheme-mode
+  :commands scheme-mode)
+(use-package run-scheme
+  :commands run-scheme)
 
 (defun scheme-other-window ()
   "Run scheme on other window"

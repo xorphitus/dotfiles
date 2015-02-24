@@ -25,20 +25,24 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
-;; init loader
-(require 'init-loader)
-(init-loader-load "~/.emacs.d/inits")
+;; use-package
+(require 'use-package)
 
-;; detect error file
-(defun init-loader-re-load (re dir &optional sort)
-  (dolist (el (init-loader--re-load-files re dir sort))
-    (condition-case e
-        (let* ((lib (locate-library el))
-               (time (-> el f-no-ext load benchmark-run car))
-               (err (error-message-string e)))
-          (init-loader-log (s-lex-format "loaded #{lib}. #{time}"))
-          (error
-           (init-loader-error-log (s-lex-format "#{lib}. #{err}")))))))
+;; init loader
+(use-package init-loader
+   :config
+   (progn
+     (init-loader-load "~/.emacs.d/inits")
+     ;; detect error file
+     (defun init-loader-re-load (re dir &optional sort)
+       (dolist (el (init-loader--re-load-files re dir sort))
+         (condition-case e
+             (let* ((lib (locate-library el))
+                    (time (-> el f-no-ext load benchmark-run car))
+                    (err (error-message-string e)))
+               (init-loader-log (s-lex-format "loaded #{lib}. #{time}"))
+               (error
+                (init-loader-error-log (s-lex-format "#{lib}. #{err}")))))))))
 
 ;;; UTF-8
 (set-default-coding-systems 'utf-8)

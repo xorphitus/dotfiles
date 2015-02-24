@@ -9,11 +9,14 @@
 ;;; Code:
 
 ;; scala-mode
-(lazyload scala-mode-auto)
-(add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
+(use-package scala-mode-auto
+  :commands scala-mode-auto
+  :mode (("\\.scala$" . scala-mode))
+  :init
+  (progn
+    ;; flycheck
+    (add-hook 'scala-mode-hook 'flycheck-mode)))
 
-;; flycheck
-(add-hook 'scala-mode-hook 'flycheck-mode)
 
 ;; ;; requre ensime
 ;; ;;  https://github.com/aemoncannon/ensime

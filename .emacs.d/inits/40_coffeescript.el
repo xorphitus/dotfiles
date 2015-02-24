@@ -9,15 +9,16 @@
 ;;; Code:
 
 ;; coffee-mode
-;; https://github.com/defunkt/coffee-mode
-(lazyload coffee-mode)
-(add-to-auto-mode-alist 'coffee-mode '("\\.coffee$"
-                                       "Cakefile"))
-(custom-set-variables '(coffee-tab-width 2))
+(use-package coffee-mode
+  :commands coffee-mode
+  :mode (("\\.coffee$" . coffee-mode)
+         ("Cakefile"   . coffee-mode))
+  :init
+  (progn
+    (custom-set-variables '(coffee-tab-width 2))
+    ;; flycheck
+    ;;  npm: coffeelint
+    (add-hook 'coffee-mode-hook 'flycheck-mode)
 
-;; flycheck
-;;  npm: coffeelint
-(add-hook 'coffee-mode-hook 'flycheck-mode)
-
-;; highlight indentation
-(add-hook 'coffee-mode-hook 'highlight-indentation-mode)
+    ;; highlight indentation
+    (add-hook 'coffee-mode-hook 'highlight-indentation-mode)))

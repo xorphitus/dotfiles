@@ -22,13 +22,16 @@
 (global-auto-revert-mode 1)
 
 ;; easy to descern buffers of same name files
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+;;(require 'uniquify)
+(use-package uniquify
+  :config
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;; emacs server
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+(use-package server
+  :config
+  (unless (server-running-p)
+    (server-start)))
 
 ;; enable ido
 ;; to implebe C-x C-f
