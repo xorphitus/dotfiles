@@ -8,15 +8,26 @@
 
 ;;; Code:
 
-(add-to-auto-mode-alist 'ruby-mode
-                        '("Gemfile"
-                          "Rakefile"
-                          "Vagrantfile"
-                          "Berksfile"
-                          "\\.rake"))
+(use-package ruby-mode
+  :mode (("Gemfile" . ruby-mode)
+          ("Rakefile" . ruby-mode)
+          ("Vagrantfile" . ruby-mode)
+          ("\\.rake" . ruby-mode))
+  :interpreter "ruby"
+  :init
+  (progn
+    ;; flycheck
+    (add-hook 'ruby-mode-hook 'flycheck-mode)
 
-;; flycheck
-(add-hook 'ruby-mode-hook 'flycheck-mode)
+    ;; smartparens
+    ;; highlight block
+    (add-hook 'ruby-mode-hook 'show-smartparens-mode)
+
+    ;; highlight indentation
+    (add-hook 'ruby-mode-hook 'highlight-indentation-mode)
+
+    ;; disable magic comment
+    (defun ruby-mode-set-encoding () nil)))
 
 ;; Rinari
 (use-package rinari)
@@ -35,10 +46,6 @@
       (insert "end")
       (ruby-indent-line t)
       (end-of-line))))
-
-;; smartparens
-;; highlight block
-(add-hook 'ruby-mode-hook 'show-smartparens-mode)
 
 ;; xmpfilter
 (use-package rcodetools
@@ -59,9 +66,3 @@
 ;; robe
 (add-hook 'ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
-
-;; highlight indentation
-(add-hook 'ruby-mode-hook 'highlight-indentation-mode)
-
-;; disable magic comment
-(defun ruby-mode-set-encoding () nil)

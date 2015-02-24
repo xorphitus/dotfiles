@@ -9,5 +9,6 @@
 ;;; Code:
 
 ;; for arch linux
-(add-to-auto-mode-alist 'shell-script-mode '("PKGBUILD"
-                                             "\\.install$"))
+(use-package shell-script-mode
+  :mode (("PKGBUILD" . shell-script-mode)
+         ("\\.install$" . shell-script-mode)))
