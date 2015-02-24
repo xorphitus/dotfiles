@@ -117,14 +117,12 @@
 (use-package rainbow-delimiters
   :config
   ;; color settings
-  (use-package cl-lib
+  (use-package color
     :config
-    (use-package color
-      :config (cl-loop
-               for index from 1 to rainbow-delimiters-max-face-count
-               do
-               (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-                 (cl-callf color-saturate-name (face-foreground face) 90))))))
+    (-each (number-sequence 1 rainbow-delimiters-max-face-count)
+      (lambda (index)
+        (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+          (callf color-saturate-name (face-foreground face) 90))))))
 
 ;; golden-ratio
 ;; resizing automatically the windows you are working on
