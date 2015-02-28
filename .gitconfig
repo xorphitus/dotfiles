@@ -17,6 +17,7 @@
         rebase = true
 [alias]
         s = status
+        b = branch
         d = diff
         cho = checkout
 [pager]
