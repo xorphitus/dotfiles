@@ -43,11 +43,3 @@
                (init-loader-log (s-lex-format "loaded #{lib}. #{time}"))
                (error
                 (init-loader-error-log (s-lex-format "#{lib}. #{err}")))))))))
-
-;;; UTF-8
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8)
-(prefer-coding-system 'utf-8-unix)
