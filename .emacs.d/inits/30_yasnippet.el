@@ -28,4 +28,4 @@
           (signal 'quit "user quit!"))))
     (custom-set-variables '(yas/prompt-functions '(my-yas/prompt)))
 
-    (define-key yas-minor-mode-map (kbd "M-=") 'yas-insert-snippet)))
+    (bind-key "M-=" 'yas-insert-snippet yas-minor-mode-map)))

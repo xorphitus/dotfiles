@@ -25,10 +25,11 @@
             helm-source-recentf
             helm-source-file-cache
             ;; helm-source-files-in-current-dir
-            helm-source-locate))
-    ;; let C-h backspace in helm
-    ;; http://mikio.github.io/article/2013/01/31_helmc-h.html
-    (define-key helm-map (kbd "C-h") 'delete-backward-char)))
+            helm-source-locate)))
+  :config
+  ;; let C-h backspace in helm
+  ;; http://mikio.github.io/article/2013/01/31_helmc-h.html
+  (bind-key "C-h" helm-map 'delete-backward-char))
 
 ;; helm-migemo
 (use-package helm-migemo
@@ -53,4 +54,4 @@
          ("M-g ," . helm-ag-pop-stack)))
 
 ;; helm-projectile
-(global-set-key (kbd "C-c p h") 'helm-projectile)
+(bind-key "C-c p h" 'helm-projectile)

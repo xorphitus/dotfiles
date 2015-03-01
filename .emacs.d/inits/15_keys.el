@@ -9,9 +9,9 @@
 ;;; Code:
 
 ;;; disable dangerous keys
-(--each '("C-x C-c"
-          "C-x C-z")
-  (global-set-key (kbd it) nil))
+(bind-keys
+ ("C-x C-c" . nil)
+ ("C-x C-z" . nil))
 
 ;;; C-x C-c -> "exit" command
 (defalias 'exit 'save-buffers-kill-emacs)
@@ -25,10 +25,10 @@
     (split-window-horizontally))
   (other-window 1))
 
-(global-set-key (kbd "C-z") 'other-window-or-split)
+(bind-key "C-z" 'other-window-or-split)
 
 ;;; bs-show
-(global-set-key (kbd "C-x C-b") 'bs-show)
+(bind-key "C-x C-b" 'bs-show)
 
 ;;; set key binds
-(global-set-key "\C-h" 'delete-backward-char)
+(bind-key "C-h" 'delete-backward-char)
