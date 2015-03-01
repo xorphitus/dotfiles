@@ -24,4 +24,11 @@
     (global-set-key [f5] 'slime-js-reload)
     (add-hook 'js2-mode-hook
               (lambda ()
-                (slime-js-minor-mode 1)))))
+                (slime-js-minor-mode 1)))
+
+    ;; prettify symbols
+    (my-macro/prettify-symbols
+     js2-mode-hook
+     (-concat '(("function" . ?ƒ))
+              my-const/arror-prettify-symbols-alist
+              my-const/relational-prettify-symbols-alist))))

@@ -26,3 +26,9 @@
 (add-hook 'scheme-mode-hook 'highlight-indentation-mode)
 
 (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
+
+(my-macro/prettify-symbols
+ scheme-mode-hook
+ (-concat my-const/lambda-prettify-symbols-alist
+          my-const/logical-prettify-symbols-alist
+          my-const/relational-prettify-symbols-alist))

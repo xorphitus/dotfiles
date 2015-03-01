@@ -8,4 +8,9 @@
 
 ;;; Code:
 
-;; write some macros!!
+(defmacro my-macro/prettify-symbols (hook symbols-alist)
+  `(add-hook ',hook
+             (lambda ()
+               (-each ,symbols-alist
+                 (lambda (prettify-map)
+                   (push prettify-map prettify-symbols-alist))))))

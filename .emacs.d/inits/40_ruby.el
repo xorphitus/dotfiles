@@ -27,7 +27,14 @@
     (add-hook 'ruby-mode-hook 'highlight-indentation-mode)
 
     ;; disable magic comment
-    (defun ruby-mode-set-encoding () nil)))
+    (defun ruby-mode-set-encoding () nil)
+
+    ;; prittify symbols
+    (my-macro/prettify-symbols
+     ruby-mode-hook
+     (-concat my-const/lambda-prettify-symbols-alist
+           my-const/arror-prettify-symbols-alist
+           my-const/relational-prettify-symbols-alist))))
 
 ;; Rinari
 (use-package rinari)

@@ -21,4 +21,10 @@
     (add-hook 'coffee-mode-hook 'flycheck-mode)
 
     ;; highlight indentation
-    (add-hook 'coffee-mode-hook 'highlight-indentation-mode)))
+    (add-hook 'coffee-mode-hook 'highlight-indentation-mode)
+
+    ;; prittify symbols
+    (my-macro/prettify-symbols
+     coffee-mode-hook
+     (-concat my-const/arror-prettify-symbols-alist
+              my-const/relational-prettify-symbols-alist))))

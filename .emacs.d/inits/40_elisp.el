@@ -15,3 +15,8 @@
 (add-hook 'emacs-lisp-mode-hook 'highlight-indentation-mode)
 
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+
+(defconst lisp--prettify-symbols-alist
+  (-concat my-const/lambda-prettify-symbols-alist
+           my-const/logical-prettify-symbols-alist
+           my-const/relational-prettify-symbols-alist))

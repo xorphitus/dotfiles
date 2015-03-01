@@ -85,3 +85,10 @@ Display the results in a hyperlinked *compilation* buffer."
 
 ;;; etc
 (add-hook 'clojure-mode-hook 'highlight-indentation-mode)
+
+;; prittify symbols
+(my-macro/prettify-symbols
+ clojure-mode-hook
+ (-concat '(("fn" . ?λ))
+          my-const/logical-prettify-symbols-alist
+          my-const/relational-prettify-symbols-alist))
