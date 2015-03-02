@@ -38,6 +38,13 @@
 (ido-mode 1)
 (ido-everywhere)
 
+(use-package ido-vertical-mode
+  :config
+  (progn
+    (setq ido-max-window-height 0.75)
+    (setq ido-enable-flex-matching t)
+    (ido-vertical-mode 1)))
+
 ;; indent
 (setq-default indent-tabs-mode nil)
 

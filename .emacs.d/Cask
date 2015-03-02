@@ -81,6 +81,7 @@
 (depends-on "helm-migemo")
 (depends-on "helm-projectile")
 (depends-on "highlight-indentation")
+(depends-on "ido-vertical-mode")
 (depends-on "init-loader")
 (depends-on "migemo")
 (depends-on "multiple-cursors")
