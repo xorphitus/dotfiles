@@ -16,15 +16,16 @@
   :interpreter "ruby"
   :init
   (progn
+    ;; highlight indentation
+    (add-hook 'ruby-mode-hook 'highlight-indentation-mode))
+  :config
+  (progn
     ;; flycheck
     (add-hook 'ruby-mode-hook 'flycheck-mode)
 
     ;; smartparens
     ;; highlight block
     (add-hook 'ruby-mode-hook 'show-smartparens-mode)
-
-    ;; highlight indentation
-    (add-hook 'ruby-mode-hook 'highlight-indentation-mode)
 
     ;; disable magic comment
     (defun ruby-mode-set-encoding () nil)
@@ -41,7 +42,7 @@
 
 ;; ruby-electric
 (use-package ruby-electric
-  :init
+  :config
   (progn
     (add-hook 'ruby-mode-hook
               (lambda()
