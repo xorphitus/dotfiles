@@ -77,7 +77,7 @@ phpenv global 5.5.10
 
 ###########################################################
 # ruby
-RUBY_VERSION=2.1.2
+RUBY_VERSION=2.2.0
 rbenv global $RUBY_VERSION
 
 export PATH=${RBENV_ROOT}/shims:$PATH
