@@ -25,11 +25,9 @@
             helm-source-recentf
             helm-source-file-cache
             ;; helm-source-files-in-current-dir
-            helm-source-locate)))
-  :config
-  ;; let C-h backspace in helm
-  ;; http://mikio.github.io/article/2013/01/31_helmc-h.html
-  (bind-key "C-h" helm-map 'delete-backward-char))
+            helm-source-locate))
+    ;; let C-h backspace in helm
+    (bind-key "C-h" 'delete-backward-char helm-map)))
 
 ;; helm-migemo
 (use-package helm-migemo
