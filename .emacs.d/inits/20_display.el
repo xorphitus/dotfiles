@@ -119,10 +119,9 @@
   ;; color settings
   (use-package color
     :config
-    (-each (number-sequence 1 rainbow-delimiters-max-face-count)
-      (lambda (index)
-        (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-          (callf color-saturate-name (face-foreground face) 90))))))
+    (--each (number-sequence 1 rainbow-delimiters-max-face-count)
+      (let ((face (intern (format "rainbow-delimiters-depth-%d-face" it))))
+        (callf color-saturate-name (face-foreground face) 90)))))
 
 ;; golden-ratio
 ;; resizing automatically the windows you are working on
