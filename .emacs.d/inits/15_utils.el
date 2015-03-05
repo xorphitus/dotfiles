@@ -14,7 +14,7 @@
 ;; edit dired result directory
 (use-package wdired
   :config
-  (bind-key "r" 'wdired-change-to-wdired-mode dired-mode-map))
+  (bind-key "C-c C-e" 'wdired-change-to-wdired-mode dired-mode-map))
 
 ;; auto-complete
 (use-package auto-complete-config
