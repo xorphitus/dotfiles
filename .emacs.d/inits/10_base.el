@@ -22,7 +22,6 @@
 (global-auto-revert-mode 1)
 
 ;; easy to descern buffers of same name files
-;;(require 'uniquify)
 (use-package uniquify
   :config
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
