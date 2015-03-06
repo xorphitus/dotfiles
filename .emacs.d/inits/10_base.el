@@ -34,9 +34,10 @@
     (server-start)))
 
 ;; enable ido
-;; to implebe C-x C-f
+;; to improbe C-x C-f
 (ido-mode 1)
 (ido-everywhere)
+(setq confirm-nonexistent-file-or-buffer nil)
 
 (use-package ido-vertical-mode
   :config
