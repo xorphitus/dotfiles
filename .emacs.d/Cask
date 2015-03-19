@@ -96,6 +96,7 @@
 (depends-on "smartrep")
 (depends-on "undo-tree")
 (depends-on "use-package")
+(depends-on "visual-regexp-steroids")
 (depends-on "volatile-highlights")
 (depends-on "wgrep")
 (depends-on "yasnippet")

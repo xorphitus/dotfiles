@@ -127,3 +127,6 @@
 
 ;; ace-isearch
 (global-ace-isearch-mode 1)
+
+;; visual-regexp-steroids
+(use-package visual-regexp-steroids)
