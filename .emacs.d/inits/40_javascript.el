@@ -18,9 +18,6 @@
     ;;  npm: jshint
     (add-hook 'js2-mode-hook 'flycheck-mode)
 
-    ;; swank-js
-    (slime-setup '(slime-js))
-
     (global-set-key [f5] 'slime-js-reload)
     (add-hook 'js2-mode-hook
               (lambda ()
