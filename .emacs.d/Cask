@@ -14,12 +14,14 @@
 (depends-on "cider")
 (depends-on "clojure-cheatsheet")
 (depends-on "clojure-mode")
-(depends-on "clojure-test-mode")
 (depends-on "slamhound")
 (depends-on "typed-clojure-mode")
 
 ;; common lisp
 (depends-on "slime")
+
+;; haskell
+(depends-on "haskell-mode")
 
 ;; javascript / coffeescript
 (depends-on "coffee-mode")
