@@ -26,7 +26,6 @@ terminator -mb -e tmux &
 dunst &
 dropboxd &
 skype &
-conky &
 
 # start window manager
 exec openbox-session

@@ -26,10 +26,8 @@ terminator -mb -e tmux &
 dunst &
 dropboxd &
 skype &
-#conky &
 
 # start window manager
-#exec openbox-session
 exec xmonad
 
 # turn off screen saver
