@@ -21,7 +21,7 @@ nitrogen --restore &
 compton &
 
 # startup apps
-tint2 &
+trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 13 --height 17 --transparent true --tint 0x000000 --alpha 10 &
 terminator -mb -e tmux &
 dunst &
 dropboxd &

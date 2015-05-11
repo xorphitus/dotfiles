@@ -2,10 +2,10 @@ Config { font = "xft:Sans-9:bold"
        , bgColor = "black"
        , fgColor = "grey"
        , alpha   = 240
-       , position = Top
+       , position = TopW L 88
        , lowerOnStart = False
        , commands = [ Run Weather "EGPF"
-                          ["-t"      , " <tempF>F"
+                          ["-t"      , "<skyCondition> <tempC>C"
                           ,"-L"      , "64"
                           ,"-H"      , "77"
                           ,"--normal", "green"
@@ -13,7 +13,8 @@ Config { font = "xft:Sans-9:bold"
                           ,"--low"   , "lightblue"
                           ] 36000
                     , Run Network "enp0s25"
-                          ["-L"      , "0"
+                          ["-t"      , "<dev>:  ⇩<rx>:⇧<tx>kB/s"
+                          ,"-L"      , "0"
                           ,"-H"      , "32"
                           ,"--normal", "green"
                           ,"--high"  , "red"
