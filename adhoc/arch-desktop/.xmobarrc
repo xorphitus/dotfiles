@@ -1,11 +1,11 @@
-Config { font = "xft:Sans-9:bold"
+Config { font = "xft:Migu1c:size=8:bold"
        , bgColor = "black"
        , fgColor = "grey"
-       , alpha   = 240
-       , position = TopW L 88
+       , alpha   = 235
+       , position = TopW L 93
        , lowerOnStart = False
-       , commands = [ Run Weather "EGPF"
-                          ["-t"      , "<skyCondition> <tempC>C"
+       , commands = [ Run Weather "RJAA"
+                          ["-t"      , "☀☁☂ <skyCondition> <tempC>℃ (at <hour>)"
                           ,"-L"      , "64"
                           ,"-H"      , "77"
                           ,"--normal", "green"
@@ -13,14 +13,14 @@ Config { font = "xft:Sans-9:bold"
                           ,"--low"   , "lightblue"
                           ] 36000
                     , Run Network "enp0s25"
-                          ["-t"      , "<dev>:  ⇩<rx>:⇧<tx>kB/s"
+                          ["-t"      , "<dev>: ⇩<rx> ⇧<tx>kB/s"
                           ,"-L"      , "0"
                           ,"-H"      , "32"
                           ,"--normal", "green"
                           ,"--high"  , "red"
                           ] 10
                     , Run MultiCpu
-                          ["-t"       , "<total0>,<total1>,<total2>,<total3>%"
+                          ["-t"       , "CPU: <total0>,<total1>,<total2>,<total3>%"
                           ,"-L"       , "3"
                           ,"-H"       , "50"
                           ,"--normal" , "green"
@@ -34,5 +34,5 @@ Config { font = "xft:Sans-9:bold"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %multicpu% | %memory% * %swap% | %enp0s25%   <fc=#ee9a00>%date%</fc> | %EGPF%"
+       , template = "%StdinReader% }{ [%multicpu%] [%memory% %swap%] [%enp0s25%] <fc=#ee9a00>[%date%]</fc> %RJAA%"
        }
