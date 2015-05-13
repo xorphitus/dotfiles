@@ -76,6 +76,7 @@
 (depends-on "anzu")
 (depends-on "auto-complete")
 (depends-on "color-theme")
+(depends-on "elscreen")
 (depends-on "esup")
 (depends-on "expand-region")
 (depends-on "flycheck")

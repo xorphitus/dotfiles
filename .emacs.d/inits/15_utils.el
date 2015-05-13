@@ -144,3 +144,10 @@
 
 ;; visual-regexp-steroids
 (use-package visual-regexp-steroids)
+
+;; elscren
+(use-package elscreen
+  :config
+  (progn
+    (setq elscreen-tab-display-kill-screen nil)
+    (elscreen-start)))
