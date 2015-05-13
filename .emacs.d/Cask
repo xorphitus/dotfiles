@@ -68,7 +68,7 @@
 
 ;; look and feek
 (depends-on "powerline")
-(depends-on "smooth-scrolling")
+(depends-on "sublimity")
 
 ;; other  utils
 (depends-on "ace-isearch")
@@ -99,7 +99,6 @@
 (depends-on "shell-pop")
 (depends-on "smartparens")
 (depends-on "smartrep")
-(depends-on "sublimity")
 (depends-on "undo-tree")
 (depends-on "use-package")
 (depends-on "visual-regexp-steroids")

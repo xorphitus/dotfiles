@@ -140,10 +140,6 @@
   :config
   (powerline-default-theme))
 
-;; smooth-scrolling
-(use-package smooth-scrolling
-  :commands smooth-scrolling)
-
 ;; volatile-highlights
 (use-package volatile-highlights
   :config
