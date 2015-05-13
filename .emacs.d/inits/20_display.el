@@ -123,13 +123,6 @@
       (let ((face (intern (format "rainbow-delimiters-depth-%d-face" it))))
         (callf color-saturate-name (face-foreground face) 90)))))
 
-;; golden-ratio
-;; resizing automatically the windows you are working on
-;; to the size specified in the "Golden Ratio"
-(use-package golden-ratio
-  :config
-  (golden-ratio-mode 1))
-
 ;; rotate the window layout
 (use-package rotate
   :commands rotate
@@ -158,3 +151,13 @@
 
 ;; pretty-symbols
 (global-prettify-symbols-mode +1)
+
+;; sublimity
+(use-package sublimity
+  :config
+  (progn
+    (use-package sublimity-scroll
+      :config
+      (use-package sublimity-map
+        :config
+        (sublimity-mode 1)))))

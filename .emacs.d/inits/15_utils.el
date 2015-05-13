@@ -128,5 +128,12 @@
 ;; ace-isearch
 (global-ace-isearch-mode 1)
 
+;; ace-window
+(use-package ace-window
+  :config
+  (progn
+    (global-set-key (kbd "C-x o") 'ace-window)
+    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))))
+
 ;; visual-regexp-steroids
 (use-package visual-regexp-steroids)

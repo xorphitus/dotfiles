@@ -72,6 +72,7 @@
 
 ;; other  utils
 (depends-on "ace-isearch")
+(depends-on "ace-window")
 (depends-on "anzu")
 (depends-on "auto-complete")
 (depends-on "color-theme")
@@ -80,7 +81,6 @@
 (depends-on "flycheck")
 (depends-on "flymake-cursor")
 (depends-on "git-gutter-fringe")
-(depends-on "golden-ratio")
 (depends-on "helm")
 (depends-on "helm-ag")
 (depends-on "helm-migemo")
@@ -99,6 +99,7 @@
 (depends-on "shell-pop")
 (depends-on "smartparens")
 (depends-on "smartrep")
+(depends-on "sublimity")
 (depends-on "undo-tree")
 (depends-on "use-package")
 (depends-on "visual-regexp-steroids")
