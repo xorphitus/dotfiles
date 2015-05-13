@@ -129,10 +129,17 @@
 (global-ace-isearch-mode 1)
 
 ;; ace-window
+;; w/ http://d.hatena.ne.jp/rubikitch/20100210/emacs
+(defun other-window-or-split ()
+  (interactive)
+  (when (one-window-p)
+    (split-window-horizontally))
+  (ace-window 1))
+
 (use-package ace-window
   :config
   (progn
-    (global-set-key (kbd "C-x o") 'ace-window)
+    (global-set-key (kbd "C-x o") 'other-window-or-split)
     (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))))
 
 ;; visual-regexp-steroids
