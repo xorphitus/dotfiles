@@ -7,8 +7,6 @@
 (depends-on "s")
 (depends-on "f")
 
-(depends-on "el-get")
-
 ;; clojure
 (depends-on "ac-cider")
 (depends-on "cider")
@@ -76,6 +74,7 @@
 (depends-on "anzu")
 (depends-on "auto-complete")
 (depends-on "color-theme")
+(depends-on "ddskk")
 (depends-on "elscreen")
 (depends-on "esup")
 (depends-on "expand-region")

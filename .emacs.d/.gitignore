@@ -5,7 +5,6 @@ auto-save-list
 tramp
 url
 elpa/archives
-el-get
 session.*
 inits/*_local.el*
 inits/*.elc
