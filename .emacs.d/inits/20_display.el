@@ -157,3 +157,14 @@
       (use-package sublimity-map
         :config
         (sublimity-mode 1)))))
+
+;; elscreen
+(set-face-foreground 'elscreen-tab-current-screen-face "white")
+(set-face-background 'elscreen-tab-current-screen-face "black")
+(set-face-bold-p     'elscreen-tab-current-screen-face t)
+(set-face-foreground 'elscreen-tab-background-face "#999999")
+(set-face-background 'elscreen-tab-background-face "#333333")
+(set-face-foreground 'elscreen-tab-control-face "#999999")
+(set-face-background 'elscreen-tab-control-face "#333333")
+(set-face-foreground 'elscreen-tab-other-screen-face "#999999")
+(set-face-background 'elscreen-tab-other-screen-face "#111111")
