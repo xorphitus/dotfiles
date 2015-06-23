@@ -22,6 +22,9 @@
 ;; common lisp
 (depends-on "slime")
 
+;; go
+(depends-on "go-mode")
+
 ;; haskell
 (depends-on "haskell-mode")
 
