@@ -1,11 +1,15 @@
 (source melpa)
 (source gnu)
 
+;; basic packages
 (depends-on "cask")
 (depends-on "dash")
 (depends-on "drag-stuff")
 (depends-on "s")
 (depends-on "f")
+
+(depends-on "init-loader")
+(depends-on "use-package")
 
 ;; clojure
 (depends-on "ac-cider")
@@ -63,46 +67,46 @@
 (depends-on "magit")
 (depends-on "gitignore-mode")
 (depends-on "gitconfig-mode")
+(depends-on "git-gutter-fringe")
+(depends-on "git-timemachine")
 
-;; look and feek
+;; look and feel
+(depends-on "color-theme")
 (depends-on "powerline")
+
+;; visual effects
+(depends-on "highlight-indentation")
+(depends-on "rainbow-delimiters")
 (depends-on "sublimity")
+(depends-on "volatile-highlights")
 
 ;; other  utils
 (depends-on "ace-isearch")
 (depends-on "ace-window")
 (depends-on "anzu")
 (depends-on "auto-complete")
-(depends-on "color-theme")
 (depends-on "ddskk")
 (depends-on "elscreen")
 (depends-on "esup")
 (depends-on "expand-region")
 (depends-on "flycheck")
 (depends-on "flymake-cursor")
-(depends-on "git-gutter-fringe")
-(depends-on "git-timemachine")
 (depends-on "helm")
 (depends-on "helm-ag")
 (depends-on "helm-migemo")
 (depends-on "helm-projectile")
-(depends-on "highlight-indentation")
 (depends-on "ido-vertical-mode")
-(depends-on "init-loader")
 (depends-on "migemo")
 (depends-on "multiple-cursors")
 (depends-on "open-junk-file")
 (depends-on "popup")
 (depends-on "projectile")
 (depends-on "quickrun")
-(depends-on "rainbow-delimiters")
 (depends-on "rotate")
 (depends-on "shell-pop")
 (depends-on "smartparens")
 (depends-on "smartrep")
 (depends-on "undo-tree")
-(depends-on "use-package")
 (depends-on "visual-regexp-steroids")
-(depends-on "volatile-highlights")
 (depends-on "wgrep")
 (depends-on "yasnippet")
