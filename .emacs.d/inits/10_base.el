@@ -43,6 +43,7 @@
   (progn
     (setq ido-max-window-height 0.75)
     (setq ido-enable-flex-matching t)
+    (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
     (ido-vertical-mode 1)))
 
 ;; indent
