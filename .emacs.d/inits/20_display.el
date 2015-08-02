@@ -157,9 +157,7 @@
   (progn
     (use-package sublimity-scroll
       :config
-      (use-package sublimity-map
-        :config
-        (sublimity-mode 1)))))
+      (sublimity-mode 1))))
 
 ;; elscreen
 (set-face-foreground 'elscreen-tab-current-screen-face "white")
