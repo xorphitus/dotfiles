@@ -104,6 +104,11 @@ function cljsc() {
 }
 
 ###########################################################
+# Go lang
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
+
+###########################################################
 # less
 export PAGER='less'
 export LESS='-iMR --LONG-PROMPT'
