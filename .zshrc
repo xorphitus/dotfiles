@@ -47,7 +47,7 @@ alias e='emacsclient'
 
 case ${OSTYPE} {
   darwin*)
-  alias emacs='exec /usr/local/Cellar/emacs/24.4/Emacs.app/Contents/MacOS/Emacs "$@"'
+  alias emacs='exec /usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs "$@"'
   ;;
 }
 
