@@ -84,7 +84,7 @@ export PATH=${RBENV_ROOT}/shims:$PATH
 
 ###########################################################
 # nodejs
-NODE_VERSION="v0.10"
+NODE_VERSION="v0.12"
 ndenv global $NODE_VERSION
 
 NODE_ROOT=${NDENV_ROOT}/versions/${NODE_VERSION}
