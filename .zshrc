@@ -77,14 +77,14 @@ phpenv global 5.5.10
 
 ###########################################################
 # ruby
-RUBY_VERSION=2.2.2
+RUBY_VERSION=2.2.3
 rbenv global $RUBY_VERSION
 
 export PATH=${RBENV_ROOT}/shims:$PATH
 
 ###########################################################
 # nodejs
-NODE_VERSION="v0.12"
+NODE_VERSION="v4.1.1"
 ndenv global $NODE_VERSION
 
 NODE_ROOT=${NDENV_ROOT}/versions/${NODE_VERSION}
