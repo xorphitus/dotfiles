@@ -15,8 +15,13 @@
   :init
   (progn
     ;; flycheck
-    ;;  npm: jshint
+    ;;  npm: eslint
     (add-hook 'js2-mode-hook 'flycheck-mode)
+    ;; disable jshint for eslint
+    (setq-default flycheck-disabled-checkers
+                  (append flycheck-disabled-checkers
+                          '(javascript-jshint)))
+
 
     (global-set-key [f5] 'slime-js-reload)
     (add-hook 'js2-mode-hook
@@ -29,3 +34,4 @@
      (-concat '(("function" . ?ƒ))
               my-const/arror-prettify-symbols-alist
               my-const/relational-prettify-symbols-alist))))
+

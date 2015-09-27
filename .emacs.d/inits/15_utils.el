@@ -74,11 +74,15 @@
             (setq count (1- count))))))))
 
 ;; flycheck
-(if window-system
-    (setq flycheck-display-errors-function
-          '(lambda (errors)
-             (-when-let (messages (-keep #'flycheck-error-message errors))
-               (popup-tip (s-join "\n\n" messages))))))
+(use-package flycheck
+  :config
+  (progn
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+    (if window-system
+        (setq flycheck-display-errors-function
+              '(lambda (errors)
+                 (-when-let (messages (-keep #'flycheck-error-message errors))
+                   (popup-tip (s-join "\n\n" messages))))))))
 
 ;; junk file
 (use-package open-junk-file
