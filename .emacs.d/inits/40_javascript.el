@@ -14,6 +14,8 @@
   :mode (("\\.js$" . js2-mode))
   :init
   (progn
+    (setq js2-basic-offset 2)
+
     ;; flycheck
     ;;  npm: eslint
     (add-hook 'js2-mode-hook 'flycheck-mode)
@@ -34,4 +36,3 @@
      (-concat '(("function" . ?ƒ))
               my-const/arror-prettify-symbols-alist
               my-const/relational-prettify-symbols-alist))))
-
