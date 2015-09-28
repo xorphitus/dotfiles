@@ -144,10 +144,19 @@ bindkey '^r' peco-select-history
 # kill proccess from ps
 function peco-proc-kill () {
     ps ax -o pid,lstart,command | peco --query "$LBUFFER" | awk '{print $1}' | xargs kill
-    zle clear-screen
 }
-zle -N peco-proc-kill
-bindkey '^x^p' peco-proc-kill
+
+# ghq integration
+function peco-ghq () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-ghq
+bindkey '^g^h' peco-ghq
 
 ###########################################################
 # aliases
