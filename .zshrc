@@ -40,6 +40,8 @@ export EDITOR=emacsclient
 export ALTERNATE_EDITOR=vim
 export BROWSER=google-chrome
 
+setopt IGNOREEOF
+
 ###########################################################
 # emacs
 export PATH="$HOME/.cask/bin:$PATH"
