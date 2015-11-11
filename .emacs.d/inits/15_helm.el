@@ -27,24 +27,10 @@
             ;; helm-source-files-in-current-dir
             helm-source-locate))
     ;; let C-h backspace in helm
-    (bind-key "C-h" 'delete-backward-char helm-map)))
-
-;; helm-migemo
-(use-package helm-migemo
-  ;; :config
-  ;; ;; http://rubikitch.com/2014/12/19/helm-migemo/
-  ;; (defun helm-compile-source--candidates-in-buffer (source)
-  ;;   (helm-aif (assoc 'candidates-in-buffer source)
-  ;;       (append source
-  ;;               `((candidates
-  ;;                  . ,(or (cdr it)
-  ;;                         (lambda ()
-  ;;                           ;; Do not use `source' because other plugins
-  ;;                           ;; (such as helm-migemo) may change it
-  ;;                           (helm-candidates-in-buffer (helm-get-current-source)))))
-  ;;                 (volatile) (match identity)))
-  ;;     source))
-  )
+    (bind-key "C-h" 'delete-backward-char helm-map)
+    ;; enable helm + migemo
+    (use-package migemo
+      :config (helm-migemo-mode 1))))
 
 ;; helm-ag
 (use-package helm-ag
