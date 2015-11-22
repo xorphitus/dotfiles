@@ -35,7 +35,7 @@
   :commands migemo
   :config
   (progn
-    (setq migemo-command "cmigemo")
+    (setq migemo-command (if (executable-find "cmigemo") "cmigemo" "/usr/local/bin/cmigemo"))
     (setq migemo-options '("-q" "--emacs"))
     (setq migemo-dictionary
           (--find
