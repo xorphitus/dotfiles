@@ -9,6 +9,7 @@
 ;;; Code:
 (use-package helm-comfig
   :bind (("C-c h" . helm-for-files)
+         ("M-x"   . helm-M-x)
          ("C-x b" . helm-buffers-list)
          ("M-y"   . helm-show-kill-ring))
   :init
