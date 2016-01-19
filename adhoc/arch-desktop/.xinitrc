@@ -4,11 +4,11 @@
 #
 # Executed by startx (run your window manager from here)
 
-# start ibus
-export GTK_IM_MODULE="ibus"
-export QT_IM_MODULE="ibus"
-export XMODIFIERS=@im=ibus
-ibus-daemon --xim -d &
+# start fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+fcitx &
 
 # apply .Xmodmap
 xmodmap ~/.Xmodmap
@@ -21,9 +21,11 @@ nitrogen --restore &
 compton &
 
 # startup apps
-trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 13 --height 17 --transparent true --tint 0x000000 --alpha 10 &
+trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 8 --height 20 --transparent true --tint 0x000000 --alpha 15 &
 terminator -mb -e tmux &
 dunst &
+# replace to ~/.config/dunst/dunstrc by using /usr/share/dunst/dunstrc
+dunst -lb 333333 -nb 000000 -hb 990000 &
 dropbox &
 skype &
 
