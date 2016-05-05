@@ -26,9 +26,9 @@
                ("C-S-a" . sp-beginning-of-sexp)
                ("C-S-d" . sp-end-of-sexp)
 
-               ("C-M-e" .sp-up-sexp)
-               ("C-M-u" .sp-backward-up-sexp)
-               ("C-M-t" .sp-transpose-sexp)
+               ("C-M-e" . sp-up-sexp)
+               ("C-M-u" . sp-backward-up-sexp)
+               ("C-M-t" . sp-transpose-sexp)
 
                ("C-M-n" . sp-next-sexp)
                ("C-M-p" . sp-previous-sexp)
