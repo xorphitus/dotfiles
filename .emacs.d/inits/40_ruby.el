@@ -72,4 +72,6 @@
 
 ;; robe
 (add-hook 'ruby-mode-hook 'robe-mode)
-(add-hook 'robe-mode-hook 'ac-robe-setup)
+(use-package company
+  :config
+  (push 'company-robe company-backends))

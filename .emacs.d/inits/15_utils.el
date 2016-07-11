@@ -16,15 +16,6 @@
   :config
   (bind-key "C-c C-e" 'wdired-change-to-wdired-mode dired-mode-map))
 
-;; auto-complete
-(use-package auto-complete-config
-  :config
-  (progn
-    (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-    (ac-config-default)
-    ;; select completion target by using C-n/C-p
-    (setq ac-use-menu-map t)))
-
 ;; comapny
 (use-package company
   :config

@@ -86,7 +86,6 @@
 (depends-on "ace-isearch")
 (depends-on "ace-window")
 (depends-on "anzu")
-(depends-on "auto-complete")
 (depends-on "company")
 (depends-on "ddskk")
 (depends-on "elscreen")
