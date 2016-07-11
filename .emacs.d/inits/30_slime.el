@@ -8,6 +8,9 @@
 
 ;;; Code:
 
+;; require SBCL
+(setq inferior-lisp-program "sbcl")
+
 (use-package slime
   :config
   (slime-setup '(slime-repl slime-fancy slime-banner)))
