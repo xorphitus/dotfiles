@@ -12,7 +12,6 @@
 (depends-on "use-package")
 
 ;; clojure
-(depends-on "ac-cider")
 (depends-on "cider")
 (depends-on "clojure-cheatsheet")
 (depends-on "clojure-mode")
@@ -88,6 +87,7 @@
 (depends-on "ace-window")
 (depends-on "anzu")
 (depends-on "auto-complete")
+(depends-on "company")
 (depends-on "ddskk")
 (depends-on "elscreen")
 (depends-on "esup")
