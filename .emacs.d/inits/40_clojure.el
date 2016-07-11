@@ -9,17 +9,29 @@
 ;;; Code:
 
 ;;; CIDER
-(add-hook 'clojure-mode-hook 'cider-mode)
 
-;; Enable eldoc in Clojure buffers
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+(use-package cider
+  :init
+  (add-hook 'clojure-mode-hook 'cider-mode)
+  (add-hook 'cider-mode-hook #'clj-refactor-mode)
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook #'eldoc-mode)
+  :config
+  (progn
+    ;; Hide the *nrepl-connection* and *nrepl-server* buffers
+    ;; from appearing in some buffer switching commands like 'C-x b'
+    (setq nrepl-hide-special-buffers t)
+    ;; The REPL buffer name  will look like cider project-name:port
+    (setq nrepl-buffer-name-show-port t)))
 
-;; Hide the *nrepl-connection* and *nrepl-server* buffers
-;; from appearing in some buffer switching commands like 'C-x b'
-(setq nrepl-hide-special-buffers t)
-
-;; The REPL buffer name  will look like cider project-name:port
-(setq nrepl-buffer-name-show-port t)
+;; clj-refactor
+(use-package clj-refactor
+  :diminish clj-refactor-mode
+  :config
+  (progn
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1)
+    (cljr-add-keybindings-with-prefix "C-c j")))
 
 ;;; compojure indentation
 (add-hook 'clojure-mode-hook
