@@ -15,5 +15,7 @@
   (progn
     (setq php-mode-force-pear t)
     (add-hook 'php-mode-hook
-              (lambda()
-                (flycheck-mode t)))))
+              (lambda ()
+                (flycheck-mode t)
+                (setq tab-width 4)
+                (setq c-basic-offset 4)))))
