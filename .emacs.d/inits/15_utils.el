@@ -99,7 +99,10 @@
 
 ;; magit.el
 (use-package magit
-  :commands magit)
+  :commands magit
+  :config
+  (add-hook 'magit-status-mode-hook (lambda ()
+                             (company-mode -1))))
 
 ;; quickrun.el
 (use-package quickrun
