@@ -88,6 +88,7 @@
 (depends-on "anzu")
 (depends-on "company")
 (depends-on "ddskk")
+(depends-on "dumb-jump")
 (depends-on "elscreen")
 (depends-on "esup")
 (depends-on "expand-region")

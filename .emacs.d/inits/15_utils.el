@@ -167,3 +167,8 @@
   (progn
     (setq elscreen-tab-display-kill-screen nil)
     (elscreen-start)))
+
+;; dumb-jump
+(use-package dumb-jump
+  :config
+  (dumb-jump-mode))
