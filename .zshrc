@@ -20,7 +20,6 @@ case ${OSTYPE} {
   ;;
   darwin*)
   antigen bundle brew
-  antigen bundle brew-cask
   ;;
 }
 
