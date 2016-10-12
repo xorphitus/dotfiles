@@ -46,12 +46,6 @@ setopt IGNOREEOF
 export PATH="$HOME/.cask/bin:$PATH"
 alias e='emacsclient'
 
-case ${OSTYPE} {
-  darwin*)
-  alias emacs='exec /usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs "$@"'
-  ;;
-}
-
 ###########################################################
 # erlang
 export ERLANG_HOME=/usr/lib/erlang
