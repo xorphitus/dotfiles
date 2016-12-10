@@ -49,4 +49,4 @@ Rxvt.scrollBar: false
 ! Emacs
 
 ! medium-r-normal
-Emacs.Fontset-0: xft:Ricty:size=12
+Emacs.Fontset: xft:Ricty:size=18
