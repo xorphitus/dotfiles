@@ -28,6 +28,8 @@ dunst &
 dunst -lb 333333 -nb 000000 -hb 990000 &
 dropbox &
 skype &
+# https://github.com/linuxmint/blueberry/blob/master/usr/lib/blueberry/blueberry.py#L30
+XDG_CURRENT_DESKTOP=LXDE blueberry-tray &
 
 # start window manager
 exec xmonad
