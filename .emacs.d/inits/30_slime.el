@@ -13,4 +13,6 @@
 
 (use-package slime
   :config
-  (slime-setup '(slime-repl slime-fancy slime-banner)))
+  (progn
+    (slime-setup '(slime-repl slime-fancy slime-banner))
+    (slime-setup '(slime-fancy slime-company))))

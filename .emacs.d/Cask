@@ -20,6 +20,7 @@
 
 ;; common lisp
 (depends-on "slime")
+(depends-on "slime-company")
 
 ;; go
 (depends-on "go-mode")
@@ -74,7 +75,7 @@
 
 ;; look and feel
 (depends-on "color-theme")
-(depends-on "powerline")
+(depends-on "spaceline")
 
 ;; visual effects
 (depends-on "highlight-indentation")

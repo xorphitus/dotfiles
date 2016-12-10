@@ -139,9 +139,9 @@
 ;(add-hook 'highlight-indentation-mode-hook 'highlight-indentation-current-column-mode)
 
 ;; powerline
-(use-package powerline
+(use-package spaceline-config
   :config
-  (powerline-default-theme))
+  (spaceline-spacemacs-theme))
 
 ;; volatile-highlights
 (use-package volatile-highlights

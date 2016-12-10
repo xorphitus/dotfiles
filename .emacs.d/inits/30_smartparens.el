@@ -64,7 +64,9 @@
                ("H-s p" . sp-add-to-previous-sexp)
                ("H-s n" . sp-add-to-next-sexp)
                ("H-s j" . sp-join-sexp)
-               ("H-s s" . sp-split-sexp))
+               ("H-s s" . sp-split-sexp)
+
+               ("M-;" . sp-comment))
 
     (bind-key ")" 'sp-up-sexp emacs-lisp-mode-map)
 
