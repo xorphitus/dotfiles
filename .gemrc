@@ -1,7 +1,6 @@
 :sources:
 - http://rubygems.org
 - http://gems.github.com
-- http://production.s3.rubygems.org/
 :bulk_threshold: 1000
 :backtrace: false
 :verbose: true
