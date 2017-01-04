@@ -47,6 +47,10 @@ export PATH="$HOME/.cask/bin:$PATH"
 alias e='emacsclient'
 
 ###########################################################
+# direnv
+eval "$(direnv hook zsh)"
+
+###########################################################
 # erlang
 export ERLANG_HOME=/usr/lib/erlang
 
