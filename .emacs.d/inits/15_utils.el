@@ -101,8 +101,10 @@
 (use-package magit
   :commands magit
   :config
-  (add-hook 'magit-status-mode-hook (lambda ()
-                             (company-mode -1))))
+  (progn
+    (add-hook 'magit-status-mode-hook (lambda ()
+                                        (company-mode -1)))
+    (setq magit-diff-refine-hunk t)))
 
 ;; quickrun.el
 (use-package quickrun
