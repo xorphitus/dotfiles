@@ -17,6 +17,8 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 case ${OSTYPE} {
   linux*)
   antigen bundle archlinux
+  alias pbpaste='xsel -b'
+  alias pbcopy='xsel -b'
   ;;
   darwin*)
   antigen bundle brew
