@@ -161,7 +161,7 @@ bindkey '^g^h' peco-ghq
 
 ###########################################################
 # aliases
-alias google-chrome='google-chrome -allow-file-access-from-files'
+alias google-chrome='google-chrome-stable -allow-file-access-from-files'
 alias ack='ag'
 
 ###########################################################
