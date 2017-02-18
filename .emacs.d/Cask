@@ -105,6 +105,7 @@
 (depends-on "open-junk-file")
 (depends-on "popup")
 (depends-on "projectile")
+(depends-on "protobuf-mode")
 (depends-on "quickrun")
 (depends-on "rotate")
 (depends-on "shell-pop")
