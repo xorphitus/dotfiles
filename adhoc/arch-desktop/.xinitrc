@@ -21,7 +21,7 @@ nitrogen --restore &
 compton &
 
 # startup apps
-trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 8 --height 18 --transparent true --tint 0x000000 --alpha 15 &
+trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 8 --height 22 --transparent true --tint 0x000000 --alpha 15 &
 terminator -mb -e tmux &
 dunst &
 # replace to ~/.config/dunst/dunstrc by using /usr/share/dunst/dunstrc
