@@ -78,14 +78,14 @@ phpenv global 5.5.10
 
 ###########################################################
 # ruby
-RUBY_VERSION=2.2.3
+RUBY_VERSION=2.3.1
 rbenv global $RUBY_VERSION
 
 export PATH=${RBENV_ROOT}/shims:$PATH
 
 ###########################################################
 # nodejs
-NODE_VERSION="v4.1.1"
+NODE_VERSION="v4.3.2"
 ndenv global $NODE_VERSION
 
 NODE_ROOT=${NDENV_ROOT}/versions/${NODE_VERSION}
@@ -108,6 +108,10 @@ function cljsc() {
 # Go lang
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
+
+###########################################################
+# JRE
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 
 ###########################################################
 # less
@@ -157,7 +161,7 @@ function peco-ghq () {
   zle clear-screen
 }
 zle -N peco-ghq
-bindkey '^g^h' peco-ghq
+bindkey '^q' peco-ghq
 
 ###########################################################
 # aliases
@@ -188,7 +192,7 @@ function update-home-bin() {
     anyenv update
     antigen update
 
-    targets=('opt/clojurescript')
+    targets=('.tmux/plugins/tpm' 'opt/clojurescript')
     for target in $targets;
     do
         cd ~/${target}
