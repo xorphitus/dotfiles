@@ -46,6 +46,9 @@
 
 (depends-on "yaml-mode")
 
+;; rust
+(depends-on "rust-mode")
+
 ;; scala
 (depends-on "scala-mode")
 
