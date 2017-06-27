@@ -1,4 +1,4 @@
-;;; display.el --- display settings
+;;;; display.el --- display settings
 
 ;; Author: xorphitus <xorphitus@gmail.com>
 
@@ -151,13 +151,6 @@
 ;; pretty-symbols
 (global-prettify-symbols-mode +1)
 
-;; sublimity
-(use-package sublimity
-  :config
-  (progn
-    (use-package sublimity-scroll
-      :config
-      (sublimity-mode 1))))
 
 ;; elscreen
 (set-face-foreground 'elscreen-tab-current-screen-face "white")

@@ -83,7 +83,6 @@
 ;; visual effects
 (depends-on "highlight-indentation")
 (depends-on "rainbow-delimiters")
-(depends-on "sublimity")
 (depends-on "volatile-highlights")
 
 ;; other  utils
