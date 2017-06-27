@@ -1,31 +1,100 @@
 ###########################################################
-# prompt
+# general
+set -x EDITOR emacsclient
+set -x ALTERNATE_EDITOR vim
+# set -x BROWSER google-chrome
 
-# Git prompt
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_showupstream 'yes'
-set __fish_git_prompt_color_branch yellow
-set __fish_git_prompt_color_upstream_ahead green
-set __fish_git_prompt_color_upstream_behind red
+###########################################################
+# Emacs
+set -x PATH $HOME/.cask/bin $PATH
+alias e='emacsclient'
 
-# Git status chars
-set __fish_git_prompt_char_dirtystate '⚡'
-set __fish_git_prompt_char_stagedstate '→'
-set __fish_git_prompt_char_untrackedfiles '☡'
-set __fish_git_prompt_char_stashstate '↩'
-set __fish_git_prompt_char_upstream_ahead '+'
-set __fish_git_prompt_char_upstream_behind '-'
+###########################################################
+# direnv
+eval (direnv hook fish)
 
-function fish_prompt
-  set last_status $status
+###########################################################
+# Erlang
+set -x ERLANG_HOME /usr/lib/erlang
 
-  set_color $fish_color_cwd
-  printf '%s' (prompt_pwd)
-  set_color normal
+###########################################################
+# Scala
+set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
 
-  printf '%s ' (__fish_git_prompt)
+###########################################################
+# Ruby
+set RUBY_VERSION 2.3.1
+rbenv global $RUBY_VERSION
 
-  set_color normal
+###########################################################
+# Node.js
+set -x NODE_VERSION v4.3.2
+
+###########################################################
+# Go
+set -x GOPATH $HOME/go
+set -x PATH $GOPATH/bin $PATH
+
+###########################################################
+# less
+set -x PAGER 'less'
+set -x LESS '-iMR --LONG-PROMPT'
+
+## source-hightlight
+#  yaourt -S souce-highlight
+set hiliter (which src-hilite-lesspipe.sh)
+set -x LESSOPEN "| $hiliter %s"
+
+###########################################################
+# aliases
+# alias google-chrome='google-chrome-stable -allow-file-access-from-files'
+alias ack='ag'
+
+###########################################################
+# functions
+function psg
+    ps u | head -n 1
+    set arg $argv[1]
+    ps aux | grep $arg | grep -v "grep $arg"
+end
+
+function _install_nvm
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+end
+
+function update-home-bin
+    fisher up
+    _install_nvm
+
+    set targets '.rbenv' 'opt/clojurescript'
+    for target in $targets
+        cd $HOME/$target
+        if test -d .git
+            echo update $target
+            git pull
+        else
+            echo $target is not version controled
+        end
+     end
+end
+
+function _setup_fishenv
+    # OS packages
+    yaourt -S fzf direnv rbenv ruby-build
+
+    # nvm
+    _install_nvm
+
+    # fisherman
+    curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+
+    # plugins
+    fisher z fzf decors/fish-ghq rbenv nvm
+
+    # theme
+    fisher install omf/theme-eden
+
+    # programing languates
+    rbenv install $RUBY_VERSION
+    nvm install $NODE_VERSION
 end
