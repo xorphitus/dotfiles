@@ -4,6 +4,8 @@ set -x EDITOR emacsclient
 set -x ALTERNATE_EDITOR vim
 # set -x BROWSER google-chrome
 
+alias l='ls'
+
 ###########################################################
 # Emacs
 set -x PATH $HOME/.cask/bin $PATH
@@ -76,6 +78,10 @@ function update-home-bin
             echo $target is not version controled
         end
      end
+end
+
+function archpkg
+    yaourt -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1 
 end
 
 function _setup_fishenv
