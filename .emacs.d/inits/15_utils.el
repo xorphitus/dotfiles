@@ -20,9 +20,11 @@
 (use-package company
   :config
   (global-company-mode)
-  (setq company-idle-delay 0.1
-        company-minimum-prefix-length 2
-        company-selection-wrap-around t)
+  (progn
+    (setq company-idle-delay 0.1
+          company-minimum-prefix-length 2
+          company-selection-wrap-around t)
+    (setq company-dabbrev-downcase nil))
 
   (bind-keys :map company-mode-map
              ("C-i" . company-complete))
