@@ -4,12 +4,9 @@ set -x EDITOR emacsclient
 set -x ALTERNATE_EDITOR vim
 # set -x BROWSER google-chrome
 
-alias l='ls'
-
 ###########################################################
 # Emacs
 set -x PATH $HOME/.cask/bin $PATH
-alias e='emacsclient'
 
 ###########################################################
 # direnv
@@ -25,7 +22,7 @@ set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
 # Ruby
-set RUBY_VERSION 2.3.1
+set RUBY_VERSION 2.4.1
 rbenv global $RUBY_VERSION
 
 ###########################################################
@@ -51,6 +48,9 @@ set -x LESSOPEN "| $hiliter %s"
 # aliases
 # alias google-chrome='google-chrome-stable -allow-file-access-from-files'
 alias ack='ag'
+alias l='ls'
+alias e='emacsclient'
+alias be='bundle exec'
 
 ###########################################################
 # functions
