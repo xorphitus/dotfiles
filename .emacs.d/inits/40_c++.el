@@ -13,17 +13,12 @@
   (add-hook 'c-mode-hook hook)
   (add-hook 'c++-mode-hook hook))
 
-;; indent
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (c-toggle-auto-hungry-state 1)
-             (define-key c-mode-base-map "\C-m" 'newline-and-indent)))
-
+;; TODO: expand-regionの C-, を食ってしまうので修正が必要
 ;; auto spell check by ispell
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (flyspell-prog-mode)))
-(setq flyspell-issue-welcome-flag nil)
+;;(add-hook 'c-mode-common-hook
+;;          '(lambda ()
+;;             (flyspell-prog-mode)))
+;;(setq flyspell-issue-welcome-flag nil)
 
 ;; flycheck
 (add-hook 'c-mode-common-hook 'flycheck-mode)
