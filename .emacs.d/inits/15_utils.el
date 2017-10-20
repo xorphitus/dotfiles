@@ -97,7 +97,10 @@
 
 ;; junk file
 (use-package open-junk-file
-  :commands open-junk-file)
+  :commands open-junk-file
+  :config
+  ;; open junk file in a current window
+  (setq open-junk-file-find-file-function 'find-file))
 
 ;; magit.el
 (use-package magit
