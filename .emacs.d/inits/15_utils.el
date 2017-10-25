@@ -105,6 +105,7 @@
 ;; magit.el
 (use-package magit
   :commands magit
+  :bind (("C-c g" . magit-status))
   :config
   (progn
     (add-hook 'magit-status-mode-hook (lambda ()
