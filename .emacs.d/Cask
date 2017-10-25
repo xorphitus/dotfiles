@@ -66,6 +66,9 @@
 ;; php
 (depends-on "php-mode")
 
+;; shell
+(depends-on "fish-mode")
+
 ;; database
 (depends-on "edbi")
 
