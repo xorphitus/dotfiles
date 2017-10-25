@@ -80,8 +80,15 @@ function update-home-bin
      end
 end
 
+# Notify when a command is finished
+# usage:
+#  $ some_long_command; n
+function n
+    notify-send -u low -t 3 "Command Finished!"
+end
+
 function archpkg
-    yaourt -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1 
+    yaourt -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1
 end
 
 function _setup_fishenv
