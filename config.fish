@@ -77,13 +77,15 @@ function update-home-bin
         else
             echo $target is not version controled
         end
-     end
+    end
 end
 
 # Notify when a command is finished
 # usage:
 #  $ some_long_command; n
 function n
+    # ntfy command might be better
+    # https://github.com/dschep/ntfy
     notify-send -u low -t 3 "Command Finished!"
 end
 
