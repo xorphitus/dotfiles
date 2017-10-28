@@ -14,16 +14,15 @@ fcitx &
 xmodmap ~/.Xmodmap
 
 # set background image
-#feh --bg-scale /usr/share/slim/themes/default/background.jpg 
+#feh --bg-scale /usr/share/slim/themes/default/background.jpg
 
 # set appearance (wallpaper, transparency)
 nitrogen --restore &
 compton &
 
 # startup apps
-trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 8 --height 22 --transparent true --tint 0x000000 --alpha 15 &
+trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 8 --height 24 --transparent true --tint 0x000000 --alpha 15 &
 terminator -mb -e tmux &
-dunst &
 # replace to ~/.config/dunst/dunstrc by using /usr/share/dunst/dunstrc
 dunst -lb 333333 -nb 000000 -hb 990000 &
 dropbox &
