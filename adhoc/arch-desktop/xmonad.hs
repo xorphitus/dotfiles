@@ -25,7 +25,7 @@ main = do
         , startupHook = setWMName "LG3D"
         }
          `additionalKeys`
-        [ ((0, 0x1008ff13), spawn "amixer sset Master 10%+ && notify-send (amixer sget Master | grep '%') ")
-        , ((0, 0x1008ff11), spawn "amixer sset Master 10%- && notify-send (amixer sget Master | grep '%') ")
+        [ ((0, 0x1008ff13), spawn "amixer sset Master 5%+ && notify-send -t 3 'Volume▲' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
+        , ((0, 0x1008ff11), spawn "amixer sset Master 5%- && notify-send -t 3 'Volume▼' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
         ]
 
