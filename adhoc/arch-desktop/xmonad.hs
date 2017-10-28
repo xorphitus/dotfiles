@@ -1,4 +1,5 @@
 import System.IO
+import Data.Default
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -11,8 +12,8 @@ myLayout = Full ||| Tall 1 (3/100) (1/2)
 
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad $ defaultConfig
-        { manageHook = manageDocks <+> manageHook defaultConfig
+    xmonad $ def
+        { manageHook = manageDocks <+> manageHook def
         , layoutHook = avoidStruts $ myLayout
         , logHook = dynamicLogWithPP $ xmobarPP
                         { ppOutput = hPutStrLn xmproc
