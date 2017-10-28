@@ -5,6 +5,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.SetWMName
 import XMonad.Layout
+import XMonad.Util.EZConfig -- additionalKeys
 
 myLayout = Full ||| Tall 1 (3/100) (1/2)
 
@@ -22,3 +23,8 @@ main = do
         , borderWidth = 1
         , startupHook = setWMName "LG3D"
         }
+         `additionalKeys`
+        [ ((0, 0x1008ff13), spawn "amixer sset Master 10%+ && notify-send (amixer sget Master | grep '%') ")
+        , ((0, 0x1008ff11), spawn "amixer sset Master 10%- && notify-send (amixer sget Master | grep '%') ")
+        ]
+
