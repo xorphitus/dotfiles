@@ -13,6 +13,11 @@ set -x PATH $HOME/.cask/bin $PATH
 eval (direnv hook fish)
 
 ###########################################################
+# fzf
+set -x FZF_TMUX 1
+set -x FZF_TMUX_HEIGHT 50%
+
+###########################################################
 # Erlang
 set -x ERLANG_HOME /usr/lib/erlang
 
