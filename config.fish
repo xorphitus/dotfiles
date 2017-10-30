@@ -65,10 +65,6 @@ function psg
     ps aux | grep $arg | grep -v "grep $arg"
 end
 
-function _install_nvm
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
-end
-
 function update-home-bin
     fisher up
     _install_nvm
@@ -94,8 +90,22 @@ function n
     notify-send -u low -t 3 "Command Finished!"
 end
 
-function archpkg
+##################
+# fzf functions
+function fzf_yaourt
     yaourt -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1
+end
+
+function fzf_ps
+    ps u | head -n 1
+    set arg $argv[1]
+    psg $arg | fzf +m --reverse
+end
+
+##################
+# setup functions
+function _install_nvm
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 end
 
 function _setup_fishenv
