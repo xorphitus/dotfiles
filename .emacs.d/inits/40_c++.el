@@ -35,3 +35,10 @@
   (progn
     (add-c-hooks 'google-set-c-style)
     (add-c-hooks 'google-make-newline-indent)))
+
+;; GDB
+(setq gdb-many-windows t)
+;; show value of variable when mouse cursor on
+(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+;; show I/O buffer
+(setq gdb-use-separate-io-buffer t)
