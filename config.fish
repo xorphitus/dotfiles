@@ -109,8 +109,15 @@ function _install_nvm
 end
 
 function _setup_fishenv
-    # OS packages
-    yaourt -S fzf direnv rbenv ruby-build
+    switch (uname)
+        case Linux
+            yaourt -S    fzf direnv rbenv ruby-build source-highlight ghq go
+        case Darwin
+            brew install fzf direnv rbenv ruby-build source-highlight ghq go
+    end
+
+    # emacs cask
+    curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
     # nvm
     _install_nvm
