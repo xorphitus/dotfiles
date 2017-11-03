@@ -36,16 +36,16 @@ set -x NODE_VERSION v4.3.2
 
 ###########################################################
 # Go
-set -x GOPATH $HOME/go
-set -x PATH $GOPATH/bin $PATH
+
+###########################################################
+# Common Lisp
+alias sbcl='rlwrap sbcl'
 
 ###########################################################
 # less
 set -x PAGER 'less'
 set -x LESS '-iMR --LONG-PROMPT'
 
-## source-hightlight
-#  yaourt -S souce-highlight
 set hiliter (which src-hilite-lesspipe.sh)
 set -x LESSOPEN "| $hiliter %s"
 
@@ -111,9 +111,9 @@ end
 function _setup_fishenv
     switch (uname)
         case Linux
-            yaourt -S    fzf direnv rbenv ruby-build source-highlight ghq go
+            yaourt -S    fzf direnv rbenv ruby-build source-highlight ghq go rlwrap sbcl
         case Darwin
-            brew install fzf direnv rbenv ruby-build source-highlight ghq go
+            brew install fzf direnv rbenv ruby-build source-highlight ghq go rlwrap sbcl
     end
 
     # emacs cask
