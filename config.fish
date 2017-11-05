@@ -18,6 +18,17 @@ set -x FZF_TMUX 1
 set -x FZF_TMUX_HEIGHT 50%
 
 ###########################################################
+# GNU Global (Gtags)
+switch (uname)
+    case Linux
+        set -x GTAGSCONF /usr/share/gtags/gtags.conf
+    case Darwin
+        # undefined
+end
+# require python pygments
+set -x GTAGSLABEL pygments
+
+###########################################################
 # Erlang
 set -x ERLANG_HOME /usr/lib/erlang
 
@@ -109,11 +120,12 @@ function _install_nvm
 end
 
 function _setup_fishenv
+    set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global'
     switch (uname)
         case Linux
-            yaourt -S    fzf direnv rbenv ruby-build source-highlight ghq go rlwrap sbcl
+            yaourt -S    $packages python-pygments
         case Darwin
-            brew install fzf direnv rbenv ruby-build source-highlight ghq go rlwrap sbcl
+            brew install $packages
     end
 
     # emacs cask
