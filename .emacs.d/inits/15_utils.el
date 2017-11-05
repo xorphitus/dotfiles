@@ -122,12 +122,6 @@
   :commands shell-pop
   :bind (([f8] . shell-pop)))
 
-;; projectile
-(use-package projectile
-  :commands projectile
-  :config
-  (projectile-global-mode))
-
 ;; multiple-cursors and enhancers
 (use-package multiple-cursors
   :bind (([C-M-return] . mc/edit-lines)))
@@ -175,8 +169,3 @@
   (progn
     (setq elscreen-tab-display-kill-screen nil)
     (elscreen-start)))
-
-;; dumb-jump
-(use-package dumb-jump
-  :config
-  (dumb-jump-mode))

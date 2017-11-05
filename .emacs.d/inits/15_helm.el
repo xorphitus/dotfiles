@@ -38,6 +38,3 @@
   :commands helm-ag
   :bind (("M-g ." . helm-ag)
          ("M-g ," . helm-ag-pop-stack)))
-
-;; helm-projectile
-(bind-key "C-c p h" 'helm-projectile)
