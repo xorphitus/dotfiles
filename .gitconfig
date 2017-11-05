@@ -5,6 +5,7 @@
 [core]
         pager = less -r
         editor = emacsclient
+        excludesfile = ~/.gitignore_global
 [color]
         ui = auto
 [push]
