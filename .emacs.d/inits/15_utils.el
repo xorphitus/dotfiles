@@ -163,9 +163,9 @@
 ;; visual-regexp-steroids
 (use-package visual-regexp-steroids)
 
-;; elscren
-(use-package elscreen
+;; perspeen
+(use-package perspeen
+  :init
+  (setq perspeen-use-tab t)
   :config
-  (progn
-    (setq elscreen-tab-display-kill-screen nil)
-    (elscreen-start)))
+  (perspeen-mode))
