@@ -23,6 +23,8 @@
 
 ;; helm
 (use-package helm-gtags
+  :bind (("M-t" . helm-gtags-find-tag)
+         ("M-," . helm-gtags-pop-stack))
   :config
   (progn
     ;; hooks
@@ -38,3 +40,4 @@
      '(helm-gtags-path-style 'relative)
      '(helm-gtags-ignore-case t)
      '(helm-gtags-auto-update t))))
+

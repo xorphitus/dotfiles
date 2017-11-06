@@ -130,8 +130,8 @@
 ;; rotate the window layout
 (use-package rotate
   :commands rotate
-  :bind (("C-t" . rotate-layout)
-         ("M-t" . rotate-window)))
+  :bind (("C-S-t l" . rotate-layout)
+         ("C-S-t w" . rotate-window)))
 
 ;; highlight indentation
 (use-package highlight-indentation
