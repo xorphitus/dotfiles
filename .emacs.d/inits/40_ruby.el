@@ -42,6 +42,7 @@
 
 ;; ruby-electric
 (use-package ruby-electric
+  :diminish ruby-electric-mode
   :config
   (progn
     (add-hook 'ruby-mode-hook

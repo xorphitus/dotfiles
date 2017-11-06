@@ -111,6 +111,7 @@
 ;; show an icon indicating whether a line has been changed
 ;; from last commit
 (use-package git-gutter-fringe
+  :diminish git-gutter-mode
   :config
   (progn
     (global-git-gutter-mode)
