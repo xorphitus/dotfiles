@@ -38,6 +38,7 @@
 
 ;; undo-tree.el
 (use-package undo-tree
+  :diminish undo-tree-mode
   :config
   (global-undo-tree-mode))
 
@@ -141,10 +142,14 @@
                          ("*" . 'mc/mark-all-like-this))))
 
 ;; anzu
-(global-anzu-mode +1)
+(use-package anzu
+  :diminish anzu-mode
+  :config (global-anzu-mode +1))
 
 ;; ace-isearch
-(global-ace-isearch-mode 1)
+(use-package ace-isearch
+  :diminish ace-isearch-mode
+  :config (global-ace-isearch-mode 1))
 
 ;; ace-window
 ;; w/ http://d.hatena.ne.jp/rubikitch/20100210/emacs

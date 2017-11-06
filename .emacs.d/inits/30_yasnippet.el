@@ -9,6 +9,7 @@
 ;;; Code:
 
 (use-package yasnippet
+  :diminish yas-minor-mode
   :config
   (progn
     (yas-global-mode 1)
