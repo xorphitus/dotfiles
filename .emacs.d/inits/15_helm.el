@@ -18,8 +18,6 @@
     :init
     (progn
       (helm-mode 1)
-      ;; disable helm-find-file
-      (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
       ;; http://www49.atwiki.jp/ntemacs/pages/32.html
       ;; helm-for-files can be very heavy
       ;; it's caused by helm-source-files-in-current-dir when using 'tramp'
@@ -30,8 +28,6 @@
               helm-source-file-cache
               ;; helm-source-files-in-current-dir
               helm-source-locate))
-      ;; let C-h backspace in helm
-      (bind-key "C-h" 'delete-backward-char helm-map)
       ;; enable helm + migemo
       (use-package migemo
         :config (helm-migemo-mode 1)))))
