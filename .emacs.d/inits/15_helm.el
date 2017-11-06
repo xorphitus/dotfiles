@@ -7,7 +7,7 @@
 ;; This file has helm settings.
 
 ;;; Code:
-(use-package helm-comfig
+(use-package helm-config
   :bind (("C-c h" . helm-for-files)
          ("M-x"   . helm-M-x)
          ("C-x b" . helm-buffers-list)
