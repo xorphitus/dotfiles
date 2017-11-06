@@ -165,7 +165,5 @@
 
 ;; perspeen
 (use-package perspeen
-  :init
-  (setq perspeen-use-tab t)
   :config
   (perspeen-mode))
