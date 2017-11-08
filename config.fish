@@ -98,7 +98,12 @@ end
 function n
     # ntfy command might be better
     # https://github.com/dschep/ntfy
-    notify-send -u low -t 3 "Command Finished!"
+    switch (uname)
+        case Linux
+            notify-send -u low -t 3 "Command Finished!"
+        case Darwin
+            terminal-notifier -message "Command Finished!"
+    end
 end
 
 ##################
@@ -125,7 +130,7 @@ function _setup_fishenv
         case Linux
             yaourt -S    $packages python-pygments
         case Darwin
-            brew install $packages
+            brew install $packages terminal-notifier
     end
 
     # emacs cask
