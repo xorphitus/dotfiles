@@ -88,3 +88,6 @@
          "google-chrome-stable"
          "google-chrome-beta"
          "firefox")))
+
+;; disable beep sound flash
+(setq ring-bell-function 'ignore)
