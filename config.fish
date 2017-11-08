@@ -29,6 +29,13 @@ end
 set -x GTAGSLABEL pygments
 
 ###########################################################
+# Git
+switch (uname)
+    case Darwin
+        set -x PATH /usr/local/share/git-core/contrib/diff-highlight $PATH
+end
+
+###########################################################
 # Erlang
 set -x ERLANG_HOME /usr/lib/erlang
 
