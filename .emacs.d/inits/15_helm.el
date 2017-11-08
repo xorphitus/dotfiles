@@ -28,6 +28,8 @@
               helm-source-file-cache
               ;; helm-source-files-in-current-dir
               helm-source-locate))
+      ;; let C-h backspace in helm
+      (bind-key "C-h" 'delete-backward-char helm-map)
       ;; enable helm + migemo
       (use-package migemo
         :config (helm-migemo-mode 1)))))
