@@ -83,6 +83,16 @@ function psg
     ps aux | grep $arg | grep -v "grep $arg"
 end
 
+function railsnew
+    set prj $argv[1]
+    mkdir $prj
+    cd $prj
+    bundle init
+    echo "gem 'rails'" >> Gemfile
+    bundle install --path vendor/bundle
+    bundle exec rails new .
+end
+
 function update-home-bin
     fisher up
     _install_nvm
