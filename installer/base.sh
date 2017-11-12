@@ -5,10 +5,12 @@
 . ./lib.sh
 
 if [ $OS == 'Mac' ]; then
+    # FIXME
     which brew
     echo 'install homebrew!'
     exit 1
 else
+    # FIXME
     which yaourt
     echo 'install yaourt!'
     exit 1
@@ -35,7 +37,7 @@ install git
 if [ $OS == 'Mac' ]; then
     install ricty
 else
-    install ttf-ricty
+    aur ttf-ricty
 fi
 
 ### find -> fd
@@ -100,9 +102,46 @@ install erlang
 if [ $OS == 'Linux' ]; then
     install openssl
     install alsa-utils
-fi
+    install lsof
+    install unzip
+    # media ripper
+    install abcde
+    aur dropbox-cli
 
-if [ $OS == 'Mac' ]; then
+    ## GUI tools
+    install xorg-xmodmap
+    install terminator
+    install gpicview # image viewer
+    install libreoffice-base
+    install libreoffice-calc
+    install libreoffice-common
+    install libreoffice-draw
+    install libreoffice-gnome
+    install libreoffice-impress
+    install libreoffice-math
+    install libreoffice-writer
+    install libreoffice-ja
+    install gimp
+    install skype
+    install flashplugin
+    install firefox-i18n-ja
+    aur google-chrome
+    install dunst
+    install compton
+    install nitrogen
+
+    ## xmonad
+    install xmonad
+    install xmonad-contrib
+    install xmobar
+
+    # middleware
+    install virtualbox
+    install vagrant
+    install docker
+    # for Wine
+    aur lib32-mesa-full-i965
+else
     echo "###############"
     echo "install GUI tools shown below"
     echo "  * Google Chrome"
