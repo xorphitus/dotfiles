@@ -90,7 +90,8 @@ function railsnew
     bundle init
     echo "gem 'rails'" >> Gemfile
     bundle install --path vendor/bundle
-    bundle exec rails new .
+    yes | bundle exec rails new .
+    echo '/vendor/bundle' >> .gitignore
 end
 
 function update-home-bin

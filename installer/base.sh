@@ -20,6 +20,7 @@ fi
 if [ $OS == 'Mac' ]; then
     xcode-select --install
     install iproute2mac
+    install telnet
 fi
 
 ### shell
