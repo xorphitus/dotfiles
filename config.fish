@@ -141,6 +141,11 @@ function fzf_z
     cd $dir
 end
 
+function fzf_ssh
+    set server (grep 'Host ' ~/.ssh/config | fgrep -v '*' | awk '{print $2}' | sort | fzf +m --reverse)
+    ssh $server
+end
+
 ##################
 # setup functions
 function _install_nvm
