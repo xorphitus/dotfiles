@@ -13,9 +13,19 @@
          ("C-x C-j" . skk-mode))
   :config
   (progn
+    ;; enable AZIK
+    (setq skk-use-azik t)
     ;; disable skk-isearch for migemo
     (setq skk-isearch-mode-enable nil)
     (setq skk-search-start-mode 'latin)
+    ;; candidates position
+    (setq skk-show-tooltip t)
+    ;; dynamic completion
+    ;;   てん -> てんさい, てんしょく、てんかん
+    (setq skk-dcomp-activate t)
+    (setq skk-dcomp-multiple-activate t)
+    (setq skk-dcomp-multiple-rows 10)
+    ;; dictionary
     (let ((my-skk-jisyo-root "/usr/share/skk"))
       (setq skk-large-jisyo (concat my-skk-jisyo-root "/SKK-JISYO.L"))
       (setq skk-extra-jisyo-file-list
