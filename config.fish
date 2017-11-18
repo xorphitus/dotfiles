@@ -36,6 +36,15 @@ switch (uname)
 end
 
 ###########################################################
+# SKK
+switch (uname)
+    case Linux
+        set -x SKK_DICT_PATH /usr/share/skk
+    case Darwin
+        set -x SKK_DICT_PATH ~/skk
+end
+
+###########################################################
 # Erlang
 set -x ERLANG_HOME /usr/lib/erlang
 
@@ -108,6 +117,29 @@ function update-home-bin
             echo $target is not version controled
         end
     end
+end
+
+function update-skk-dict
+    set tmppath /tmp/skk-dict
+    mkdir -p $tmppath
+    cd $tmppath
+
+    wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz
+    wget http://openlab.jp/skk/dic/SKK-JISYO.geo.gz
+    wget http://openlab.jp/skk/dic/SKK-JISYO.jinmei.gz
+    wget http://openlab.jp/skk/dic/SKK-JISYO.propernoun.gz
+    wget http://openlab.jp/skk/dic/SKK-JISYO.station.gz
+    gunzip ./*.gz
+
+    switch (uname)
+        case Linux
+            sudo mv ./SKK-JISYO* $SKK_DICT_PATH
+        case Darwin
+            mv ./SKK-JISYO* $SKK_DICT_PATH
+    end
+
+    cd -
+    rm -rf $tmppath
 end
 
 # Notify when a command is finished
