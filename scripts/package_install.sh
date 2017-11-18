@@ -82,6 +82,7 @@ if [ $OS == 'Mac' ]; then
     install ricty
 else
     aur ttf-ricty
+    install ttf-symbola
 fi
 
 ### find -> fd
