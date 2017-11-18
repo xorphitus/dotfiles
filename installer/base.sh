@@ -5,15 +5,20 @@
 . ./lib.sh
 
 if [ $OS == 'Mac' ]; then
-    # FIXME
-    which brew
-    echo 'install homebrew!'
-    exit 1
+    if type brew > /dev/null 2>&1; then
+        echo 'brew is found'
+        exit 0
+    else
+        echo 'Error: You have to install homebrew!'
+        exit 1
+    fi
 else
-    # FIXME
-    which yaourt
-    echo 'install yaourt!'
-    exit 1
+    if type yaourt > /dev/null 2>&1; then
+        echo 'yaourt is found'
+    else
+        echo 'Error: You have to install yaourt!'
+        exit 1
+    fi
 fi
 
 ### enable gcc and other cli tools
