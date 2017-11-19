@@ -4,11 +4,11 @@
 #
 # Executed by startx (run your window manager from here)
 
-# start fcitx
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS="@im=fcitx"
-fcitx &
+# start ibus
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+ibus-daemon -drx
 
 # apply .Xmodmap
 xmodmap ~/.Xmodmap

@@ -154,6 +154,7 @@ if [ $OS == 'Linux' ]; then
     aur dropbox-cli
 
     ## GUI tools
+    install ibus-mozc
     install xorg-xmodmap
     install terminator
     install gpicview # image viewer

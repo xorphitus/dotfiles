@@ -13,7 +13,8 @@ import XMonad.Util.EZConfig -- additionalKeys
 myLayout = gaps[(U, 24), (R, 0)] $ Full ||| Tall 1 (3/100) (1/2)
 
 myManageHookFloat = composeAll [
-      className =? "Gimp" --> doFloat
+      className =? "Gimp" --> doFloat,
+      title     =? "絵文字の選択" --> doFloat
   ]
 
 main = do
