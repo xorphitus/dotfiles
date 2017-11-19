@@ -26,7 +26,6 @@
 
 ;; clj-refactor
 (use-package clj-refactor
-  :diminish clj-refactor-mode
   :config
   (progn
     (clj-refactor-mode 1)

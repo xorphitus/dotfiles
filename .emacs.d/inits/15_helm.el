@@ -32,6 +32,7 @@
       (bind-key "C-h" 'delete-backward-char helm-map)
       ;; enable helm + migemo
       (use-package migemo
+        :diminish (helm-migemo-mode . "🅗🅜")
         :config (helm-migemo-mode 1)))))
 
 ;; helm-ag

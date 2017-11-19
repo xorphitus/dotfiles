@@ -18,6 +18,7 @@
 
 ;; comapny
 (use-package company
+  :diminish (company-mode . "🅒")
   :config
   (global-company-mode)
   (progn
@@ -38,7 +39,7 @@
 
 ;; undo-tree.el
 (use-package undo-tree
-  :diminish undo-tree-mode
+  :diminish (undo-tree-mode . "🅤")
   :config
   (global-undo-tree-mode))
 
@@ -143,8 +144,10 @@
 
 ;; anzu
 (use-package anzu
-  :diminish anzu-mode
-  :config (global-anzu-mode +1))
+  :diminish (anzu-mode . "🅐")
+  :config
+  (global-anzu-mode +1)
+  (setq anzu-cons-mode-line-p nil))
 
 ;; ace-isearch
 (use-package ace-isearch

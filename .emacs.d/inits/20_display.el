@@ -57,6 +57,7 @@
 
 ;; show spaces
 (use-package whitespace
+  :diminish (global-whitespace-mode . "🅦")
   :commands whitespace
   :init
   (progn
@@ -118,6 +119,7 @@
 
 ;; volatile-highlights
 (use-package volatile-highlights
+  :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
 
