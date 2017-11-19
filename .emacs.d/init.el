@@ -11,6 +11,12 @@
 ;; gc max memory (128MB)
 (setq gc-cons-threshold 134217728)
 
+;; hide basic gui widgets first
+;; I don't want to show them in initialing
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(set-scroll-bar-mode nil)
+
 ;; set load path
 (let ((default-directory "~/.emacs.d/elisp/"))
   (setq load-path (cons default-directory load-path))

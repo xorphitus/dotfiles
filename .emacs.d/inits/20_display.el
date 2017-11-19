@@ -21,9 +21,6 @@
 ;; erase scrach buffer message
 (setq initial-scratch-message "")
 
-;; hide menu bar
-(menu-bar-mode -1)
-
 ;; high light paren
 (show-paren-mode 1)
 ;; high light inner text of paren when over window
@@ -38,19 +35,13 @@
 
 ;;; GUI settings
 
+;; hide menu bar, tool bar and scroll bar
+;; -> see .emacs.d/init.el
+
 ;; windmove
 ;; Shift + Arrow keys
 ;; http://d.hatena.ne.jp/tomoya/20120512/1336832436
 (windmove-default-keybindings)
-
-;; hide scroll bar
-(set-scroll-bar-mode nil)
-
-;; hide menu bar
-(menu-bar-mode -1)
-
-;; hide toolbar
-(tool-bar-mode -1)
 
 ;; font
 (set-frame-font "ricty-12")
