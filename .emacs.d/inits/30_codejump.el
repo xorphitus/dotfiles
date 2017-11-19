@@ -8,14 +8,6 @@
 
 ;;; Code:
 
-;; projectile
-(use-package projectile
-  :commands projectile
-  ;; helm-projectile
-  :bind (("C-c p h" . helm-projectile))
-  :config
-  (projectile-global-mode))
-
 ;; dumb-jump
 (use-package dumb-jump
   :config

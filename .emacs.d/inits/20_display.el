@@ -8,8 +8,12 @@
 
 ;;; Code:
 
-;; common variables
-(defvar base-bgcolor "#000000")
+;; basic theme settings
+(use-package spacemacs-theme
+  :init
+  (custom-set-variables '(spacemacs-theme-custom-colors
+                          '((base . "#dddddd"))))
+  (load-theme 'spacemacs-dark t))
 
 ;; skip startup screen
 (setq inhibit-startup-screen t)
@@ -26,16 +30,6 @@
 (setq show-paren-style 'mixed)
 
 ;; high light current line
-(defface hlline-face
-  '((((class color)
-      (background dark))
-     (:background "dark slate gray"))
-    (((class color)
-      (background light))
-     (:background "Black"))
-    (t
-     ()))
-  "*Face used by hl-line.")
 (setq hl-line-face 'underline)
 (global-hl-line-mode)
 
@@ -64,18 +58,10 @@
 ;; set color, window size
 (if window-system
     (progn
-      ;; color
-      (set-background-color base-bgcolor)
-      (set-foreground-color "White")
-      (set-cursor-color "LightGray")
-      (set-frame-parameter nil 'alpha 90)
-      ;; window size
-      ;;(set-frame-parameter nil 'fullscreen 'fullboth)
-      ))
+      (set-frame-parameter nil 'alpha 95)))
 
 ;; line number
 (global-linum-mode 1)
-(set-face-attribute 'linum nil :foreground "#f00" :height 0.9)
 (setq linum-format "%4d.")
 
 ;; show spaces
@@ -96,16 +82,13 @@
     (setq whitespace-space-regexp "\\(\x3000+\\)") ; zenkaku space
     (global-whitespace-mode t)
     (set-face-attribute 'whitespace-trailing nil
-                        :foreground "DeepPink"
-                        :background base-bgcolor
+                        :background (face-attribute 'error :background)
                         :underline t)
     (set-face-attribute 'whitespace-tab nil
                         :foreground "LightSkyBlue"
-                        :background base-bgcolor
                         :underline t)
     (set-face-attribute 'whitespace-space nil
                         :foreground "GreenYellow"
-                        :background base-bgcolor
                         :weight 'bold)))
 
 ;; show an icon indicating whether a line has been changed

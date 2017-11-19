@@ -167,8 +167,3 @@
 
 ;; visual-regexp-steroids
 (use-package visual-regexp-steroids)
-
-;; perspeen
-(use-package perspeen
-  :config
-  (perspeen-mode))
