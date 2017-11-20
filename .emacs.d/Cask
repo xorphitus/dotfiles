@@ -11,6 +11,9 @@
 (depends-on "init-loader")
 (depends-on "use-package")
 
+;; lisp
+(depends-on "parinfer")
+
 ;; clojure
 (depends-on "cider")
 (depends-on "clj-refactor")
@@ -118,7 +121,6 @@
 (depends-on "quickrun")
 (depends-on "rotate")
 (depends-on "shell-pop")
-(depends-on "smartparens")
 (depends-on "smartrep")
 (depends-on "undo-tree")
 (depends-on "visual-regexp-steroids")
