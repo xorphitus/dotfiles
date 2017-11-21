@@ -22,3 +22,7 @@
     (add-hook 'common-lisp-mode-hook #'parinfer-mode)
     (add-hook 'scheme-mode-hook #'parinfer-mode)
     (add-hook 'lisp-mode-hook #'parinfer-mode)))
+
+;; modify parinfer mode-line text
+(defvar parinfer-lighters
+  '("←λ→" . "（λ）"))

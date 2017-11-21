@@ -88,6 +88,7 @@
 
 ;; flycheck
 (use-package flycheck
+  :diminish (flycheck-mode . "⚠")
   :config
   (progn
     (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -96,6 +97,8 @@
               '(lambda (errors)
                  (-when-let (messages (-keep #'flycheck-error-message errors))
                    (popup-tip (s-join "\n\n" messages))))))))
+;; modify flycheck indication of spaceline
+(defvar spaceline-flycheck-bullet "⚠%s")
 
 ;; junk file
 (use-package open-junk-file
