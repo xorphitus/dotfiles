@@ -79,7 +79,7 @@ install git
 
 ### font
 if [ $OS == 'Mac' ]; then
-    install ricty
+    install ricty --with-powerline
 else
     aur ttf-ricty
     install ttf-symbola
