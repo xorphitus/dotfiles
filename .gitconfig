@@ -1,27 +1,27 @@
 [user]
-        email = xorphitus@gmail.com
-        name = xorphitus
+	email = xorphitus@gmail.com
+	name = xorphitus
 
 [core]
-        pager = less -r
-        editor = emacsclient
-        excludesfile = ~/.gitignore_global
+	pager = less -r
+	editor = emacsclient
+	excludesfile = /Users/matsushita_tomoyuki/.gitignore_global
 [color]
-        ui = auto
+	ui = auto
 [push]
-        default = tracking
+	default = tracking
 [merge]
-        ff = false
+	ff = false
 [branch]
-        autosetuprebase = always
+	autosetuprebase = always
 [pull]
-        rebase = true
+	rebase = true
 [alias]
-        s = status
-        b = branch
-        d = diff
-        cho = checkout
+	s = status
+	b = branch
+	d = diff
+	cho = checkout
 [pager]
-        log = diff-highlight | less
-        show = diff-highlight | less
-        diff = diff-highlight | less
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
