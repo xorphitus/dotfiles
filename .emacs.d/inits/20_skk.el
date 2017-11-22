@@ -8,6 +8,9 @@
 
 ;;; Code:
 
+(defcustom my-skk-jisyo-root "/usr/share/skk"
+  "SKK dictionary path. Override it for each platform")
+
 (use-package skk
   :bind (("C-o"     . skk-mode)
          ("C-x C-j" . skk-mode))
@@ -37,11 +40,10 @@
     (set-face-foreground 'skk-dcomp-multiple-selected-face (face-attribute 'popup-tip-face :foreground))
     (set-face-background 'skk-dcomp-multiple-selected-face (face-attribute 'popup-tip-face :background))
     ;; dictionary
-    (let ((my-skk-jisyo-root "/usr/share/skk"))
-      (setq skk-large-jisyo (concat my-skk-jisyo-root "/SKK-JISYO.L"))
-      (setq skk-extra-jisyo-file-list
-            (--map (concat my-skk-jisyo-root it)
-                   '("/SKK-JISYO.geo"
-                     "/SKK-JISYO.jinmei"
-                     "/SKK-JISYO.propernoun"
-                     "/SKK-JISYO.station"))))))
+    (setq skk-large-jisyo (concat my-skk-jisyo-root "/SKK-JISYO.L"))
+    (setq skk-extra-jisyo-file-list
+          (--map (concat my-skk-jisyo-root it)
+                 '("/SKK-JISYO.geo"
+                   "/SKK-JISYO.jinmei"
+                   "/SKK-JISYO.propernoun"
+                   "/SKK-JISYO.station")))))
