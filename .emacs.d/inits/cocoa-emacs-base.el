@@ -12,3 +12,7 @@
 (set-fontset-font "fontset-default" 'japanese-jisx0208 '("Ricty"))
 
 (custom-set-variables '(my-skk-jisyo-root "~/skk"))
+
+;; beautify powerline
+;; https://github.com/milkypostman/powerline/issues/54
+(setq ns-use-srgb-colorspace nil)
