@@ -181,6 +181,18 @@ function es
     tmux capture-pane -S -10000\; show-buffer | e
 end
 
+# open new terminal window
+# it should be used in Emacs M-!
+# to associate Emacs with shell
+function t
+    switch (uname)
+        case Linux
+            terminator -x tmux
+        case Darwin
+            open -a Terminal (pwd)
+    end
+end
+
 ##################
 # fzf functions
 function fzf_yaourt
