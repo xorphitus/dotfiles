@@ -81,7 +81,6 @@ set -x LESSOPEN "| $hiliter %s"
 # alias google-chrome='google-chrome-stable -allow-file-access-from-files'
 alias ack='ag'
 alias l='ls'
-alias e='emacsclient'
 alias be='bundle exec'
 
 ###########################################################
@@ -154,6 +153,32 @@ function n
         case Darwin
             terminal-notifier -message "Command Finished!"
     end
+end
+
+# Extended EmacsClient
+# * with arguments: normal emacsclient
+# * without arguments: Piping stdout to an Emacs buffer using emacsclient
+#   * e.g. `$ echo foo | e`
+#
+# https://www.emacswiki.org/emacs/EmacsClient#toc45
+# http://d.hatena.ne.jp/kitokitoki/20111225/p4
+function e
+    switch (count $argv)
+        case 0
+            set tmp (mktemp /tmp/emacsstdinXXXXXX)
+            set elisp "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"$tmp\") (delete-file \"$tmp\"))"
+            cat > $tmp
+            if not emacsclient -a /usr/bin/false -e $elisp > /dev/null 2>&1
+                emacs -e $elisp &
+            end
+        case '*'
+            emacsclient -a emacs -n $argv > /dev/null 2>&1 &
+    end
+end
+
+# dislplay shell buffer in Emacs
+function es
+    tmux capture-pane -S -10000\; show-buffer | e
 end
 
 ##################
