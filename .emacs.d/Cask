@@ -115,6 +115,7 @@
 (depends-on "migemo")
 (depends-on "multiple-cursors")
 (depends-on "open-junk-file")
+(depends-on "org-tree-slide")
 (depends-on "perspeen")
 (depends-on "popup")
 (depends-on "protobuf-mode")

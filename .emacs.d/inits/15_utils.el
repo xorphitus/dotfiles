@@ -127,6 +127,11 @@
   :commands shell-pop
   :bind (([f8] . shell-pop)))
 
+;; org-tree-slide
+(use-package org-tree-slide
+  :bind (([f9]       . org-tree-slide-mode)
+         ([shift f9] . org-tree-slide-skip-done-toggle)))
+
 ;; multiple-cursors and enhancers
 (use-package multiple-cursors
   :bind (([C-M-return] . mc/edit-lines)))
