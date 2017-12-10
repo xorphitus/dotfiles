@@ -130,7 +130,10 @@
 ;; org-tree-slide
 (use-package org-tree-slide
   :bind (([f9]       . org-tree-slide-mode)
-         ([shift f9] . org-tree-slide-skip-done-toggle)))
+         ([shift f9] . org-tree-slide-skip-done-toggle))
+  :config
+  (setq org-startup-with-inline-images t)
+  (setq org-image-actual-width nil))
 
 ;; multiple-cursors and enhancers
 (use-package multiple-cursors
