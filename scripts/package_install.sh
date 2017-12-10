@@ -149,6 +149,7 @@ if [ $OS == 'Linux' ]; then
     install alsa-utils
     install lsof
     install unzip
+    install mariadb-clients
     # media ripper
     install abcde
     aur dropbox-cli
