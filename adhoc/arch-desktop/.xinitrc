@@ -4,6 +4,8 @@
 #
 # Executed by startx (run your window manager from here)
 
+export LANG=ja_JP.UTF-8
+
 # start ibus
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
@@ -26,12 +28,12 @@ terminator -mb -e tmux &
 # replace to ~/.config/dunst/dunstrc by using /usr/share/dunst/dunstrc
 dunst -lb 333333 -nb 000000 -hb 990000 &
 dropbox &
-skype &
 # https://github.com/linuxmint/blueberry/blob/master/usr/lib/blueberry/blueberry.py#L30
 XDG_CURRENT_DESKTOP=LXDE blueberry-tray &
 
 # start window manager
 exec xmonad
 
-# turn off screen saver
-#xset s off
+# uncomment this line
+# when Xmonad has something wrong
+# exec icewm-session
