@@ -7,10 +7,11 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout
+import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Util.EZConfig -- additionalKeys
 
-myLayout = gaps[(U, 24), (R, 0)] $ Full ||| Tall 1 (3/100) (1/2)
+myLayout = spacing 5 $ gaps[(U, 24 + 5), (D, 5), (L, 5), (R, 5)] $ Full ||| Tall 1 (3/100) (1/2)
 
 myManageHookFloat = composeAll [
       className =? "Gimp" --> doFloat,
@@ -28,7 +29,7 @@ main = do
                         }
         , terminal    = "terminator -x tmux"
         , modMask     = mod4Mask
-        , borderWidth = 1
+        , borderWidth = 2
         , startupHook = setWMName "LG3D"
         }
         `additionalKeys`
