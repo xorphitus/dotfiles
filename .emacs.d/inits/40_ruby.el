@@ -57,9 +57,9 @@
       (end-of-line))))
 
 ;; xmpfilter
-(use-package rcodetools
-  :init
-  (bind-key "C-c C-d" 'xmp ruby-mode-map))
+;; (use-package rcodetools
+;;   :init
+;;   (bind-key "C-c C-d" 'xmp ruby-mode-map))
 
 ;; inf-ruby
 (use-package inf-ruby
