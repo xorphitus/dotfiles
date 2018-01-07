@@ -175,7 +175,9 @@
   (interactive)
   (when (one-window-p)
     (split-window-horizontally))
-  (ace-window 1))
+  (if (> (length (window-list)) 3)
+      (ace-window 1)
+      (other-window 1)))
 
 (use-package ace-window
   :config
