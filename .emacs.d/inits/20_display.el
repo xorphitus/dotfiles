@@ -10,6 +10,8 @@
 
 ;; basic theme settings
 (use-package spacemacs-theme
+  ;; https://github.com/nashamri/spacemacs-theme/issues/42
+  :defer t
   :init
   (custom-set-variables '(spacemacs-theme-custom-colors
                           '((base . "#dddddd"))))
