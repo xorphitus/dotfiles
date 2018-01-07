@@ -185,3 +185,10 @@
 
 ;; visual-regexp-steroids
 (use-package visual-regexp-steroids)
+
+;; electric-pair-mode
+(electric-pair-mode t)
+
+(use-package wrap-region
+  :config
+  (wrap-region-mode t))
