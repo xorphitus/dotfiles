@@ -125,7 +125,11 @@
 ;; shell-pop.el
 (use-package shell-pop
   :commands shell-pop
-  :bind (([f8] . shell-pop)))
+  :bind (([f7] . shell-pop)))
+
+;; neotree
+(use-package neotree
+  :bind (([f8] . neotree-toggle)))
 
 ;; org-tree-slide
 (use-package org-tree-slide

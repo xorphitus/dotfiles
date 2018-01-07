@@ -114,6 +114,7 @@
 (depends-on "ido-vertical-mode")
 (depends-on "migemo")
 (depends-on "multiple-cursors")
+(depends-on "neotree")
 (depends-on "open-junk-file")
 (depends-on "org-tree-slide")
 (depends-on "perspeen")
