@@ -10,6 +10,7 @@ inits/*_local.el*
 inits/*.elc
 image-dired
 jabber-history
+projectile.cache
 projectile-bookmarks.eld
 wget-log*
 .cask
