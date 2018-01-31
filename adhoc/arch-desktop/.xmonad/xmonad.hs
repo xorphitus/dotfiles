@@ -7,15 +7,17 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout
+import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Util.EZConfig -- additionalKeys
 
-myLayout = spacing 5 $ gaps[(U, 24 + 5), (D, 5), (L, 5), (R, 5)] $ Full ||| Tall 1 (3/100) (1/2)
+myLayout = spacing 5 $ gaps[(U, 24 + 5), (D, 5), (L, 5), (R, 5)] $ ThreeColMid 1 (3/100) (1/2) |||  Full ||| Tall 1 (3/100) (1/2)
 
 myManageHookFloat = composeAll [
       className =? "Gimp" --> doFloat,
-      title     =? "絵文字の選択" --> doFloat
+      title     =? "絵文字の選択" --> doFloat,
+      title     =? "Authy" --> doFloat
   ]
 
 main = do
