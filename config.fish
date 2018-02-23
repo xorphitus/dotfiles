@@ -87,6 +87,7 @@ alias ls='exa'
 alias ack='ag'
 alias l='ls'
 alias be='bundle exec'
+alias diff2='diff -ybBw'
 
 ###########################################################
 # functions
@@ -227,7 +228,7 @@ function _install_nvm
 end
 
 function _setup_fishenv
-    set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global'
+    set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'exa'
     switch (uname)
         case Linux
             yaourt -S    $packages python-pygments
