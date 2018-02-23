@@ -69,6 +69,10 @@ set -x NODE_VERSION v6.10.3
 alias sbcl='rlwrap sbcl'
 
 ###########################################################
+# Python
+. (pyenv init - | psub)
+
+###########################################################
 # less
 set -x PAGER 'less'
 set -x LESS '-iMR --LONG-PROMPT'
@@ -79,6 +83,7 @@ set -x LESSOPEN "| $hiliter %s"
 ###########################################################
 # aliases
 # alias google-chrome='google-chrome-stable -allow-file-access-from-files'
+alias ls='exa'
 alias ack='ag'
 alias l='ls'
 alias be='bundle exec'
