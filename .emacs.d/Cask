@@ -83,6 +83,7 @@
 (depends-on "git-timemachine")
 
 ;; look and feel
+(depends-on "diminish")
 (depends-on "spacemacs-theme")
 (depends-on "spaceline")
 
