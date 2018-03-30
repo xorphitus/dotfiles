@@ -8,8 +8,10 @@
 
 ;;; Code:
 
-(set-face-attribute 'default nil :family "Ricty" :height 130)
-(set-fontset-font "fontset-default" 'japanese-jisx0208 '("Ricty"))
+;; (set-face-attribute 'default nil :family "Ricty" :height 130)
+;; (set-fontset-font "fontset-default" 'japanese-jisx0208 '("Ricty"))
+
+(set-frame-font "ricty-14")
 
 (custom-set-variables '(my-skk-jisyo-root "~/skk"))
 
