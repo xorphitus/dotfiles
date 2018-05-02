@@ -112,7 +112,7 @@ function update-home-bin
     fisher up
     _install_nvm
 
-    set targets '.rbenv' 'opt/clojurescript'
+    set targets '.rbenv'
     for target in $targets
         cd $HOME/$target
         if test -d .git
@@ -246,7 +246,7 @@ function _setup_fishenv
     curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 
     # plugins
-    fisher z fzf decors/fish-ghq rbenv nvm
+    fisher z fzf masa0x80/ghq_cd_keybind.fish rbenv nvm
 
     # theme
     fisher install omf/theme-eden
@@ -255,3 +255,4 @@ function _setup_fishenv
     rbenv install $RUBY_VERSION
     nvm install $NODE_VERSION
 end
+
