@@ -22,7 +22,12 @@
     ;; from appearing in some buffer switching commands like 'C-x b'
     (setq nrepl-hide-special-buffers t)
     ;; The REPL buffer name  will look like cider project-name:port
-    (setq nrepl-buffer-name-show-port t)))
+    (setq nrepl-buffer-name-show-port t)
+    ;; Enable CIDER and figwheel interaction
+    (setq cider-cljs-lein-repl
+          "(do (require 'figwheel-sidecar.repl-api)
+               (figwheel-sidecar.repl-api/start-figwheel!)
+               (figwheel-sidecar.repl-api/cljs-repl))")))
 
 ;; clj-refactor
 (use-package clj-refactor
