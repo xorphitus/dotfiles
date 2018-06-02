@@ -95,14 +95,15 @@
     (setq git-gutter-fr:side 'right-fringe)))
 
 ;; rainbow-delimiters
-(use-package rainbow-delimiters
-  :config
-  ;; color settings
-  (use-package color
-    :config
-    (--each (number-sequence 1 rainbow-delimiters-max-face-count)
-      (let ((face (intern (format "rainbow-delimiters-depth-%d-face" it))))
-        (callf color-saturate-name (face-foreground face) 90)))))
+(use-package rainbow-delimiters)
+;;(use-package rainbow-delimiters
+;;  :config
+;;  ;; color settings
+;;  (use-package color
+;;    :config
+;;    (--each (number-sequence 1 rainbow-delimiters-max-face-count)
+;;      (let ((face (intern (format "rainbow-delimiters-depth-%d-face" it))))
+;;        (callf color-saturate-name (face-foreground face) 90)))))
 
 ;; rotate the window layout
 (use-package rotate
@@ -127,3 +128,13 @@
 
 ;; pretty-symbols
 (global-prettify-symbols-mode +1)
+
+;; diminish
+;; * The modes writtem below are not refered by "use-package + :diminish"
+;; * diminish.el is depended by use-package
+;;   * It's uncesessary to write dependency to the Cask file
+(use-package diminish
+  :config
+  (diminish 'auto-revert-mode "⟳")
+  (diminish 'view-mode "👁"))
+
