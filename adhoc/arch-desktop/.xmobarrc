@@ -33,12 +33,14 @@ Config {
                     , Run Memory
                           ["-t", "Mem: <usedratio>%"] 10
                     , Run Swap [] 10
+                    , Run DiskU
+                          [("/", "Disk: <usedvbar>")] [] 10
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ [%multicpu%] [%memory% %swap%] [%enp0s25%] <fc=#ee9a00>[%date%]</fc> %RJAA%"
+       , template = "%StdinReader% }{ [%multicpu%] [%memory% %swap%] [%disku%] [%enp0s25%] <fc=#ee9a00>[%date%]</fc> %RJAA%"
        -- general behavior
        , lowerOnStart =     True    -- send to bottom of window stack on start
        , hideOnStart =      False   -- start with window unmapped (hidden)
