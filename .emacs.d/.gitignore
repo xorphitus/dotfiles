@@ -4,7 +4,7 @@ anything-c-adaptive-history
 auto-save-list
 tramp
 url
-elpa/archives
+elpa
 session.*
 inits/*_local.el*
 inits/*.elc
@@ -21,4 +21,3 @@ games
 eshell/history
 request
 recentf
-
