@@ -125,6 +125,8 @@ function update-home-bin
 end
 
 function update-skk-dict
+    mkdir -p $SKK_DICT_PATH
+
     set tmppath /tmp/skk-dict
     mkdir -p $tmppath
     cd $tmppath
