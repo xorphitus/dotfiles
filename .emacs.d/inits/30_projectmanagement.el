@@ -14,7 +14,9 @@
   ;; helm-projectile
   :bind (("C-c p h" . helm-projectile))
   :config
-  (projectile-global-mode))
+  (projectile-global-mode)
+  (setq projectile-mode-line
+        '(:eval (format " 📁 %s" (projectile-project-name)))))
 
 ;; perspeen
 (use-package perspeen
