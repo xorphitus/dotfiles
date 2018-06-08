@@ -218,3 +218,7 @@
 (use-package direnv
  :config
  (direnv-mode))
+
+;; ELDoc
+(use-package eldoc
+  :diminish (eldoc-mode . "📖"))
