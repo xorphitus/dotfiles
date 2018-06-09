@@ -19,7 +19,6 @@
 (depends-on "clj-refactor")
 (depends-on "clojure-cheatsheet")
 (depends-on "clojure-mode")
-(depends-on "typed-clojure-mode")
 
 ;; common lisp
 (depends-on "slime")

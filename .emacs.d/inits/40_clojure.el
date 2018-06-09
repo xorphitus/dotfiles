@@ -77,9 +77,6 @@ Display the results in a hyperlinked *compilation* buffer."
 ;; rainbow delimiters
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 
-;;; Typed Clojure
-(add-hook 'clojure-mode-hook 'typed-clojure-mode)
-
 ;;; ClojureScript
 
 ;; TODO
