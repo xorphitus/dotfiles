@@ -24,4 +24,7 @@
   (set-face-attribute 'perspeen-selected-face nil
                       :foreground (face-attribute 'match :foreground)
                       :background (face-attribute 'match :background))
-  (perspeen-mode))
+  (perspeen-mode)
+  (use-package helm-perspeen
+    :bind
+    (("C-c z" . helm-perspeen))))
