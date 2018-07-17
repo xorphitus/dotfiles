@@ -18,6 +18,16 @@
   (setq projectile-mode-line
         '(:eval (format " 📁 %s" (projectile-project-name)))))
 
+;; projectile + perspeen integration
+(defun auto-set-projectile-root-to-perspeen ()
+  (let ((projectile-root (-> (projectile-project-info)
+                             (split-string " ## ")
+                             (car)
+                             (split-string ": ")
+                             (last)
+                             (car))))
+    (perspeen-change-root-dir projectile-root)))
+
 ;; perspeen
 (use-package perspeen
   :config
@@ -25,6 +35,7 @@
                       :foreground (face-attribute 'match :foreground)
                       :background (face-attribute 'match :background))
   (perspeen-mode)
+  (add-hook 'find-file-hooks #'auto-set-projectile-root-to-perspeen)
   (use-package helm-perspeen
     :bind
     (("C-c z" . helm-perspeen))))
