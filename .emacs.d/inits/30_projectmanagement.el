@@ -20,13 +20,16 @@
 
 ;; projectile + perspeen integration
 (defun auto-set-projectile-root-to-perspeen ()
-  (let ((projectile-root (-> (projectile-project-info)
-                             (split-string " ## ")
-                             (car)
-                             (split-string ": ")
-                             (last)
-                             (car))))
-    (perspeen-change-root-dir projectile-root)))
+  (ignore-errors
+    (let ((current-root (perspeen-ws-struct-root-dir perspeen-current-ws))
+          (projectile-root (-> (projectile-project-info)
+                               (split-string " ## ")
+                               (car)
+                               (split-string ": ")
+                               (last)
+                               (car))))
+      (when (not (string= (replace-regexp-in-string "/$" "" projectile-root) current-root))
+        (perspeen-change-root-dir projectile-root)))))
 
 ;; perspeen
 (use-package perspeen
