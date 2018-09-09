@@ -54,12 +54,12 @@ set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
 # Ruby
-set RUBY_VERSION 2.4.1
+set RUBY_VERSION 2.5.1
 rbenv global $RUBY_VERSION
 
 ###########################################################
 # Node.js
-set -x NODE_VERSION v6.10.3
+set -x NODE_VERSION system
 
 ###########################################################
 # Go
@@ -226,7 +226,7 @@ end
 ##################
 # setup functions
 function _install_nvm
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 end
 
 function _setup_fishenv
