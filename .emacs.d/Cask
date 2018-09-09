@@ -34,6 +34,7 @@
 (depends-on "coffee-mode")
 (depends-on "js2-mode")
 (depends-on "tide")
+(depends-on "vue-mode")
 
 ;; ruby
 (depends-on "rinari")
