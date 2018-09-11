@@ -50,6 +50,8 @@
     (add-hook 'slim-mode-hook 'flycheck-mode)
     (add-hook 'slim-mode-hook 'highlight-indentation-mode)))
 
+(setq css-indent-offset 2)
+
 ;;; Sass
 (use-package sass-mode
   :commands sass-mode

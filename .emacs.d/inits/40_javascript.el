@@ -37,6 +37,9 @@
   :config
   (setq js2-basic-offset 2))
 
+;; js-mode for vue-mode
+(setq js-indent-level 2)
+
 (use-package web-mode
   :commands web-mode
   :mode (("\\.jsx$" . web-mode))
