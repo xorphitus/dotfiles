@@ -54,6 +54,7 @@ set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
 # Ruby
+<<<<<<< Updated upstream
 set RUBY_VERSION 2.5.1
 rbenv global $RUBY_VERSION
 
@@ -85,6 +86,7 @@ set -x LESSOPEN "| $hiliter %s"
 # alias google-chrome='google-chrome-stable -allow-file-access-from-files'
 alias ls='exa'
 alias ack='ag'
+alias diff='colordiff'
 alias l='ls'
 alias be='bundle exec'
 alias diff2='diff -ybBw'
@@ -203,8 +205,8 @@ end
 
 ##################
 # fzf functions
-function fzf_yaourt
-    yaourt -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1
+function fzf_yay
+    yay -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1
 end
 
 function fzf_ps
@@ -230,10 +232,10 @@ function _install_nvm
 end
 
 function _setup_fishenv
-    set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'exa'
+    set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'exa' 'colordiff'
     switch (uname)
         case Linux
-            yaourt -S    $packages python-pygments
+            yay -S       $packages python-pygments
         case Darwin
             brew install $packages terminal-notifier
     end
@@ -257,4 +259,3 @@ function _setup_fishenv
     rbenv install $RUBY_VERSION
     nvm install $NODE_VERSION
 end
-
