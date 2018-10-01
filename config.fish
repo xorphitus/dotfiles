@@ -54,7 +54,6 @@ set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
 # Ruby
-<<<<<<< Updated upstream
 set RUBY_VERSION 2.5.1
 rbenv global $RUBY_VERSION
 
