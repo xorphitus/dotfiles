@@ -224,6 +224,14 @@ function fzf_ssh
     ssh $server
 end
 
+# fzf mosh targets
+# the targets are found in ~/.ssh/config
+# when `# mosh` comment is annotated
+function fzf_mosh
+    set server (fgrep '# mosh' -A 3 ~/.ssh/config | grep 'Host ' | awk '{print $2}' | sort | fzf +m --reverse)
+    mosh $server
+end
+
 ##################
 # setup functions
 function _install_nvm
@@ -258,3 +266,12 @@ function _setup_fishenv
     rbenv install $RUBY_VERSION
     nvm install $NODE_VERSION
 end
+
+set -x GITHUB_TOKEN 21bd1e2b837a1756b5ac7f89a3e2c8de2c2eaa94
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.fish
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
