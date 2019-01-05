@@ -38,7 +38,7 @@ function pacman() {
 function aur() {
     pacman -Q $1 > /dev/null 2>&1
     if [ $? -eq 1 ]; then
-        yaourt -S $1
+        yay -S $1
     fi
 }
 
@@ -142,6 +142,10 @@ cd -
 install leiningen
 install haskell-stack
 install erlang
+if [ $OS == 'Linux' ]; then
+  aur rbenv
+  aur pyenv-git
+fi
 
 ### other basic tools
 if [ $OS == 'Linux' ]; then
@@ -176,6 +180,7 @@ if [ $OS == 'Linux' ]; then
     install dunst
     install compton
     install nitrogen
+    install rofi
 
     ## xmonad
     install xmonad

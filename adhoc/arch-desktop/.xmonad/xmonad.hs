@@ -20,6 +20,9 @@ myManageHookFloat = composeAll [
       title     =? "Authy" --> doFloat
   ]
 
+myModMask = mod4Mask
+altMask   = mod1Mask
+
 main = do
     xmproc <- spawnPipe "xmobar"
     xmonad $ def
@@ -30,13 +33,14 @@ main = do
                         , ppTitle = xmobarColor "green" "" . shorten 50
                         }
         , terminal    = "terminator"
-        , modMask     = mod4Mask
+        , modMask     = myModMask
         , borderWidth = 2
         , startupHook = setWMName "LG3D"
         }
         `additionalKeys`
         [
-          ((0, 0x1008ff13), spawn "amixer sset Master 5%+ && notify-send -t 3 '♪▲' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
+          ((altMask, xK_space), spawn "rofi -combi-modi window,drun,ssh -theme solarized -font \"hack 10\" -show")
+        , ((0, 0x1008ff13), spawn "amixer sset Master 5%+ && notify-send -t 3 '♪▲' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
         , ((0, 0x1008ff11), spawn "amixer sset Master 5%- && notify-send -t 3 '♪▼' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
         , ((0, 0x1008ff12), spawn "amixer sset Master toggle && notify-send -t 3 '♪' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
         ]
