@@ -30,6 +30,7 @@ dunst -lb 333333 -nb 000000 -hb 990000 &
 dropbox &
 # https://github.com/linuxmint/blueberry/blob/master/usr/lib/blueberry/blueberry.py#L30
 XDG_CURRENT_DESKTOP=LXDE blueberry-tray &
+volumeicon &
 
 # start window manager
 exec xmonad
