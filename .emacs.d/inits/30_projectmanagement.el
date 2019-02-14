@@ -17,3 +17,8 @@
   (projectile-global-mode)
   (setq projectile-mode-line
         '(:eval (format " 📁 %s" (projectile-project-name)))))
+
+;; eyebrowse
+(use-package eyebrowse
+  :config
+  (eyebrowse-mode t))

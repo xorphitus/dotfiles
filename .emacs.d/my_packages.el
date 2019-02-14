@@ -107,6 +107,7 @@
 (depends-on helm-gtags)
 
 ;; files and projects
+(depends-on eyebrowse)
 (depends-on helm-projectile)
 (depends-on projectile)
 (depends-on treemacs)
