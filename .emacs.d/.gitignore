@@ -13,9 +13,7 @@ jabber-history
 projectile.cache
 projectile-bookmarks.eld
 wget-log*
-.cask
 .mc-lists.el
-elisp/rcodetools.el*
 ido.last
 games
 eshell/history

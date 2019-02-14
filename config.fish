@@ -5,10 +5,6 @@ set -x ALTERNATE_EDITOR vim
 # set -x BROWSER google-chrome
 
 ###########################################################
-# Emacs
-set -x PATH $HOME/.cask/bin $PATH
-
-###########################################################
 # direnv
 eval (direnv hook fish)
 

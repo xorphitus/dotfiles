@@ -105,11 +105,6 @@
 ;;      (let ((face (intern (format "rainbow-delimiters-depth-%d-face" it))))
 ;;        (callf color-saturate-name (face-foreground face) 90)))))
 
-;; rotate the window layout
-(use-package rotate
-  :commands rotate
-  :bind (("C-S-t l" . rotate-layout)
-         ("C-S-t w" . rotate-window)))
 
 ;; highlight indentation
 (use-package highlight-indentation
@@ -132,7 +127,6 @@
 ;; diminish
 ;; * The modes writtem below are not refered by "use-package + :diminish"
 ;; * diminish.el is depended by use-package
-;;   * It's uncesessary to write dependency to the Cask file
 (use-package diminish
   :config
   (diminish 'auto-revert-mode "⟳")

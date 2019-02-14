@@ -1,0 +1,3 @@
+[submodule ".emacs.d/elisp/use-package"]
+	path = .emacs.d/elisp/use-package
+	url = git@github.com:jwiegley/use-package.git
