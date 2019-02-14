@@ -101,7 +101,8 @@
 ;; shell-pop.el
 (use-package shell-pop
   :commands shell-pop
-  :bind (([f7] . shell-pop)))
+  ;; same as IntelliJ short cut
+  :bind (([M-f12] . shell-pop)))
 
 ;; neotree
 (use-package neotree
