@@ -92,15 +92,6 @@
 
 ;; rainbow-delimiters
 (use-package rainbow-delimiters)
-;;(use-package rainbow-delimiters
-;;  :config
-;;  ;; color settings
-;;  (use-package color
-;;    :config
-;;    (--each (number-sequence 1 rainbow-delimiters-max-face-count)
-;;      (let ((face (intern (format "rainbow-delimiters-depth-%d-face" it))))
-;;        (callf color-saturate-name (face-foreground face) 90)))))
-
 
 ;; highlight indentation
 (use-package highlight-indentation
