@@ -93,7 +93,7 @@
 
 ;; look and feel
 (depends-on diminish)
-(depends-on spacemacs-theme)
+(depends-on atom-one-dark-theme)
 (depends-on spaceline)
 
 ;; visual effects

@@ -9,13 +9,9 @@
 ;;; Code:
 
 ;; basic theme settings
-(use-package spacemacs-theme
-  ;; https://github.com/nashamri/spacemacs-theme/issues/42
-  :defer t
+(use-package atom-one-dark-theme
   :init
-  (custom-set-variables '(spacemacs-theme-custom-colors
-                          '((base . "#dddddd"))))
-  (load-theme 'spacemacs-dark t))
+  (load-theme 'atom-one-dark t))
 
 ;; skip startup screen
 (setq inhibit-startup-screen t)
