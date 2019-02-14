@@ -97,10 +97,10 @@
 (use-package highlight-indentation
   :diminish highlight-indentation-mode)
 
-;; powerline
-(use-package spaceline-config
-  :config
-  (spaceline-spacemacs-theme))
+;; mode line
+(use-package doom-modeline
+  :hook
+  (after-init . doom-modeline-mode))
 
 ;; volatile-highlights
 (use-package volatile-highlights

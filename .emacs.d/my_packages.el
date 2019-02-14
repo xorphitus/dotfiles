@@ -94,7 +94,7 @@
 ;; look and feel
 (depends-on diminish)
 (depends-on atom-one-dark-theme)
-(depends-on spaceline)
+(depends-on doom-modeline)
 
 ;; visual effects
 (depends-on highlight-indentation)
