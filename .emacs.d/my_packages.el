@@ -92,8 +92,9 @@
 (depends-on git-timemachine)
 
 ;; look and feel
-(depends-on diminish)
+(depends-on all-the-icons)
 (depends-on atom-one-dark-theme)
+(depends-on diminish)
 (depends-on doom-modeline)
 
 ;; visual effects
@@ -102,12 +103,18 @@
 (depends-on volatile-highlights)
 
 ;; code jump
-(depends-on projectile)
-(depends-on helm-projectile)
 (depends-on dumb-jump)
 (depends-on helm-gtags)
 
-;; other  utils
+;; files and projects
+(depends-on helm-projectile)
+(depends-on projectile)
+(depends-on treemacs)
+(depends-on treemacs-icons-dired)
+(depends-on treemacs-magit)
+(depends-on treemacs-projectile)
+
+;; other utils
 (depends-on ace-isearch)
 (depends-on ace-window)
 (depends-on anzu)
@@ -124,7 +131,6 @@
 (depends-on ido-vertical-mode)
 (depends-on migemo)
 (depends-on multiple-cursors)
-(depends-on neotree)
 (depends-on open-junk-file)
 (depends-on popup)
 (depends-on protobuf-mode)
