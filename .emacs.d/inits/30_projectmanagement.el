@@ -17,28 +17,3 @@
   (projectile-global-mode)
   (setq projectile-mode-line
         '(:eval (format " 📁 %s" (projectile-project-name)))))
-
-;; projectile + perspeen integration
-(defun auto-set-projectile-root-to-perspeen ()
-  (ignore-errors
-    (let ((current-root (perspeen-ws-struct-root-dir perspeen-current-ws))
-          (projectile-root (-> (projectile-project-info)
-                               (split-string " ## ")
-                               (car)
-                               (split-string ": ")
-                               (last)
-                               (car))))
-      (when (not (string= (replace-regexp-in-string "/$" "" projectile-root) current-root))
-        (perspeen-change-root-dir projectile-root)))))
-
-;; perspeen
-(use-package perspeen
-  :config
-  (set-face-attribute 'perspeen-selected-face nil
-                      :foreground (face-attribute 'match :foreground)
-                      :background (face-attribute 'match :background))
-  (perspeen-mode)
-  (add-hook 'find-file-hooks #'auto-set-projectile-root-to-perspeen)
-  (use-package helm-perspeen
-    :bind
-    (("C-c z" . helm-perspeen))))
