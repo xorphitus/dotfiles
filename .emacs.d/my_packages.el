@@ -21,6 +21,7 @@
 (depends-on use-package)
 
 ;; lisp
+(depends-on paredit)
 (depends-on parinfer)
 
 ;; clojure
