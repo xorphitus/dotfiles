@@ -86,7 +86,8 @@
 ;; magit.el
 (use-package magit
   :commands magit
-  :bind (("C-c g" . magit-status))
+  ;; same as IntelliJ IDEA short cut
+  :bind (("M-9" . magit-status))
   :config
   (progn
     (add-hook 'magit-status-mode-hook (lambda ()
@@ -101,7 +102,7 @@
 ;; shell-pop.el
 (use-package shell-pop
   :commands shell-pop
-  ;; same as IntelliJ short cut
+  ;; same as IntelliJ IDEA short cut
   :bind (([M-f12] . shell-pop)))
 
 ;; treemacs
@@ -155,8 +156,8 @@
        (treemacs-git-mode 'simple))))
   :bind
   (:map global-map
-        ;; same as IntelliJ short cut
-        ([f12] . treemacs)))
+        ;; same as IntelliJ IDEA short cut
+        ("M-1" . treemacs)))
 
 (use-package treemacs-projectile
   :after treemacs projectile)
