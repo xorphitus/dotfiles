@@ -109,7 +109,7 @@ function update-home-bin
     fisher up
     _install_nvm
 
-    set targets '.rbenv'
+    set targets '.rbenv' '.tmux/plugins/tpm'
     for target in $targets
         cd $HOME/$target
         if test -d .git
@@ -243,9 +243,6 @@ function _setup_fishenv
             brew install $packages terminal-notifier
     end
 
-    # emacs cask
-    curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-
     # nvm
     _install_nvm
 
@@ -257,6 +254,9 @@ function _setup_fishenv
 
     # theme
     fisher install omf/theme-eden
+
+    # tpm
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
     # programing languates
     rbenv install $RUBY_VERSION
