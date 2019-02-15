@@ -8,6 +8,15 @@
 
 ;;; Code:
 
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-banner-logo-title "(start Emacs)")
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-items '((recents  . 5)
+                          (projects . 5)
+                          (registers . 5))))
+
 ;; basic theme settings
 (use-package atom-one-dark-theme
   :init

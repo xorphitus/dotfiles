@@ -94,6 +94,7 @@
 ;; look and feel
 (depends-on all-the-icons)
 (depends-on atom-one-dark-theme)
+(depends-on dashboard)
 (depends-on diminish)
 (depends-on doom-modeline)
 
