@@ -24,7 +24,6 @@
 (depends-on parinfer)
 
 ;; clojure
-(depends-on queue) ;; cider and clj-refactor requires
 (depends-on cider)
 (depends-on clj-refactor)
 (depends-on clojure-mode)
@@ -121,7 +120,7 @@
 (depends-on ace-window)
 (depends-on anzu)
 (depends-on company)
-(depends-on ddskk)
+;; (depends-on ddskk) ;; it causes an error at emacs initialization
 (depends-on direnv)
 (depends-on esup)
 (depends-on expand-region)
