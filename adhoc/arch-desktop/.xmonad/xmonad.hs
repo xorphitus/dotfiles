@@ -2,11 +2,14 @@ import System.IO
 import Data.Default
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
@@ -32,6 +35,7 @@ main = do
                         { ppOutput = hPutStrLn xmproc
                         , ppTitle = xmobarColor "green" "" . shorten 50
                         }
+        , handleEventHook = fadeWindowsEventHook
         , terminal    = "terminator"
         , modMask     = myModMask
         , borderWidth = 2
@@ -39,7 +43,7 @@ main = do
         }
         `additionalKeys`
         [
-          ((altMask, xK_space), spawn "rofi -combi-modi window,drun,ssh -theme solarized -font \"hack 10\" -show")
+          ((altMask, xK_space), spawn "rofi -combi-modi drun -theme solarized -font \"hack 10\" -show")
         , ((0, 0x1008ff13), spawn "amixer sset Master 5%+ && notify-send -t 3 '♪▲' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
         , ((0, 0x1008ff11), spawn "amixer sset Master 5%- && notify-send -t 3 '♪▼' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
         , ((0, 0x1008ff12), spawn "amixer sset Master toggle && notify-send -t 3 '♪' \"$(amixer sget Master | grep '%' | sed 's/^ *//g')\"")
