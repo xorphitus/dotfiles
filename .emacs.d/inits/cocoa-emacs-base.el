@@ -13,7 +13,7 @@
 
 (set-frame-font "ricty-14")
 
-(custom-set-variables '(my-skk-jisyo-root "~/skk"))
+(setq my-skk-jisyo-root "~/skk")
 
 ;; beautify powerline
 ;; https://github.com/milkypostman/powerline/issues/54

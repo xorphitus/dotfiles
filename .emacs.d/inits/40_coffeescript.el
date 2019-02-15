@@ -15,7 +15,7 @@
          ("Cakefile"   . coffee-mode))
   :init
   (progn
-    (custom-set-variables '(coffee-tab-width 2))
+    (setq coffee-tab-width 2)
     ;; flycheck
     ;;  npm: coffeelint
     (add-hook 'coffee-mode-hook 'flycheck-mode)

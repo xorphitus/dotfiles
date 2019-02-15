@@ -49,23 +49,3 @@
                (init-loader-log (s-lex-format "loaded #{lib}. #{time}"))
                (error
                 (init-loader-error-log (s-lex-format "#{lib}. #{err}")))))))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(coffee-tab-width 2)
- '(helm-gtags-auto-update t)
- '(helm-gtags-ignore-case t)
- '(helm-gtags-path-style (quote relative))
- '(package-selected-packages
-   (quote
-    (yasnippet wrap-region wgrep visual-regexp-steroids undo-tree smartrep shell-pop quickrun protobuf-mode open-junk-file neotree multiple-cursors migemo ido-vertical-mode helm-swoop helm-perspeen helm-ghq helm-ag expand-region esup direnv ddskk anzu ace-window ace-isearch helm-gtags dumb-jump helm-projectile projectile volatile-highlights rainbow-delimiters highlight-indentation spaceline spacemacs-theme diminish git-timemachine git-gutter-fringe gitconfig-mode gitignore-mode magit dockerfile-mode fish-mode php-mode markdown-mode web-mode emmet-mode google-c-style scala-mode rust-mode yaml-mode sass-mode slim-mode scss-mode haml-mode robe ruby-electric rinari vue-mode tide js2-mode coffee-mode haskell-mode go-mode slime-company slime clojure-mode clojure-cheatsheet clj-refactor cider parinfer use-package init-loader drag-stuff cask)))
- '(spacemacs-theme-custom-colors (quote ((base . "#dddddd"))))
- '(yas-prompt-functions (quote (my-yas/prompt))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

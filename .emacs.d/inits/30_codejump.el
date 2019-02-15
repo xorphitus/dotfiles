@@ -28,8 +28,6 @@
     (add-hook 'python-mode-hook 'helm-gtags-mode)
     (add-hook 'php-mode-hook 'helm-gtags-mode)
     ;; customize
-    (custom-set-variables
-     '(helm-gtags-path-style 'relative)
-     '(helm-gtags-ignore-case t)
-     '(helm-gtags-auto-update t))))
-
+    (setq helm-gtags-path-style 'relative)
+    (setq helm-gtags-ignore-case t)
+    (setq helm-gtags-auto-update t)))
