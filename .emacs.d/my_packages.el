@@ -137,6 +137,7 @@
 (depends-on popup)
 (depends-on protobuf-mode)
 (depends-on quickrun)
+(depends-on shackle)
 (depends-on shell-pop)
 (depends-on smartrep)
 (depends-on undo-tree)

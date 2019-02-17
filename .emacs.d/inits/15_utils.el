@@ -232,3 +232,12 @@
 ;; ELDoc
 (use-package eldoc
   :diminish (eldoc-mode . "📖"))
+
+;; shackle
+;; popup interface
+(use-package shackle
+  :config
+  (shackle-mode 1)
+  (setq shackle-default-rule '(:same t))
+  (setq helm-display-function #'pop-to-buffer) ; make helm play nice
+  (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.4))))
