@@ -5,6 +5,7 @@
 # Executed by startx (run your window manager from here)
 
 export LANG=ja_JP.UTF-8
+export LC_TIME="en_US.UTF-8"
 
 # start ibus
 export GTK_IM_MODULE=ibus
