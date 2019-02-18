@@ -35,10 +35,8 @@
       (setq skk-tooltip-function
             #'(lambda (tooltip-str)
                 (popup-tip tooltip-str))))
-    (set-face-foreground 'skk-dcomp-multiple-face (face-attribute 'popup-face :foreground))
-    (set-face-background 'skk-dcomp-multiple-face (face-attribute 'popup-face :background))
-    (set-face-foreground 'skk-dcomp-multiple-selected-face (face-attribute 'popup-tip-face :foreground))
-    (set-face-background 'skk-dcomp-multiple-selected-face (face-attribute 'popup-tip-face :background))
+    (set-face-foreground 'skk-dcomp-multiple-face (face-attribute 'company-tooltip :foreground))
+    (set-face-background 'skk-dcomp-multiple-face (face-attribute 'company-tooltip :background))
     ;; dictionary
     (setq skk-large-jisyo (concat my-skk-jisyo-root "/SKK-JISYO.L"))
     (setq skk-extra-jisyo-file-list
