@@ -91,6 +91,11 @@
 (depends-on git-gutter-fringe)
 (depends-on git-timemachine)
 
+;; org-mode
+(depends-on org-bullets)
+(depends-on org-pomodoro)
+(depends-on sound-wav) ;; required by org-pomodoro implicitly
+
 ;; look and feel
 (depends-on all-the-icons)
 (depends-on atom-one-dark-theme)
