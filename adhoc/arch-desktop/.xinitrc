@@ -32,7 +32,7 @@ dropbox &
 # https://github.com/linuxmint/blueberry/blob/master/usr/lib/blueberry/blueberry.py#L30
 XDG_CURRENT_DESKTOP=LXDE blueberry-tray &
 volumeicon &
-
+copyq &
 # requires .config/redshift.conf which contains write lat and lon
 redshift-gtk &
 
