@@ -33,6 +33,9 @@ dropbox &
 XDG_CURRENT_DESKTOP=LXDE blueberry-tray &
 volumeicon &
 
+# requires .config/redshift.conf which contains write lat and lon
+redshift-gtk &
+
 # start window manager
 exec xmonad
 
