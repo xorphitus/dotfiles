@@ -238,6 +238,8 @@
 (use-package shackle
   :config
   (shackle-mode 1)
-  (setq shackle-default-rule '(:same t))
+  (setq shackle-default-rule '(:other t))
   (setq helm-display-function #'pop-to-buffer) ; make helm play nice
-  (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.4))))
+  (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t     :size 0.4)
+                        ;; ("undo-tree"           :regexp t :align right :size 0.25)
+                        )))
