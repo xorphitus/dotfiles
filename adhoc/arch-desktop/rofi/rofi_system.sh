@@ -4,6 +4,7 @@ set -euCo pipefail
 
 function main() {
   local -Ar menu=(
+    ['Standby']='xset dpms force standby'
     ['Poweroff (hibernate)']='systemctl hibernate'
   )
 
