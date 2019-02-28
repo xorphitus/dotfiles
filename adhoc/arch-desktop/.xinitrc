@@ -33,7 +33,7 @@ dropbox &
 XDG_CURRENT_DESKTOP=LXDE blueberry-tray &
 volumeicon &
 copyq &
-# requires .config/redshift.conf which contains write lat and lon
+# requires .config/redshift.conf which contains lat and lon
 redshift-gtk &
 XSECURELOCK_SHOW_HOSTNAME=0 XSECURELOCK_SHOW_USERNAME=0 xss-lock -- xsecurelock &
 
