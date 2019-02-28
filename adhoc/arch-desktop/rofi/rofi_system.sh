@@ -3,9 +3,11 @@
 set -euCo pipefail
 
 function main() {
+  # can not use some special charactors
+  # e.g. ( )
   local -Ar menu=(
     ['Standby']='xset dpms force standby'
-    ['Poweroff (hibernate)']='systemctl hibernate'
+    ['Hibernate']='systemctl hibernate'
   )
 
   local -r IFS=$'\n'
