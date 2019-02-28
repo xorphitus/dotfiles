@@ -35,7 +35,7 @@ volumeicon &
 copyq &
 # requires .config/redshift.conf which contains write lat and lon
 redshift-gtk &
-xss-lock -- xsecurelock &
+XSECURELOCK_SHOW_HOSTNAME=0 XSECURELOCK_SHOW_USERNAME=0 xss-lock -- xsecurelock &
 
 # start window manager
 exec xmonad
