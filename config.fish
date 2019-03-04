@@ -106,7 +106,7 @@ function railsnew
 end
 
 function update-home-bin
-    fisher up
+    fisher self-update
     _install_nvm
 
     set targets '.rbenv' '.tmux/plugins/tpm'
@@ -250,10 +250,12 @@ function _setup_fishenv
     curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 
     # plugins
-    fisher z fzf masa0x80/ghq_cd_keybind.fish rbenv nvm
+    fisher add jethrokuan/z jethrokuan/fzf masa0x80/ghq_cd_keybind.fish daenney/rbenv
+    # plugins: for nvm
+    fisher add FabioAntunes/fish-nvm edc/bass
 
     # theme
-    fisher install omf/theme-eden
+    fisher https://github.com/amio/fish-theme-eden
 
     # tpm
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
