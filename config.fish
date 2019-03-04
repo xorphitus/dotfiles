@@ -262,3 +262,8 @@ function _setup_fishenv
     rbenv install $RUBY_VERSION
     nvm install $NODE_VERSION
 end
+
+set fish_individual_config ~/.config/fish/individual.fish
+if test -e $fish_individual_config
+    source $fish_individual_config
+end
