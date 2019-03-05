@@ -40,3 +40,8 @@
   :commands helm-ag
   :bind (("M-g ." . helm-ag)
          ("M-g ," . helm-ag-pop-stack)))
+
+;; helm-descbinds
+(use-package helm-descbinds
+  :config
+  (helm-descbinds-mode))
