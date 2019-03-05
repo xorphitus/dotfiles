@@ -16,3 +16,12 @@
 (use-package org-bullets
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+;; pomodoro
+(use-package org-pomodoro
+  :after
+  org-agenda
+  :custom
+  (org-pomodoro-format "🍅%s")
+  (org-pomodoro-short-break-format "☕%s")
+  (org-pomodoro-long-break-format  "🌴%s"))
