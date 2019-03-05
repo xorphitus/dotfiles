@@ -10,6 +10,8 @@
 
 (setq org-agenda-files (list "~/Documents/org"))
 
+(set-face-attribute 'org-level-1 nil :height 1.4)
+
 ;; beautify org-mode list bullets
 (use-package org-bullets
   :config
