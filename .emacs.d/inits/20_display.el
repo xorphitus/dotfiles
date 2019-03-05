@@ -110,7 +110,10 @@
 ;; mode line
 (use-package doom-modeline
   :hook
-  (after-init . doom-modeline-mode))
+  (after-init . doom-modeline-mode)
+  :config
+  (line-number-mode 0)
+  (column-number-mode 1))
 
 ;; volatile-highlights
 (use-package volatile-highlights
