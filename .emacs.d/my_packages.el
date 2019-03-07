@@ -149,5 +149,6 @@
 (depends-on undo-tree)
 (depends-on visual-regexp-steroids)
 (depends-on wgrep)
+(depends-on which-key)
 (depends-on wrap-region)
 (depends-on yasnippet)
