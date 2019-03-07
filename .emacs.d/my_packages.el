@@ -131,6 +131,7 @@
 (depends-on esup)
 (depends-on expand-region)
 (depends-on flycheck)
+(depends-on flycheck-popup-tip)
 (depends-on helm)
 (depends-on helm-ag)
 (depends-on helm-descbinds)

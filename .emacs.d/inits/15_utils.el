@@ -66,15 +66,9 @@
 (use-package flycheck
   :diminish (flycheck-mode . "⚠")
   :config
-  (progn
-    (add-hook 'after-init-hook #'global-flycheck-mode)
-    (if window-system
-        (setq flycheck-display-errors-function
-              '(lambda (errors)
-                 (-when-let (messages (-keep #'flycheck-error-message errors))
-                   (popup-tip (s-join "\n\n" messages))))))
-    ;; modify flycheck indication of spaceline
-    (setq spaceline-flycheck-bullet "⚠%s")))
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (flycheck-popup-tip-mode)
+  (setq spaceline-flycheck-bullet "⚠%s"))
 
 ;; junk file
 (use-package open-junk-file
