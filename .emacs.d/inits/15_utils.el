@@ -199,15 +199,16 @@
   (interactive)
   (when (one-window-p)
     (split-window-horizontally))
-  (if (> (length (window-list)) 3)
+  (if (> (length (window-list)) 2)
       (ace-window 1)
       (other-window 1)))
 
 (use-package ace-window
   :config
-  (progn
-    (global-set-key (kbd "C-x o") 'other-window-or-split)
-    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))))
+  (global-set-key (kbd "C-x o") 'other-window-or-split)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :custom-face
+  (aw-leading-char-face ((t (:height 4.0 :foreground "#f1fa8c")))))
 
 ;; visual-regexp-steroids
 (use-package visual-regexp-steroids)
