@@ -60,6 +60,7 @@
 
 ;; rust
 (depends-on rust-mode)
+(depends-on rustic)
 
 ;; scala
 (depends-on scala-mode)
@@ -128,6 +129,7 @@
 (depends-on company)
 ;; (depends-on ddskk) ;; it causes an error at emacs initialization
 (depends-on direnv)
+(depends-on eglot)
 (depends-on esup)
 (depends-on expand-region)
 (depends-on flycheck)
