@@ -18,7 +18,6 @@
 (depends-on f)
 
 (depends-on init-loader)
-(depends-on use-package)
 
 ;; lisp
 (depends-on paredit)
@@ -112,6 +111,7 @@
 ;; code jump
 (depends-on dumb-jump)
 (depends-on helm-gtags)
+(depends-on smart-jump)
 
 ;; files and projects
 (depends-on eyebrowse)
