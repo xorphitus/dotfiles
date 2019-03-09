@@ -132,3 +132,8 @@
   (diminish 'auto-revert-mode "⟳")
   (diminish 'view-mode "👁"))
 
+
+;; hide-modeline
+(use-package hide-mode-line
+    :hook
+    ((treemacs-mode) . hide-mode-line-mode))

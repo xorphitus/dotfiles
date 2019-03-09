@@ -104,6 +104,7 @@
 (depends-on doom-modeline)
 
 ;; visual effects
+(depends-on hide-mode-line)
 (depends-on highlight-indentation)
 (depends-on rainbow-delimiters)
 (depends-on volatile-highlights)
