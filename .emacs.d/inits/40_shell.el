@@ -12,3 +12,11 @@
 (use-package shell-script-mode
   :mode (("PKGBUILD" . shell-script-mode)
          ("\\.install$" . shell-script-mode)))
+
+(setq sh-basic-offset 2)
+(setq sh-indentation 2)
+
+
+(use-package fish-mode
+  :custom
+  (fish-indent-offset 2))
