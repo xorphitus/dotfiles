@@ -41,3 +41,19 @@
   :config
   (eyebrowse-mode t)
   (add-hook 'find-file-hooks #'my-auto-set-projectile-root-to-eyebrowse))
+
+;; awesome-tab
+(use-package awesome-tab
+  :bind
+  (("C-c M-z" . awesome-tab-switch-group)
+   ("C-c M-1" . awesome-tab-select-visible-tab)
+   ("C-c M-2" . awesome-tab-select-visible-tab)
+   ("C-c M-3" . awesome-tab-select-visible-tab)
+   ("C-c M-4" . awesome-tab-select-visible-tab)
+   ("C-c M-5" . awesome-tab-select-visible-tab)
+   ("C-c M-6" . awesome-tab-select-visible-tab)
+   ("C-c M-7" . awesome-tab-select-visible-tab)
+   ("C-c M-8" . awesome-tab-select-visible-tab)
+   ("C-c M-9" . awesome-tab-select-visible-tab))
+  :config
+  (awesome-tab-mode t))

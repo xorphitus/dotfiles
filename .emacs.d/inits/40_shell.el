@@ -16,7 +16,7 @@
 (setq sh-basic-offset 2)
 (setq sh-indentation 2)
 
-
+;; fish shell
 (use-package fish-mode
   :custom
   (fish-indent-offset 2))
