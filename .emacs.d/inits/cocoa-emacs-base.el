@@ -18,3 +18,5 @@
 ;; beautify powerline
 ;; https://github.com/milkypostman/powerline/issues/54
 (setq ns-use-srgb-colorspace nil)
+
+(setq alert-default-style 'osx-notifier)

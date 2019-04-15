@@ -137,3 +137,7 @@
 (use-package hide-mode-line
     :hook
     ((treemacs-mode) . hide-mode-line-mode))
+
+(use-package alert
+  :config
+  (setq alert-default-style 'libnotify))

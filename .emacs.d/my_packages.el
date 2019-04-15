@@ -126,6 +126,7 @@
 ;; other utils
 (depends-on ace-isearch)
 (depends-on ace-window)
+(depends-on alert)
 (depends-on anzu)
 (depends-on company)
 ;; (depends-on ddskk) ;; it causes an error at emacs initialization
