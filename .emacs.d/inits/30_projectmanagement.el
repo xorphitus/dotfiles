@@ -45,7 +45,11 @@
 ;; awesome-tab
 (use-package awesome-tab
   :bind
-  (("C-c M-z" . awesome-tab-switch-group)
+  (("C-c <M-right>" . awesome-tab-forward)
+   ("C-c <M-left>" .  awesome-tab-backward)
+   ("C-c <M-down>" .  awesome-tab-forward-group)
+   ("C-c <M-up>" .    awesome-tab-backward-group)
+   ("C-c M-z" . awesome-tab-switch-group)
    ("C-c M-1" . awesome-tab-select-visible-tab)
    ("C-c M-2" . awesome-tab-select-visible-tab)
    ("C-c M-3" . awesome-tab-select-visible-tab)
