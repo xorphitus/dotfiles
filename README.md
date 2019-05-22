@@ -8,6 +8,14 @@ execute setup.sh
 
 https://github.com/xorphitus/package-installer
 
+### git / global ignore
+
+see: https://qiita.com/ueokande/items/e0409219e7c68e4277b9
+
+```
+$ ln -s ~/dotfiles/.gitignore_global  ~/.config/git/ignore
+```
+
 ### git / diff-highlight
 
 #### Arch Linux
