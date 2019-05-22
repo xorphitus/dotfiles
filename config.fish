@@ -270,3 +270,6 @@ set fish_individual_config ~/.config/fish/individual.fish
 if test -e $fish_individual_config
     source $fish_individual_config
 end
+
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+
