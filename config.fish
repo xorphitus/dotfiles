@@ -79,10 +79,11 @@ set -x LESSOPEN "| $hiliter %s"
 ###########################################################
 # aliases
 # alias google-chrome='google-chrome-stable -allow-file-access-from-files'
-alias ls='exa'
+alias ls='lsd'
 alias ack='ag'
 alias diff='colordiff'
 alias l='ls'
+alias lt='ls --tree'
 alias be='bundle exec'
 alias diff2='diff -ybBw'
 
@@ -235,7 +236,7 @@ function _install_nvm
 end
 
 function _setup_fishenv
-    set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'exa' 'colordiff'
+    set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff'
     switch (uname)
         case Linux
             yay -S       $packages python-pygments
