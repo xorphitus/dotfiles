@@ -256,7 +256,7 @@ function _setup_fishenv
     fisher add FabioAntunes/fish-nvm edc/bass
 
     # theme
-    fisher https://github.com/amio/fish-theme-eden
+    fisher add https://github.com/amio/fish-theme-eden
 
     # tpm
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
