@@ -16,10 +16,10 @@ set -x FZF_TMUX_HEIGHT 50%
 ###########################################################
 # GNU Global (Gtags)
 switch (uname)
-    case Linux
-        set -x GTAGSCONF /usr/share/gtags/gtags.conf
-    case Darwin
-        # undefined
+  case Linux
+    set -x GTAGSCONF /usr/share/gtags/gtags.conf
+  case Darwin
+    # undefined
 end
 # require python pygments
 set -x GTAGSLABEL pygments
@@ -27,17 +27,17 @@ set -x GTAGSLABEL pygments
 ###########################################################
 # Git
 switch (uname)
-    case Darwin
-        set -x PATH /usr/local/share/git-core/contrib/diff-highlight $PATH
+  case Darwin
+    set -x PATH /usr/local/share/git-core/contrib/diff-highlight $PATH
 end
 
 ###########################################################
 # SKK
 switch (uname)
-    case Linux
-        set -x SKK_DICT_PATH /usr/share/skk
-    case Darwin
-        set -x SKK_DICT_PATH ~/skk
+  case Linux
+    set -x SKK_DICT_PATH /usr/share/skk
+  case Darwin
+    set -x SKK_DICT_PATH ~/skk
 end
 
 ###########################################################
@@ -96,75 +96,75 @@ end
 ###########################################################
 # functions
 function psg
-    ps u | head -n 1
-    set arg $argv[1]
-    ps aux | grep $arg | grep -v "grep $arg"
+  ps u | head -n 1
+  set arg $argv[1]
+  ps aux | grep $arg | grep -v "grep $arg"
 end
 
 function railsnew
-    set prj $argv[1]
-    mkdir $prj
-    cd $prj
-    bundle init
-    echo "gem 'rails'" >> Gemfile
-    bundle install --path vendor/bundle
-    yes | bundle exec rails new .
-    echo '/vendor/bundle' >> .gitignore
+  set prj $argv[1]
+  mkdir $prj
+  cd $prj
+  bundle init
+  echo "gem 'rails'" >> Gemfile
+  bundle install --path vendor/bundle
+  yes | bundle exec rails new .
+  echo '/vendor/bundle' >> .gitignore
 end
 
 function update-home-bin
-    fisher self-update
-    _install_nvm
+  fisher self-update
+  _install_nvm
 
-    set targets '.rbenv' '.tmux/plugins/tpm'
-    for target in $targets
-        cd $HOME/$target
-        if test -d .git
-            echo update $target
-            git pull
-        else
-            echo $target is not version controled
-        end
+  set targets '.rbenv' '.tmux/plugins/tpm'
+  for target in $targets
+    cd $HOME/$target
+    if test -d .git
+      echo update $target
+      git pull
+    else
+      echo $target is not version controled
     end
+  end
 end
 
 function update-skk-dict
-    mkdir -p $SKK_DICT_PATH
+  mkdir -p $SKK_DICT_PATH
 
-    set tmppath /tmp/skk-dict
-    mkdir -p $tmppath
-    cd $tmppath
+  set tmppath /tmp/skk-dict
+  mkdir -p $tmppath
+  cd $tmppath
 
-    wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz
-    wget http://openlab.jp/skk/dic/SKK-JISYO.geo.gz
-    wget http://openlab.jp/skk/dic/SKK-JISYO.jinmei.gz
-    wget http://openlab.jp/skk/dic/SKK-JISYO.propernoun.gz
-    wget http://openlab.jp/skk/dic/SKK-JISYO.station.gz
-    gunzip ./*.gz
+  wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz
+  wget http://openlab.jp/skk/dic/SKK-JISYO.geo.gz
+  wget http://openlab.jp/skk/dic/SKK-JISYO.jinmei.gz
+  wget http://openlab.jp/skk/dic/SKK-JISYO.propernoun.gz
+  wget http://openlab.jp/skk/dic/SKK-JISYO.station.gz
+  gunzip ./*.gz
 
-    switch (uname)
-        case Linux
-            sudo mv ./SKK-JISYO* $SKK_DICT_PATH
-        case Darwin
-            mv ./SKK-JISYO* $SKK_DICT_PATH
-    end
+  switch (uname)
+    case Linux
+      sudo mv ./SKK-JISYO* $SKK_DICT_PATH
+    case Darwin
+      mv ./SKK-JISYO* $SKK_DICT_PATH
+  end
 
-    cd -
-    rm -rf $tmppath
+  cd -
+  rm -rf $tmppath
 end
 
 # Notify when a command is finished
 # usage:
 #  $ some_long_command; n
 function n
-    # ntfy command might be better
-    # https://github.com/dschep/ntfy
-    switch (uname)
-        case Linux
-            notify-send -u low -t 3 "Command Finished!"
-        case Darwin
-            terminal-notifier -message "Command Finished!"
-    end
+  # ntfy command might be better
+  # https://github.com/dschep/ntfy
+  switch (uname)
+    case Linux
+      notify-send -u low -t 3 "Command Finished!"
+    case Darwin
+      terminal-notifier -message "Command Finished!"
+  end
 end
 
 # Extended EmacsClient
@@ -175,106 +175,106 @@ end
 # https://www.emacswiki.org/emacs/EmacsClient#toc45
 # http://d.hatena.ne.jp/kitokitoki/20111225/p4
 function e
-    switch (count $argv)
-        case 0
-            set tmp (mktemp /tmp/emacsstdinXXXXXX)
-            set elisp "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"$tmp\") (delete-file \"$tmp\"))"
-            cat > $tmp
-            if not emacsclient -a /usr/bin/false -e $elisp > /dev/null 2>&1
-                emacs -e $elisp &
-            end
-        case '*'
-            emacsclient -a emacs -n $argv > /dev/null 2>&1 &
-    end
+  switch (count $argv)
+    case 0
+      set tmp (mktemp /tmp/emacsstdinXXXXXX)
+      set elisp "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"$tmp\") (delete-file \"$tmp\"))"
+      cat > $tmp
+      if not emacsclient -a /usr/bin/false -e $elisp > /dev/null 2>&1
+        emacs -e $elisp &
+      end
+    case '*'
+      emacsclient -a emacs -n $argv > /dev/null 2>&1 &
+  end
 end
 
 # dislplay shell buffer in Emacs
 function es
-    tmux capture-pane -S -10000\; show-buffer | e
+  tmux capture-pane -S -10000\; show-buffer | e
 end
 
 # open new terminal window
 # it should be used in Emacs M-!
 # to associate Emacs with shell
 function t
-    switch (uname)
-        case Linux
-            terminator -x tmux
-        case Darwin
-            open -a Terminal (pwd)
-    end
+  switch (uname)
+    case Linux
+      terminator -x tmux
+    case Darwin
+      open -a Terminal (pwd)
+  end
 end
 
 ##################
 # fzf functions
 function fzf_yay
-    yay -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1
+  yay -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1
 end
 
 function fzf_ps
-    ps u | head -n 1
-    set arg $argv[1]
-    psg $arg | fzf +m --reverse
+  ps u | head -n 1
+  set arg $argv[1]
+  psg $arg | fzf +m --reverse
 end
 
 function fzf_z
-    set dir (z -l $argv | awk '{print $2}' | fzf +m --reverse)
-    cd $dir
+  set dir (z -l $argv | awk '{print $2}' | fzf +m --reverse)
+  cd $dir
 end
 
 function fzf_ssh
-    set server (grep 'Host ' ~/.ssh/config | fgrep -v '*' | awk '{print $2}' | sort | fzf +m --reverse)
-    ssh $server
+  set server (grep 'Host ' ~/.ssh/config | fgrep -v '*' | awk '{print $2}' | sort | fzf +m --reverse)
+  ssh $server
 end
 
 # fzf mosh targets
 # the targets are found in ~/.ssh/config
 # when `# mosh` comment is annotated
 function fzf_mosh
-    set server (fgrep '# mosh' -A 3 ~/.ssh/config | grep 'Host ' | awk '{print $2}' | sort | fzf +m --reverse)
-    mosh $server
+  set server (fgrep '# mosh' -A 3 ~/.ssh/config | grep 'Host ' | awk '{print $2}' | sort | fzf +m --reverse)
+  mosh $server
 end
 
 ##################
 # setup functions
 function _install_nvm
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 end
 
 function _setup_fishenv
-    set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff'
-    switch (uname)
-        case Linux
-            yay -S       $packages python-pygments
-        case Darwin
-            brew install $packages terminal-notifier
-    end
+  set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff'
+  switch (uname)
+    case Linux
+      yay -S       $packages python-pygments
+    case Darwin
+      brew install $packages terminal-notifier
+  end
 
-    # nvm
-    _install_nvm
+  # nvm
+  _install_nvm
 
-    # fisherman
-    curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+  # fisherman
+  curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 
-    # plugins
-    fisher add jethrokuan/z jethrokuan/fzf masa0x80/ghq_cd_keybind.fish daenney/rbenv
-    # plugins: for nvm
-    fisher add FabioAntunes/fish-nvm edc/bass
+  # plugins
+  fisher add jethrokuan/z jethrokuan/fzf masa0x80/ghq_cd_keybind.fish daenney/rbenv
+  # plugins: for nvm
+  fisher add FabioAntunes/fish-nvm edc/bass
 
-    # theme
-    fisher add https://github.com/amio/fish-theme-eden
+  # theme
+  fisher add https://github.com/amio/fish-theme-eden
 
-    # tpm
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  # tpm
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-    # programing languates
-    rbenv install $RUBY_VERSION
-    nvm install $NODE_VERSION
+  # programing languates
+  rbenv install $RUBY_VERSION
+  nvm install $NODE_VERSION
 end
 
 set fish_individual_config ~/.config/fish/individual.fish
 if test -e $fish_individual_config
-    source $fish_individual_config
+  source $fish_individual_config
 end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
