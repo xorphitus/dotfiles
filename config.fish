@@ -87,6 +87,12 @@ alias lt='ls --tree'
 alias be='bundle exec'
 alias diff2='diff -ybBw'
 
+switch (uname)
+  case Darwin
+    alias emacs='/Applications/Emacs.app'
+    alias emacsclient='/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_14/emacsclient'
+end
+
 ###########################################################
 # functions
 function psg
