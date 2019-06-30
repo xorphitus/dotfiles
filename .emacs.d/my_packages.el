@@ -58,7 +58,6 @@
 (depends-on yaml-mode)
 
 ;; rust
-(depends-on rust-mode)
 (depends-on rustic)
 
 ;; scala

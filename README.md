@@ -8,6 +8,13 @@ execute setup.sh
 
 https://github.com/xorphitus/package-installer
 
+some Rust components
+
+* rls
+* clippy
+* rustfmt
+* rust-src
+
 ### git / global ignore
 
 see: https://qiita.com/ueokande/items/e0409219e7c68e4277b9
