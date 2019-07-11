@@ -91,6 +91,7 @@
 (depends-on git-timemachine)
 
 ;; org-mode
+(depends-on org-alert)
 (depends-on org-bullets)
 (depends-on org-pomodoro)
 (depends-on sound-wav) ;; required by org-pomodoro implicitly

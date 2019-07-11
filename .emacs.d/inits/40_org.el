@@ -27,3 +27,8 @@
   (org-pomodoro-format "🍅%s")
   (org-pomodoro-short-break-format "☕%s")
   (org-pomodoro-long-break-format  "🌴%s"))
+
+;; set alerts for scheduled tasks
+(use-package org-alert
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-alert-enable))))
