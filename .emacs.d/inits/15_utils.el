@@ -197,11 +197,9 @@
 ;; w/ http://d.hatena.ne.jp/rubikitch/20100210/emacs
 (defun other-window-or-split ()
   (interactive)
-  (when (one-window-p)
-    (split-window-horizontally))
-  (if (> (length (window-list)) 2)
-      (ace-window 1)
-      (other-window 1)))
+  (if (one-window-p)
+      (split-window-horizontally)
+    (ace-window 1)))
 
 (use-package ace-window
   :config
