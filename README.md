@@ -8,12 +8,18 @@ execute setup.sh
 
 https://github.com/xorphitus/package-installer
 
+### for Emacs
 some Rust components
 
 * rls
 * clippy
 * rustfmt
 * rust-src
+
+other CLI tools
+
+* ag
+* multimarkdown
 
 ### git / global ignore
 
