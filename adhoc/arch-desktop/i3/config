@@ -136,6 +136,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+bindcode 121 exec "pacmd list-sinks | grep 'index:' | awk '{print $NF}' | xargs -I {} pactl set-sink-mute {} toggle && notify-send -u low '🔊'"
 bindcode 122 exec "pacmd list-sinks | grep 'index:' | awk '{print $NF}' | xargs -I {} bash -c 'pactl set-sink-mute {} false && pactl set-sink-volume {} -5%' && notify-send -u low '♪▼'"
 bindcode 123 exec "pacmd list-sinks | grep 'index:' | awk '{print $NF}' | xargs -I {} bash -c 'pactl set-sink-mute {} false && pactl set-sink-volume {} +5%' && notify-send -u low '♪▲'"
 
