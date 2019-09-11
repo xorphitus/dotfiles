@@ -237,6 +237,8 @@
                         ("*undo-tree*"         :regexp t :align right :size 0.25)
                         ("*Backtrace*"         :regexp t :align t     :size 0.4)
                         ("*Warnings*"          :regexp t :align t     :size 0.4)
+                        ("*cider-error*"    :inhibit-window-quit t)
+                        ("\\`\\*magit.*?\\*\\'" :regexp t :select t   :inhibit-window-quit t :same t)
                         )))
 
 ;; which-key
