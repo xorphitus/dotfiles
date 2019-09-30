@@ -13,17 +13,17 @@ ctl() {
 
 toggle() {
   sinks | xargs -I {} pactl set-sink-mute {} toggle
-  notify-send -u low '🔊'
+  notify-send -u low ' / 🔇'
 }
 
 down() {
   ctl '-5%'
-  notify-send -u low '♪▼'
+  notify-send -u low '🔉' # '🔈'
 }
 
 up() {
   ctl '+5%'
-  notify-send -u low '♪▲'
+  notify-send -u low '🔊'
 }
 
 volumes() {
@@ -46,7 +46,9 @@ graphical_status() {
       bar=$(echo $bar '・')
     fi
   done
-  echo '[' $bar ']' $(status)
+  local icon=''
+  pactl list sinks | fgrep 'Mute: yes' > /dev/null && icon='🔇'
+  echo $icon '[' $bar ']' $(status)
 }
 
 case $1 in
