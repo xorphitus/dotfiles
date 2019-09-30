@@ -44,13 +44,3 @@ $ ln -s /usr/share/git/diff-highlight /hoge/diff-highlight
 ```
 $ ln -s /usr/local/Cellar/git/**/contrib/diff-highlight/diff-highlight /hoge/diff-highlight
 ```
-
-### rcodetools
-
-Ruby development tools
-
-```
-$ gem install rcodetools
-$ rbenv rehash
-$ ln -s /path/to/gems/rcodetools-${VERSION}/rcodetools.el /path/to/elisp/
-```
