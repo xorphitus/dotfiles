@@ -26,8 +26,27 @@ up() {
   notify-send -u low '♪▲'
 }
 
+volumes() {
+  pactl list sinks | grep Volume | grep -v 'Base Volume' | awk '{print $5}'
+}
+
 status() {
-  pactl list sinks | grep Volume | grep -v 'Base Volume' | awk '{print $5}' | sed -e 'N;s/\n/, /'
+  volumes | sed -e 'N;s/\n/, /'
+}
+
+graphical_status() {
+  local ave=$(volumes | sed -e 's/%//g' | awk '{m+=$1} END{print m/NR;}')
+  # max 10 steps
+  local degree=$(echo $ave | awk '{print int($1 / 20)}')
+  local bar=""
+  for i in $(seq 1 10) ; do
+    if [ $i -le $degree ]; then
+      bar=$(echo $bar '➤')
+    else
+      bar=$(echo $bar '・')
+    fi
+  done
+  echo '[' $bar ']' $(status)
 }
 
 case $1 in
@@ -38,7 +57,7 @@ case $1 in
   "up")
     up;;
   "status")
-    status;;
+    graphical_status;;
   *)
     exit 1
 esac
