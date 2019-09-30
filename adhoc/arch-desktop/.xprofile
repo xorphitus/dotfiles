@@ -17,3 +17,7 @@ xss-lock -- $HOME/dotfiles/adhoc/arch-desktop/bin/lock.sh &
 dunst -lb 333333 -nb 000000 -hb 990000 &
 nitrogen --restore &
 compton -cb
+
+# i3bar transparency
+# see: https://linuax.altervista.org/blog/2019/01/07/i3-config-and-transparent-bar/
+~/dotfiles/adhoc/arch-desktop/bin/i3bar_transparent.sh
