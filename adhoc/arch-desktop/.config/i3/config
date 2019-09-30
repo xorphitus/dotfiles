@@ -136,9 +136,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-bindcode 121 exec "pacmd list-sinks | grep 'index:' | awk '{print $NF}' | xargs -I {} pactl set-sink-mute {} toggle && notify-send -u low '🔊'"
-bindcode 122 exec "pacmd list-sinks | grep 'index:' | awk '{print $NF}' | xargs -I {} bash -c 'pactl set-sink-mute {} false && pactl set-sink-volume {} -5%' && notify-send -u low '♪▼'"
-bindcode 123 exec "pacmd list-sinks | grep 'index:' | awk '{print $NF}' | xargs -I {} bash -c 'pactl set-sink-mute {} false && pactl set-sink-volume {} +5%' && notify-send -u low '♪▲'"
+bindcode 121 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh toggle"
+bindcode 122 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh down"
+bindcode 123 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh up"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -174,7 +174,7 @@ bindsym Mod1+space exec rofi -combi-modi -font "hack 10" -show
 bar {
     # conky integration
     # https://i3wm.org/docs/user-contributed/conky-i3bar.html
-    status_command "echo '{\"version\":1}'; echo '['; echo '[],'; exec conky -c $HOME/.config/conky/status_bar.conf"
+    status_command "echo '{\"version\":1}'; echo '['; echo '[],'; exec conky -c ~/.config/conky/status_bar.conf"
     position top
     colors {
          focused_workspace #111199 #ccccff #111199
