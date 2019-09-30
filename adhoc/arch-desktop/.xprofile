@@ -1,0 +1,19 @@
+export LC_CTYPE=ja_JP.utf-8
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+
+export QT_QPA_PLATFORMTHEME=gtk2
+export RIPCORD_STYLE_ENGINE=gtk2
+
+terminator &
+fcitx &
+dropbox &
+volumeicon &
+redshift-gtk &
+psensor &
+
+xss-lock -- $HOME/dotfiles/adhoc/arch-desktop/bin/lock.sh &
+dunst -lb 333333 -nb 000000 -hb 990000 &
+nitrogen --restore &
+compton -cb
