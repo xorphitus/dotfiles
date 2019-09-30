@@ -175,3 +175,9 @@ bar {
         status_command i3status
 }
 
+# i3-gaps
+for_window [class=".*"] border pixel 1
+gaps inner 10
+gaps outer -5
+smart_gaps on
+smart_borders on
