@@ -175,6 +175,10 @@ bar {
     # conky integration
     # https://i3wm.org/docs/user-contributed/conky-i3bar.html
     status_command "echo '{\"version\":1}'; echo '['; echo '[],'; exec conky -c $HOME/.config/conky/status_bar.conf"
+    position top
+    colors {
+         focused_workspace #111199 #ccccff #111199
+    }
 }
 
 # i3-gaps
