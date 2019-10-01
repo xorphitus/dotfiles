@@ -48,7 +48,7 @@ graphical_status() {
   done
   local icon=''
   pactl list sinks | fgrep 'Mute: yes' > /dev/null && icon='🔇'
-  echo $icon '[' $bar ']' $(status)
+  echo "$icon [$bar] $(status)"
 }
 
 case $1 in
