@@ -184,7 +184,10 @@ bar {
     status_command "echo '{\"version\":1}'; echo '['; echo '[],'; exec conky -c ~/.config/conky/status_bar.conf"
     position top
     font xft:Ricty Discord Nerd Font 11
+    i3bar_command i3bar --transparency
     colors {
+         background #000000aa
+         # class           border  backgr. text
          focused_workspace #001199 #ccccff #001199
     }
 }
