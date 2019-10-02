@@ -6,6 +6,8 @@ export XMODIFIERS=@im=fcitx
 export QT_QPA_PLATFORMTHEME=gtk2
 export RIPCORD_STYLE_ENGINE=gtk2
 
+xset b off
+
 terminator &
 fcitx &
 dropbox &
