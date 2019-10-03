@@ -16,7 +16,6 @@ redshift-gtk &
 psensor &
 
 xss-lock -- $HOME/dotfiles/adhoc/arch-desktop/bin/lock.sh &
-dunst -lb 333333 -nb 000000 -hb 990000 &
+dunst &
 nitrogen --restore &
 compton -cb
-
