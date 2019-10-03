@@ -59,6 +59,8 @@ set -x NODE_VERSION system
 
 ###########################################################
 # Go
+set -x GOPATH ~/go
+set -x PATH $GOPATH/bin:$PATH
 
 ###########################################################
 # Common Lisp
