@@ -174,7 +174,7 @@ bindsym Mod1+space exec rofi -combi-modi -font "hack 10" -show
 font xft:Noto Sans 11
 # class                 border  backgr. text    indicator child_border
 client.focused          #333333 #333333 #ccccff #2e9ef4   #285577
-client.focused_inactive #333333 #333333 #ccccff #484e50   #5f676a
+client.focused_inactive #2a2a2a #2a2a2a #6d6d88 #484e50   #5f676a
 client.unfocused        #111111 #111111 #555555 #292d2e   #222222
 
 # Start i3bar to display a workspace bar (plus the system information i3status
