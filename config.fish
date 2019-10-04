@@ -82,7 +82,7 @@ set -x LESSOPEN "| $hiliter %s"
 # aliases
 # alias google-chrome='google-chrome-stable -allow-file-access-from-files'
 alias ls='lsd'
-alias ack='ag'
+alias ack='rg'
 alias diff='colordiff'
 alias l='ls'
 alias lt='ls --tree'

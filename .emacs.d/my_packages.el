@@ -140,6 +140,7 @@
 (depends-on helm-ag)
 (depends-on helm-descbinds)
 (depends-on helm-ghq)
+(depends-on helm-rg)
 (depends-on helm-swoop)
 (depends-on ido-vertical-mode)
 (depends-on migemo)

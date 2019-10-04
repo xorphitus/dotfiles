@@ -37,9 +37,15 @@
 
 ;; helm-ag
 (use-package helm-ag
-  :commands helm-ag
-  :bind (("M-g ." . helm-ag)
-         ("M-g ," . helm-ag-pop-stack)))
+  :bind
+  (("M-g ." . helm-ag)
+   ("M-g ," . helm-ag-pop-stack))
+  :custom
+  (helm-ag-base-command "rg --no-heading"))
+
+(use-package helm-rg
+  :bind
+  (("M-G ." . helm-rg)))
 
 ;; helm-descbinds
 (use-package helm-descbinds
