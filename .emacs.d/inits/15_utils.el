@@ -37,6 +37,10 @@
              ("C-n" . company-select-next)
              ("C-p" . company-select-previous)))
 
+(use-package company-box
+  :hook
+  (company-mode . company-box-mode))
+
 ;; undo-tree.el
 (use-package undo-tree
   :diminish (undo-tree-mode . "🅤")

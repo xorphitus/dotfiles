@@ -140,6 +140,7 @@
 (depends-on alert)
 (depends-on anzu)
 (depends-on company)
+(depends-on company-box)
 ;; (depends-on ddskk) ;; it causes an error at emacs initialization
 (depends-on direnv)
 (depends-on eglot)
