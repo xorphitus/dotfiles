@@ -110,8 +110,8 @@
 (depends-on volatile-highlights)
 
 ;; code jump
+(depends-on counsel-gtags)
 (depends-on dumb-jump)
-(depends-on helm-gtags)
 (depends-on smart-jump)
 
 ;; files and projects

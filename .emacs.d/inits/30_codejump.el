@@ -13,18 +13,14 @@
   :config
   (dumb-jump-mode))
 
-;; helm
-(use-package helm-gtags
-  :config
-  (setq helm-gtags-path-style 'relative)
-  (setq helm-gtags-ignore-case t)
-  (setq helm-gtags-auto-update t))
+;; counsel
+(use-package counsel-gtags)
 
 ;; smart-jump
 (defun my-smart-jump-configuration-with-gtags (modes)
   (progn
     (smart-jump-register :modes modes
-                         :jump-fn 'helm-gtags-find-tag)
+                         :jump-fn 'counsel-gtags-find-definition)
     (smart-jump-register :modes modes
                          :jump-fn 'xref-find-definitions)))
 
