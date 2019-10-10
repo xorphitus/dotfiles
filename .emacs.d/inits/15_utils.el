@@ -191,7 +191,13 @@
 ;; ace-isearch
 (use-package ace-isearch
   :diminish ace-isearch-mode
-  :config (global-ace-isearch-mode 1))
+  :config
+  (global-ace-isearch-mode 1)
+  :custom
+  (ace-isearch-function 'avy-goto-char)
+  ;;(ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
+  (ace-isearch-function-from-isearch 'helm-swoop-from-isearch)
+  )
 
 ;; ace-window
 ;; w/ http://d.hatena.ne.jp/rubikitch/20100210/emacs
