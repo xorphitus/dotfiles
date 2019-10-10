@@ -138,7 +138,6 @@
 (depends-on flycheck-popup-tip)
 (depends-on helm)
 (depends-on helm-ag)
-(depends-on helm-descbinds)
 (depends-on helm-ghq)
 (depends-on helm-rg)
 (depends-on helm-swoop)

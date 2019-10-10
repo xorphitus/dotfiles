@@ -47,11 +47,6 @@
   :bind
   (("M-G ." . helm-rg)))
 
-;; helm-descbinds
-(use-package helm-descbinds
-  :config
-  (helm-descbinds-mode))
-
 
 (use-package ivy
   :config
