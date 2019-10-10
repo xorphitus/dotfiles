@@ -158,6 +158,7 @@
 (depends-on wrap-region)
 (depends-on yasnippet)
 
+(depends-on all-the-icons-ivy)
 (depends-on ivy)
 (depends-on counsel)
 (depends-on swiper)
