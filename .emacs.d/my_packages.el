@@ -158,3 +158,7 @@
 (depends-on which-key)
 (depends-on wrap-region)
 (depends-on yasnippet)
+
+(depends-on ivy)
+(depends-on counsel)
+(depends-on swiper)

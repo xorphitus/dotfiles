@@ -17,7 +17,7 @@
            ("M-y"   . helm-show-kill-ring))
     :init
     (progn
-      (helm-mode 1)
+      ;;(helm-mode 1)
       ;; http://www49.atwiki.jp/ntemacs/pages/32.html
       ;; helm-for-files can be very heavy
       ;; it's caused by helm-source-files-in-current-dir when using 'tramp'
@@ -51,3 +51,19 @@
 (use-package helm-descbinds
   :config
   (helm-descbinds-mode))
+
+
+(use-package ivy
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t))
+
+(use-package counsel
+  :after (ivy)
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file))
+
+(use-package swiper
+  :after (ivy))
