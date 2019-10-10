@@ -12,12 +12,10 @@
   :init
   (use-package helm-config
     :bind (("C-c h" . helm-for-files)
-           ("M-x"   . helm-M-x)
            ("C-x b" . helm-buffers-list)
            ("M-y"   . helm-show-kill-ring))
     :init
     (progn
-      ;;(helm-mode 1)
       ;; http://www49.atwiki.jp/ntemacs/pages/32.html
       ;; helm-for-files can be very heavy
       ;; it's caused by helm-source-files-in-current-dir when using 'tramp'

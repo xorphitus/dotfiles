@@ -123,6 +123,18 @@
 (depends-on treemacs-magit)
 (depends-on treemacs-projectile)
 
+;; completion
+(depends-on helm) ;; helm-for-files is usefull and I don't like counsel-yank-pop's interface
+(depends-on helm-ag) ;; for editing
+(depends-on helm-ghq)
+(depends-on helm-rg) ;; counsel-rg doesn't work well
+(depends-on helm-swoop) ;; ace-isearch requires it for editing
+
+(depends-on all-the-icons-ivy)
+(depends-on ivy)
+(depends-on counsel)
+(depends-on swiper)
+
 ;; other utils
 (depends-on ace-isearch)
 (depends-on ace-window)
@@ -136,11 +148,6 @@
 (depends-on expand-region)
 (depends-on flycheck)
 (depends-on flycheck-popup-tip)
-(depends-on helm)
-(depends-on helm-ag)
-(depends-on helm-ghq)
-(depends-on helm-rg)
-(depends-on helm-swoop)
 (depends-on ido-vertical-mode)
 (depends-on migemo)
 (depends-on multiple-cursors)
@@ -157,8 +164,3 @@
 (depends-on which-key)
 (depends-on wrap-region)
 (depends-on yasnippet)
-
-(depends-on all-the-icons-ivy)
-(depends-on ivy)
-(depends-on counsel)
-(depends-on swiper)
