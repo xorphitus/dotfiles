@@ -54,9 +54,9 @@
 
 (use-package counsel
   :after (ivy)
-  :config
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file))
+  :bind (("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)
+         ("C-x C-b" . counsel-ibuffer)))
 
 (use-package swiper
   :after (ivy))

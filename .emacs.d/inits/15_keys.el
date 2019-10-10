@@ -16,8 +16,5 @@
 ;;; C-x C-c -> "exit" command
 (defalias 'exit 'save-buffers-kill-emacs)
 
-;;; bs-show
-(bind-key "C-x C-b" 'bs-show)
-
 ;;; set key binds
 (bind-key "C-h" 'delete-backward-char)
