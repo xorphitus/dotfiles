@@ -70,6 +70,12 @@
   (setq all-the-icons-ivy-file-commands
         '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
 
+(use-package ivy-posframe
+  :after (ivy)
+  :config
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
+  (ivy-posframe-mode 1))
+
 (use-package ivy-prescient
   :after (ivy)
   :config

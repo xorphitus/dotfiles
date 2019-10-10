@@ -131,6 +131,7 @@
 
 (depends-on ivy)
 (depends-on all-the-icons-ivy)
+(depends-on ivy-posframe)
 (depends-on ivy-prescient)
 (depends-on counsel)
 (depends-on swiper)
