@@ -73,13 +73,10 @@
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (setq spaceline-flycheck-bullet "⚠%s"))
 
-(use-package flycheck-popup-tip
+(use-package flycheck-posframe
   :after (flycheck)
   :config
-  (flycheck-popup-tip-mode)
-  :custom-face
-  (popup-tip-face ((t (:foreground "#f1fa8c"
-                       :background "#111111")))))
+  (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
 
 ;; junk file
 (use-package open-junk-file
