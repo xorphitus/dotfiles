@@ -115,8 +115,8 @@
 (depends-on smart-jump)
 
 ;; files and projects
+(depends-on counsel-projectile)
 (depends-on eyebrowse)
-(depends-on helm-projectile)
 (depends-on projectile)
 (depends-on treemacs)
 (depends-on treemacs-icons-dired)
