@@ -28,15 +28,6 @@
     (setq skk-dcomp-activate t)
     (setq skk-dcomp-multiple-activate t)
     (setq skk-dcomp-multiple-rows 10)
-    ;; face setting
-    ;; it depends on popup.el and its face settings
-    (use-package popup
-      :config
-      (setq skk-tooltip-function
-            #'(lambda (tooltip-str)
-                (popup-tip tooltip-str))))
-    (set-face-foreground 'skk-dcomp-multiple-face (face-attribute 'company-tooltip :foreground))
-    (set-face-background 'skk-dcomp-multiple-face (face-attribute 'company-tooltip :background))
     ;; dictionary
     (setq skk-large-jisyo (concat my-skk-jisyo-root "/SKK-JISYO.L"))
     (setq skk-extra-jisyo-file-list
@@ -45,3 +36,7 @@
                    "/SKK-JISYO.jinmei"
                    "/SKK-JISYO.propernoun"
                    "/SKK-JISYO.station")))))
+
+(use-package ddskk-posframe
+  :config
+  (ddskk-posframe-mode t))
