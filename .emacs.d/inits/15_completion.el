@@ -12,9 +12,7 @@
 
 (use-package helm-config
   :after (helm)
-  :bind (("C-c h" . helm-for-files)
-         ("C-x b" . helm-buffers-list)
-         ("M-y"   . helm-show-kill-ring))
+  :bind (("C-c h" . helm-for-files))
   :init
   ;; http://www49.atwiki.jp/ntemacs/pages/32.html
   ;; helm-for-files can be very heavy
@@ -57,8 +55,11 @@
 (use-package counsel
   :after (ivy)
   :bind (("M-x" . counsel-M-x)
+         ("M-y" . counsel-yank-pop)
          ("C-x C-f" . counsel-find-file)
-         ("C-x C-b" . counsel-ibuffer)))
+         ("C-x C-b" . counsel-ibuffer))
+  :custom
+  (counsel-yank-pop-separator "\n――――――――\n"))
 
 (use-package swiper
   :after (ivy))
