@@ -67,8 +67,15 @@
   :diminish (flycheck-mode . "⚠")
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode)
-  (flycheck-popup-tip-mode)
   (setq spaceline-flycheck-bullet "⚠%s"))
+
+(use-package flycheck-popup-tip
+  :after (flycheck)
+  :config
+  (flycheck-popup-tip-mode)
+  :custom-face
+  (popup-tip-face ((t (:foreground "#f1fa8c"
+                       :background "#111111")))))
 
 ;; junk file
 (use-package open-junk-file
