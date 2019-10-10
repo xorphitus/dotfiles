@@ -126,7 +126,6 @@
 ;; completion
 (depends-on helm) ;; helm-for-files is usefull and I don't like counsel-yank-pop's interface
 (depends-on helm-ag) ;; for editing
-(depends-on helm-ghq)
 (depends-on helm-rg) ;; counsel-rg doesn't work well
 (depends-on helm-swoop) ;; ace-isearch requires it for editing
 

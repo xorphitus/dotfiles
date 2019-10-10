@@ -66,3 +66,16 @@
   (all-the-icons-ivy-setup)
   (setq all-the-icons-ivy-file-commands
       '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
+
+(defun counsel-ghq (&optional initial-input)
+  "Open a file using the ghq shell command."
+  (interactive)
+  (let ((candidates (split-string
+                     (shell-command-to-string
+                      "ghq list --full-path")
+                     "\n")))
+    (ivy-read "ghq: "
+              candidates
+              :initial-input initial-input
+              :action #'find-file
+              :caller 'counsel-ghq)))
