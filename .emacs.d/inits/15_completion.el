@@ -70,6 +70,11 @@
   (setq all-the-icons-ivy-file-commands
         '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
 
+(use-package ivy-prescient
+  :after (ivy)
+  :config
+  (ivy-prescient-mode))
+
 (defun counsel-ghq (&optional initial-input)
   "Open a file using the ghq shell command."
   (interactive)

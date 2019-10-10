@@ -123,14 +123,15 @@
 (depends-on treemacs-magit)
 (depends-on treemacs-projectile)
 
-;; completion
+;; generic completion
 (depends-on helm) ;; helm-for-files is usefull
 (depends-on helm-ag) ;; for editing
 (depends-on helm-rg) ;; counsel-rg doesn't work well
 (depends-on helm-swoop) ;; ace-isearch requires it for editing
 
-(depends-on all-the-icons-ivy)
 (depends-on ivy)
+(depends-on all-the-icons-ivy)
+(depends-on ivy-prescient)
 (depends-on counsel)
 (depends-on swiper)
 
@@ -138,13 +139,16 @@
 ;; (depends-on ddskk) ;; it causes an error at emacs initialization
 (depends-on ddskk-posframe)
 
+;; code completion
+(depends-on company)
+(depends-on company-box)
+(depends-on company-prescient)
+
 ;; other utils
 (depends-on ace-isearch)
 (depends-on ace-window)
 (depends-on alert)
 (depends-on anzu)
-(depends-on company)
-(depends-on company-box)
 (depends-on direnv)
 (depends-on eglot)
 (depends-on esup)

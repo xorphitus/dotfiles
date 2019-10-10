@@ -16,6 +16,11 @@
   :config
   (bind-key "C-c C-e" 'wdired-change-to-wdired-mode dired-mode-map))
 
+;; prescient
+(use-package prescient
+  :config
+  (prescient-persist-mode))
+
 ;; comapny
 (use-package company
   :diminish (company-mode . "🅒")
@@ -40,6 +45,11 @@
 (use-package company-box
   :hook
   (company-mode . company-box-mode))
+
+(use-package company-prescient
+  :after (company)
+  :config
+  (company-prescient-mode))
 
 ;; undo-tree.el
 (use-package undo-tree

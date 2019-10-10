@@ -17,4 +17,5 @@ session.*
 tramp
 transient
 url
+var
 wget-log*
