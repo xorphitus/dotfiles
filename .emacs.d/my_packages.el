@@ -156,6 +156,7 @@
 (depends-on expand-region)
 (depends-on flycheck)
 (depends-on flycheck-posframe)
+(depends-on google-translate)
 (depends-on ido-vertical-mode)
 (depends-on migemo)
 (depends-on multiple-cursors)

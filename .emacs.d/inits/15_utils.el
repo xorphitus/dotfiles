@@ -269,3 +269,10 @@
 (use-package which-key
   :config
   (which-key-mode))
+
+;; google-translate
+(use-package google-translate
+  :after (posframe)
+  :config
+  (setq google-translate-translation-directions-alist
+        '(("ja" . "en") ("en" . "ja"))))
