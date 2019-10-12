@@ -270,6 +270,25 @@
   :config
   (which-key-mode))
 
+;; spelling
+;; requires packages
+;;   * hunspell
+;;   * hunspell-en_US
+(use-package ispell
+  :config
+  (setq ispell-program-name (executable-find "hunspell")
+        ispell-dictionary "en_US-large")
+  ;; This configuration does not work well.
+  (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
+  ;; (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+
+(use-package "flyspell"
+  :config
+  ;; They conflict with other key bindings
+  (define-key flyspell-mode-map (kbd "C-,") nil)
+  (define-key flyspell-mode-map (kbd "C-.") nil))
+
 ;; google-translate
 (use-package google-translate
   :after (posframe)
