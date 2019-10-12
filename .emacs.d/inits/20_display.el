@@ -52,7 +52,8 @@
 (windmove-default-keybindings)
 
 ;; font
-(set-frame-font "ricty discord nerd font-14")
+(setq default-frame-alist
+    '((font . "ricty discord nerd font-14")))
 
 ;; set color, window size
 (if window-system
