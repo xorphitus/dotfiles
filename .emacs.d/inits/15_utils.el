@@ -243,8 +243,8 @@
   (wrap-region-mode t))
 
 (use-package direnv
- :config
- (direnv-mode))
+  :config
+  (direnv-mode))
 
 ;; ELDoc
 (use-package eldoc
