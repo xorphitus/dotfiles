@@ -12,7 +12,8 @@
 ;; (set-fontset-font "fontset-default" 'japanese-jisx0208 '("Ricty"))
 
 (setq default-frame-alist
-    '((font . "ricty-14")))
+      '((font . "ricty-14")))
+(set-frame-font "ricty-14")
 
 (setq my-skk-jisyo-root "~/skk")
 
