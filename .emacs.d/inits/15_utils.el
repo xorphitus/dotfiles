@@ -278,10 +278,19 @@
   :config
   (setq ispell-program-name (executable-find "hunspell")
         ispell-dictionary "en_US-large")
-  ;; This configuration does not work well.
-  (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
-  ;; (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+
+;; The following lines are hunspell settings with Japanese.
+;; See: https://www.emacswiki.org/emacs/FlySpell#toc14
+;; Because an aspell setting
+;;   (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
+;; does not work!
+(defun my-flyspell-ignore-non-ascii (beg end info)
+  "Tell flyspell to ignore non ascii characters.
+  Call this on `flyspell-incorrect-hook'."
+  (string-match "[^!-~]" (buffer-substring beg end)))
+(add-hook 'flyspell-incorrect-hook 'my-flyspell-ignore-non-ascii)
 
 (use-package "flyspell"
   :config
