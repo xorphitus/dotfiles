@@ -43,6 +43,7 @@
              ("C-p" . company-select-previous)))
 
 (use-package company-box
+  :diminish
   :hook
   (company-mode . company-box-mode))
 

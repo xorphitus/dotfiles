@@ -37,5 +37,6 @@
                  "/SKK-JISYO.station"))))
 
 (use-package ddskk-posframe
+  :diminish
   :config
   (ddskk-posframe-mode t))

@@ -47,6 +47,7 @@
 
 ;; ivy/counsel settings
 (use-package ivy
+  :diminish (ivy-mode . "🅘")
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
@@ -72,6 +73,7 @@
 
 (use-package ivy-posframe
   :after (ivy)
+  :diminish
   :config
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
   (ivy-posframe-mode 1))
