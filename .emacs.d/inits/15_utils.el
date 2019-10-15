@@ -278,7 +278,8 @@
 (use-package ispell
   :config
   (setq ispell-program-name (executable-find "hunspell")
-        ispell-dictionary "en_US-large")
+        ispell-dictionary "en_US-large"
+        ispell-really-hunspell t)
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
