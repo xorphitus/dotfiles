@@ -57,8 +57,13 @@
          (available (-find
                      (lambda (f) (when (-contains? fonts f) f))
                      '("ricty discord nerd font"
+                       "Ricty Discord Nerd Font"
                        "ricty discord"
-                       "ricty")))
+                       "Ricty Discord"
+                       "ricty nerd font"
+                       "Ricty Nerd Font"
+                       "ricty"
+                       "Ricty")))
          (size 14))
     (format "%s-%d" available size))
   "Font. It's detected automaticaly by default.")
