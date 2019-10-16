@@ -8,7 +8,8 @@
 
 ;;; Code:
 
-(defcustom my-skk-jisyo-root "/usr/share/skk"
+(defcustom my-skk-jisyo-root
+  (-find 'f-directory? '("/usr/share/skk" "~/skk"))
   "SKK dictionary path. Override it for each platform")
 
 (use-package skk

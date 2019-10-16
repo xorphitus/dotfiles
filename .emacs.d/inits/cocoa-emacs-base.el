@@ -8,8 +8,6 @@
 
 ;;; Code:
 
-(setq my-skk-jisyo-root "~/skk")
-
 ;; Need to place hunspell dictionaries
 ;; to the path which is included in the results of `hunspell -D`
 ;;
