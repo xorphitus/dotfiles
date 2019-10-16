@@ -52,9 +52,20 @@
 (windmove-default-keybindings)
 
 ;; font
+(defcustom my-font
+  (let* ((fonts (font-family-list))
+         (available (-find
+                     (lambda (f) (when (-contains? fonts f) f))
+                     '("ricty discord nerd font"
+                       "ricty discord"
+                       "ricty")))
+         (size 14))
+    (format "%s-%d" available size))
+  "Font. It's detected automaticaly by default.")
+
 (setq default-frame-alist
-      '((font . "ricty discord nerd font-14")))
-(set-frame-font "ricty discord nerd font-14")
+      '((font . my-font)))
+(set-frame-font my-font)
 
 ;; set color, window size
 (if window-system
