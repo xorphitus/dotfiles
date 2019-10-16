@@ -296,7 +296,7 @@
 
 (use-package "flyspell"
   :config
-  ;; They conflict with other key bindings
+  ;; They conflict with expand-region's bindings
   (define-key flyspell-mode-map (kbd "C-,") nil)
   (define-key flyspell-mode-map (kbd "C-.") nil))
 

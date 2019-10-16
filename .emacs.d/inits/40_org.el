@@ -12,6 +12,9 @@
 
 (set-face-attribute 'org-level-1 nil :height 1.4)
 
+;; It conflicts with expand-region's bindings
+(define-key org-mode-map (kbd "C-,") nil)
+
 ;; beautify org-mode list bullets
 (use-package org-bullets
   :config
