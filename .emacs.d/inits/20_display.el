@@ -69,7 +69,7 @@
   "Font. It's detected automaticaly by default.")
 
 (setq default-frame-alist
-      '((font . my-font)))
+      (list (cons 'font  my-font)))
 (set-frame-font my-font)
 
 ;; set color, window size
