@@ -279,10 +279,7 @@
   :config
   (setq ispell-program-name (executable-find "hunspell")
         ispell-dictionary "en_US-large"
-        ispell-really-hunspell t)
-  (add-hook 'text-mode-hook 'flyspell-mode)
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
-
+        ispell-really-hunspell t))
 ;; The following lines are hunspell settings with Japanese.
 ;; See: https://www.emacswiki.org/emacs/FlySpell#toc14
 ;; Because an aspell setting
@@ -296,9 +293,13 @@
 
 (use-package "flyspell"
   :config
+  ;; ignore errors on macOS
+  (setq flyspell-issue-message-flag nil)
   ;; They conflict with expand-region's bindings
   (define-key flyspell-mode-map (kbd "C-,") nil)
-  (define-key flyspell-mode-map (kbd "C-.") nil))
+  (define-key flyspell-mode-map (kbd "C-.") nil)
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
 ;; google-translate
 (use-package google-translate

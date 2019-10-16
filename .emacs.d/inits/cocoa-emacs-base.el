@@ -14,11 +14,11 @@
 ;; $ cd ~/Library/Spelling
 ;; $ wget https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff
 ;; $ wget https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic
-(setq ispell-hunspell-dict-paths-alist '(("en_US" "~/Library/Spelling/en_US.aff"))
-      ispell-dictionary "en_US")
-
-;; hogee is me
-;; this is mineee ok
+(setq  ispell-dictionary "en_US")
+(add-to-list 'ispell-dictionary-alist
+             '("en_US" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_US") nil utf-8))
+;; https://stackoverflow.com/questions/3961119/working-setup-for-hunspell-in-emacs
+(defun ispell-get-coding-system () 'utf-8)
 
 ;; beautify powerline
 ;; https://github.com/milkypostman/powerline/issues/54
