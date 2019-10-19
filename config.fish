@@ -177,6 +177,15 @@ end
 # https://www.emacswiki.org/emacs/EmacsClient#toc45
 # http://d.hatena.ne.jp/kitokitoki/20111225/p4
 function e
+  if test (uname) = Linux
+    # Auto focus to Emacs window
+    # see: http://syohex.hatenablog.com/entry/20110127/1296141148
+    set emacs_wid (wmctrl -l | grep 'emacs@'(hostname) | awk '{print $1}')
+    if test -n $emacs_wid
+      wmctrl -i -a $emacs_wid
+    end
+  end
+
   switch (count $argv)
     case 0
       set tmp (mktemp /tmp/emacsstdinXXXXXX)
@@ -247,7 +256,7 @@ function _setup_fishenv
   set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff'
   switch (uname)
     case Linux
-      yay -S       $packages python-pygments
+      yay -S       $packages python-pygments wmctrl
     case Darwin
       brew install $packages terminal-notifier
   end
