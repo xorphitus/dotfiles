@@ -50,7 +50,7 @@ set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
 # Ruby
-set RUBY_VERSION 2.5.1
+set RUBY_VERSION 2.6.5
 rbenv global $RUBY_VERSION
 
 ###########################################################
