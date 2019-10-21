@@ -12,14 +12,13 @@
 (use-package go-mode
   :commands go-mode
   :init
-  (progn
-    ;; flycheck
-    (add-hook 'go-mode-hook 'flycheck-mode)
-
-    ;; highlight indentation
-    (add-hook 'go-mode-hook 'highlight-indentation-mode)
-
-    ;; prittify symbols
-    (my-macro/prettify-symbols
+  ;; flycheck
+  (add-hook 'go-mode-hook 'flycheck-mode)
+  ;; indentation
+  (add-hook 'go-mode-hook 'highlight-indentation-mode)
+  (add-hook 'go-mode-hook (lambda ()
+                            (setq tab-width 4)))
+  ;; prittify symbols
+  (my-macro/prettify-symbols
      go-mode-hook
-     my-const/relational-prettify-symbols-alist)))
+     my-const/relational-prettify-symbols-alist))
