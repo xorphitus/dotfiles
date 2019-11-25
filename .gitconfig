@@ -20,6 +20,7 @@
 	b = branch
 	d = diff
 	cho = checkout
+	push-f = push --force-with-lease
 [pager]
 	log = diff-highlight | less
 	show = diff-highlight | less
