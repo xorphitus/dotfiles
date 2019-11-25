@@ -63,6 +63,9 @@
 ;; scala
 (depends-on scala-mode)
 
+;; kotlin
+(depends-on kotlin-mode)
+
 ;; c / c++
 (depends-on google-c-style)
 
