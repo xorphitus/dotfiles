@@ -88,6 +88,7 @@
 
 ;; git
 (depends-on magit)
+(depends-on forge)
 (depends-on gitignore-mode)
 (depends-on gitconfig-mode)
 (depends-on git-gutter-fringe)

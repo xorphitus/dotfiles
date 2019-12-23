@@ -19,3 +19,4 @@ transient
 url
 var
 wget-log*
+*.sqlite
