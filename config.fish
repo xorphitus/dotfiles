@@ -199,7 +199,7 @@ function e
   end
 end
 
-# dislplay shell buffer in Emacs
+# display shell buffer in Emacs
 function es
   tmux capture-pane -S -10000\; show-buffer | e
 end
