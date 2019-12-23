@@ -18,8 +18,11 @@ some Rust components
 
 other CLI tools
 
-* ag
+* cmigemo
 * multimarkdown
+* rg
+
+and execute `M-x all-the-icons-install-fonts`
 
 ### git / global ignore
 
