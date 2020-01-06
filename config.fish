@@ -118,6 +118,8 @@ function update-home-bin
   fisher self-update
   _install_nvm
 
+  rusup update
+
   set targets '.rbenv' '.tmux/plugins/tpm'
   for target in $targets
     cd $HOME/$target
@@ -289,4 +291,3 @@ if test -e $fish_individual_config
 end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-
