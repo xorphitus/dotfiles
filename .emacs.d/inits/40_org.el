@@ -10,7 +10,7 @@
 
 (setq org-agenda-files (list "~/Documents/org"))
 
-(set-face-attribute 'org-level-1 nil :height 1.4)
+;; (set-face-attribute 'org-level-1 nil :height 1.4)
 
 ;; It conflicts with expand-region's bindings
 (define-key org-mode-map (kbd "C-,") nil)
