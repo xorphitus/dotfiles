@@ -129,11 +129,7 @@
 (depends-on treemacs-projectile)
 
 ;; generic completion
-(depends-on helm) ;; helm-for-files is usefull
-(depends-on helm-ag) ;; for editing
-(depends-on helm-rg) ;; counsel-rg doesn't work well
-(depends-on helm-swoop) ;; ace-isearch requires it for editing
-
+; ivy
 (depends-on ivy)
 (depends-on all-the-icons-ivy)
 (depends-on ivy-posframe)
@@ -155,6 +151,7 @@
 (depends-on ace-window)
 (depends-on alert)
 (depends-on anzu)
+(depends-on avy-migemo)
 (depends-on direnv)
 (depends-on eglot)
 (depends-on esup)

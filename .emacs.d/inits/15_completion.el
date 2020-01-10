@@ -1,4 +1,4 @@
-;;; completion.el --- helm settings
+;;; completion.el --- completion settings
 
 ;; Author: xorphitus <xorphitus@gmail.com>
 
@@ -7,43 +7,14 @@
 ;; This file has completion settings.
 
 ;;; Code:
-(use-package helm
-  :diminish helm-mode)
 
-(use-package helm-config
-  :after (helm)
-  :bind (("C-c h" . helm-for-files))
-  :init
-  ;; http://www49.atwiki.jp/ntemacs/pages/32.html
-  ;; helm-for-files can be very heavy
-  ;; it's caused by helm-source-files-in-current-dir when using 'tramp'
-  (setq helm-for-files-preferred-list
-        '(helm-source-buffers-list
-          helm-source-bookmarks
-          helm-source-recentf
-          helm-source-file-cache
-          ;; helm-source-files-in-current-dir
-          helm-source-locate))
-  ;; let C-h backspace in helm
-  (bind-key "C-h" 'delete-backward-char helm-map))
-
-;; enable helm + migemo
-(use-package migemo
-  :after (helm helm-config)
-  :diminish (helm-migemo-mode . "🅗🅜")
-  :config (helm-migemo-mode 1))
-
-;; helm-ag
-(use-package helm-ag
-  :bind
-  (("M-g ." . helm-ag)
-   ("M-g ," . helm-ag-pop-stack))
-  :custom
-  (helm-ag-base-command "rg --no-heading"))
-
-(use-package helm-rg
-  :bind
-  (("M-G ." . helm-rg)))
+;; enable completion + migemo
+;; TODO: It causes problems for avy and swiper: the following pull request fixes it?
+;; https://github.com/momomo5717/avy-migemo/pull/8
+;;(use-package avy-migemo
+;;  :config
+;;  (avy-migemo-mode 1)
+;;  (require 'avy-migemo-e.g.swiper))
 
 ;; ivy/counsel settings
 (use-package ivy
@@ -53,10 +24,24 @@
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t))
 
+;; How to edit the result lines
+;;
+;; 1. search with swiper, counsel-rg, etc.
+;; 2. (optional) ivy-avy (C-') : search a target
+;; 3. ivy-occur (C-c C-o) : start occur to edit
+;; 4. ivy-wgrep-change-to-wgrep-mode (C-x C-q) : start editing
+;; 5. wgrep-finish-edit (C-c C-c) : commit
+;;
+;; How to change counsel-rg directory
+;;
+;; 1. search with cousel-rg which searches in a project root directory
+;; 2. counsel-cd (C-x C-d)
 (use-package counsel
   :after (ivy)
-  :bind (("M-x" . counsel-M-x)
+  :bind (("C-c h" . counsel-recentf)
+         ("M-x" . counsel-M-x)
          ("M-y" . counsel-yank-pop)
+         ("C-S-f" . counsel-rg)
          ("C-x C-f" . counsel-find-file)
          ("C-x C-b" . counsel-ibuffer))
   :custom

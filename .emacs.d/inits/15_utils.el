@@ -214,9 +214,7 @@
   (global-ace-isearch-mode 1)
   :custom
   (ace-isearch-function 'avy-goto-char)
-  ;;(ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
-  (ace-isearch-function-from-isearch 'helm-swoop-from-isearch)
-  )
+  (ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch))
 
 ;; ace-window
 ;; w/ http://d.hatena.ne.jp/rubikitch/20100210/emacs
@@ -257,9 +255,7 @@
   :config
   (shackle-mode 1)
   (setq shackle-default-rule '(:other t))
-  (setq helm-display-function #'pop-to-buffer) ; make helm play nice
-  (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t     :size 0.4)
-                        ("*undo-tree*"         :regexp t :align right :size 0.25)
+  (setq shackle-rules '(("*undo-tree*"         :regexp t :align right :size 0.25)
                         ("*Backtrace*"         :regexp t :align t     :size 0.4)
                         ("*Warnings*"          :regexp t :align t     :size 0.4)
                         ("*cider-error*"    :inhibit-window-quit t)
