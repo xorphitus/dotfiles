@@ -22,6 +22,27 @@
   :custom
   (org-bullets-bullet-list '("🌕" "🌔" "🌓" "🌒" "🌑")))
 
+;; babel
+(setq org-plantuml-jar-path
+      (--find
+       (f-exists? it)
+       '("/usr/share/java/plantuml/plantuml.jar")))
+
+;; How to use org-babel
+;; The following is an example for PlantUML
+;;
+;;   #+BEGIN_SRC plantuml :file example.png :cmdline -charset UTF-8
+;;   animal <|-- sheep
+;;   #+END_SRC
+;;
+;; Then, type "C-c C-c" inside BEGIN_SRC ~ END_SRC
+;; It creates an image file.
+;; To show the image file inline, use the following.
+;;   org-toggle-inline-images (C-c C-x C-v)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((plantuml . t)))
+
 ;; pomodoro
 
 ;; need to override this function
