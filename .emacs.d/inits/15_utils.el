@@ -212,9 +212,8 @@
   :diminish ace-isearch-mode
   :config
   (global-ace-isearch-mode 1)
-  :custom
-  (ace-isearch-function 'avy-goto-char)
-  (ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch))
+  (setq ace-isearch-function 'avy-goto-char)
+  (setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch))
 
 ;; ace-window
 ;; w/ http://d.hatena.ne.jp/rubikitch/20100210/emacs
