@@ -37,9 +37,6 @@
            my-const/arror-prettify-symbols-alist
            my-const/relational-prettify-symbols-alist))))
 
-;; Rinari
-(use-package rinari)
-
 ;; ruby-electric
 (use-package ruby-electric
   :diminish ruby-electric-mode
@@ -55,11 +52,6 @@
       (insert "end")
       (ruby-indent-line t)
       (end-of-line))))
-
-;; xmpfilter
-;; (use-package rcodetools
-;;   :init
-;;   (bind-key "C-c C-d" 'xmp ruby-mode-map))
 
 ;; inf-ruby
 (use-package inf-ruby

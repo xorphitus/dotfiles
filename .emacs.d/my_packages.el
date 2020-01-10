@@ -21,7 +21,6 @@
 
 ;; lisp
 (depends-on paredit)
-(depends-on parinfer)
 
 ;; clojure
 (depends-on cider)
@@ -45,10 +44,8 @@
 (depends-on vue-mode)
 
 ;; ruby
-(depends-on rinari)
 (depends-on ruby-electric)
 (depends-on ruby-compilation)
-;;(depends-on ruby-refactor)
 (depends-on robe)
 (depends-on haml-mode)
 (depends-on scss-mode)
