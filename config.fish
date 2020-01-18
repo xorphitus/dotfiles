@@ -79,6 +79,11 @@ set hiliter (which src-hilite-lesspipe.sh)
 set -x LESSOPEN "| $hiliter %s"
 
 ###########################################################
+# fxxk
+thefuck --alias | source
+alias f='fuck'
+
+###########################################################
 # aliases
 # alias google-chrome='google-chrome-stable -allow-file-access-from-files'
 alias ls='lsd'
@@ -255,7 +260,7 @@ function _install_nvm
 end
 
 function _setup_fishenv
-  set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff'
+  set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff' 'thefuck'
   switch (uname)
     case Linux
       yay -S       $packages python-pygments wmctrl
