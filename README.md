@@ -21,6 +21,7 @@ other CLI tools
 * cmigemo
 * multimarkdown
 * rg
+* PlantUML
 
 and execute `M-x all-the-icons-install-fonts`
 
