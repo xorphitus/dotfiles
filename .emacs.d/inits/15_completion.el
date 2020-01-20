@@ -41,11 +41,31 @@
   :bind (("C-c h" . counsel-recentf)
          ("M-x" . counsel-M-x)
          ("M-y" . counsel-yank-pop)
-         ("C-S-f" . counsel-rg)
+         ("C-S-f" . my-counsel-rg)
          ("C-x C-f" . counsel-find-file)
          ("C-x C-b" . counsel-ibuffer))
   :custom
   (counsel-yank-pop-separator "\n――――――――\n"))
+
+(defun my-counsel-rg (&optional initial-input extra-rg-args rg-prompt)
+  "This is a counsel-rg alternative. It searches a text in the current directory.
+It you need to search a text in a project root directory,
+use projectile-counsel-rg instead."
+  (interactive)
+  (let ((counsel-ag-base-command
+         (concat counsel-rg-base-command (counsel--rg-targets)))
+        (counsel--grep-tool-look-around
+         (let ((rg (car (split-string counsel-rg-base-command)))
+               (switch "--pcre2"))
+           (and (eq 0 (call-process rg nil nil nil switch "--version"))
+                switch))))
+    (counsel-ag initial-input default-directory extra-rg-args rg-prompt
+                :caller 'counsel-rg)))
+
+(ivy-set-actions
+ 'my-counsel-rg
+ '(("j" counsel-find-library-other-window "other window")
+   ("f" counsel-find-library-other-frame "other frame")))
 
 (use-package swiper
   :after (ivy))
