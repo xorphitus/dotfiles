@@ -94,3 +94,6 @@
 ;; For time locale for org-mode to avoid Japanese time locale format
 ;; However this is not an org-mode specific setting but a global setting, written here
 (setq system-time-locale "C")
+
+;; Set default browser
+(setq browse-url-browser-function 'browse-url-chromium)
