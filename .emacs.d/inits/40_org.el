@@ -49,16 +49,14 @@
 ;; since https://github.com/syohex/emacs-sound-wav which is depended by org-pomodoro
 ;; does not support PulseAudio's pacat/paplay
 (defun sound-wav--do-play (files)
-  (cond ((executable-find "afplay")
-         ;; for macOS
-         (sound-wav--do-play-by-afplay files))
-        ((executable-find "pacat")
-         ;; for PulseAudio
-         (deferred:$
-           ;; max volume: 65536 (100%)
-           (apply 'deferred:process "pacat" "--volume=49152" files)))
-        (t
-         (error "Not found wav player on your system!!"))))
+  (let* ((vol-percent 75)
+         (vol (round (/ (* 65536 vol-percent) 100))))
+    (if (executable-find "afplay")
+        ;; for macOS
+        (sound-wav--do-play-by-afplay files)
+      ;; for PulseAudio
+      (deferred:$
+        (apply 'deferred:process org-pomodoro-audio-player (concat "--volume=" (number-to-string vol)) files)))))
 
 (use-package org-pomodoro
   :after
