@@ -43,6 +43,7 @@
          ("M-y" . counsel-yank-pop)
          ("C-S-f" . my-counsel-rg)
          ("C-x C-f" . counsel-find-file)
+         ("C-x b" . counsel-switch-buffer)
          ("C-x C-b" . counsel-ibuffer))
   :custom
   (counsel-yank-pop-separator "\n――――――――\n"))
