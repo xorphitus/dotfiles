@@ -45,6 +45,8 @@
          ("C-x C-f" . counsel-find-file)
          ("C-x b" . counsel-switch-buffer)
          ("C-x C-b" . counsel-ibuffer))
+  :config
+  (push '(counsel-rg . "--glob '**' -- ") ivy-initial-inputs-alist)
   :custom
   (counsel-yank-pop-separator "\n――――――――\n"))
 
@@ -81,7 +83,9 @@ use projectile-counsel-rg instead."
   :after (ivy)
   :diminish
   :config
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
+  (setq ivy-posframe-display-functions-alist
+        '((swiper . nil)
+          (t      . ivy-posframe-display-at-window-center)))
   (ivy-posframe-mode 1))
 
 (use-package ivy-prescient
