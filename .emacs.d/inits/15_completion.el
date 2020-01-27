@@ -24,6 +24,21 @@
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t))
 
+(defun my-counsel-rg (&optional initial-input extra-rg-args rg-prompt)
+  "This is a counsel-rg alternative. It searches a text in the current directory.
+It you need to search a text in a project root directory,
+use projectile-counsel-rg instead."
+  (interactive)
+  (let ((counsel-ag-base-command
+         (concat counsel-rg-base-command (counsel--rg-targets)))
+        (counsel--grep-tool-look-around
+         (let ((rg (car (split-string counsel-rg-base-command)))
+               (switch "--pcre2"))
+           (and (eq 0 (call-process rg nil nil nil switch "--version"))
+                switch))))
+    (counsel-ag initial-input default-directory extra-rg-args rg-prompt
+                :caller 'counsel-rg)))
+
 ;; How to edit the result lines
 ;;
 ;; 1. search with swiper, counsel-rg, etc.
@@ -46,29 +61,14 @@
          ("C-x b" . counsel-switch-buffer)
          ("C-x C-b" . counsel-ibuffer))
   :config
-  (push '(counsel-rg . "--glob '**' -- ") ivy-initial-inputs-alist)
+  ;; The following glob setting doesn't work. Maybe it should be invoked later
+  ;; (push '(counsel-rg . "--glob '**' -- ") ivy-initial-inputs-alist)
+  (ivy-set-actions
+   'my-counsel-rg
+   '(("j" counsel-find-library-other-window "other window")
+     ("f" counsel-find-library-other-frame "other frame")))
   :custom
   (counsel-yank-pop-separator "\n――――――――\n"))
-
-(defun my-counsel-rg (&optional initial-input extra-rg-args rg-prompt)
-  "This is a counsel-rg alternative. It searches a text in the current directory.
-It you need to search a text in a project root directory,
-use projectile-counsel-rg instead."
-  (interactive)
-  (let ((counsel-ag-base-command
-         (concat counsel-rg-base-command (counsel--rg-targets)))
-        (counsel--grep-tool-look-around
-         (let ((rg (car (split-string counsel-rg-base-command)))
-               (switch "--pcre2"))
-           (and (eq 0 (call-process rg nil nil nil switch "--version"))
-                switch))))
-    (counsel-ag initial-input default-directory extra-rg-args rg-prompt
-                :caller 'counsel-rg)))
-
-(ivy-set-actions
- 'my-counsel-rg
- '(("j" counsel-find-library-other-window "other window")
-   ("f" counsel-find-library-other-frame "other frame")))
 
 (use-package swiper
   :after (ivy))
