@@ -295,4 +295,18 @@ if test -e $fish_individual_config
   source $fish_individual_config
 end
 
+# Emacs Tramp
+# It requires very simple prompt for parse
+# Tramp set TERM as dumb by default
+if test "$TERM" = "dumb"
+  function fish_prompt
+    echo "\$ "
+  end
+
+  function fish_right_prompt; end
+  function fish_greeting; end
+  function fish_title; end
+end
+
+# Mac iTerm2
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
