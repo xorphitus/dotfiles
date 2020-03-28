@@ -18,9 +18,15 @@
   (company-mode +1))
 
 (use-package tide
+  :mode (("\\.ts" . tide-mode)
+         ("\\.tsx" . tide-mode))
   :config
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
   ;; formats the buffer before saving
   (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook #'setup-tide-mode))
+
+(use-package typescript
+  :mode (("\\.ts" . typescript-mode)
+         ("\\.tsx" . typescript-mode)))
