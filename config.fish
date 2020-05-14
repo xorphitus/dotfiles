@@ -120,7 +120,10 @@ function railsnew
 end
 
 function update-home-bin
+  # update fisher itself
   fisher self-update
+  # update fisher packages
+  fisher
   _install_nvm
 
   rusup update
