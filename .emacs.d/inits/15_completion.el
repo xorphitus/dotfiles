@@ -24,17 +24,21 @@
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t))
 
-(defun my-counsel-rg (&optional initial-input extra-rg-args rg-prompt)
+(defun my-counsel-rg (&optional initial-input initial-directory extra-rg-args rg-prompt)
   "This is a counsel-rg alternative. It searches a text in the current directory.
 It you need to search a text in a project root directory,
 use projectile-counsel-rg instead."
   (interactive)
   (let ((counsel-ag-base-command
-         (concat counsel-rg-base-command (counsel--rg-targets)))
+         (if (listp counsel-rg-base-command)
+             (append counsel-rg-base-command (counsel--rg-targets))
+           (concat counsel-rg-base-command " "
+                   (mapconcat #'shell-quote-argument (counsel--rg-targets) " "))))
         (counsel--grep-tool-look-around
-         (let ((rg (car (split-string counsel-rg-base-command)))
+         (let ((rg (car (if (listp counsel-rg-base-command) counsel-rg-base-command
+                          (split-string counsel-rg-base-command))))
                (switch "--pcre2"))
-           (and (eq 0 (call-process rg nil nil nil switch "--version"))
+           (and (eq 0 (call-process rg nil nil nil switch "--pcre2-version"))
                 switch))))
     (counsel-ag initial-input default-directory extra-rg-args rg-prompt
                 :caller 'counsel-rg)))
