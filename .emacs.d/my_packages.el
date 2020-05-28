@@ -98,6 +98,10 @@
 (depends-on org-pomodoro)
 (depends-on sound-wav) ;; required by org-pomodoro implicitly
 
+;; feed reader
+(depends-on elfeed)
+(depends-on elfeed-org)
+
 ;; look and feel
 (depends-on all-the-icons)
 (depends-on atom-one-dark-theme)
