@@ -302,3 +302,8 @@
   :config
   (setq google-translate-translation-directions-alist
         '(("ja" . "en") ("en" . "ja"))))
+
+;; comment-dwim-2
+(use-package comment-dwim-2
+  :bind
+  (("M-;" . comment-dwim-2)))

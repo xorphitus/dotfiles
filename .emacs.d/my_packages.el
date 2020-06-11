@@ -154,6 +154,7 @@
 (depends-on anzu)
 (depends-on avy-migemo)
 (depends-on direnv)
+(depends-on comment-dwim-2)
 (depends-on eglot)
 (depends-on esup)
 (depends-on expand-region)
