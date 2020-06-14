@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: x-plantuml
+# key: x-plantuml
+# --
+#+BEGIN_SRC plantuml :file example.png :cmdline -charset UTF-8
+
+#+END_SRC

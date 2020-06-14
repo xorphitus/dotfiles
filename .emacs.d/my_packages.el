@@ -176,3 +176,4 @@
 (depends-on which-key)
 (depends-on wrap-region)
 (depends-on yasnippet)
+(depends-on yasnippet-snippets)
