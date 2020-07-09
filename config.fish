@@ -238,7 +238,7 @@ function fzf_ps
   psg $arg | fzf +m --reverse
 end
 
-function fzf_z
+function fzfz
   set dir (z -l $argv | awk '{print $2}' | fzf +m --reverse)
   cd $dir
 end
