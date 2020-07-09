@@ -31,7 +31,7 @@ volumes() {
 }
 
 status() {
-  volumes | sed -e 'N;s/\n/, /'
+  volumes | tr '\n' ' '
 }
 
 graphical_status() {
