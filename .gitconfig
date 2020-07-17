@@ -19,7 +19,7 @@
 	s = status
 	b = branch
 	d = diff
-	cho = checkout
+	sw = switch
 	push-f = push --force-with-lease
 [pager]
 	log = diff-highlight | less
