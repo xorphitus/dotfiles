@@ -1,12 +1,14 @@
 [user]
 	email = xorphitus@gmail.com
 	name = xorphitus
-
+	signingkey = D1807C94682FEF328966ACF1522B834DAD3D20B1
 [core]
 	pager = less -r
 	editor = emacsclient
 [color]
 	ui = auto
+[commit]
+	gpgsign = true
 [push]
 	default = tracking
 [merge]
