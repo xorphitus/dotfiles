@@ -22,4 +22,6 @@
   (("\\.rs\\'" . rustic-mode))
   :config
   (setq rustic-lsp-client 'eglot)
+  (add-to-list 'eglot-server-programs '(rustic-mode . ("rust-analyzer")))
+  (setq rustic-lsp-server 'rust-analyzer)
   (push 'rustic-clippy flycheck-checkers))

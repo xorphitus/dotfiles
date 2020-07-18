@@ -12,12 +12,14 @@ https://github.com/xorphitus/package-installer
 some Rust components
 
 * rls
-* clippy
-* rustfmt
 * rust-src
+* rust-analysis
+* clippy
+* rustfm
 
-other CLI tools
+OS packages
 
+* rust-analyzer
 * cmigemo
 * multimarkdown
 * rg
