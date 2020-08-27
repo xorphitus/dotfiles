@@ -19,11 +19,6 @@
   (tool-bar-mode -1)
   (set-scroll-bar-mode nil))
 
-;; set load path
-(let ((default-directory "~/.emacs.d/elisp/"))
-  (setq load-path (cons default-directory load-path))
-  (normal-top-level-add-subdirs-to-load-path))
-
 ;; leaf
 (defun install-leaf ()
   (eval-and-compile
@@ -741,13 +736,14 @@ use projectile-counsel-rg instead."
 
 ;; show an icon indicating whether a line has been changed
 ;; from last commit
-(leaf git-gutter-fringe
-  :ensure t
-  :diminish git-gutter-mode
-  :config
-  (progn
-    (global-git-gutter-mode)
-    (setq git-gutter-fr:side 'right-fringe)))
+;; FIXME it makes display wrong!
+;; (leaf git-gutter-fringe
+;;   :ensure t
+;;   :diminish git-gutter-mode
+;;   :config
+;;   (progn
+;;     (global-git-gutter-mode)
+;;     (setq git-gutter-fr:side 'right-fringe)))
 
 ;; rainbow-delimiters
 (leaf rainbow-delimiters
@@ -783,7 +779,6 @@ use projectile-counsel-rg instead."
   :config
   (diminish 'auto-revert-mode "⟳")
   (diminish 'view-mode "👁"))
-
 
 ;; hide-modeline
 (leaf hide-mode-line
@@ -831,3 +826,259 @@ use projectile-counsel-rg instead."
   :diminish
   :config
   (ddskk-posframe-mode t))
+
+;; dumb-jump
+(leaf dumb-jump
+  :ensure t
+  :config
+  (dumb-jump-mode))
+
+;; counsel
+(leaf counsel-gtags
+  :ensure t)
+
+;; smart-jump
+(defun my-smart-jump-configuration-with-gtags (modes)
+  (progn
+    (smart-jump-register :modes modes
+                         :jump-fn 'counsel-gtags-find-definition)
+    (smart-jump-register :modes modes
+                         :jump-fn 'xref-find-definitions)))
+
+(leaf smart-jump
+  :ensure t
+  :config
+  (smart-jump-setup-default-registers)
+  ;; xref config
+  ;; eglot uses xref: it means that no special configurations are needed for language servers
+  (smart-jump-register :modes '(shell-mode
+                                haskell-mode
+                                rust-mode))
+  ;; xref (lsp) -> gtags config
+  (my-smart-jump-configuration-with-gtags '(c-mode-hook
+                                            c++-mode-hook
+                                            lisp-mode-hook
+                                            ruby-mode-hook
+                                            js2-mode-hook
+                                            python-mode-hook
+                                            php-mode-hook)))
+
+(leaf eglot
+  :ensure t
+  ;:hook
+  ;(eglot--managed-mode-hook (lambda () (flymake-mode -1)))
+  )
+
+;; The following is copied from
+;; https://github.com/akash-akya/emacs-flymake-cursor
+;; The original flymake-cursor on MELPA is deprecated now
+(defgroup flymake-cursor nil
+  "Show flymake errors for current line in message area."
+   :group 'tools)
+
+(defcustom flymake-cursor-error-display-delay 0.9
+  "Delay in seconds to wait before displaying flymake errors for the current line."
+  :group 'flymake-cursor
+  :type 'number)
+
+(defcustom flymake-cursor-number-of-errors-to-display 1
+  "Number of flymake errors to display if there are more than one.
+If set to nil, all errors for the line will be displayed.
+If there are more errors than can be displayed in the minibuffer, the
+first ones will be scrolled off. You will probably want to set this
+variable to a value consistent with your `max-mini-window-height'
+setting."
+  :group 'flymake-cursor
+  :type '(choice integer (const nil)))
+
+(defcustom flymake-cursor-auto-enable t
+  "Whether flymake-cursor should automatically enable itself whenever
+flymake is enabled.
+If set to t, flymake-cursor will turn on whenever flymake does.
+If set to nil, flymake-cursor will need to be manually enabled.
+Regardless of this setting, flymake-cursor will always disable
+itself automatically when flymake is disabled, to prevent
+errors."
+  :group 'flymake-cursor
+  :type 'boolean)
+
+(defvar flymake-cursor-errors-at-point nil
+  "Errors at point, after last command")
+
+(defvar flymake-cursor-error-display-timer nil
+  "A timer; when it fires, it displays the stored error message.")
+
+;;;###autoload
+(define-minor-mode flymake-cursor-mode
+  "Minor mode to show `flymake-mode' errors for the current line in the
+message area.
+When called interactively, toggles the minor mode.
+With arg, turn Flymake Cursor mode on if and only if arg is positive.
+Usually `flymake-cursor-mode' is enabled and disabled automatically with
+`flymake-mode' for the current buffer and you will not need to toggle
+the mode directly."
+  :group 'flymake-cursor
+  (cond
+
+    ;; Turning the mode ON.
+    (flymake-cursor-mode
+      (add-hook 'post-command-hook 'flymake-cursor-show-errors-at-point-pretty-soon nil t))
+    ;; Turning the mode OFF.
+    (t
+      (flymake-cursor-cancel-error-display-timer)
+      (remove-hook 'post-command-hook 'flymake-cursor-show-errors-at-point-pretty-soon t))))
+
+(defun flymake-cursor-get-errors-at-point ()
+  "Gets the first `flymake-cursor-number-of-errors-to-display` flymake errors on the line at point."
+  (let ((line-err-info-list (flymake-cursor-get-errors)))
+    (if flymake-cursor-number-of-errors-to-display
+        (butlast line-err-info-list (- (length line-err-info-list) flymake-cursor-number-of-errors-to-display))
+      line-err-info-list)))
+
+(defun flymake-cursor-get-errors ()
+  (cond ((boundp 'flymake-err-info)  ; emacs < 26
+         (let ((lineno (line-number-at-pos)))
+           (car (flymake-find-err-info flymake-err-info lineno))))
+        ((and (fboundp 'flymake-diagnostic-text)
+              (fboundp 'flymake-diagnostics))  ; emacs >= 26
+         (flymake-diagnostics (point)))))
+
+(defun flymake-cursor-pyflake-determine-message (error)
+  "pyflake is flakey if it has compile problems, this adjusts the
+message to display, so there is one ;)"
+  (cond ((not (or (eq major-mode 'Python) (eq major-mode 'python-mode) t)))
+        ((fboundp 'flymake-diagnostic-text)
+         (let ((msg (flymake-diagnostic-text error)))
+           (if (null msg) msg (format "compile error, problem on line %s" msg))))
+        (t
+         (flymake-ler-text error))))
+
+(defun flymake-cursor-safe-to-display ()
+  "Returns t if Flymake Cursor is safe to display to the minibuffer or nil if
+something else is using the message area."
+  ;;  Don't trash the minibuffer while they're being asked a question.
+  (not (or (active-minibuffer-window) cursor-in-echo-area)))
+
+(defun flymake-cursor-show-stored-errors-now ()
+  "Displays the stored error in the minibuffer."
+  (interactive)
+  (when flymake-cursor-mode
+    (flymake-cursor-cancel-error-display-timer)
+    (when flymake-cursor-errors-at-point
+      (if (flymake-cursor-safe-to-display)
+        (message "%s" (mapconcat 'flymake-cursor-pyflake-determine-message flymake-cursor-errors-at-point "\n"))
+        (flymake-cursor-show-errors-at-point-pretty-soon)))))
+
+(defun flymake-cursor-show-errors-at-point-now ()
+  "If the cursor is sitting on a flymake error, display
+the error message in the minibuffer."
+  (interactive)
+  (when flymake-cursor-mode
+    (flymake-cursor-cancel-error-display-timer)
+    (setq flymake-cursor-errors-at-point (flymake-cursor-get-errors-at-point))
+    (if flymake-cursor-errors-at-point
+      (flymake-cursor-show-stored-errors-now)
+      ;; If something is demanding we display errors immediately, we do
+      ;; want to clear the message area to indicate there's no errors.
+      ;; Otherwise flymake-cursor-after-syntax-check will just keep the
+      ;; old error for the current line if it has been corrected.
+      (when (flymake-cursor-safe-to-display)
+        (message nil)))))
+
+(defun flymake-cursor-cancel-error-display-timer ()
+  "Cancels `flymake-cursor-error-display-timer'."
+  (when flymake-cursor-error-display-timer
+    (cancel-timer flymake-cursor-error-display-timer)
+    (setq flymake-cursor-error-display-timer nil)))
+
+(defun flymake-cursor-show-errors-at-point-pretty-soon ()
+  "If the cursor is sitting on a flymake error, grab the error,
+and set a timer for \"pretty soon\". When the timer fires, the error
+message will be displayed in the minibuffer.
+The interval before the timer fires can be customized in the variable
+`flymake-cursor-error-display-delay'.
+This allows a post-command-hook to NOT cause the minibuffer to be
+updated 10,000 times as a user scrolls through a buffer
+quickly. Only when the user pauses on a line for more than a
+second, does the flymake error message (if any) get displayed."
+  (flymake-cursor-cancel-error-display-timer)
+  (setq flymake-cursor-errors-at-point (flymake-cursor-get-errors-at-point))
+  (when flymake-cursor-errors-at-point
+    (setq flymake-cursor-error-display-timer
+      (run-at-time flymake-cursor-error-display-delay nil 'flymake-cursor-show-stored-errors-now))))
+
+(defun flymake-cursor-follow-flymake-mode ()
+  "Hook function to make `flymake-cursor-mode` follow the on/off
+status of `flymake-mode'."
+  (if flymake-mode
+    (when flymake-cursor-auto-enable (flymake-cursor-mode 1))
+    (flymake-cursor-mode 0)))
+
+(defun flymake-cursor-after-syntax-check ()
+  "Run from `flymake-after-syntax-check-hook' to update our errors."
+  (when (eq (current-buffer) (window-buffer))
+    (flymake-cursor-show-errors-at-point-now)))
+
+(eval-after-load "flymake"
+  '(progn
+    (if (boundp 'flymake-goto-error-hook)
+      (add-hook 'flymake-goto-error-hook 'flymake-cursor-show-errors-at-point-now)
+      (defadvice flymake-goto-line (after flymake-cursor-display-message-after-move-to-error activate compile)
+        "Display the error in the mini-buffer rather than having to mouse over it"
+         (flymake-cursor-show-errors-at-point-now)))
+    (if (boundp 'flymake-after-syntax-check-hook)
+      (add-hook 'flymake-after-syntax-check-hook 'flymake-cursor-after-syntax-check)
+      (defadvice flymake-post-syntax-check (after flymake-cursor-display-message-after-syntax-check activate compile)
+        "Display the error in the mini-buffer rather than having to mouse over it"
+        (flymake-cursor-after-syntax-check)))
+    (add-hook 'flymake-mode-hook 'flymake-cursor-follow-flymake-mode)))
+
+(leaf flymake
+  :ensure t
+  :after
+  (eglot)
+  :config
+  (flymake-cursor-mode))
+
+(leaf paredit
+  :ensure t
+  :config
+  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+  (add-hook 'common-lisp-mode-hook #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook #'enable-paredit-mode))
+
+;; rename workspace name automaticaly!
+(defun my-auto-set-projectile-root-to-eyebrowse ()
+  (ignore-errors
+    (let ((current-root "TODO: get from eyebrowse")
+          (projectile-root (-> (projectile-project-info)
+                               (split-string " ## ")
+                               (car)
+                               (split-string ": ")
+                               (last)
+                               (car))))
+      (when (not (string= (replace-regexp-in-string "/$" "" projectile-root) current-root))
+        (let ((new-name (-> projectile-root
+                            (split-string "/")
+                            ((lambda (lst) (--remove (string= it "") lst)))
+                            (last)
+                            (car))))
+          (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) new-name))))))
+
+;; projectile
+(leaf projectile
+  :ensure t
+  :commands projectile
+  :config
+  (projectile-global-mode)
+  (setq projectile-mode-line
+        '(:eval (format " 📁 %s" (projectile-project-name)))))
+
+;; counsel-projectile
+(leaf counsel-projectile
+  :ensure t
+  :config
+  (counsel-projectile-mode)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
