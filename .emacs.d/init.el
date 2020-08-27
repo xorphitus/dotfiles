@@ -1082,3 +1082,21 @@ status of `flymake-mode'."
   :config
   (counsel-projectile-mode)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+
+(leaf slime
+  :ensure t
+  :init
+  ;; require SBCL
+  (setq inferior-lisp-program "sbcl")
+  :ensure t
+  :config
+  (slime-setup '(slime-repl slime-fancy slime-banner))
+  (slime-setup '(slime-fancy slime-company)))
+
+(leaf yasnippet
+  :ensure t
+  :diminish (yas-minor-mode . "🅨")
+  :config
+  (yas-global-mode 1)
+  (bind-key "M-=" 'yas-insert-snippet yas-minor-mode-map))
