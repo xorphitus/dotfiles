@@ -1100,3 +1100,262 @@ status of `flymake-mode'."
   :config
   (yas-global-mode 1)
   (bind-key "M-=" 'yas-insert-snippet yas-minor-mode-map))
+
+(defun add-c-hooks (hook)
+  "add hook only c-mode-hook, c++-mode-hook. since c-mode-common-hook includes others hooks"
+  (add-hook 'c-mode-hook hook)
+  (add-hook 'c++-mode-hook hook))
+
+;; flycheck
+(add-hook 'c-mode-common-hook 'flycheck-mode)
+
+;; compile C-c
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (define-key mode-specific-map "c" 'compile)))
+
+;; google-c-style
+(leaf google-c-style
+  :ensure t
+  :commands google-c-style
+  :init
+  (progn
+    (add-c-hooks 'google-set-c-style)
+    (add-c-hooks 'google-make-newline-indent)))
+
+;; GDB
+(setq gdb-many-windows t)
+;; show value of variable when mouse cursor on
+(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+;; show I/O buffer
+(setq gdb-use-separate-io-buffer t)
+
+;;; CIDER
+
+(leaf cider
+  :ensure t
+  :init
+  (add-hook 'clojure-mode-hook 'cider-mode)
+  (add-hook 'cider-mode-hook #'clj-refactor-mode)
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook #'eldoc-mode)
+  :config
+  ;; Hide the *nrepl-connection* and *nrepl-server* buffers
+  ;; from appearing in some buffer switching commands like 'C-x b'
+  (setq nrepl-hide-special-buffers t)
+  ;; The REPL buffer name  will look like cider project-name:port
+  (setq nrepl-buffer-name-show-port t)
+  ;; Enable CIDER and figwheel interaction
+  (setq cider-cljs-lein-repl
+        "(do (require 'figwheel-sidecar.repl-api)
+               (figwheel-sidecar.repl-api/start-figwheel!)
+               (figwheel-sidecar.repl-api/cljs-repl))"))
+
+;; clj-refactor
+(leaf clj-refactor
+  ensure t
+  :config
+  (progn
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1)
+    (cljr-add-keybindings-with-prefix "C-c j")))
+
+;;; compojure indentation
+(add-hook 'clojure-mode-hook
+          (lambda()
+            (define-clojure-indent
+              (defroutes 'defun)
+              (GET 2)
+              (POST 2)
+              (PUT 2)
+              (DELETE 2)
+              (HEAD 2)
+              (ANY 2)
+              (context 2))))
+
+;;; kibit
+
+;; Teach compile the syntax of the kibit output
+(leaf compile
+  :ensure t
+  :commands compile
+  :init
+  (progn
+    (add-to-list 'compilation-error-regexp-alist-alist
+                 '(kibit "At \\([^:]+\\):\\([[:digit:]]+\\):" 1 2 nil 0))))
+
+;; A convenient command to run "lein kibit" in the project to which
+;; the current emacs buffer belongs to.
+(defun kibit ()
+  "Run kibit on the current project.
+Display the results in a hyperlinked *compilation* buffer."
+  (interactive)
+  (compile "lein kibit"))
+
+(defun kibit-current-file ()
+  "Run kibit on the current file.
+Display the results in a hyperlinked *compilation* buffer."
+  (interactive)
+  (compile (concat "lein kibit " buffer-file-name)))
+
+;; rainbow delimiters
+(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+
+;;; ClojureScript
+
+;; TODO
+;; http://stackoverflow.com/questions/17714106/how-do-i-setup-a-clojurescript-repl-with-emacs
+;; https://github.com/cemerick/austin
+
+;;; etc
+(add-hook 'clojure-mode-hook 'highlight-indentation-mode)
+
+;; prittify symbols
+(my-macro/prettify-symbols
+ clojure-mode-hook
+ (-concat '(("fn" . ?λ))
+          my-const/logical-prettify-symbols-alist
+          my-const/relational-prettify-symbols-alist))
+
+(leaf dockerfile-mode
+  :ensure t
+  :mode (("Dockerfile" . dockerfile-mode)))
+
+(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+(add-hook 'emacs-lisp-mode-hook 'highlight-indentation-mode)
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+
+(defconst lisp--prettify-symbols-alist
+  (-concat my-const/lambda-prettify-symbols-alist
+           my-const/logical-prettify-symbols-alist
+           my-const/relational-prettify-symbols-alist))
+
+(leaf go-mode
+  :ensure t
+  :commands go-mode
+  :init
+  ;; flycheck
+  (add-hook 'go-mode-hook 'flycheck-mode)
+  ;; indentation
+  (add-hook 'go-mode-hook 'highlight-indentation-mode)
+  (add-hook 'go-mode-hook (lambda ()
+                            (setq tab-width 4)))
+  ;; prittify symbols
+  (my-macro/prettify-symbols
+     go-mode-hook
+     my-const/relational-prettify-symbols-alist))
+
+(leaf haskell-mode
+  :ensure t
+  :mode ((".xmobarrc" . haskell-mode))
+  :init
+  (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+
+(leaf markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init
+  (setq markdown-command "multimarkdown")
+  (put 'dired-find-alternate-file 'disabled nil))
+
+;;; org-mode
+
+(setq org-agenda-files (list "~/Documents/org"))
+
+;; (set-face-attribute 'org-level-1 nil :height 1.4)
+
+;; It conflicts with expand-region's bindings
+(leaf org-mode
+  :mode (("\\.org$" . org-mode))
+  :bind
+  (("C-," . nil)))
+
+;; beautify org-mode list bullets
+;; FIXME doesn't work!
+(leaf org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  :custom
+  (org-bullets-bullet-list '("🌕" "🌔" "🌓" "🌒" "🌑")))
+
+;; babel
+(setq org-plantuml-jar-path
+      (--find
+       (f-exists? it)
+       '("/usr/share/java/plantuml/plantuml.jar")))
+
+;; How to use org-babel
+;; The following is an example for PlantUML
+;;
+;;   #+BEGIN_SRC plantuml :file example.png :cmdline -charset UTF-8
+;;   animal <|-- sheep
+;;   #+END_SRC
+;;
+;; Then, type "C-c C-c" inside BEGIN_SRC ~ END_SRC
+;; It creates an image file.
+;; To show the image file inline, use the following.
+;;   org-toggle-inline-images (C-c C-x C-v)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((plantuml . t)))
+
+;; pomodoro
+
+;; need to override this function
+;; since https://github.com/syohex/emacs-sound-wav which is depended by org-pomodoro
+;; does not support PulseAudio's pacat/paplay
+(defun sound-wav--do-play (files)
+  (let* ((vol-percent 75)
+         (vol (round (/ (* 65536 vol-percent) 100))))
+    (if (executable-find "afplay")
+        ;; for macOS
+        (sound-wav--do-play-by-afplay files)
+      ;; for PulseAudio
+      (deferred:$
+        (apply 'deferred:process org-pomodoro-audio-player (concat "--volume=" (number-to-string vol)) files)))))
+
+(leaf org-pomodoro
+  :ensure t
+  :after
+  org-agenda
+  :custom
+  `((org-pomodoro-audio-player . ,(or (executable-find "pacat")
+                                     (executable-find "paplay")
+                                     (executable-find "aplay")
+                                     (executable-find "afplay")))
+    (org-pomodoro-format . "🍅%s")
+    (org-pomodoro-short-break-format . "☕%s")
+    (org-pomodoro-long-break-format . "🌴%s")))
+
+;; set alerts for scheduled tasks
+(leaf org-alert
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-alert-enable))))
+
+;; for arch linux
+(leaf shell-script-mode
+  :ensure t
+  :mode (("PKGBUILD" . shell-script-mode)
+         ("\\.install$" . shell-script-mode)))
+
+(setq sh-basic-offset 2)
+(setq sh-indentation 2)
+
+;; fish shell
+(leaf fish-mode
+  :ensure t
+  :custom
+  (fish-indent-offset 2))
+
+;; UTF-8
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8-unix)
