@@ -106,11 +106,6 @@
 ;; auto reload buffer which modified by external programs
 (global-auto-revert-mode 1)
 
-;; enable ido
-;; to improbe C-x C-f
-(ido-mode 1)
-(setq confirm-nonexistent-file-or-buffer nil)
-
 ;; indent
 (setq-default indent-tabs-mode nil)
 
@@ -134,12 +129,15 @@
 ;; delete auto save files when quit
 (setq delete-auto-save-files t)
 
-;; rectanble select
-;;  GUI: C-Ret
-;;  CUI: 'cua-set-rectangle-mark
-;; M-n -> insert numbers incremental
-(cua-mode t)
-(setq cua-enable-cua-keys nil)
+(leaf cure-mode
+  :doc "Rectanble select
+GUI: C-Ret
+CUI: 'cua-set-rectangle-mark
+M-n -> insert numbers incremental"
+  :tag "builtin"
+  :init
+  (cua-mode t)
+  (setq cua-enable-cua-keys nil))
 
 ;; disable beep sound flash
 (setq ring-bell-function 'ignore)
@@ -191,19 +189,10 @@
 (leaf ido-vertical-mode
   :ensure t
   :config
-  (progn
-    (setq ido-max-window-height 0.75)
-    (setq ido-enable-flex-matching t)
-    (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-    (ido-vertical-mode 1)))
-
-(leaf ivy
-  :ensure t
-  :diminish (ivy-mode . "🅘")
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t))
+  (setq ido-max-window-height 0.75)
+  (setq ido-enable-flex-matching t)
+  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+  (ido-vertical-mode 1))
 
 (defun my-counsel-rg (&optional initial-input initial-directory extra-rg-args rg-prompt)
   "This is a counsel-rg alternative. It searches a text in the current directory.
@@ -224,9 +213,17 @@ use projectile-counsel-rg instead."
     (counsel-ag initial-input default-directory extra-rg-args rg-prompt
                 :caller 'counsel-rg)))
 
-(leaf counsel
-  :doc
-  "How to edit the result lines
+(leaf ivy
+  :ensure t
+  :diminish (ivy-mode . "🅘")
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+
+  (leaf counsel
+    :doc
+    "How to edit the result lines
  1. search with swiper, counsel-rg, etc.
  2. (optional) ivy-avy (C-') : search a target
  3. ivy-occur (C-c C-o) : start occur to edit
@@ -237,51 +234,55 @@ use projectile-counsel-rg instead."
 
  1. search with cousel-rg which searches in a project root directory
  2. counsel-cd (C-x C-d)"
-  :ensure t
-  :after (ivy)
-  :bind (("C-c h" . counsel-recentf)
-         ("M-x" . counsel-M-x)
-         ("M-y" . counsel-yank-pop)
-         ("C-S-f" . my-counsel-rg)
-         ("C-x C-f" . counsel-find-file)
-         ("C-x b" . counsel-switch-buffer)
-         ("C-x C-b" . counsel-ibuffer))
-  :config
-  ;; The following glob setting doesn't work. Maybe it should be invoked later
-  ;; (push '(counsel-rg . "--glob '**' -- ") ivy-initial-inputs-alist)
-  (ivy-set-actions
-   'my-counsel-rg
-   '(("j" counsel-find-library-other-window "other window")
-     ("f" counsel-find-library-other-frame "other frame")))
-  :custom
-  `((counsel-yank-pop-separator . "\n――――――――\n")))
+    :req "ripgrep" "ghq"
+    :ensure t
+    :after (ivy)
+    :bind (("C-c h" . counsel-recentf)
+           ("M-x" . counsel-M-x)
+           ("M-y" . counsel-yank-pop)
+           ("C-S-f" . my-counsel-rg)
+           ("C-x C-f" . counsel-find-file)
+           ("C-x b" . counsel-switch-buffer)
+           ("C-x C-b" . counsel-ibuffer))
+    :config
+    ;; The following glob setting doesn't work. Maybe it should be invoked later
+    ;; (push '(counsel-rg . "--glob '**' -- ") ivy-initial-inputs-alist)
+    (ivy-set-actions
+     'my-counsel-rg
+     '(("j" counsel-find-library-other-window "other window")
+       ("f" counsel-find-library-other-frame "other frame")))
+    :custom
+    `((counsel-yank-pop-separator . "\n――――――――\n")))
 
-(leaf swiper
-  :ensure t
-  :after (ivy))
+  (leaf swiper
+    :ensure t
+    :after (ivy))
 
-(leaf all-the-icons-ivy
-  :ensure t
-  :config
-  (all-the-icons-ivy-setup)
-  (setq all-the-icons-ivy-file-commands
-        '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
+  (leaf all-the-icons-ivy
+    :ensure t
+    :config
+    (all-the-icons-ivy-setup)
+    (setq all-the-icons-ivy-file-commands
+          '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
 
-(leaf ivy-posframe
-  :ensure t
-  :after (ivy)
-  :diminish
-  :config
-  (setq ivy-posframe-display-functions-alist
-        '((swiper . nil)
-          (t      . ivy-posframe-display-at-window-center)))
-  (ivy-posframe-mode 1))
+  (leaf ivy-posframe
+    :ensure t
+    :after (ivy)
+    :diminish
+    :config
+    (setq ivy-posframe-display-functions-alist
+          '((swiper . nil)
+            (t      . ivy-posframe-display-at-window-center)))
+    (ivy-posframe-mode 1))
 
-(leaf ivy-prescient
-  :ensure t
-  :after (ivy)
-  :config
-  (ivy-prescient-mode))
+  (leaf ivy-prescient
+    :ensure t
+    :after (ivy)
+    :config
+    (ivy-prescient-mode))
+
+  (leaf counsel-gtags
+    :ensure t))
 
 (defun counsel-ghq (&optional initial-input)
   "Open a file using the ghq shell command."
@@ -316,12 +317,10 @@ use projectile-counsel-rg instead."
   :diminish (company-mode . "🅒")
   :config
   (global-company-mode)
-  (progn
-    (setq company-idle-delay 0.1
-          company-minimum-prefix-length 2
-          company-selection-wrap-around t)
-    (setq company-dabbrev-downcase nil))
-
+  (setq company-idle-delay 0.1
+        company-minimum-prefix-length 2
+        company-selection-wrap-around t)
+  (setq company-dabbrev-downcase nil)
   (bind-keys :map company-mode-map
              ("C-i" . company-complete))
   (bind-keys :map company-active-map
@@ -330,19 +329,19 @@ use projectile-counsel-rg instead."
              ("C-s" . company-search-words-regexp))
   (bind-keys :map company-search-map
              ("C-n" . company-select-next)
-             ("C-p" . company-select-previous)))
+             ("C-p" . company-select-previous))
 
-(leaf company-box
-  :ensure t
-  :diminish
-  :hook
-  (company-mode . company-box-mode))
+  (leaf company-box
+    :ensure t
+    :diminish
+    :hook
+    (company-mode . company-box-mode))
 
-(leaf company-prescient
-  :ensure t
-  :after (company)
-  :config
-  (company-prescient-mode))
+  (leaf company-prescient
+    :ensure t
+    :after (company)
+    :config
+    (company-prescient-mode)))
 
 (leaf undo-tree
   :ensure t
@@ -351,6 +350,7 @@ use projectile-counsel-rg instead."
   (global-undo-tree-mode))
 
 (leaf migemo
+  :req "migemo"
   :ensure t
   :commands migemo
   :config
@@ -373,13 +373,13 @@ use projectile-counsel-rg instead."
   :diminish (flycheck-mode . "⚠")
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode)
-  (setq spaceline-flycheck-bullet "⚠%s"))
+  (setq spaceline-flycheck-bullet "⚠%s")
 
-(leaf flycheck-posframe
-  :ensure t
-  :after (flycheck)
-  :config
-  (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
+  (leaf flycheck-posframe
+    :ensure t
+    :after (flycheck)
+    :config
+    (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode)))
 
 (leaf open-junk-file
   :ensure t
@@ -389,15 +389,16 @@ use projectile-counsel-rg instead."
   (setq open-junk-file-find-file-function 'find-file))
 
 (leaf magit
+  :req "git"
+  :after company
   :ensure t
   :commands magit
   ;; same as IntelliJ IDEA short cut
   :bind (("M-9" . magit-status))
   :config
-  (progn
-    (add-hook 'magit-status-mode-hook (lambda ()
-                                        (company-mode -1)))
-    (setq magit-diff-refine-hunk t)))
+  (add-hook 'magit-status-mode-hook (lambda ()
+                                      (company-mode -1)))
+  (setq magit-diff-refine-hunk t))
 
 (leaf treemacs
   :ensure t
@@ -448,20 +449,19 @@ use projectile-counsel-rg instead."
   ;; (:map global-map
   ;;       ;; same as IntelliJ IDEA short cut
   ;;       ("M-1" . treemacs))
-  )
 
-(leaf treemacs-projectile
-  :ensure t
-  :after treemacs projectile)
+  (leaf treemacs-projectile
+    :ensure t
+    :after treemacs projectile)
 
-(leaf treemacs-icons-dired
-  :ensure t
-  :after treemacs dired
-  :config (treemacs-icons-dired-mode))
+  (leaf treemacs-icons-dired
+    :ensure t
+    :after treemacs dired
+    :config (treemacs-icons-dired-mode))
 
-(leaf treemacs-magit
-  :ensure t
-  :after treemacs magit)
+  (leaf treemacs-magit
+    :ensure t
+    :after treemacs magit))
 
 (leaf multiple-cursors
   :ensure t
@@ -475,6 +475,7 @@ use projectile-counsel-rg instead."
          ("C-M-," . er/contract-region)))
 
 (leaf smartrep
+  :doc "multiple-cursors enhancer"
   :ensure t
   :config
   (smartrep-define-key
@@ -510,7 +511,7 @@ use projectile-counsel-rg instead."
   )
 
 (defun other-window-or-split ()
-  "for ace-window
+  "For ace-window
 See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   (interactive)
   (if (one-window-p)
@@ -620,14 +621,20 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
 ;; erase scrach buffer message
 (setq initial-scratch-message "")
 
-;; high light paren
-(show-paren-mode 1)
-;; high light inner text of paren when over window
-(setq show-paren-style 'mixed)
+(leaf show-paren-mode
+  :doc "High light paren"
+  :tag "builtin"
+  :init
+  (show-paren-mode 1)
+  ;; high light inner text of paren when over window
+  (setq show-paren-style 'mixed))
 
-;; high light current line
-(setq hl-line-face 'underline)
-(global-hl-line-mode)
+(leaf global-hl-line-mode
+  :doc "High light current line"
+  :tag "builtin"
+  :init
+  (setq hl-line-face 'underline)
+  (global-hl-line-mode))
 
 ;; tab-width
 (setq default-tab-width 4)
@@ -663,9 +670,11 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (progn
       (set-frame-parameter nil 'alpha 95)))
 
-;; line number
-(global-linum-mode 1)
-(setq linum-format "%4d.")
+(leaf global-linum-mode
+  :doc "Line number"
+  :init
+  (global-linum-mode 1)
+  (setq linum-format "%4d."))
 
 (leaf whitespace
   :doc "Show spaces"
@@ -773,21 +782,18 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
                '("/SKK-JISYO.geo"
                  "/SKK-JISYO.jinmei"
                  "/SKK-JISYO.propernoun"
-                 "/SKK-JISYO.station"))))
+                 "/SKK-JISYO.station")))
 
-(leaf ddskk-posframe
-  :ensure t
-  :diminish
-  :config
-  (ddskk-posframe-mode t))
+  (leaf ddskk-posframe
+    :ensure t
+    :diminish
+    :config
+    (ddskk-posframe-mode t)))
 
 (leaf dumb-jump
   :ensure t
   :config
   (dumb-jump-mode))
-
-(leaf counsel-gtags
-  :ensure t)
 
 (defun my-smart-jump-configuration-with-gtags (modes)
   "smart-jump helper function"
@@ -1025,13 +1031,13 @@ status of `flymake-mode'."
   :config
   (projectile-global-mode)
   (setq projectile-mode-line
-        '(:eval (format " 📁 %s" (projectile-project-name)))))
+        '(:eval (format " 📁 %s" (projectile-project-name))))
 
-(leaf counsel-projectile
-  :ensure t
-  :config
-  (counsel-projectile-mode)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  (leaf counsel-projectile
+    :ensure t
+    :config
+    (counsel-projectile-mode)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 
 (leaf slime
@@ -1068,9 +1074,8 @@ status of `flymake-mode'."
   :ensure t
   :commands google-c-style
   :init
-  (progn
-    (add-c-hooks 'google-set-c-style)
-    (add-c-hooks 'google-make-newline-indent)))
+  (add-c-hooks 'google-set-c-style)
+  (add-c-hooks 'google-make-newline-indent))
 
 ;; GDB
 (setq gdb-many-windows t)
@@ -1124,9 +1129,8 @@ status of `flymake-mode'."
   :ensure t
   :commands compile
   :init
-  (progn
-    (add-to-list 'compilation-error-regexp-alist-alist
-                 '(kibit "At \\([^:]+\\):\\([[:digit:]]+\\):" 1 2 nil 0))))
+  (add-to-list 'compilation-error-regexp-alist-alist
+                 '(kibit "At \\([^:]+\\):\\([[:digit:]]+\\):" 1 2 nil 0)))
 
 ;; A convenient command to run "lein kibit" in the project to which
 ;; the current emacs buffer belongs to.
@@ -1198,45 +1202,41 @@ Display the results in a hyperlinked *compilation* buffer."
   (setq markdown-command "multimarkdown")
   (put 'dired-find-alternate-file 'disabled nil))
 
-;;; org-mode
-
-(setq org-agenda-files (list "~/Documents/org"))
-
-;; It conflicts with expand-region's bindings
 (leaf org-mode
   :mode (("\\.org$" . org-mode))
   :bind
-  (("C-," . nil)))
-
-;; beautify org-mode list bullets
-;; FIXME doesn't work!
-(leaf org-bullets
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  :custom
-  (org-bullets-bullet-list '("🌕" "🌔" "🌓" "🌒" "🌑")))
-
-;; babel
-(setq org-plantuml-jar-path
+  ;; It conflicts with expand-region's bindings
+  (("C-," . nil))
+  :init
+  (setq org-agenda-files (list "~/Documents/org"))
+  ;; babel
+  (setq org-plantuml-jar-path
       (--find
        (f-exists? it)
        '("/usr/share/java/plantuml/plantuml.jar")))
-
-;; How to use org-babel
-;; The following is an example for PlantUML
-;;
-;;   #+BEGIN_SRC plantuml :file example.png :cmdline -charset UTF-8
-;;   animal <|-- sheep
-;;   #+END_SRC
-;;
-;; Then, type "C-c C-c" inside BEGIN_SRC ~ END_SRC
-;; It creates an image file.
-;; To show the image file inline, use the following.
-;;   org-toggle-inline-images (C-c C-x C-v)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((plantuml . t)))
+  ;; How to use org-babel
+  ;; The following is an example for PlantUML
+  ;;
+  ;;   #+BEGIN_SRC plantuml :file example.png :cmdline -charset UTF-8
+  ;;   animal <|-- sheep
+  ;;   #+END_SRC
+  ;;
+  ;; Then, type "C-c C-c" inside BEGIN_SRC ~ END_SRC
+  ;; It creates an image file.
+  ;; To show the image file inline, use the following.
+  ;;   org-toggle-inline-images (C-c C-x C-v)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((plantuml . t)))
+  :config
+  ;; FIXME doesn't work!
+  (leaf org-bullets
+    :doc "Beautify org-mode list bullets"
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    :custom
+    (org-bullets-bullet-list '("🌕" "🌔" "🌓" "🌒" "🌑"))))
 
 (defun sound-wav--do-play (files)
   "Need to override this function
@@ -1272,10 +1272,10 @@ does not support PulseAudio's pacat/paplay"
 
 (leaf shell-script-mode
   :mode (("PKGBUILD" . shell-script-mode)
-         ("\\.install$" . shell-script-mode)))
-
-(setq sh-basic-offset 2)
-(setq sh-indentation 2)
+         ("\\.install$" . shell-script-mode))
+  :init
+  (setq sh-basic-offset 2)
+  (setq sh-indentation 2))
 
 (leaf fish-mode
   :ensure t
