@@ -11,7 +11,6 @@
 ;; GC max memory (128MB)
 (setq gc-cons-threshold 134217728)
 
-
 ;; hide basic gui widgets first
 ;; I don't want to show them in initialing
 (menu-bar-mode -1)
@@ -45,19 +44,21 @@
 
 (install-leaf)
 (leaf leaf-tree :ensure t)
-(leaf leaf-convert :ensure t)
 
-;; Basic packages
 (leaf dash
+  :tag "library"
   :ensure t
   :require t)
 (leaf drag-stuff
+  :tag "library"
   :ensure t
   :require t)
 (leaf s
+  :tag "library"
   :ensure t
   :require t)
 (leaf f
+  :tag "library"
   :ensure t
   :require t)
 
@@ -174,14 +175,14 @@
 ;;; C-x C-c -> "exit" command
 (defalias 'exit 'save-buffers-kill-emacs)
 
-;; easy to descern buffers of same name files
 (leaf uniquify
+  :doc "Easy to descern buffers of same name files"
   :require t
   :config
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
-;; emacs server
 (leaf server
+  :doc "Emacs server"
   :require t
   :config
   (unless (server-running-p)
@@ -196,7 +197,6 @@
     (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
     (ido-vertical-mode 1)))
 
-;; ivy/counsel settings
 (leaf ivy
   :ensure t
   :diminish (ivy-mode . "🅘")
@@ -224,19 +224,19 @@ use projectile-counsel-rg instead."
     (counsel-ag initial-input default-directory extra-rg-args rg-prompt
                 :caller 'counsel-rg)))
 
-;; How to edit the result lines
-;;
-;; 1. search with swiper, counsel-rg, etc.
-;; 2. (optional) ivy-avy (C-') : search a target
-;; 3. ivy-occur (C-c C-o) : start occur to edit
-;; 4. ivy-wgrep-change-to-wgrep-mode (C-x C-q) : start editing
-;; 5. wgrep-finish-edit (C-c C-c) : commit
-;;
-;; How to change counsel-rg directory
-;;
-;; 1. search with cousel-rg which searches in a project root directory
-;; 2. counsel-cd (C-x C-d)
 (leaf counsel
+  :doc
+  "How to edit the result lines
+ 1. search with swiper, counsel-rg, etc.
+ 2. (optional) ivy-avy (C-') : search a target
+ 3. ivy-occur (C-c C-o) : start occur to edit
+ 4. ivy-wgrep-change-to-wgrep-mode (C-x C-q) : start editing
+ 5. wgrep-finish-edit (C-c C-c) : commit
+
+ How to change counsel-rg directory
+
+ 1. search with cousel-rg which searches in a project root directory
+ 2. counsel-cd (C-x C-d)"
   :ensure t
   :after (ivy)
   :bind (("C-c h" . counsel-recentf)
@@ -296,23 +296,21 @@ use projectile-counsel-rg instead."
               :action #'find-file
               :caller 'counsel-ghq)))
 
-;; edit grep result directry
 (leaf wgrep
+  :doc "Edit grep result directry"
   :ensure t)
 
-;; edit dired result directory
 (leaf wdired
+  :doc "Edit dired result directory"
   :ensure t
   :config
   (bind-key "C-c C-e" 'wdired-change-to-wdired-mode dired-mode-map))
 
-;; prescient
 (leaf prescient
   :ensure t
   :config
   (prescient-persist-mode))
 
-;; comapny
 (leaf company
   :ensure t
   :diminish (company-mode . "🅒")
@@ -346,14 +344,12 @@ use projectile-counsel-rg instead."
   :config
   (company-prescient-mode))
 
-;; undo-tree.el
 (leaf undo-tree
   :ensure t
   :diminish (undo-tree-mode . "🅤")
   :config
   (global-undo-tree-mode))
 
-;; migemo
 (leaf migemo
   :ensure t
   :commands migemo
@@ -373,7 +369,6 @@ use projectile-counsel-rg instead."
     (load-library "migemo")
     (migemo-init)))
 
-;; flycheck
 (leaf flycheck
   :diminish (flycheck-mode . "⚠")
   :config
@@ -386,7 +381,6 @@ use projectile-counsel-rg instead."
   :config
   (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
 
-;; junk file
 (leaf open-junk-file
   :ensure t
   :commands open-junk-file
@@ -394,7 +388,6 @@ use projectile-counsel-rg instead."
   ;; open junk file in a current window
   (setq open-junk-file-find-file-function 'find-file))
 
-;; magit.el
 (leaf magit
   :ensure t
   :commands magit
@@ -406,20 +399,6 @@ use projectile-counsel-rg instead."
                                         (company-mode -1)))
     (setq magit-diff-refine-hunk t)))
 
-;; quickrun.el
-(leaf quickrun
-  :ensure t
-  :commands quickrun
-  :bind (([shift f5] . quickrun)))
-
-;; shell-pop.el
-(leaf shell-pop
-  :ensure t
-  :commands shell-pop
-  ;; same as IntelliJ IDEA short cut
-  :bind (([M-f12] . shell-pop)))
-
-;; treemacs
 (leaf treemacs
   :ensure t
   :leaf-defer t
@@ -484,12 +463,12 @@ use projectile-counsel-rg instead."
   :ensure t
   :after treemacs magit)
 
-;; multiple-cursors and enhancers
 (leaf multiple-cursors
   :ensure t
   :bind (([C-M-return] . mc/edit-lines)))
 
 (leaf expand-region
+  :doc "multiple-cursors enhancer"
   :ensure t
   :commands expand-region
   :bind (("C-,"   . er/expand-region)
@@ -505,7 +484,6 @@ use projectile-counsel-rg instead."
                          ("N" . 'mc/unmark-previous-like-this)
                          ("*" . 'mc/mark-all-like-this))))
 
-;; anzu
 (leaf anzu
   :ensure t
   :diminish (anzu-mode . "🅐")
@@ -513,7 +491,6 @@ use projectile-counsel-rg instead."
   (global-anzu-mode +1)
   (setq anzu-cons-mode-line-p nil))
 
-;; ace-isearch
 (leaf ace-isearch
   :ensure t
   :diminish ace-isearch-mode
@@ -532,19 +509,17 @@ use projectile-counsel-rg instead."
   ;; (aw-leading-char-face . ((t (:height 4.0 :foreground "#f1fa8c"))))
   )
 
-;; ace-window
-;; w/ http://d.hatena.ne.jp/rubikitch/20100210/emacs
 (defun other-window-or-split ()
+  "for ace-window
+See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   (interactive)
   (if (one-window-p)
       (split-window-horizontally)
     (ace-window 1)))
 
-;; visual-regexp-steroids
 (leaf visual-regexp-steroids
   :ensure t)
 
-;; electric-pair-mode
 (electric-pair-mode t)
 
 (leaf wrap-region
@@ -557,14 +532,12 @@ use projectile-counsel-rg instead."
   :config
   (direnv-mode))
 
-;; ELDoc
 (leaf eldoc
   :ensure t
   :diminish (eldoc-mode . "📖"))
 
-;; shackle
-;; popup interface
 (leaf shackle
+  :doc "Popup interface"
   :ensure t
   :config
   (shackle-mode 1)
@@ -576,17 +549,13 @@ use projectile-counsel-rg instead."
                         ("\\`\\*magit.*?\\*\\'" :regexp t :select t   :inhibit-window-quit t :same t)
                         )))
 
-;; which-key
 (leaf which-key
   :ensure t
   :config
   (which-key-mode))
 
-;; spelling
-;; requires packages
-;;   * hunspell
-;;   * hunspell-en_US
 (leaf ispell
+  :req "hunspell" "hunspell-en_US"
   :ensure t
   :config
   (setq ispell-program-name (executable-find "hunspell")
@@ -616,7 +585,6 @@ use projectile-counsel-rg instead."
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
-;; google-translate
 (leaf google-translate
   :ensure t
   :after (posframe)
@@ -624,7 +592,6 @@ use projectile-counsel-rg instead."
   (setq google-translate-translation-directions-alist
         '(("ja" . "en") ("en" . "ja"))))
 
-;; comment-dwim-2
 (leaf comment-dwim-2
   :ensure t
   :bind
@@ -641,8 +608,8 @@ use projectile-counsel-rg instead."
                           (projects . 5)
                           (registers . 5))))
 
-;; basic theme settings
 (leaf atom-one-dark-theme
+  :doc "Basic theme settings"
   :ensure t
   :init
   (load-theme 'atom-one-dark t))
@@ -664,11 +631,6 @@ use projectile-counsel-rg instead."
 
 ;; tab-width
 (setq default-tab-width 4)
-
-;;; GUI settings
-
-;; hide menu bar, tool bar and scroll bar
-;; -> see .emacs.d/init.el
 
 ;; windmove
 ;; Shift + Arrow keys
@@ -705,14 +667,13 @@ use projectile-counsel-rg instead."
 (global-linum-mode 1)
 (setq linum-format "%4d.")
 
-;; show spaces
 (leaf whitespace
+  :doc "Show spaces"
   :ensure t
   :diminish (global-whitespace-mode . "🅦")
   :commands whitespace
   :init
-  (progn
-    (setq whitespace-style
+  (setq whitespace-style
           '(face
             tabs
             tab-mark
@@ -721,18 +682,18 @@ use projectile-counsel-rg instead."
             trailing
             space-before-tab
             space-after-tab::space))
-    (setq whitespace-line-column 250)
-    (setq whitespace-space-regexp "\\(\x3000+\\)") ; zenkaku space
-    (global-whitespace-mode t)
-    (set-face-attribute 'whitespace-trailing nil
-                        :background (face-attribute 'error :background)
-                        :underline t)
-    (set-face-attribute 'whitespace-tab nil
-                        :foreground "LightSkyBlue"
-                        :underline t)
-    (set-face-attribute 'whitespace-space nil
-                        :foreground "GreenYellow"
-                        :weight 'bold)))
+  (setq whitespace-line-column 250)
+  (setq whitespace-space-regexp "\\(\x3000+\\)") ; zenkaku space
+  (global-whitespace-mode t)
+  (set-face-attribute 'whitespace-trailing nil
+                      :background (face-attribute 'error :background)
+                      :underline t)
+  (set-face-attribute 'whitespace-tab nil
+                      :foreground "LightSkyBlue"
+                      :underline t)
+  (set-face-attribute 'whitespace-space nil
+                      :foreground "GreenYellow"
+                      :weight 'bold))
 
 ;; show an icon indicating whether a line has been changed
 ;; from last commit
@@ -745,16 +706,13 @@ use projectile-counsel-rg instead."
 ;;     (global-git-gutter-mode)
 ;;     (setq git-gutter-fr:side 'right-fringe)))
 
-;; rainbow-delimiters
 (leaf rainbow-delimiters
   :ensure t)
 
-;; highlight indentation
 (leaf highlight-indentation
   :ensure t
   :diminish highlight-indentation-mode)
 
-;; mode line
 (leaf doom-modeline
   :ensure t
   :hook
@@ -763,24 +721,20 @@ use projectile-counsel-rg instead."
   (line-number-mode 0)
   (column-number-mode 1))
 
-;; volatile-highlights
 (leaf volatile-highlights
   :ensure t
   :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
 
-;; pretty-symbols
 (global-prettify-symbols-mode +1)
 
-;; diminish
 (leaf diminish
   :ensure t
   :config
   (diminish 'auto-revert-mode "⟳")
   (diminish 'view-mode "👁"))
 
-;; hide-modeline
 (leaf hide-mode-line
   :ensure t
   :hook
@@ -827,18 +781,16 @@ use projectile-counsel-rg instead."
   :config
   (ddskk-posframe-mode t))
 
-;; dumb-jump
 (leaf dumb-jump
   :ensure t
   :config
   (dumb-jump-mode))
 
-;; counsel
 (leaf counsel-gtags
   :ensure t)
 
-;; smart-jump
 (defun my-smart-jump-configuration-with-gtags (modes)
+  "smart-jump helper function"
   (progn
     (smart-jump-register :modes modes
                          :jump-fn 'counsel-gtags-find-definition)
@@ -1049,8 +1001,8 @@ status of `flymake-mode'."
   (add-hook 'scheme-mode-hook #'enable-paredit-mode)
   (add-hook 'lisp-mode-hook #'enable-paredit-mode))
 
-;; rename workspace name automaticaly!
 (defun my-auto-set-projectile-root-to-eyebrowse ()
+  "Rename workspace names automaticaly!"
   (ignore-errors
     (let ((current-root "TODO: get from eyebrowse")
           (projectile-root (-> (projectile-project-info)
@@ -1067,7 +1019,6 @@ status of `flymake-mode'."
                             (car))))
           (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) new-name))))))
 
-;; projectile
 (leaf projectile
   :ensure t
   :commands projectile
@@ -1076,7 +1027,6 @@ status of `flymake-mode'."
   (setq projectile-mode-line
         '(:eval (format " 📁 %s" (projectile-project-name)))))
 
-;; counsel-projectile
 (leaf counsel-projectile
   :ensure t
   :config
@@ -1114,7 +1064,6 @@ status of `flymake-mode'."
           '(lambda ()
              (define-key mode-specific-map "c" 'compile)))
 
-;; google-c-style
 (leaf google-c-style
   :ensure t
   :commands google-c-style
@@ -1129,8 +1078,6 @@ status of `flymake-mode'."
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
 ;; show I/O buffer
 (setq gdb-use-separate-io-buffer t)
-
-;;; CIDER
 
 (leaf cider
   :ensure t
@@ -1151,7 +1098,6 @@ status of `flymake-mode'."
                (figwheel-sidecar.repl-api/start-figwheel!)
                (figwheel-sidecar.repl-api/cljs-repl))"))
 
-;; clj-refactor
 (leaf clj-refactor
   ensure t
   :config
@@ -1173,10 +1119,8 @@ status of `flymake-mode'."
               (ANY 2)
               (context 2))))
 
-;;; kibit
-
-;; Teach compile the syntax of the kibit output
 (leaf compile
+  :doc "Get kibit output"
   :ensure t
   :commands compile
   :init
@@ -1201,13 +1145,6 @@ Display the results in a hyperlinked *compilation* buffer."
 ;; rainbow delimiters
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 
-;;; ClojureScript
-
-;; TODO
-;; http://stackoverflow.com/questions/17714106/how-do-i-setup-a-clojurescript-repl-with-emacs
-;; https://github.com/cemerick/austin
-
-;;; etc
 (add-hook 'clojure-mode-hook 'highlight-indentation-mode)
 
 ;; prittify symbols
@@ -1265,8 +1202,6 @@ Display the results in a hyperlinked *compilation* buffer."
 
 (setq org-agenda-files (list "~/Documents/org"))
 
-;; (set-face-attribute 'org-level-1 nil :height 1.4)
-
 ;; It conflicts with expand-region's bindings
 (leaf org-mode
   :mode (("\\.org$" . org-mode))
@@ -1303,12 +1238,10 @@ Display the results in a hyperlinked *compilation* buffer."
  'org-babel-load-languages
  '((plantuml . t)))
 
-;; pomodoro
-
-;; need to override this function
-;; since https://github.com/syohex/emacs-sound-wav which is depended by org-pomodoro
-;; does not support PulseAudio's pacat/paplay
 (defun sound-wav--do-play (files)
+  "Need to override this function
+since https://github.com/syohex/emacs-sound-wav which is depended by org-pomodoro
+does not support PulseAudio's pacat/paplay"
   (let* ((vol-percent 75)
          (vol (round (/ (* 65536 vol-percent) 100))))
     (if (executable-find "afplay")
@@ -1331,26 +1264,23 @@ Display the results in a hyperlinked *compilation* buffer."
     (org-pomodoro-short-break-format . "☕%s")
     (org-pomodoro-long-break-format . "🌴%s")))
 
-;; set alerts for scheduled tasks
 (leaf org-alert
+  :doc "Set alerts for scheduled tasks"
   :ensure t
   :config
   (add-hook 'org-mode-hook (lambda () (org-alert-enable))))
 
-;; for arch linux
 (leaf shell-script-mode
-  :ensure t
   :mode (("PKGBUILD" . shell-script-mode)
          ("\\.install$" . shell-script-mode)))
 
 (setq sh-basic-offset 2)
 (setq sh-indentation 2)
 
-;; fish shell
 (leaf fish-mode
   :ensure t
   :custom
-  (fish-indent-offset 2))
+  (fish-indent-offset . 2))
 
 ;; UTF-8
 (set-default-coding-systems 'utf-8)
@@ -1359,3 +1289,5 @@ Display the results in a hyperlinked *compilation* buffer."
 (set-buffer-file-coding-system 'utf-8)
 (setq buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8-unix)
+
+;;; init.el ends here
