@@ -44,22 +44,24 @@
 (install-leaf)
 (leaf leaf-tree :ensure t)
 
-(leaf dash
-  :tag "library"
-  :ensure t
-  :require t)
-(leaf drag-stuff
-  :tag "library"
-  :ensure t
-  :require t)
-(leaf s
-  :tag "library"
-  :ensure t
-  :require t)
-(leaf f
-  :tag "library"
-  :ensure t
-  :require t)
+(leaf *library
+  :config
+  (leaf dash
+    :tag "library"
+    :ensure t
+    :require t)
+  (leaf drag-stuff
+    :tag "library"
+    :ensure t
+    :require t)
+  (leaf s
+    :tag "library"
+    :ensure t
+    :require t)
+  (leaf f
+    :tag "library"
+    :ensure t
+    :require t))
 
 ;; Constants
 (defconst my-const/lambda-prettify-symbols-alist
@@ -92,23 +94,53 @@
                  (lambda (prettify-map)
                    (push prettify-map prettify-symbols-alist))))))
 
-;; show explicit file name
-(setq explicit-shell-file-name shell-file-name)
-
-;; yes/no -> y/n
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; file name completion ignore case
-(setq completion-ignore-case t)
-(setq read-file-name-completion-ignore-case t)
+(leaf *base
+  :config
+  ;; show explicit file name
+  (setq explicit-shell-file-name shell-file-name)
+  ;; yes/no -> y/n
+  (fset 'yes-or-no-p 'y-or-n-p)
+  ;; file name completion ignore case
+  (setq completion-ignore-case t)
+  (setq read-file-name-completion-ignore-case t)
+  ;; indent
+  (setq-default indent-tabs-mode  nil)
+  ;; without backup-file
+  (setq backup-inhibited t)
+  ;; delete auto save files when quit
+  (setq delete-auto-save-files t)
+  ;; disable beep sound flash
+  (setq ring-bell-function 'ignore)
+  ;; For time locale for org-mode to avoid Japanese time locale format
+  ;; However this is not an org-mode specific setting but a global setting, written here
+  (setq system-time-locale "C")
+  ;; specify browser
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program
+        (--first
+         (executable-find it)
+         '("chromium-browser"
+           "google-chrome"
+           "google-chrome-stable"
+           "google-chrome-beta"
+           "firefox")))
+  ;; Set default browser
+  (setq browse-url-browser-function 'browse-url-chromium))
 
 (leaf autorevert
   :doc "Auto reload buffer which modified by external programs"
   :tag "builtin"
   :global-minor-mode global-auto-revert-mode)
 
-;; indent
-(setq-default indent-tabs-mode  nil)
+(leaf cua
+  :doc "Rectanble select
+GUI: C-Ret
+CUI: 'cua-set-rectangle-mark
+M-n -> insert numbers incremental"
+  :tag "builtin"
+  :global-minor-mode cua-mode
+  :init
+  (setq cua-enable-cua-keys nil))
 
 ;; change C-a behavior
 ;; move line head w/o indent, w/ indent
@@ -122,58 +154,28 @@
                   current-point)))
       (beginning-of-line)
     (back-to-indentation)))
-(global-set-key "\C-a" 'beginning-of-indented-line)
 
-;; without backup-file
-(setq backup-inhibited t)
-
-;; delete auto save files when quit
-(setq delete-auto-save-files t)
-
-(leaf cua
-  :doc "Rectanble select
-GUI: C-Ret
-CUI: 'cua-set-rectangle-mark
-M-n -> insert numbers incremental"
-  :tag "builtin"
-  :global-minor-mode cua-mode
-  :init
-  (setq cua-enable-cua-keys nil))
-
-;; disable beep sound flash
-(setq ring-bell-function 'ignore)
-
-;; For time locale for org-mode to avoid Japanese time locale format
-;; However this is not an org-mode specific setting but a global setting, written here
-(setq system-time-locale "C")
-
-;; specify browser
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program
-      (--first
-       (executable-find it)
-       '("chromium-browser"
-         "google-chrome"
-         "google-chrome-stable"
-         "google-chrome-beta"
-         "firefox")))
-
-;; Set default browser
-(setq browse-url-browser-function 'browse-url-chromium)
-
-(leaf bind-key
-  :ensure t
+(leaf *key-config
   :config
-  ;; disable dangerous keys
-  (bind-keys
-   ("C-x C-c" . nil)
-   ("C-x C-z" . nil))
-  ;; set key binds
-  (bind-key "C-h" 'delete-backward-char))
+  (global-set-key "\C-a" 'beginning-of-indented-line)
 
-;;; C-x C-c -> "exit" command
-(defalias 'exit 'save-buffers-kill-emacs)
+  ;; C-x C-c -> "exit" command
+  (defalias 'exit 'save-buffers-kill-emacs)
 
+  ;; windmove
+  ;; Shift + Arrow keys
+  ;; http://d.hatena.ne.jp/tomoya/20120512/1336832436
+  (windmove-default-keybindings)
+
+  (leaf bind-key
+    :ensure t
+    :config
+    ;; disable dangerous keys
+    (bind-keys
+     ("C-x C-c" . nil)
+     ("C-x C-z" . nil))
+    ;; set key binds
+    (bind-key "C-h" 'delete-backward-char)))
 (leaf uniquify
   :doc "Easy to descern buffers of same name files"
   :require t
@@ -387,28 +389,30 @@ use projectile-counsel-rg instead."
   ;; open junk file in a current window
   (setq open-junk-file-find-file-function 'find-file))
 
-(leaf magit
-  :req "git"
-  :after company
-  :ensure t
-  :commands magit
-  ;; same as IntelliJ IDEA short cut
-  :bind (("M-9" . magit-status))
+(leaf *git
   :config
-  (add-hook 'magit-status-mode-hook (lambda ()
-                                      (company-mode -1)))
-  (setq magit-diff-refine-hunk t)
-  (leaf forge
+  (leaf magit
+    :req "git"
+    :after company
+    :ensure t
+    :commands magit
+    ;; same as IntelliJ IDEA short cut
+    :bind (("M-9" . magit-status))
+    :config
+    (add-hook 'magit-status-mode-hook (lambda ()
+                                        (company-mode -1)))
+    (setq magit-diff-refine-hunk t)
+    (leaf forge
+      :ensure t)
+
+    (leaf gitignore-mode
+      :ensure t))
+
+  (leaf gitconfig-mode
+    :ensure t)
+
+  (leaf git-timemachine
     :ensure t))
-
-(leaf gitignore-mode
-  :ensure t)
-
-(leaf gitconfig-mode
-  :ensure t)
-
-(leaf git-timemachine
-  :ensure t)
 
 (leaf treemacs
   :ensure t
@@ -515,10 +519,8 @@ use projectile-counsel-rg instead."
   :config
   (global-set-key (kbd "C-x o") 'other-window-or-split)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  ;; FIXME
-  ;; :custom-face
-  ;; (aw-leading-char-face . ((t (:height 4.0 :foreground "#f1fa8c"))))
-  )
+  :custom-face
+  (aw-leading-char-face . '((t (:height 4.0 :foreground "#f1fa8c")))))
 
 (defun other-window-or-split ()
   "For ace-window
@@ -564,14 +566,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   :config
   (which-key-mode))
 
-(leaf ispell
-  :req "hunspell" "hunspell-en_US"
-  :ensure t
-  :config
-  (setq ispell-program-name (executable-find "hunspell")
-        ispell-dictionary "en_US-large"
-        ispell-really-hunspell t))
-
 ;; The following lines are hunspell settings with Japanese.
 ;; See: https://www.emacswiki.org/emacs/FlySpell#toc14
 ;; Because an aspell setting
@@ -582,18 +576,28 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   Call this on `flyspell-incorrect-hook'."
   (string-match "[^!-~]" (buffer-substring beg end)))
 
-(leaf flyspell
-  :ensure t
-  :hook
-  (flyspell-incorrect-hook . my-flyspell-ignore-non-ascii)
+(leaf *spelling
   :config
-  ;; ignore errors on macOS
-  (setq flyspell-issue-message-flag nil)
-  ;; They conflict with expand-region's bindings
-  (define-key flyspell-mode-map (kbd "C-,") nil)
-  (define-key flyspell-mode-map (kbd "C-.") nil)
-  (add-hook 'text-mode-hook 'flyspell-mode)
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+  (leaf ispell
+    :req "hunspell" "hunspell-en_US"
+    :ensure t
+    :config
+    (setq ispell-program-name (executable-find "hunspell")
+          ispell-dictionary "en_US-large"
+          ispell-really-hunspell t))
+
+  (leaf flyspell
+    :ensure t
+    :hook
+    (flyspell-incorrect-hook . my-flyspell-ignore-non-ascii)
+    :config
+    ;; ignore errors on macOS
+    (setq flyspell-issue-message-flag nil)
+    ;; They conflict with expand-region's bindings
+    (define-key flyspell-mode-map (kbd "C-,") nil)
+    (define-key flyspell-mode-map (kbd "C-.") nil)
+    (add-hook 'text-mode-hook 'flyspell-mode)
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)))
 
 (leaf google-translate
   :ensure t
@@ -603,9 +607,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
         '(("ja" . "en") ("en" . "ja"))))
 
 (leaf restclient
-  :ensure t)
-
-(leaf open-junk-file
   :ensure t)
 
 (leaf comment-dwim-2
@@ -624,41 +625,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
                           (projects . 5)
                           (registers . 5))))
 
-(leaf atom-one-dark-theme
-  :doc "Basic theme settings"
-  :ensure t
-  :init
-  (load-theme 'atom-one-dark t))
-
-;; skip startup screen
-(setq inhibit-startup-screen t)
-
-;; erase scrach buffer message
-(setq initial-scratch-message "")
-
-(leaf show-paren-mode
-  :doc "High light paren"
-  :tag "builtin"
-  :init
-  (show-paren-mode 1)
-  ;; high light inner text of paren when over window
-  (setq show-paren-style 'mixed))
-
-(leaf global-hl-line-mode
-  :doc "High light current line"
-  :tag "builtin"
-  :init
-  (setq hl-line-face 'underline)
-  (global-hl-line-mode))
-
-;; tab-width
-(setq default-tab-width 4)
-
-;; windmove
-;; Shift + Arrow keys
-;; http://d.hatena.ne.jp/tomoya/20120512/1336832436
-(windmove-default-keybindings)
-
 ;; font
 (defcustom my-font
   (let* ((fonts (font-family-list))
@@ -676,28 +642,57 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (format "%s-%d" available size))
   "Font. It's detected automaticaly by default.")
 
-(setq default-frame-alist
-      (list (cons 'font  my-font)))
-(set-frame-font my-font)
+(leaf *look-and-feel
+  :config
+  (leaf atom-one-dark-theme
+    :doc "Basic theme settings"
+    :ensure t
+    :init
+    (load-theme 'atom-one-dark t))
 
-;; set color, window size
-(if window-system
-    (progn
-      (set-frame-parameter nil 'alpha 95)))
+  ;; skip startup screen
+  (setq inhibit-startup-screen t)
 
-(leaf global-linum-mode
-  :doc "Line number"
-  :init
-  (global-linum-mode 1)
-  (setq linum-format "%4d."))
+  ;; erase scrach buffer message
+  (setq initial-scratch-message "")
 
-(leaf whitespace
-  :doc "Show spaces"
-  :ensure t
-  :diminish (global-whitespace-mode . "🅦")
-  :commands whitespace
-  :init
-  (setq whitespace-style
+  (leaf show-paren-mode
+    :doc "High light paren"
+    :tag "builtin"
+    :init
+    (show-paren-mode 1)
+    ;; high light inner text of paren when over window
+    (setq show-paren-style 'mixed))
+
+  (leaf global-hl-line-mode
+    :doc "High light current line"
+    :tag "builtin"
+    :init
+    (setq hl-line-face 'underline)
+    (global-hl-line-mode))
+
+  (setq default-frame-alist
+        (list (cons 'font  my-font)))
+  (set-frame-font my-font)
+
+  ;; set color, window size
+  (if window-system
+      (progn
+        (set-frame-parameter nil 'alpha 95)))
+
+  (leaf global-linum-mode
+    :doc "Line number"
+    :init
+    (global-linum-mode 1)
+    (setq linum-format "%4d."))
+
+  (leaf whitespace
+    :doc "Show spaces"
+    :ensure t
+    :diminish (global-whitespace-mode . "🅦")
+    :commands whitespace
+    :init
+    (setq whitespace-style
           '(face
             tabs
             tab-mark
@@ -706,57 +701,58 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
             trailing
             space-before-tab
             space-after-tab::space))
-  (setq whitespace-line-column 250)
-  (setq whitespace-space-regexp "\\(\x3000+\\)") ; zenkaku space
-  (global-whitespace-mode t)
-  (set-face-attribute 'whitespace-trailing nil
-                      :background (face-attribute 'error :background)
-                      :underline t)
-  (set-face-attribute 'whitespace-tab nil
-                      :foreground "LightSkyBlue"
-                      :underline t)
-  (set-face-attribute 'whitespace-space nil
-                      :foreground "GreenYellow"
-                      :weight 'bold))
+    (setq whitespace-line-column 250)
+    (setq whitespace-space-regexp "\\(\x3000+\\)") ; zenkaku space
+    (global-whitespace-mode t)
+    (set-face-attribute 'whitespace-trailing nil
+                        :background (face-attribute 'error :background)
+                        :underline t)
+    (set-face-attribute 'whitespace-tab nil
+                        :foreground "LightSkyBlue"
+                        :underline t)
+    (set-face-attribute 'whitespace-space nil
+                        :foreground "GreenYellow"
+                        :weight 'bold))
+
+  (leaf rainbow-delimiters
+    :ensure t)
+
+  (leaf highlight-indentation
+    :ensure t
+    :diminish highlight-indentation-mode)
+
+  (leaf doom-modeline
+    :ensure t
+    :global-minor-mode doom-modeline-mode
+    :config
+    (line-number-mode 0)
+    (column-number-mode 1))
+
+  (leaf volatile-highlights
+    :ensure t
+    :diminish volatile-highlights-mode
+    :config
+    (volatile-highlights-mode t))
+
+  (global-prettify-symbols-mode +1)
+
+  (leaf hide-mode-line
+    :ensure t
+    :hook
+    ((treemacs-mode) . hide-mode-line-mode)))
+
+;; tab-width
+(setq default-tab-width 4)
 
 ;; show an icon indicating whether a line has been changed
 ;; from last commit
 ;; FIXME it makes display wrong!
-;; (leaf git-gutter-fringe
+;; (leaf git-gutter ;;-fringe
 ;;   :ensure t
 ;;   :diminish git-gutter-mode
 ;;   :config
-;;   (progn
-;;     (global-git-gutter-mode)
-;;     (setq git-gutter-fr:side 'right-fringe)))
-
-(leaf rainbow-delimiters
-  :ensure t)
-
-(leaf highlight-indentation
-  :ensure t
-  :diminish highlight-indentation-mode)
-
-(leaf doom-modeline
-  :ensure t
-  :global-minor-mode doom-modeline-mode
-  :config
-  (line-number-mode 0)
-  (column-number-mode 1))
-
-(leaf volatile-highlights
-  :ensure t
-  :diminish volatile-highlights-mode
-  :config
-  (volatile-highlights-mode t))
-
-(global-prettify-symbols-mode +1)
-
-(leaf hide-mode-line
-  :ensure t
-  :hook
-  ((treemacs-mode) . hide-mode-line-mode))
-
+;;   (global-git-gutter-mode)
+;;   (setq git-gutter-fr:side 'right-fringe))
 (leaf alert
   :ensure t
   :config
@@ -1057,27 +1053,29 @@ status of `flymake-mode'."
   (add-hook 'c-mode-hook hook)
   (add-hook 'c++-mode-hook hook))
 
-;; flycheck
-(add-hook 'c-mode-common-hook 'flycheck-mode)
+(leaf *c-c++
+  :config
+  ;; flycheck
+  (add-hook 'c-mode-common-hook 'flycheck-mode)
 
-;; compile C-c
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (define-key mode-specific-map "c" 'compile)))
+  ;; compile C-c
+  (add-hook 'c-mode-common-hook
+            '(lambda ()
+               (define-key mode-specific-map "c" 'compile)))
 
-(leaf google-c-style
-  :ensure t
-  :commands google-c-style
-  :init
-  (add-c-hooks 'google-set-c-style)
-  (add-c-hooks 'google-make-newline-indent))
+  (leaf google-c-style
+    :ensure t
+    :commands google-c-style
+    :init
+    (add-c-hooks 'google-set-c-style)
+    (add-c-hooks 'google-make-newline-indent))
 
-;; GDB
-(setq gdb-many-windows t)
-;; show value of variable when mouse cursor on
-(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
-;; show I/O buffer
-(setq gdb-use-separate-io-buffer t)
+  ;; GDB
+  (setq gdb-many-windows t)
+  ;; show value of variable when mouse cursor on
+  (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+  ;; show I/O buffer
+  (setq gdb-use-separate-io-buffer t))
 
 (leaf clojure-mode
   :ensure t
@@ -1159,9 +1157,11 @@ Display the results in a hyperlinked *compilation* buffer."
   :ensure t
   :mode (("Dockerfile" . dockerfile-mode)))
 
-(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
-(add-hook 'emacs-lisp-mode-hook 'highlight-indentation-mode)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+(leaf emacs-lisp-mode
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+  (add-hook 'emacs-lisp-mode-hook 'highlight-indentation-mode)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
 
 (defconst lisp--prettify-symbols-alist
   (-concat my-const/lambda-prettify-symbols-alist
@@ -1188,6 +1188,19 @@ Display the results in a hyperlinked *compilation* buffer."
   :mode ((".xmobarrc" . haskell-mode))
   :init
   (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+
+(leaf rustic
+  :doc "Rust"
+  :ensure t
+  :commands
+  (rustic-mode)
+  :mode
+  (("\\.rs\\'" . rustic-mode))
+  :config
+  (setq rustic-lsp-client 'eglot)
+  (add-to-list 'eglot-server-programs '(rustic-mode . ("rust-analyzer")))
+  (setq rustic-lsp-server 'rust-analyzer)
+  (push 'rustic-clippy flycheck-checkers))
 
 (leaf markdown-mode
   :ensure t
@@ -1289,11 +1302,13 @@ does not support PulseAudio's pacat/paplay"
   (fish-indent-offset . 2))
 
 ;; UTF-8
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8)
-(prefer-coding-system 'utf-8-unix)
+(leaf *char-encoding
+  :config
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-buffer-file-coding-system 'utf-8)
+  (setq buffer-file-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8-unix))
 
 ;;; init.el ends here
