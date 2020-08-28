@@ -8,8 +8,7 @@
 
 ;;; Code:
 
-;; GC max memory (128MB)
-(setq gc-cons-threshold 134217728)
+(setq gc-cons-threshold (* 128 1024 1024))
 
 ;; hide basic gui widgets first
 ;; I don't want to show them in initialing
@@ -103,11 +102,13 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-;; auto reload buffer which modified by external programs
-(global-auto-revert-mode 1)
+(leaf autorevert
+  :doc "Auto reload buffer which modified by external programs"
+  :tag "builtin"
+  :global-minor-mode global-auto-revert-mode)
 
 ;; indent
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode  nil)
 
 ;; change C-a behavior
 ;; move line head w/o indent, w/ indent
@@ -129,14 +130,14 @@
 ;; delete auto save files when quit
 (setq delete-auto-save-files t)
 
-(leaf cure-mode
+(leaf cua
   :doc "Rectanble select
 GUI: C-Ret
 CUI: 'cua-set-rectangle-mark
 M-n -> insert numbers incremental"
   :tag "builtin"
+  :global-minor-mode cua-mode
   :init
-  (cua-mode t)
   (setq cua-enable-cua-keys nil))
 
 ;; disable beep sound flash
@@ -192,7 +193,7 @@ M-n -> insert numbers incremental"
   (setq ido-max-window-height 0.75)
   (setq ido-enable-flex-matching t)
   (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-  (ido-vertical-mode 1))
+  :global-minor-mode ido-vertical-mode)
 
 (defun my-counsel-rg (&optional initial-input initial-directory extra-rg-args rg-prompt)
   "This is a counsel-rg alternative. It searches a text in the current directory.
@@ -216,8 +217,8 @@ use projectile-counsel-rg instead."
 (leaf ivy
   :ensure t
   :diminish (ivy-mode . "🅘")
+  :global-minor-mode ivy-mode
   :config
-  (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
 
@@ -315,8 +316,8 @@ use projectile-counsel-rg instead."
 (leaf company
   :ensure t
   :diminish (company-mode . "🅒")
+  :global-minor-mode global-company-mode
   :config
-  (global-company-mode)
   (setq company-idle-delay 0.1
         company-minimum-prefix-length 2
         company-selection-wrap-around t)
@@ -346,28 +347,26 @@ use projectile-counsel-rg instead."
 (leaf undo-tree
   :ensure t
   :diminish (undo-tree-mode . "🅤")
-  :config
-  (global-undo-tree-mode))
+  :global-minor-mode global-undo-tree-mode)
 
 (leaf migemo
   :req "migemo"
   :ensure t
   :commands migemo
   :config
-  (progn
-    (setq migemo-command (if (executable-find "cmigemo") "cmigemo" "/usr/local/bin/cmigemo"))
-    (setq migemo-options '("-q" "--emacs"))
-    (setq migemo-dictionary
-          (--find
-           (f-exists? it)
-           '("/usr/share/migemo/utf-8/migemo-dict"
-             "/usr/share/cmigemo/utf-8/migemo-dict"
-             "/usr/local/share/migemo/utf-8/migemo-dict")))
-    (setq migemo-user-dictionary nil)
-    (setq migemo-regex-dictionary nil)
-    (setq migemo-coding-system 'utf-8-unix)
-    (load-library "migemo")
-    (migemo-init)))
+  (setq migemo-command (if (executable-find "cmigemo") "cmigemo" "/usr/local/bin/cmigemo"))
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-dictionary
+        (--find
+         (f-exists? it)
+         '("/usr/share/migemo/utf-8/migemo-dict"
+           "/usr/share/cmigemo/utf-8/migemo-dict"
+           "/usr/local/share/migemo/utf-8/migemo-dict")))
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
+  (migemo-init))
 
 (leaf flycheck
   :diminish (flycheck-mode . "⚠")
@@ -398,7 +397,18 @@ use projectile-counsel-rg instead."
   :config
   (add-hook 'magit-status-mode-hook (lambda ()
                                       (company-mode -1)))
-  (setq magit-diff-refine-hunk t))
+  (setq magit-diff-refine-hunk t)
+  (leaf forge
+    :ensure t))
+
+(leaf gitignore-mode
+  :ensure t)
+
+(leaf gitconfig-mode
+  :ensure t)
+
+(leaf git-timemachine
+  :ensure t)
 
 (leaf treemacs
   :ensure t
@@ -488,15 +498,15 @@ use projectile-counsel-rg instead."
 (leaf anzu
   :ensure t
   :diminish (anzu-mode . "🅐")
+  :global-minor-mode global-anzu-mode
   :config
-  (global-anzu-mode +1)
   (setq anzu-cons-mode-line-p nil))
 
 (leaf ace-isearch
   :ensure t
   :diminish ace-isearch-mode
+  :global-minor-mode global-ace-isearch-mode
   :config
-  (global-ace-isearch-mode 1)
   (setq ace-isearch-function 'avy-goto-char)
   (setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch))
 
@@ -525,8 +535,7 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
 
 (leaf wrap-region
   :ensure t
-  :config
-  (wrap-region-mode t))
+  :global-minor-mode wrap-region-mode)
 
 (leaf direnv
   :ensure t
@@ -540,8 +549,8 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
 (leaf shackle
   :doc "Popup interface"
   :ensure t
+  :global-minor-mode shackle-mode
   :config
-  (shackle-mode 1)
   (setq shackle-default-rule '(:other t))
   (setq shackle-rules '(("*undo-tree*"         :regexp t :align right :size 0.25)
                         ("*Backtrace*"         :regexp t :align t     :size 0.4)
@@ -592,6 +601,12 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   :config
   (setq google-translate-translation-directions-alist
         '(("ja" . "en") ("en" . "ja"))))
+
+(leaf restclient
+  :ensure t)
+
+(leaf open-junk-file
+  :ensure t)
 
 (leaf comment-dwim-2
   :ensure t
@@ -724,8 +739,7 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
 
 (leaf doom-modeline
   :ensure t
-  :hook
-  (after-init . doom-modeline-mode)
+  :global-minor-mode doom-modeline-mode
   :config
   (line-number-mode 0)
   (column-number-mode 1))
@@ -737,12 +751,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   (volatile-highlights-mode t))
 
 (global-prettify-symbols-mode +1)
-
-(leaf diminish
-  :ensure t
-  :config
-  (diminish 'auto-revert-mode "⟳")
-  (diminish 'view-mode "👁"))
 
 (leaf hide-mode-line
   :ensure t
@@ -1007,24 +1015,6 @@ status of `flymake-mode'."
   (add-hook 'scheme-mode-hook #'enable-paredit-mode)
   (add-hook 'lisp-mode-hook #'enable-paredit-mode))
 
-(defun my-auto-set-projectile-root-to-eyebrowse ()
-  "Rename workspace names automaticaly!"
-  (ignore-errors
-    (let ((current-root "TODO: get from eyebrowse")
-          (projectile-root (-> (projectile-project-info)
-                               (split-string " ## ")
-                               (car)
-                               (split-string ": ")
-                               (last)
-                               (car))))
-      (when (not (string= (replace-regexp-in-string "/$" "" projectile-root) current-root))
-        (let ((new-name (-> projectile-root
-                            (split-string "/")
-                            ((lambda (lst) (--remove (string= it "") lst)))
-                            (last)
-                            (car))))
-          (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) new-name))))))
-
 (leaf projectile
   :ensure t
   :commands projectile
@@ -1039,23 +1029,28 @@ status of `flymake-mode'."
     (counsel-projectile-mode)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
-
 (leaf slime
+  :req "sbcl"
   :ensure t
   :init
-  ;; require SBCL
   (setq inferior-lisp-program "sbcl")
   :ensure t
   :config
   (slime-setup '(slime-repl slime-fancy slime-banner))
-  (slime-setup '(slime-fancy slime-company)))
+  (slime-setup '(slime-fancy slime-company))
+  :config
+  (leaf slime-company
+    :ensure t))
 
 (leaf yasnippet
   :ensure t
   :diminish (yas-minor-mode . "🅨")
   :config
   (yas-global-mode 1)
-  (bind-key "M-=" 'yas-insert-snippet yas-minor-mode-map))
+  (bind-key "M-=" 'yas-insert-snippet yas-minor-mode-map)
+  :config
+  (leaf yasnippet-snippets
+    :ensure t))
 
 (defun add-c-hooks (hook)
   "add hook only c-mode-hook, c++-mode-hook. since c-mode-common-hook includes others hooks"
@@ -1084,53 +1079,60 @@ status of `flymake-mode'."
 ;; show I/O buffer
 (setq gdb-use-separate-io-buffer t)
 
-(leaf cider
+(leaf clojure-mode
   :ensure t
-  :init
-  (add-hook 'clojure-mode-hook 'cider-mode)
-  (add-hook 'cider-mode-hook #'clj-refactor-mode)
-  (add-hook 'cider-mode-hook #'eldoc-mode)
-  (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   :config
-  ;; Hide the *nrepl-connection* and *nrepl-server* buffers
-  ;; from appearing in some buffer switching commands like 'C-x b'
-  (setq nrepl-hide-special-buffers t)
-  ;; The REPL buffer name  will look like cider project-name:port
-  (setq nrepl-buffer-name-show-port t)
-  ;; Enable CIDER and figwheel interaction
-  (setq cider-cljs-lein-repl
-        "(do (require 'figwheel-sidecar.repl-api)
+  (leaf cider
+    :ensure t
+    :init
+    (add-hook 'clojure-mode-hook 'cider-mode)
+    (add-hook 'cider-mode-hook #'clj-refactor-mode)
+    (add-hook 'cider-mode-hook #'eldoc-mode)
+    (add-hook 'cider-repl-mode-hook #'eldoc-mode)
+    :config
+    ;; Hide the *nrepl-connection* and *nrepl-server* buffers
+    ;; from appearing in some buffer switching commands like 'C-x b'
+    (setq nrepl-hide-special-buffers t)
+    ;; The REPL buffer name  will look like cider project-name:port
+    (setq nrepl-buffer-name-show-port t)
+    ;; Enable CIDER and figwheel interaction
+    (setq cider-cljs-lein-repl
+          "(do (require 'figwheel-sidecar.repl-api)
                (figwheel-sidecar.repl-api/start-figwheel!)
                (figwheel-sidecar.repl-api/cljs-repl))"))
 
-(leaf clj-refactor
-  ensure t
-  :config
-  (progn
-    (clj-refactor-mode 1)
-    (yas-minor-mode 1)
-    (cljr-add-keybindings-with-prefix "C-c j")))
+  (leaf clj-refactor
+    ensure t
+    :config
+    (progn
+      (clj-refactor-mode 1)
+      (yas-minor-mode 1)
+      (cljr-add-keybindings-with-prefix "C-c j")))
 
-;;; compojure indentation
-(add-hook 'clojure-mode-hook
-          (lambda()
-            (define-clojure-indent
-              (defroutes 'defun)
-              (GET 2)
-              (POST 2)
-              (PUT 2)
-              (DELETE 2)
-              (HEAD 2)
-              (ANY 2)
-              (context 2))))
+  ;; compojure indentation
+  (add-hook 'clojure-mode-hook
+            (lambda()
+              (define-clojure-indent
+                (defroutes 'defun)
+                (GET 2)
+                (POST 2)
+                (PUT 2)
+                (DELETE 2)
+                (HEAD 2)
+                (ANY 2)
+                (context 2))))
 
-(leaf compile
-  :doc "Get kibit output"
-  :ensure t
-  :commands compile
-  :init
-  (add-to-list 'compilation-error-regexp-alist-alist
+  (leaf compile
+    :doc "Get kibit output"
+    :ensure t
+    :commands compile
+    :init
+    (add-to-list 'compilation-error-regexp-alist-alist
                  '(kibit "At \\([^:]+\\):\\([[:digit:]]+\\):" 1 2 nil 0)))
+
+  ;; rainbow delimiters
+  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'clojure-mode-hook 'highlight-indentation-mode))
 
 ;; A convenient command to run "lein kibit" in the project to which
 ;; the current emacs buffer belongs to.
@@ -1145,11 +1147,6 @@ Display the results in a hyperlinked *compilation* buffer."
 Display the results in a hyperlinked *compilation* buffer."
   (interactive)
   (compile (concat "lein kibit " buffer-file-name)))
-
-;; rainbow delimiters
-(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-
-(add-hook 'clojure-mode-hook 'highlight-indentation-mode)
 
 ;; prittify symbols
 (my-macro/prettify-symbols
@@ -1204,9 +1201,10 @@ Display the results in a hyperlinked *compilation* buffer."
 
 (leaf org-mode
   :mode (("\\.org$" . org-mode))
-  :bind
+  :hook
   ;; It conflicts with expand-region's bindings
-  (("C-," . nil))
+  ;; FIXME doesn't work!
+  (org-mode-hook . (lambda () (bind-key "C-," nil)))
   :init
   (setq org-agenda-files (list "~/Documents/org"))
   ;; babel
@@ -1233,10 +1231,10 @@ Display the results in a hyperlinked *compilation* buffer."
   (leaf org-bullets
     :doc "Beautify org-mode list bullets"
     :ensure t
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    :hook
+    (org-mode-hook . (lambda () (org-bullets-mode 1)))
     :custom
-    (org-bullets-bullet-list '("🌕" "🌔" "🌓" "🌒" "🌑"))))
+    `((org-bullets-bullet-list . '("🌕" "🌔" "🌓" "🌒" "🌑")))))
 
 (defun sound-wav--do-play (files)
   "Need to override this function
@@ -1262,7 +1260,14 @@ does not support PulseAudio's pacat/paplay"
                                      (executable-find "afplay")))
     (org-pomodoro-format . "🍅%s")
     (org-pomodoro-short-break-format . "☕%s")
-    (org-pomodoro-long-break-format . "🌴%s")))
+    (org-pomodoro-long-break-format . "🌴%s"))
+  :config
+  (leaf sound-wav
+    :doc "Required by org-pomodoro implicitly"
+    :ensure t))
+
+(leaf org-analyzer
+  :ensure t)
 
 (leaf org-alert
   :doc "Set alerts for scheduled tasks"
@@ -1278,6 +1283,7 @@ does not support PulseAudio's pacat/paplay"
   (setq sh-indentation 2))
 
 (leaf fish-mode
+  :req "fish"
   :ensure t
   :custom
   (fish-indent-offset . 2))
