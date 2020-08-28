@@ -642,7 +642,7 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (format "%s-%d" available size))
   "Font. It's detected automaticaly by default.")
 
-(leaf *look-and-feel
+(leaf *visual
   :config
   (leaf atom-one-dark-theme
     :doc "Basic theme settings"
@@ -674,6 +674,11 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   (setq default-frame-alist
         (list (cons 'font  my-font)))
   (set-frame-font my-font)
+
+  (global-prettify-symbols-mode +1)
+
+  ;; tab-width
+  (setq default-tab-width 4)
 
   ;; set color, window size
   (if window-system
@@ -734,25 +739,21 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     :config
     (volatile-highlights-mode t))
 
-  (global-prettify-symbols-mode +1)
-
   (leaf hide-mode-line
     :ensure t
     :hook
-    ((treemacs-mode) . hide-mode-line-mode)))
+    ((treemacs-mode) . hide-mode-line-mode))
 
-;; tab-width
-(setq default-tab-width 4)
+  (leaf git-gutter-fringe
+    ;; FIXME it makes display wrong!
+    :doc "Show an icon indicating whether a line has been changed from last commit"
+    :disabled t
+    :ensure t
+    :diminish git-gutter-mode
+    :config
+    (global-git-gutter-mode)
+    (setq git-gutter-fr:side 'right-fringe)))
 
-;; show an icon indicating whether a line has been changed
-;; from last commit
-;; FIXME it makes display wrong!
-;; (leaf git-gutter ;;-fringe
-;;   :ensure t
-;;   :diminish git-gutter-mode
-;;   :config
-;;   (global-git-gutter-mode)
-;;   (setq git-gutter-fr:side 'right-fringe))
 (leaf alert
   :ensure t
   :config
@@ -1301,7 +1302,6 @@ does not support PulseAudio's pacat/paplay"
   :custom
   (fish-indent-offset . 2))
 
-;; UTF-8
 (leaf *char-encoding
   :config
   (set-default-coding-systems 'utf-8)
@@ -1310,5 +1310,23 @@ does not support PulseAudio's pacat/paplay"
   (set-buffer-file-coding-system 'utf-8)
   (setq buffer-file-coding-system 'utf-8)
   (prefer-coding-system 'utf-8-unix))
+
+(leaf *mac
+  :when (eq system-type 'darwin)
+  ;; Need to place hunspell dictionaries
+  ;; to the path which is included in the results of `hunspell -D`
+  ;;
+  ;; $ cd ~/Library/Spelling
+  ;; $ wget https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff
+  ;; $ wget https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic
+  (setq ispell-dictionary "en_US")
+  (add-to-list 'ispell-dictionary-alist
+               '("en_US" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_US") nil utf-8))
+  ;; https://stackoverflow.com/questions/3961119/working-setup-for-hunspell-in-emacs
+  (defun ispell-get-coding-system () 'utf-8)
+  ;; beautify powerline
+  ;; https://github.com/milkypostman/powerline/issues/54
+  (setq ns-use-srgb-colorspace nil)
+  (setq alert-default-style 'osx-notifier))
 
 ;;; init.el ends here
