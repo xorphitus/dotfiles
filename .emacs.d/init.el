@@ -114,6 +114,8 @@
   ;; For time locale for org-mode to avoid Japanese time locale format
   ;; However this is not an org-mode specific setting but a global setting, written here
   (setq system-time-locale "C")
+  ;; set close paren automatically
+  (electric-pair-mode t)
   ;; specify browser
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program
@@ -301,6 +303,11 @@ use projectile-counsel-rg instead."
               :action #'find-file
               :caller 'counsel-ghq)))
 
+(leaf alert
+  :ensure t
+  :config
+  (setq alert-default-style 'libnotify))
+
 (leaf wgrep
   :doc "Edit grep result directry"
   :ensure t)
@@ -483,6 +490,7 @@ use projectile-counsel-rg instead."
   :bind (([C-M-return] . mc/edit-lines)))
 
 (leaf expand-region
+  ;; FIXME "C-," doesn't work - probably org-mode setting eliminates it
   :doc "multiple-cursors enhancer"
   :ensure t
   :commands expand-region
@@ -533,8 +541,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
 
 (leaf visual-regexp-steroids
   :ensure t)
-
-(electric-pair-mode t)
 
 (leaf wrap-region
   :ensure t
@@ -755,11 +761,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (global-git-gutter-mode)
     (setq git-gutter-fr:side 'right-fringe)))
 
-(leaf alert
-  :ensure t
-  :config
-  (setq alert-default-style 'libnotify))
-
 (defcustom my-skk-jisyo-root
   (-find 'f-directory? '("/usr/share/skk" "~/skk"))
   "SKK dictionary path. Override it for each platform")
@@ -796,11 +797,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     :config
     (ddskk-posframe-mode t)))
 
-(leaf dumb-jump
-  :ensure t
-  :config
-  (dumb-jump-mode))
-
 (defun my-smart-jump-configuration-with-gtags (modes)
   "smart-jump helper function"
   (progn
@@ -809,23 +805,30 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (smart-jump-register :modes modes
                          :jump-fn 'xref-find-definitions)))
 
-(leaf smart-jump
-  :ensure t
+(leaf *code-jump
   :config
-  (smart-jump-setup-default-registers)
-  ;; xref config
-  ;; eglot uses xref: it means that no special configurations are needed for language servers
-  (smart-jump-register :modes '(shell-mode
-                                haskell-mode
-                                rust-mode))
-  ;; xref (lsp) -> gtags config
-  (my-smart-jump-configuration-with-gtags '(c-mode-hook
-                                            c++-mode-hook
-                                            lisp-mode-hook
-                                            ruby-mode-hook
-                                            js2-mode-hook
-                                            python-mode-hook
-                                            php-mode-hook)))
+  (leaf dumb-jump
+    :ensure t
+    :config
+    (dumb-jump-mode))
+
+  (leaf smart-jump
+    :ensure t
+    :config
+    (smart-jump-setup-default-registers)
+    ;; xref config
+    ;; eglot uses xref: it means that no special configurations are needed for language servers
+    (smart-jump-register :modes '(shell-mode
+                                  haskell-mode
+                                  rust-mode))
+    ;; xref (lsp) -> gtags config
+    (my-smart-jump-configuration-with-gtags '(c-mode-hook
+                                              c++-mode-hook
+                                              lisp-mode-hook
+                                              ruby-mode-hook
+                                              js2-mode-hook
+                                              python-mode-hook
+                                              php-mode-hook))))
 
 (leaf eglot
   :ensure t
@@ -887,11 +890,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   (leaf slime-company
     :ensure t))
 
-(defun add-c-hooks (hook)
-  "add hook only c-mode-hook, c++-mode-hook. since c-mode-common-hook includes others hooks"
-  (add-hook 'c-mode-hook hook)
-  (add-hook 'c++-mode-hook hook))
-
 (leaf *c-c++
   :config
   ;; flycheck
@@ -906,8 +904,8 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     :ensure t
     :commands google-c-style
     :init
-    (add-c-hooks 'google-set-c-style)
-    (add-c-hooks 'google-make-newline-indent))
+    (add-hook 'c-mode-common-hook 'google-set-c-style)
+    (add-hook 'c-mode-common-hook 'google-make-newline-indent))
 
   ;; GDB
   (setq gdb-many-windows t)
@@ -1031,15 +1029,12 @@ Display the results in a hyperlinked *compilation* buffer."
 (leaf rustic
   :doc "Rust"
   :ensure t
-  :after eglot
-  :hook ((rustic-mode-hook . eglot-ensure))
   :commands
   (rustic-mode)
   :mode
   (("\\.rs\\'" . rustic-mode))
   :config
   (setq rustic-lsp-client 'eglot)
-  (add-to-list 'eglot-server-programs '(rustic-mode . ("rust-analyzer")))
   (setq rustic-lsp-server 'rust-analyzer)
   (push 'rustic-clippy flycheck-checkers))
 
@@ -1053,43 +1048,7 @@ Display the results in a hyperlinked *compilation* buffer."
   (setq markdown-command "multimarkdown")
   (put 'dired-find-alternate-file 'disabled nil))
 
-(leaf org-mode
-  :mode (("\\.org$" . org-mode))
-  :hook
-  ;; It conflicts with expand-region's bindings
-  ;; FIXME doesn't work!
-  (org-mode-hook . (lambda () (bind-key "C-," nil)))
-  :init
-  (setq org-agenda-files (list "~/Documents/org"))
-  ;; babel
-  (setq org-plantuml-jar-path
-      (--find
-       (f-exists? it)
-       '("/usr/share/java/plantuml/plantuml.jar")))
-  ;; How to use org-babel
-  ;; The following is an example for PlantUML
-  ;;
-  ;;   #+BEGIN_SRC plantuml :file example.png :cmdline -charset UTF-8
-  ;;   animal <|-- sheep
-  ;;   #+END_SRC
-  ;;
-  ;; Then, type "C-c C-c" inside BEGIN_SRC ~ END_SRC
-  ;; It creates an image file.
-  ;; To show the image file inline, use the following.
-  ;;   org-toggle-inline-images (C-c C-x C-v)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((plantuml . t)))
-  :config
-  ;; FIXME doesn't work!
-  (leaf org-bullets
-    :doc "Beautify org-mode list bullets"
-    :ensure t
-    :hook
-    (org-mode-hook . (lambda () (org-bullets-mode 1)))
-    :custom
-    `((org-bullets-bullet-list . '("🌕" "🌔" "🌓" "🌒" "🌑")))))
-
+;; for org-mode
 (defun sound-wav--do-play (files)
   "Need to override this function
 since https://github.com/syohex/emacs-sound-wav which is depended by org-pomodoro
@@ -1103,31 +1062,70 @@ does not support PulseAudio's pacat/paplay"
       (deferred:$
         (apply 'deferred:process org-pomodoro-audio-player (concat "--volume=" (number-to-string vol)) files)))))
 
-(leaf org-pomodoro
+(leaf org-mode
+  :mode (("\\.org$" . org-mode))
+  :hook
+  ;; It conflicts with expand-region's bindings
+  ;; FIXME doesn't work!
+  (org-mode-hook . (lambda () (bind-key "C-," nil)))
+  :init
+  (setq org-agenda-files (list "~/Documents/org"))
+
+  :init
+  (leaf org-babel
+    :doc "How to use org-babel
+The following is an example for PlantUML
+
+  #+BEGIN_SRC plantuml :file example.png :cmdline -charset UTF-8
+  animal <|-- sheep
+  #+END_SRC
+
+Then, type "C-c C-c" inside BEGIN_SRC ~ END_SRC
+It creates an image file.
+To show the image file inline, use the following.
+  org-toggle-inline-images (C-c C-x C-v)"
+    :init
+    (setq org-plantuml-jar-path
+      (--find
+       (f-exists? it)
+       '("/usr/share/java/plantuml/plantuml.jar")))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((plantuml . t))))
+
+  (leaf org-pomodoro
+    :ensure t
+    :custom
+    `((org-pomodoro-audio-player . ,(or (executable-find "pacat")
+                                        (executable-find "paplay")
+                                        (executable-find "aplay")
+                                        (executable-find "afplay")))
+      (org-pomodoro-format . "🍅%s")
+      (org-pomodoro-short-break-format . "☕%s")
+      (org-pomodoro-long-break-format . "🌴%s"))
+    :init
+    (leaf sound-wav
+      :doc "Required by org-pomodoro implicitly"
+      :ensure t))
+
+  (leaf org-analyzer
+    :doc "Visualize org-mode time spend"
+    :ensure t)
+
+  (leaf org-alert
+    :doc "Set alerts for scheduled tasks"
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-alert-enable)))))
+
+;; I doesn't work when I nest this (leaf) into (leaf org-mode)
+(leaf org-bullets
+  :doc "Beautify org-mode list bullets"
   :ensure t
-  :after
-  org-agenda
+  :hook
+  (org-mode-hook . (lambda () (org-bullets-mode 1)))
   :custom
-  `((org-pomodoro-audio-player . ,(or (executable-find "pacat")
-                                     (executable-find "paplay")
-                                     (executable-find "aplay")
-                                     (executable-find "afplay")))
-    (org-pomodoro-format . "🍅%s")
-    (org-pomodoro-short-break-format . "☕%s")
-    (org-pomodoro-long-break-format . "🌴%s"))
-  :config
-  (leaf sound-wav
-    :doc "Required by org-pomodoro implicitly"
-    :ensure t))
-
-(leaf org-analyzer
-  :ensure t)
-
-(leaf org-alert
-  :doc "Set alerts for scheduled tasks"
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-alert-enable))))
+  `((org-bullets-bullet-list . '("🌕" "🌔" "🌓" "🌒" "🌑"))))
 
 (leaf shell-script-mode
   :mode (("PKGBUILD" . shell-script-mode)
