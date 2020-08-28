@@ -424,7 +424,9 @@ use projectile-counsel-rg instead."
 
 (leaf treemacs
   :ensure t
-  :leaf-defer t
+  :bind
+  ;; same as IntelliJ IDEA short cut
+  (("M-1" . treemacs))
   :config
   (setq treemacs-collapse-dirs                 (if (executable-find "python") 3 0)
         treemacs-deferred-git-apply-delay      0.5
@@ -460,17 +462,12 @@ use projectile-counsel-rg instead."
   ;; (treemacs-follow-mode t)
   ;; (treemacs-filewatch-mode t)
   ;; (treemacs-fringe-indicator-mode t)
-  ;; (pcase (cons (not (null (executable-find "git")))
-  ;;              (not (null (executable-find "python3"))))
-  ;;   (`(t . t)
-  ;;    (treemacs-git-mode 'deferred))
-  ;;   (`(t . _)
-  ;;    (treemacs-git-mode 'simple)))
-  ;; FIXME
-  ;; :bind
-  ;; (:map global-map
-  ;;       ;; same as IntelliJ IDEA short cut
-  ;;       ("M-1" . treemacs))
+  (pcase (cons (not (null (executable-find "git")))
+               (not (null (executable-find "python3"))))
+    (`(t . t)
+     (treemacs-git-mode 'deferred))
+    (`(t . _)
+     (treemacs-git-mode 'simple)))
 
   (leaf treemacs-projectile
     :ensure t
@@ -490,7 +487,6 @@ use projectile-counsel-rg instead."
   :bind (([C-M-return] . mc/edit-lines)))
 
 (leaf expand-region
-  ;; FIXME "C-," doesn't work - probably org-mode setting eliminates it
   :doc "multiple-cursors enhancer"
   :ensure t
   :commands expand-region
@@ -1064,10 +1060,10 @@ does not support PulseAudio's pacat/paplay"
 
 (leaf org-mode
   :mode (("\\.org$" . org-mode))
-  :hook
-  ;; It conflicts with expand-region's bindings
-  ;; FIXME doesn't work!
-  (org-mode-hook . (lambda () (bind-key "C-," nil)))
+  ;; FIXME it doesn't work
+  :bind ((:org-mode-map
+          :package org-mode
+          ("C-," . nil)))
   :init
   (setq org-agenda-files (list "~/Documents/org"))
 
