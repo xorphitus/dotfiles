@@ -101,38 +101,38 @@
 
 (leaf *base
   :config
-  ;; show explicit file name
-  (setq explicit-shell-file-name shell-file-name)
+  (setq
+   ;; show explicit file name
+   explicit-shell-file-name shell-file-name
+   ;; file name completion ignore case
+   completion-ignore-case t
+   read-file-name-completion-ignore-case t
+   ;; without backup-file
+   backup-inhibited t
+   ;; delete auto save files when quit
+   delete-auto-save-files t
+   ;; disable beep sound flash
+   ring-bell-function 'ignore
+   ;; For time locale for org-mode to avoid Japanese time locale format
+   ;; However this is not an org-mode specific setting but a global setting, written here
+   system-time-locale "C"
+   ;; specify browser
+   browse-url-browser-function 'browse-url-generic
+   browse-url-generic-program (--first
+                               (executable-find it)
+                               '("chromium-browser"
+                                 "google-chrome"
+                                 "google-chrome-stable"
+                                 "google-chrome-beta"
+                                 "firefox"))
+   ;; Set default browser
+   browse-url-browser-function 'browse-url-chromium)
   ;; yes/no -> y/n
   (fset 'yes-or-no-p 'y-or-n-p)
-  ;; file name completion ignore case
-  (setq completion-ignore-case t)
-  (setq read-file-name-completion-ignore-case t)
   ;; indent
   (setq-default indent-tabs-mode  nil)
-  ;; without backup-file
-  (setq backup-inhibited t)
-  ;; delete auto save files when quit
-  (setq delete-auto-save-files t)
-  ;; disable beep sound flash
-  (setq ring-bell-function 'ignore)
-  ;; For time locale for org-mode to avoid Japanese time locale format
-  ;; However this is not an org-mode specific setting but a global setting, written here
-  (setq system-time-locale "C")
   ;; set close paren automatically
-  (electric-pair-mode t)
-  ;; specify browser
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program
-        (--first
-         (executable-find it)
-         '("chromium-browser"
-           "google-chrome"
-           "google-chrome-stable"
-           "google-chrome-beta"
-           "firefox")))
-  ;; Set default browser
-  (setq browse-url-browser-function 'browse-url-chromium))
+  (electric-pair-mode t))
 
 (leaf autorevert
   :doc "Auto reload buffer which modified by external programs"
@@ -162,27 +162,19 @@ M-n -> insert numbers incremental"
       (beginning-of-line)
     (back-to-indentation)))
 
-(leaf *key-config
-  :config
-  (global-set-key "\C-a" 'beginning-of-indented-line)
-
+(leaf *global-key-config
+  :bind
+  (("\C-a" . beginning-of-indented-line)
+   ("C-x C-c" . nil)
+   ("C-x C-z" . nil)
+   ("C-h" . delete-backward-char))
+  :init
   ;; C-x C-c -> "exit" command
   (defalias 'exit 'save-buffers-kill-emacs)
-
   ;; windmove
   ;; Shift + Arrow keys
   ;; http://d.hatena.ne.jp/tomoya/20120512/1336832436
-  (windmove-default-keybindings)
-
-  (leaf bind-key
-    :ensure t
-    :config
-    ;; disable dangerous keys
-    (bind-keys
-     ("C-x C-c" . nil)
-     ("C-x C-z" . nil))
-    ;; set key binds
-    (bind-key "C-h" 'delete-backward-char)))
+  (windmove-default-keybindings))
 
 (leaf uniquify
   :doc "Easy to descern buffers of same name files"
