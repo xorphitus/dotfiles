@@ -6,8 +6,6 @@ eshell/history
 games
 ido.last
 image-dired
-inits/*_local.el*
-inits/*.elc
 network-security.data
 projectile.cache
 projectile-bookmarks.eld
