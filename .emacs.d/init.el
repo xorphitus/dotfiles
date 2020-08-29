@@ -116,6 +116,8 @@
    ;; For time locale for org-mode to avoid Japanese time locale format
    ;; However this is not an org-mode specific setting but a global setting, written here
    system-time-locale "C"
+   ;; tab-width
+   default-tab-width 4
    ;; specify browser
    browse-url-browser-function 'browse-url-generic
    browse-url-generic-program (--first
@@ -191,38 +193,51 @@ M-n -> insert numbers incremental"
 
 (leaf ido-vertical-mode
   :ensure t
+  :global-minor-mode ido-vertical-mode
   :config
-  (setq ido-max-window-height 0.75)
-  (setq ido-enable-flex-matching t)
-  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-  :global-minor-mode ido-vertical-mode)
-
-(defun my-counsel-rg (&optional initial-input initial-directory extra-rg-args rg-prompt)
-  "This is a counsel-rg alternative. It searches a text in the current directory.
-It you need to search a text in a project root directory,
-use projectile-counsel-rg instead."
-  (interactive)
-  (let ((counsel-ag-base-command
-         (if (listp counsel-rg-base-command)
-             (append counsel-rg-base-command (counsel--rg-targets))
-           (concat counsel-rg-base-command " "
-                   (mapconcat #'shell-quote-argument (counsel--rg-targets) " "))))
-        (counsel--grep-tool-look-around
-         (let ((rg (car (if (listp counsel-rg-base-command) counsel-rg-base-command
-                          (split-string counsel-rg-base-command))))
-               (switch "--pcre2"))
-           (and (eq 0 (call-process rg nil nil nil switch "--pcre2-version"))
-                switch))))
-    (counsel-ag initial-input default-directory extra-rg-args rg-prompt
-                :caller 'counsel-rg)))
+  (setq ido-max-window-height 0.75
+        do-enable-flex-matching t
+        ido-vertical-define-keys 'C-n-C-p-up-down-left-right))
 
 (leaf ivy
   :ensure t
   :diminish (ivy-mode . "🅘")
   :global-minor-mode ivy-mode
+  :init
+  (defun my-counsel-rg (&optional initial-input initial-directory extra-rg-args rg-prompt)
+    "This is a counsel-rg alternative. It searches a text in the current directory.
+It you need to search a text in a project root directory,
+use projectile-counsel-rg instead."
+    (interactive)
+    (let ((counsel-ag-base-command
+           (if (listp counsel-rg-base-command)
+               (append counsel-rg-base-command (counsel--rg-targets))
+             (concat counsel-rg-base-command " "
+                     (mapconcat #'shell-quote-argument (counsel--rg-targets) " "))))
+          (counsel--grep-tool-look-around
+           (let ((rg (car (if (listp counsel-rg-base-command) counsel-rg-base-command
+                            (split-string counsel-rg-base-command))))
+                 (switch "--pcre2"))
+             (and (eq 0 (call-process rg nil nil nil switch "--pcre2-version"))
+                  switch))))
+      (counsel-ag initial-input default-directory extra-rg-args rg-prompt
+                  :caller 'counsel-rg)))
+
+  (defun counsel-ghq (&optional initial-input)
+    "Open a file using the ghq shell command."
+    (interactive)
+    (let ((candidates (split-string
+                       (shell-command-to-string
+                        "ghq list --full-path")
+                       "\n")))
+      (ivy-read "ghq: "
+                candidates
+                :initial-input initial-input
+                :action #'find-file
+                :caller 'counsel-ghq)))
   :config
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t)
 
   (leaf counsel
     :doc
@@ -263,6 +278,7 @@ use projectile-counsel-rg instead."
 
   (leaf all-the-icons-ivy
     :ensure t
+    :after all-the-icons
     :config
     (all-the-icons-ivy-setup)
     (setq all-the-icons-ivy-file-commands
@@ -286,19 +302,6 @@ use projectile-counsel-rg instead."
 
   (leaf counsel-gtags
     :ensure t))
-
-(defun counsel-ghq (&optional initial-input)
-  "Open a file using the ghq shell command."
-  (interactive)
-  (let ((candidates (split-string
-                     (shell-command-to-string
-                      "ghq list --full-path")
-                     "\n")))
-    (ivy-read "ghq: "
-              candidates
-              :initial-input initial-input
-              :action #'find-file
-              :caller 'counsel-ghq)))
 
 (leaf alert
   :ensure t
@@ -324,20 +327,21 @@ use projectile-counsel-rg instead."
   :ensure t
   :diminish (company-mode . "🅒")
   :global-minor-mode global-company-mode
+  :bind
+  ((:company-mode-map
+    ("C-i" . company-complete))
+   (:company-active-map
+    ("C-n" . company-select-next)
+    ("C-p" . company-select-previous)
+    ("C-s" . company-search-words-regexp))
+   (:company-search-map
+    ("C-n" . company-select-next)
+    ("C-p" . company-select-previous)))
   :config
   (setq company-idle-delay 0.1
         company-minimum-prefix-length 2
-        company-selection-wrap-around t)
-  (setq company-dabbrev-downcase nil)
-  (bind-keys :map company-mode-map
-             ("C-i" . company-complete))
-  (bind-keys :map company-active-map
-             ("C-n" . company-select-next)
-             ("C-p" . company-select-previous)
-             ("C-s" . company-search-words-regexp))
-  (bind-keys :map company-search-map
-             ("C-n" . company-select-next)
-             ("C-p" . company-select-previous))
+        company-selection-wrap-around t
+        company-dabbrev-downcase nil)
 
   (leaf company-box
     :ensure t
@@ -361,17 +365,16 @@ use projectile-counsel-rg instead."
   :ensure t
   :commands migemo
   :config
-  (setq migemo-command (if (executable-find "cmigemo") "cmigemo" "/usr/local/bin/cmigemo"))
-  (setq migemo-options '("-q" "--emacs"))
-  (setq migemo-dictionary
-        (--find
-         (f-exists? it)
-         '("/usr/share/migemo/utf-8/migemo-dict"
-           "/usr/share/cmigemo/utf-8/migemo-dict"
-           "/usr/local/share/migemo/utf-8/migemo-dict")))
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
+  (setq migemo-command (if (executable-find "cmigemo") "cmigemo" "/usr/local/bin/cmigemo")
+        migemo-options '("-q" "--emacs")
+        migemo-dictionary (--find
+                           (f-exists? it)
+                           '("/usr/share/migemo/utf-8/migemo-dict"
+                             "/usr/share/cmigemo/utf-8/migemo-dict"
+                             "/usr/local/share/migemo/utf-8/migemo-dict"))
+        migemo-user-dictionary nil
+        migemo-regex-dictionary nil
+        migemo-coding-system 'utf-8-unix)
   (load-library "migemo")
   (migemo-init))
 
@@ -407,11 +410,12 @@ use projectile-counsel-rg instead."
     (add-hook 'magit-status-mode-hook (lambda ()
                                         (company-mode -1)))
     (setq magit-diff-refine-hunk t)
-    (leaf forge
-      :ensure t)
 
-    (leaf gitignore-mode
+    (leaf forge
       :ensure t))
+
+  (leaf gitignore-mode
+    :ensure t)
 
   (leaf gitconfig-mode
     :ensure t)
@@ -487,8 +491,8 @@ use projectile-counsel-rg instead."
   :doc "multiple-cursors enhancer"
   :ensure t
   :commands expand-region
-  :bind (("C-,"   . er/expand-region)
-         ("C-M-," . er/contract-region)))
+  :bind* (("C-,"   . er/expand-region)
+          ("C-M-," . er/contract-region)))
 
 (leaf smartrep
   :doc "multiple-cursors enhancer"
@@ -513,38 +517,39 @@ use projectile-counsel-rg instead."
   :diminish ace-isearch-mode
   :global-minor-mode global-ace-isearch-mode
   :config
-  (setq ace-isearch-function 'avy-goto-char)
-  (setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch))
+  (setq ace-isearch-function 'avy-goto-char
+        ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch))
 
 (leaf ace-window
   :ensure t
+  :bind
+  ("C-x o" . other-window-or-split)
+  :init
+  (defun other-window-or-split ()
+    "For ace-window
+See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
+    (interactive)
+    (let ((win-count (length
+                      (mapcar #'window-buffer (window-list)))))
+      (cond
+       ((= win-count 1) (progn
+                          (if (< (* 2 (window-height)) (window-width))
+                              (split-window-horizontally)
+                            (split-window-vertically))
+                          (other-window 1)))
+       ;; Work around
+       ;; Actually, `other-window' is suitable function for this condition,
+       ;; but sometimes doesn't work.
+       ;; So I use raw `select-window' function instead.
+       ((= win-count 2) (select-window
+                         (next-window (selected-window) nil nil)))
+       ((= win-count 3) (select-window
+                         (next-window (selected-window) nil nil)))
+       (t (ace-window 1)))))
   :config
-  (global-set-key (kbd "C-x o") 'other-window-or-split)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   :custom-face
   (aw-leading-char-face . '((t (:height 4.0 :foreground "#f1fa8c")))))
-
-(defun other-window-or-split ()
-  "For ace-window
-See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
-  (interactive)
-  (let ((win-count (length
-                    (mapcar #'window-buffer (window-list)))))
-    (cond
-     ((= win-count 1) (progn
-                        (if (< (* 2 (window-height)) (window-width))
-                            (split-window-horizontally)
-                          (split-window-vertically))
-                        (other-window 1)))
-     ;; Work around
-     ;; Actually, `other-window' is suitable function for this condition,
-     ;; but sometimes doesn't work.
-     ;; So I use raw `select-window' function instead.
-     ((= win-count 2) (select-window
-                       (next-window (selected-window) nil nil)))
-     ((= win-count 3) (select-window
-                       (next-window (selected-window) nil nil)))
-     (t (ace-window 1)))))
 
 (leaf visual-regexp-steroids
   :ensure t)
@@ -567,30 +572,30 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   :ensure t
   :global-minor-mode shackle-mode
   :config
-  (setq shackle-default-rule '(:other t))
-  (setq shackle-rules '(("*undo-tree*"         :regexp t :align right :size 0.25)
+  (setq shackle-default-rule '(:other t)
+        shackle-rules '(("*undo-tree*"         :regexp t :align right :size 0.25)
                         ("*Backtrace*"         :regexp t :align t     :size 0.4)
                         ("*Warnings*"          :regexp t :align t     :size 0.4)
                         ("*cider-error*"    :inhibit-window-quit t)
-                        ("\\`\\*magit.*?\\*\\'" :regexp t :select t   :inhibit-window-quit t :same t)
-                        )))
+                        ("\\`\\*magit.*?\\*\\'" :regexp t :select t   :inhibit-window-quit t :same t))))
 
 (leaf which-key
   :ensure t
   :config
   (which-key-mode))
 
-;; The following lines are hunspell settings with Japanese.
-;; See: https://www.emacswiki.org/emacs/FlySpell#toc14
-;; Because an aspell setting
-;;   (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
-;; does not work!
-(defun my-flyspell-ignore-non-ascii (beg end info)
-  "Tell flyspell to ignore non ascii characters.
-  Call this on `flyspell-incorrect-hook'."
-  (string-match "[^!-~]" (buffer-substring beg end)))
-
 (leaf *spelling
+  :init
+  ;; The following lines are hunspell settings with Japanese.
+  ;; See: https://www.emacswiki.org/emacs/FlySpell#toc14
+  ;; Because an aspell setting
+  ;;   (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
+  ;; does not work!
+  (defun my-flyspell-ignore-non-ascii (beg end info)
+    "Tell flyspell to ignore non ascii characters.
+Call this on `flyspell-incorrect-hook'."
+    (string-match "[^!-~]" (buffer-substring beg end)))
+ 
   :config
   (leaf ispell
     :req "hunspell" "hunspell-en_US"
@@ -629,31 +634,31 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   :ensure t
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-banner-logo-title "(start Emacs)")
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-items '((agenda . 5)
+  (setq dashboard-banner-logo-title "(start Emacs)"
+        dashboard-startup-banner 'logo
+        dashboard-items '((agenda . 5)
                           (recents  . 5)
                           (projects . 5)
                           (registers . 5))))
 
-;; font
-(defcustom my-font
-  (let* ((fonts (font-family-list))
-         (available (-find
-                     (lambda (f) (when (-contains? fonts f) f))
-                     '("ricty discord nerd font"
-                       "Ricty Discord Nerd Font"
-                       "ricty discord"
-                       "Ricty Discord"
-                       "ricty nerd font"
-                       "Ricty Nerd Font"
-                       "ricty"
-                       "Ricty")))
-         (size 14))
-    (format "%s-%d" available size))
-  "Font. It's detected automaticaly by default.")
-
 (leaf *visual
+  :init
+  (defcustom my-font
+    (let* ((fonts (font-family-list))
+           (available (-find
+                       (lambda (f) (when (-contains? fonts f) f))
+                       '("ricty discord nerd font"
+                         "Ricty Discord Nerd Font"
+                         "ricty discord"
+                         "Ricty Discord"
+                         "ricty nerd font"
+                         "Ricty Nerd Font"
+                         "ricty"
+                         "Ricty")))
+           (size 14))
+      (format "%s-%d" available size))
+    "Font. It's detected automaticaly by default.")
+
   :config
   (leaf all-the-icons
     :doc "It requires to invoke the following command to install fonts
@@ -666,11 +671,11 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     :init
     (load-theme 'atom-one-dark t))
 
-  ;; skip startup screen
-  (setq inhibit-startup-screen t)
-
-  ;; erase scrach buffer message
-  (setq initial-scratch-message "")
+  (setq
+   ;; skip startup screen
+   inhibit-startup-screen t
+   ;; erase scrach buffer message
+   initial-scratch-message "")
 
   (leaf show-paren-mode
     :doc "High light paren"
@@ -687,19 +692,14 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (setq hl-line-face 'underline)
     (global-hl-line-mode))
 
-  (setq default-frame-alist
-        (list (cons 'font  my-font)))
+  (setq default-frame-alist (list (cons 'font  my-font)))
   (set-frame-font my-font)
 
   (global-prettify-symbols-mode +1)
 
-  ;; tab-width
-  (setq default-tab-width 4)
-
   ;; set color, window size
-  (if window-system
-      (progn
-        (set-frame-parameter nil 'alpha 95)))
+  (when window-system
+    (set-frame-parameter nil 'alpha 95))
 
   (leaf global-linum-mode
     :doc "Line number"
@@ -713,17 +713,17 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     :diminish (global-whitespace-mode . "🅦")
     :commands whitespace
     :init
-    (setq whitespace-style
-          '(face
-            tabs
-            tab-mark
-            spaces
-            lines-tail
-            trailing
-            space-before-tab
-            space-after-tab::space))
-    (setq whitespace-line-column 250)
-    (setq whitespace-space-regexp "\\(\x3000+\\)") ; zenkaku space
+    (setq whitespace-style '(face
+                             tabs
+                             tab-mark
+                             spaces
+                             lines-tail
+                             trailing
+                             space-before-tab
+                             space-after-tab::space)
+          whitespace-line-column 250
+          ;; zenkaku space
+          whitespace-space-regexp "\\(\x3000+\\)")
     (global-whitespace-mode t)
     (set-face-attribute 'whitespace-trailing nil
                         :background (face-attribute 'error :background)
@@ -770,14 +770,14 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (global-git-gutter-mode)
     (setq git-gutter-fr:side 'right-fringe)))
 
-(defcustom my-skk-jisyo-root
-  (-find 'f-directory? '("/usr/share/skk" "~/skk"))
-  "SKK dictionary path. Override it for each platform")
-
 (leaf ddskk
   :ensure t
   :bind (("C-o"     . skk-mode)
          ("C-x C-j" . skk-mode))
+  :init
+  (defcustom my-skk-jisyo-root
+    (-find 'f-directory? '("/usr/share/skk" "~/skk"))
+    "SKK dictionary path. Override it for each platform")
   :config
   ;; enable AZIK
   (setq skk-use-azik t)
@@ -806,15 +806,16 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     :config
     (ddskk-posframe-mode t)))
 
-(defun my-smart-jump-configuration-with-gtags (modes)
-  "smart-jump helper function"
-  (progn
-    (smart-jump-register :modes modes
-                         :jump-fn 'counsel-gtags-find-definition)
-    (smart-jump-register :modes modes
-                         :jump-fn 'xref-find-definitions)))
-
 (leaf *code-jump
+  :init
+  (defun my-smart-jump-configuration-with-gtags (modes)
+    "smart-jump helper function"
+    (progn
+      (smart-jump-register :modes modes
+                           :jump-fn 'counsel-gtags-find-definition)
+      (smart-jump-register :modes modes
+                           :jump-fn 'xref-find-definitions)))
+
   :config
   (leaf dumb-jump
     :ensure t
@@ -919,16 +920,39 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (add-hook 'c-mode-common-hook 'google-set-c-style)
     (add-hook 'c-mode-common-hook 'google-make-newline-indent))
 
-  ;; GDB
-  (setq gdb-many-windows t)
+  (setq
+   ;; GDB
+   gdb-many-windows t
+   ;; show I/O buffer
+   gdb-use-separate-io-buffer t)
   ;; show value of variable when mouse cursor on
-  (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
-  ;; show I/O buffer
-  (setq gdb-use-separate-io-buffer t))
+  (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t))))
 
 (leaf clojure-mode
   :ensure t
+  :init
+  ;; A convenient command to run "lein kibit" in the project to which
+  ;; the current emacs buffer belongs to.
+  (defun kibit ()
+    "Run kibit on the current project.
+Display the results in a hyperlinked *compilation* buffer."
+    (interactive)
+    (compile "lein kibit"))
+
+  (defun kibit-current-file ()
+    "Run kibit on the current file.
+Display the results in a hyperlinked *compilation* buffer."
+    (interactive)
+    (compile (concat "lein kibit " buffer-file-name)))
+
   :config
+  ;; prittify symbols
+  (my-macro/prettify-symbols
+   clojure-mode-hook
+   (-concat '(("fn" . ?λ))
+            my-const/logical-prettify-symbols-alist
+            my-const/relational-prettify-symbols-alist))
+
   (leaf cider
     :ensure t
     :init
@@ -937,24 +961,23 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     (add-hook 'cider-mode-hook #'eldoc-mode)
     (add-hook 'cider-repl-mode-hook #'eldoc-mode)
     :config
-    ;; Hide the *nrepl-connection* and *nrepl-server* buffers
+    (setq
+     ;; Hide the *nrepl-connection* and *nrepl-server* buffers
     ;; from appearing in some buffer switching commands like 'C-x b'
-    (setq nrepl-hide-special-buffers t)
-    ;; The REPL buffer name  will look like cider project-name:port
-    (setq nrepl-buffer-name-show-port t)
-    ;; Enable CIDER and figwheel interaction
-    (setq cider-cljs-lein-repl
-          "(do (require 'figwheel-sidecar.repl-api)
-               (figwheel-sidecar.repl-api/start-figwheel!)
-               (figwheel-sidecar.repl-api/cljs-repl))"))
+     nrepl-hide-special-buffers t
+     ;; The REPL buffer name  will look like cider project-name:port
+     nrepl-buffer-name-show-port t
+     ;; Enable CIDER and figwheel interaction
+     cider-cljs-lein-repl "(do (require 'figwheel-sidecar.repl-api)
+                             (figwheel-sidecar.repl-api/start-figwheel!)
+                             (figwheel-sidecar.repl-api/cljs-repl))"))
 
   (leaf clj-refactor
     ensure t
     :config
-    (progn
-      (clj-refactor-mode 1)
-      (yas-minor-mode 1)
-      (cljr-add-keybindings-with-prefix "C-c j")))
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1)
+    (cljr-add-keybindings-with-prefix "C-c j"))
 
   ;; compojure indentation
   (add-hook 'clojure-mode-hook
@@ -980,27 +1003,6 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   ;; rainbow delimiters
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'clojure-mode-hook 'highlight-indentation-mode))
-
-;; A convenient command to run "lein kibit" in the project to which
-;; the current emacs buffer belongs to.
-(defun kibit ()
-  "Run kibit on the current project.
-Display the results in a hyperlinked *compilation* buffer."
-  (interactive)
-  (compile "lein kibit"))
-
-(defun kibit-current-file ()
-  "Run kibit on the current file.
-Display the results in a hyperlinked *compilation* buffer."
-  (interactive)
-  (compile (concat "lein kibit " buffer-file-name)))
-
-;; prittify symbols
-(my-macro/prettify-symbols
- clojure-mode-hook
- (-concat '(("fn" . ?λ))
-          my-const/logical-prettify-symbols-alist
-          my-const/relational-prettify-symbols-alist))
 
 (leaf css
   :after flycheck
@@ -1047,6 +1049,7 @@ Display the results in a hyperlinked *compilation* buffer."
 
 (leaf js2-mode
   :ensure t
+  :req "eslint"
   :after flycheck
   :commands js2-mode
   :mode (("\\.js$" . js2-mode))
@@ -1069,8 +1072,8 @@ Display the results in a hyperlinked *compilation* buffer."
             my-const/arror-prettify-symbols-alist
             my-const/relational-prettify-symbols-alist))
   :config
-  (setq js2-basic-offset 2)
-  (setq js-indent-level 2))
+  (setq js2-basic-offset 2
+        js-indent-level 2))
 
 (leaf haskell-mode
   :ensure t
@@ -1108,10 +1111,10 @@ Display the results in a hyperlinked *compilation* buffer."
   (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
   (add-hook 'python-mode-hook
             '(lambda()
-               (setq indent-tabs-mode nil)
-               (setq indent-level 4)
-               (setq python-indent 4)
-               (setq tab-width 4)))
+               (setq indent-tabs-mode nil
+                     indent-level 4
+                     python-indent 4
+                     tab-width 4)))
   ;; flycheck
   ;;  required package: pylint
   (add-hook 'python-mode-hook 'flycheck-mode)
@@ -1173,8 +1176,8 @@ Display the results in a hyperlinked *compilation* buffer."
   (leaf inf-ruby
     :commands inf-ruby
     :init
-    (setq inf-ruby-default-implementation "pry")
-    (setq inf-ruby-eval-binding "Pry.toplevel_binding")
+    (setq inf-ruby-default-implementation "pry"
+          inf-ruby-eval-binding "Pry.toplevel_binding")
     (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)))
 
 (leaf scala-mode
@@ -1183,40 +1186,38 @@ Display the results in a hyperlinked *compilation* buffer."
 (leaf scheme-mode
   :commands scheme-mode
   :init
-  (setq process-coding-system-alist
-        (cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
-  (setq scheme-program-name "gosh -i")
+  (defun scheme-other-window ()
+    "Run scheme on other window"
+    (interactive)
+    (switch-to-buffer-other-window(get-buffer-create "*scheme*"))
+    (run-scheme scheme-program-name))
+ 
+  (setq process-coding-system-alist (cons '("gosh" utf-8 . utf-8) process-coding-system-alist)
+        scheme-program-name "gosh -i")
 
   :config
   (add-hook 'scheme-mode-hook 'highlight-indentation-mode)
   (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
+  (my-macro/prettify-symbols
+   scheme-mode-hook
+   (-concat my-const/lambda-prettify-symbols-alist
+            my-const/logical-prettify-symbols-alist
+            my-const/relational-prettify-symbols-alist))
 
   (leaf run-scheme
     :commands run-scheme))
 
-(defun scheme-other-window ()
-  "Run scheme on other window"
-  (interactive)
-  (switch-to-buffer-other-window(get-buffer-create "*scheme*"))
-  (run-scheme scheme-program-name))
-
-(my-macro/prettify-symbols
- scheme-mode-hook
- (-concat my-const/lambda-prettify-symbols-alist
-          my-const/logical-prettify-symbols-alist
-          my-const/relational-prettify-symbols-alist))
-
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1))
-
 (leaf typescript
   :init
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    (company-mode +1))
+
   (leaf tide
     :ensure t
     :mode (("\\.ts" . tide-mode)
@@ -1253,13 +1254,13 @@ Display the results in a hyperlinked *compilation* buffer."
                           '(javascript-jshint)))
   (defun my-web-mode-hook ()
     "Hooks for Web mode. Adjust indents"
-    (setq web-mode-markup-indent-offset 2)
-    (setq web-mode-css-offset           2)
-    (setq web-mode-css-indent-offset    2)
-    (setq web-mode-code-indent-offset   2)
-    (setq web-mode-html-offset          2)
-    (setq web-mode-script-offset        2)
-    (setq web-mode-php-offset           4))
+    (setq web-mode-markup-indent-offset 2
+          web-mode-css-offset           2
+          web-mode-css-indent-offset    2
+          web-mode-code-indent-offset   2
+          web-mode-html-offset          2
+          web-mode-script-offset        2
+          web-mode-php-offset           4))
   (add-hook 'web-mode-hook  'my-web-mode-hook)
   ;; prettify symbols
   (my-macro/prettify-symbols
@@ -1302,7 +1303,6 @@ does not support PulseAudio's pacat/paplay"
   :init
   (setq org-agenda-files (list "~/Documents/org"))
 
-  :init
   (leaf org-babel
     :doc "How to use org-babel
 The following is an example for PlantUML
@@ -1358,10 +1358,10 @@ To show the image file inline, use the following.
   :custom
   `((org-bullets-bullet-list . '("🌕" "🌔" "🌓" "🌒" "🌑"))))
 
-(defconst my/elfeed-setting-dir "~/Dropbox/Settings")
-
 (leaf elfeed
   :ensure t
+  :init
+  (defconst my/elfeed-setting-dir "~/Dropbox/Settings")
   :config
   (setq elfeed-db-directory (f-join my/elfeed-setting-dir "elfeeddb"))
   (setq-default elfeed-search-filter "@6-months-ago +unread -sub"))
