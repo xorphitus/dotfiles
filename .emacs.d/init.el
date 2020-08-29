@@ -1207,6 +1207,13 @@ Display the results in a hyperlinked *compilation* buffer."
   (leaf run-scheme
     :commands run-scheme))
 
+(leaf shell-script-mode
+  :mode (("PKGBUILD" . shell-script-mode)
+         ("\\.install$" . shell-script-mode))
+  :init
+  (setq sh-basic-offset 2
+        sh-indentation 2))
+
 (leaf typescript
   :init
   (defun setup-tide-mode ()
@@ -1280,20 +1287,6 @@ Display the results in a hyperlinked *compilation* buffer."
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode)))
 
 
-;; for org-mode
-(defun sound-wav--do-play (files)
-  "Need to override this function
-since https://github.com/syohex/emacs-sound-wav which is depended by org-pomodoro
-does not support PulseAudio's pacat/paplay"
-  (let* ((vol-percent 75)
-         (vol (round (/ (* 65536 vol-percent) 100))))
-    (if (executable-find "afplay")
-        ;; for macOS
-        (sound-wav--do-play-by-afplay files)
-      ;; for PulseAudio
-      (deferred:$
-        (apply 'deferred:process org-pomodoro-audio-player (concat "--volume=" (number-to-string vol)) files)))))
-
 (leaf org-mode
   :mode (("\\.org$" . org-mode))
   ;; FIXME it doesn't work
@@ -1335,6 +1328,19 @@ To show the image file inline, use the following.
       (org-pomodoro-short-break-format . "☕%s")
       (org-pomodoro-long-break-format . "🌴%s"))
     :init
+    (defun sound-wav--do-play (files)
+      "Need to override this function
+since https://github.com/syohex/emacs-sound-wav which is depended by org-pomodoro
+does not support PulseAudio's pacat/paplay"
+      (let* ((vol-percent 75)
+             (vol (round (/ (* 65536 vol-percent) 100))))
+        (if (executable-find "afplay")
+            ;; for macOS
+            (sound-wav--do-play-by-afplay files)
+          ;; for PulseAudio
+          (deferred:$
+            (apply 'deferred:process org-pomodoro-audio-player (concat "--volume=" (number-to-string vol)) files)))))
+
     (leaf sound-wav
       :doc "Required by org-pomodoro implicitly"
       :ensure t))
@@ -1364,22 +1370,14 @@ To show the image file inline, use the following.
   (defconst my/elfeed-setting-dir "~/Dropbox/Settings")
   :config
   (setq elfeed-db-directory (f-join my/elfeed-setting-dir "elfeeddb"))
-  (setq-default elfeed-search-filter "@6-months-ago +unread -sub"))
+  (setq-default elfeed-search-filter "@6-months-ago +unread -sub")
 
-(leaf elfeed-org
-  :ensure t
-  :after elfeed org-alert
-  :config
-  (elfeed-org)
-  (setq rmh-elfeed-org-files (list (f-join my/elfeed-setting-dir "elfeed.org"))))
-
-
-(leaf shell-script-mode
-  :mode (("PKGBUILD" . shell-script-mode)
-         ("\\.install$" . shell-script-mode))
-  :init
-  (setq sh-basic-offset 2)
-  (setq sh-indentation 2))
+  (leaf elfeed-org
+    :ensure t
+    :after org-alert
+    :config
+    (elfeed-org)
+    (setq rmh-elfeed-org-files (list (f-join my/elfeed-setting-dir "elfeed.org")))))
 
 (leaf *char-encoding
   :config
@@ -1405,7 +1403,7 @@ To show the image file inline, use the following.
   (defun ispell-get-coding-system () 'utf-8)
   ;; beautify powerline
   ;; https://github.com/milkypostman/powerline/issues/54
-  (setq ns-use-srgb-colorspace nil)
-  (setq alert-default-style 'osx-notifier))
+  (setq ns-use-srgb-colorspace nil
+        alert-default-style 'osx-notifier))
 
 ;;; init.el ends here
