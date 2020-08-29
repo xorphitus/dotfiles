@@ -536,9 +536,23 @@ use projectile-counsel-rg instead."
   "For ace-window
 See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   (interactive)
-  (if (one-window-p)
-      (split-window-horizontally)
-    (ace-window 1)))
+  (let ((win-count (length
+                    (mapcar #'window-buffer (window-list)))))
+    (cond
+     ((= win-count 1) (progn
+                        (if (< (* 2 (window-height)) (window-width))
+                            (split-window-horizontally)
+                          (split-window-vertically))
+                        (other-window 1)))
+     ;; Work around
+     ;; Actually, `other-window' is suitable function for this condition,
+     ;; but sometimes doesn't work.
+     ;; So I use raw `select-window' function instead.
+     ((= win-count 2) (select-window
+                       (next-window (selected-window) nil nil)))
+     ((= win-count 3) (select-window
+                       (next-window (selected-window) nil nil)))
+     (t (ace-window 1)))))
 
 (leaf visual-regexp-steroids
   :ensure t)
