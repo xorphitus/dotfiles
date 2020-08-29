@@ -1351,9 +1351,8 @@ does not support PulseAudio's pacat/paplay"
 
   (leaf org-alert
     :doc "Set alerts for scheduled tasks"
-    :ensure t
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-alert-enable)))))
+    :after alert
+    :ensure t))
 
 ;; I doesn't work when I nest this `(leaf)` into `(leaf org-mode)`
 (leaf org-bullets
@@ -1364,20 +1363,20 @@ does not support PulseAudio's pacat/paplay"
   :custom
   `((org-bullets-bullet-list . '("🌕" "🌔" "🌓" "🌒" "🌑"))))
 
-(leaf elfeed
-  :ensure t
-  :init
-  (defconst my/elfeed-setting-dir "~/Dropbox/Settings")
-  :config
-  (setq elfeed-db-directory (f-join my/elfeed-setting-dir "elfeeddb"))
-  (setq-default elfeed-search-filter "@6-months-ago +unread -sub")
+(defconst my/elfeed-setting-dir "~/Dropbox/Settings")
 
-  (leaf elfeed-org
-    :ensure t
-    :after org-alert
-    :config
-    (elfeed-org)
-    (setq rmh-elfeed-org-files (list (f-join my/elfeed-setting-dir "elfeed.org")))))
+(leaf elfeed
+   :ensure t
+   :init
+   :config
+   (setq elfeed-db-directory (f-join my/elfeed-setting-dir "elfeeddb"))
+   (setq-default elfeed-search-filter "@6-months-ago +unread -sub"))
+
+(leaf elfeed-org
+  :ensure t
+  :config
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list (f-join my/elfeed-setting-dir "elfeed.org"))))
 
 (leaf *char-encoding
   :config
