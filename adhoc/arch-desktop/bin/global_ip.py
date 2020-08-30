@@ -1,37 +1,45 @@
 #!/usr/bin/python
+import os
 import random
 import requests
 import sys
+import time
 
 urls = [
-  "https://ifconfig.me/ip",
-  "https://ipinfo.io/ip",
-  "http://ipecho.net/plain",
+  'https://ifconfig.me/ip',
+  'https://ipinfo.io/ip',
+  'http://ipecho.net/plain',
   # IPv6
-  # "https://ifconfig.co",
-  # "https://icanhazip.com"
+  # 'https://ifconfig.co',
+  # 'https://icanhazip.com'
 ]
+
 max_retry = 10
 timeout = 1.0
 
+cache_path = '/tmp/my_global_ip_cache'
+cache_expire_sec = 60 * 60
+
 if __name__ == '__main__':
+    ip = None
+
+    now = time.time()
+    if os.path.exists(cache_path) and os.stat(cache_path).st_mtime + cache_expire_sec > now:
+        with open(cache_path, 'r') as f:
+            ip = f.read().strip()
+
     l = len(urls)
     i = random.randint(0, l - 1)
-    cnt = 0
-    ip = ""
-    while True:
+    while ip is None:
         try:
-            # TODO let's cache a result to save server resouces!
-            ip = requests.get(urls[i], timeout=timeout).text.strip()
-            break
+            ip = requests.get(urls[i % l], timeout=timeout).text.strip()
+            with open(cache_path, 'w') as f:
+                f.write(ip)
         except KeyboardInterrupt:
             sys.exit()
         except:
-            if cnt >= max_retry:
+            if i >= max_retry:
                 ip = "Can't detect global IP"
-                break
-            cnt += 1
             i += 1
-            if i >= l:
-                i = 0
+
     print(ip)
