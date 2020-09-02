@@ -126,7 +126,7 @@ function update-home-bin
   fisher
   _install_nvm
 
-  rusup update
+  rustup update
 
   set targets '.rbenv' '.tmux/plugins/tpm'
   for target in $targets
