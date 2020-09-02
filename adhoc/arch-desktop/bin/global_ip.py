@@ -29,10 +29,12 @@ if __name__ == '__main__':
             ip = f.read().strip()
 
     l = len(urls)
-    i = random.randint(0, l - 1)
+    i = 0
+    offset = random.randint(0, l - 1)
     while ip is None:
         try:
-            ip = requests.get(urls[i % l], timeout=timeout).text.strip()
+            j = (i + offset) % l
+            ip = requests.get(urls[j], timeout=timeout).text.strip()
             with open(cache_path, 'w') as f:
                 f.write(ip)
         except KeyboardInterrupt:
