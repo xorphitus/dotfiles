@@ -27,6 +27,17 @@ OS packages
 
 and execute `M-x all-the-icons-install-fonts`
 
+### gitconfig
+
+Create `~/home/.gitconfig` file as following.
+
+```
+[include]
+	path = /path/to/dotfiles/.gitconfig
+
+# additional settings for each environment
+```
+
 ### git / global ignore
 
 see: https://qiita.com/ueokande/items/e0409219e7c68e4277b9
