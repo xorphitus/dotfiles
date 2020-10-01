@@ -34,6 +34,8 @@ def convert_source(s):
 def convert_sink(s):
     if 'Family 17h' in s:
         return 'Line OUT'
+    if 'HDMI' in s:
+        return 'HDMI'
     if 'TREKZ Titanium' in s:
         return 'Titanium'
     return s
@@ -47,4 +49,4 @@ def get_sinks():
 if __name__ == '__main__':
     sources = ', '.join(get_sources())
     sinks = ', '.join(get_sinks())
-    print('🎤{} 📢{}'.format(sources, sinks))
+    print('🎙{} 📢{}'.format(sources, sinks))
