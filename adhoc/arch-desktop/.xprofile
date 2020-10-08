@@ -18,4 +18,4 @@ blueman-tray &
 xss-lock -- $HOME/dotfiles/adhoc/arch-desktop/bin/lock.sh &
 dunst &
 nitrogen --restore &
-compton -cb
+picom -cb
