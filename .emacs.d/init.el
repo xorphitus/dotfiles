@@ -1088,6 +1088,11 @@ Display the results in a hyperlinked *compilation* buffer."
 (leaf kotlin-mode
   :ensure t)
 
+(leaf lua-mode
+  :ensure t
+  :custom
+  (lua-indent-level . 2))
+
 (leaf markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
