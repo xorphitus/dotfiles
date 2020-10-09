@@ -151,10 +151,10 @@ M-n -> insert numbers incremental"
   :init
   (setq cua-enable-cua-keys nil))
 
-;; change C-a behavior
-;; move line head w/o indent, w/ indent
-;; http://d.hatena.ne.jp/gifnksm/20100131/1264956220
-(defun beginning-of-indented-line (current-point)
+(defun my-beginning-of-indented-line (current-point)
+  "Change C-a behavior
+move line head w/o indent, w/ indent
+http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   (interactive "d")
   (if (s-match "^[ \t]+$"
                (save-excursion
@@ -166,7 +166,7 @@ M-n -> insert numbers incremental"
 
 (leaf *global-key-config
   :bind
-  (("\C-a" . beginning-of-indented-line)
+  (("\C-a" . my-beginning-of-indented-line)
    ("C-x C-c" . nil)
    ("C-x C-z" . nil)
    ("C-h" . delete-backward-char))
@@ -595,7 +595,7 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
     "Tell flyspell to ignore non ascii characters.
 Call this on `flyspell-incorrect-hook'."
     (string-match "[^!-~]" (buffer-substring beg end)))
- 
+
   :config
   (leaf ispell
     :req "hunspell" "hunspell-en_US"
@@ -605,6 +605,7 @@ Call this on `flyspell-incorrect-hook'."
           ispell-dictionary "en_US-large"
           ispell-really-hunspell t))
 
+  ;; FIXIME don't enabled automatically (at least org-mode)
   (leaf flyspell
     :ensure t
     :hook
@@ -655,11 +656,26 @@ Call this on `flyspell-incorrect-hook'."
                          "Ricty Nerd Font"
                          "ricty"
                          "Ricty")))
-           (size 14))
+           (size 12.5))
       (format "%s-%d" available size))
     "Font. It's detected automaticaly by default.")
 
   :config
+  (setq default-frame-alist (list (cons 'font  my-font)))
+  (set-frame-font my-font)
+
+  (setq
+   ;; skip startup screen
+   inhibit-startup-screen t
+   ;; erase scrach buffer message
+   initial-scratch-message "")
+
+  (global-prettify-symbols-mode +1)
+
+  ;; set color, window size
+  (when window-system
+    (set-frame-parameter nil 'alpha 95))
+
   (leaf all-the-icons
     :doc "It requires to invoke the following command to install fonts
   M-x all-the-icons-install-fonts"
@@ -670,12 +686,6 @@ Call this on `flyspell-incorrect-hook'."
     :ensure t
     :init
     (load-theme 'atom-one-dark t))
-
-  (setq
-   ;; skip startup screen
-   inhibit-startup-screen t
-   ;; erase scrach buffer message
-   initial-scratch-message "")
 
   (leaf show-paren-mode
     :doc "High light paren"
@@ -691,15 +701,6 @@ Call this on `flyspell-incorrect-hook'."
     :init
     (setq hl-line-face 'underline)
     (global-hl-line-mode))
-
-  (setq default-frame-alist (list (cons 'font  my-font)))
-  (set-frame-font my-font)
-
-  (global-prettify-symbols-mode +1)
-
-  ;; set color, window size
-  (when window-system
-    (set-frame-parameter nil 'alpha 95))
 
   (leaf global-linum-mode
     :doc "Line number"
@@ -761,15 +762,17 @@ Call this on `flyspell-incorrect-hook'."
     ((treemacs-mode) . hide-mode-line-mode))
 
   (leaf git-gutter-fringe
-    ;; FIXME it makes display wrong!
-    :doc "Show an icon indicating whether a line has been changed from last commit"
+    ;; FIXME it makes display wrong when `global-linum-mode' is enabled
     :disabled t
+    :doc "Show an icon indicating whether a line has been changed from last commit"
     :ensure t
     :diminish git-gutter-mode
+    :init
+    (setq git-gutter-fr:side 'right-fringe)
     :config
-    (global-git-gutter-mode)
-    (setq git-gutter-fr:side 'right-fringe)))
+    (global-git-gutter-mode)))
 
+;; FIXME: strange color
 (leaf ddskk
   :ensure t
   :bind (("C-o"     . skk-mode)
@@ -779,26 +782,27 @@ Call this on `flyspell-incorrect-hook'."
     (-find 'f-directory? '("/usr/share/skk" "~/skk"))
     "SKK dictionary path. Override it for each platform")
   :config
-  ;; enable AZIK
-  (setq skk-use-azik t)
-  ;; disable skk-isearch for migemo
-  (setq skk-isearch-mode-enable nil)
-  (setq skk-search-start-mode 'latin)
-  ;; candidates position
-  (setq skk-show-tooltip t)
+  (setq
+   ;; FIXME azik looks dead
+   ;; enable AZIK
+   skk-use-azik t
+   ;; disable skk-isearch for migemo
+   skk-isearch-mode-enable nil
+   skk-search-start-mode 'latin
+   ;; candidates position
+   skk-show-tooltip t
   ;; dynamic completion
   ;;   てん -> てんさい, てんしょく、てんかん
-  (setq skk-dcomp-activate t)
-  (setq skk-dcomp-multiple-activate t)
-  (setq skk-dcomp-multiple-rows 10)
-  ;; dictionary
-  (setq skk-large-jisyo (concat my-skk-jisyo-root "/SKK-JISYO.L"))
-  (setq skk-extra-jisyo-file-list
-        (--map (concat my-skk-jisyo-root it)
-               '("/SKK-JISYO.geo"
-                 "/SKK-JISYO.jinmei"
-                 "/SKK-JISYO.propernoun"
-                 "/SKK-JISYO.station")))
+   skk-dcomp-activate t
+   skk-dcomp-multiple-activate t
+   skk-dcomp-multiple-rows 10
+   ;; dictionary
+   skk-large-jisyo (concat my-skk-jisyo-root "/SKK-JISYO.L")
+   skk-extra-jisyo-file-list (--map (concat my-skk-jisyo-root it)
+                                    '("/SKK-JISYO.geo"
+                                      "/SKK-JISYO.jinmei"
+                                      "/SKK-JISYO.propernoun"
+                                      "/SKK-JISYO.station")))
 
   (leaf ddskk-posframe
     :ensure t
