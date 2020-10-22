@@ -1030,6 +1030,9 @@ Display the results in a hyperlinked *compilation* buffer."
            my-const/logical-prettify-symbols-alist
            my-const/relational-prettify-symbols-alist))
 
+(leaf nginx-mode
+  :ensure t)
+
 (leaf fish-mode
   :req "fish"
   :ensure t
