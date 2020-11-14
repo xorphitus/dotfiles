@@ -122,7 +122,9 @@
    browse-url-browser-function 'browse-url-generic
    browse-url-generic-program (--first
                                (executable-find it)
-                               '("chromium-browser"
+                               '("vivaldi"
+                                 "vivaldi-stable"
+                                 "chromium-browser"
                                  "google-chrome"
                                  "google-chrome-stable"
                                  "google-chrome-beta"

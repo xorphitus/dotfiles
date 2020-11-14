@@ -2,7 +2,6 @@
 # general
 set -x EDITOR emacsclient
 set -x ALTERNATE_EDITOR vim
-# set -x BROWSER google-chrome
 
 ###########################################################
 # direnv
@@ -85,7 +84,6 @@ alias f='fuck'
 
 ###########################################################
 # aliases
-# alias google-chrome='google-chrome-stable -allow-file-access-from-files'
 alias ls='lsd'
 alias ack='rg'
 alias diff='colordiff'
@@ -98,6 +96,10 @@ switch (uname)
   case Darwin
     alias emacs='open /Applications/Emacs.app'
     alias emacsclient='/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_14/emacsclient'
+  case '*'
+    # They requires gl options. Otherwise my they will be blackout when my Arch Linux comes back from sleep.
+    alias slack='slack --use-gl=desktop'
+    alias vivaldi='vivaldi-stable --use-gl=desktop'
 end
 
 ###########################################################
