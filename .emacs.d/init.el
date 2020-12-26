@@ -1021,6 +1021,14 @@ Display the results in a hyperlinked *compilation* buffer."
   :ensure t
   :mode (("Dockerfile" . dockerfile-mode)))
 
+(leaf elm-mode
+  :ensure t
+  :doc "Install :req packages with `npm i -g`"
+  :req "elm" "elm-test" "elm-format" "@elm-tooling/elm-language-server"
+  :config
+  (add-to-list 'company-backends 'elm-company)
+  (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
+
 (leaf emacs-lisp-mode
   :init
   (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
