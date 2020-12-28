@@ -100,6 +100,10 @@ switch (uname)
     # They requires gl options. Otherwise my they will be blackout when my Arch Linux comes back from sleep.
     alias slack='slack --use-gl=desktop'
     alias vivaldi='vivaldi-stable --use-gl=desktop'
+    # Arch Linux short cuts
+    alias p-purge='yay -Rns'
+    alias p-aurs='yay -Qm'
+    alias p-orphans='yay -Qdt'
 end
 
 ###########################################################
