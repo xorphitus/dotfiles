@@ -783,9 +783,7 @@ Call this on `flyspell-incorrect-hook'."
   (defcustom my-skk-jisyo-root
     (-find 'f-directory? '("/usr/share/skk" "~/skk"))
     "SKK dictionary path. Override it for each platform")
-  :config
   (setq
-   ;; FIXME azik looks dead
    ;; enable AZIK
    skk-use-azik t
    ;; disable skk-isearch for migemo
