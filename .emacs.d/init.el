@@ -607,19 +607,19 @@ Call this on `flyspell-incorrect-hook'."
           ispell-dictionary "en_US-large"
           ispell-really-hunspell t))
 
-  ;; FIXIME don't enabled automatically (at least org-mode)
   (leaf flyspell
     :ensure t
     :hook
     (flyspell-incorrect-hook . my-flyspell-ignore-non-ascii)
+    :init
+    (add-hook 'text-mode-hook 'flyspell-mode)
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
     :config
     ;; ignore errors on macOS
     (setq flyspell-issue-message-flag nil)
     ;; They conflict with expand-region's bindings
     (define-key flyspell-mode-map (kbd "C-,") nil)
-    (define-key flyspell-mode-map (kbd "C-.") nil)
-    (add-hook 'text-mode-hook 'flyspell-mode)
-    (add-hook 'prog-mode-hook 'flyspell-prog-mode)))
+    (define-key flyspell-mode-map (kbd "C-.") nil)))
 
 (leaf google-translate
   :ensure t
