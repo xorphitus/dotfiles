@@ -774,7 +774,6 @@ Call this on `flyspell-incorrect-hook'."
     :config
     (global-git-gutter-mode)))
 
-;; FIXME: strange color
 (leaf ddskk
   :ensure t
   :bind (("C-o"     . skk-mode)
