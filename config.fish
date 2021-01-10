@@ -39,6 +39,8 @@ switch (uname)
     set -x SKK_DICT_PATH ~/skk
 end
 
+test -e ~/.asdf/asdf.fish ; and source ~/.asdf/asdf.fish
+
 ###########################################################
 # Erlang
 set -x ERLANG_HOME /usr/lib/erlang
@@ -48,15 +50,6 @@ set -x ERLANG_HOME /usr/lib/erlang
 set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
-# Ruby
-set RUBY_VERSION 2.6.5
-rbenv global $RUBY_VERSION
-
-###########################################################
-# Node.js
-set -x NODE_VERSION system
-
-###########################################################
 # Go
 set -x GOPATH ~/go
 set -x PATH $GOPATH/bin:$PATH
@@ -64,10 +57,6 @@ set -x PATH $GOPATH/bin:$PATH
 ###########################################################
 # Common Lisp
 alias sbcl='rlwrap sbcl'
-
-###########################################################
-# Python
-#. (pyenv init - | psub)
 
 ###########################################################
 # less
@@ -130,11 +119,12 @@ function update-home-bin
   fisher self-update
   # update fisher packages
   fisher
-  _install_nvm
 
+  asdf update
+  asdf plugin update --all
   rustup update
 
-  set targets '.rbenv' '.tmux/plugins/tpm'
+  set targets '.tmux/plugins/tpm'
   for target in $targets
     cd $HOME/$target
     if test -d .git
@@ -264,12 +254,19 @@ end
 
 ##################
 # setup functions
-function _install_nvm
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+function _install_asdf
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+  cd ~/.asdf
+  git switch (git describe --abbrev=0 --tags)
+  cd -
+  test -e ~/.asdf/asdf.fish ; and source ~/.asdf/asdf.fish
+  # Setup Node.js
+  asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+  bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
 end
 
 function _setup_fishenv
-  set packages 'fzf' 'direnv' 'rbenv' 'ruby-build' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff' 'thefuck'
+  set packages 'fzf' 'direnv' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff' 'thefuck'
   switch (uname)
     case Linux
       yay -S       $packages python-pygments wmctrl
@@ -277,26 +274,20 @@ function _setup_fishenv
       brew install $packages terminal-notifier
   end
 
-  # nvm
-  _install_nvm
+  # asdf
+  _install_asdf
 
   # fisherman
   curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 
   # plugins
-  fisher add jethrokuan/z jethrokuan/fzf masa0x80/ghq_cd_keybind.fish daenney/rbenv
-  # plugins: for nvm
-  fisher add FabioAntunes/fish-nvm edc/bass
+  fisher add jethrokuan/z jethrokuan/fzf masa0x80/ghq_cd_keybind.fish
 
   # theme
   fisher add https://github.com/amio/fish-theme-eden
 
   # tpm
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-  # programing languates
-  rbenv install $RUBY_VERSION
-  nvm install $NODE_VERSION
 end
 
 set fish_individual_config ~/.config/fish/individual.fish
