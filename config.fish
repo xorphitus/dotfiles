@@ -39,6 +39,8 @@ switch (uname)
     set -x SKK_DICT_PATH ~/skk
 end
 
+###########################################################
+# Programing Languages common
 test -e ~/.asdf/asdf.fish ; and source ~/.asdf/asdf.fish
 
 ###########################################################
@@ -100,18 +102,7 @@ end
 function psg
   ps u | head -n 1
   set arg $argv[1]
-  ps aux | grep $arg | grep -v "grep $arg"
-end
-
-function railsnew
-  set prj $argv[1]
-  mkdir $prj
-  cd $prj
-  bundle init
-  echo "gem 'rails'" >> Gemfile
-  bundle install --path vendor/bundle
-  yes | bundle exec rails new .
-  echo '/vendor/bundle' >> .gitignore
+  ps aux | grep -i $arg | grep -v "grep $arg"
 end
 
 function update-home-bin
