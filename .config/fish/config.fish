@@ -106,10 +106,8 @@ function psg
 end
 
 function update-home-bin
-  # update fisher itself
-  fisher self-update
-  # update fisher packages
-  fisher
+  # update fisher
+  fisher update
 
   asdf update
   asdf plugin update --all
