@@ -297,5 +297,13 @@ if test "$TERM" = "dumb"
   function fish_title; end
 end
 
+#####################################
+# Terminal Emulator Specific Settings
+
+# Kitty
+kitty + complete setup fish | source
+alias icat="kitty +kitten icat --align=left"
+alias d="kitty +kitten diff"
+
 # Mac iTerm2
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
