@@ -1,4 +1,4 @@
-export LC_CTYPE=ja_JP.utf-8
+export LC_CTYPE=en_US.UTF-8
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
@@ -7,7 +7,7 @@ export QT_QPA_PLATFORMTHEME=gtk2
 
 xset b off
 
-terminator &
+kitty &
 fcitx &
 dropbox &
 volumeicon &
