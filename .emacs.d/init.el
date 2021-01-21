@@ -646,6 +646,8 @@ Call this on `flyspell-incorrect-hook'."
 
 (leaf *visual
   :init
+  ;; This line is required to display Kanji font appropriately when the system locale is not Japanese
+  (set-language-environment "Japanese")
   (defcustom my-font
     (let* ((fonts (font-family-list))
            (available (-find
