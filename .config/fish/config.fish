@@ -301,9 +301,14 @@ end
 # Terminal Emulator Specific Settings
 
 # Kitty
-kitty + complete setup fish | source
-alias icat="kitty +kitten icat --align=left"
-alias d="kitty +kitten diff"
+if test "$TERM" = "xterm-kitty"
+  kitty + complete setup fish | source
+  alias icat="kitty +kitten icat --align=left"
+  alias d="kitty +kitten diff"
+  # Prevent SSH issues on Kitty
+  alias ssh="kitty +kitten ssh"
+  set -x TERM 'xterm-256color'
+end
 
 # Mac iTerm2
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
