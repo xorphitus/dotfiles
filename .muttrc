@@ -1,0 +1,29 @@
+# Don't use this configuration as it is.
+# create another `~/.muttrc` and include this file as the following.
+# ---
+#
+# source ~/dotfiles/.muttrc
+#
+# # === IMAP (Gmail example) ===
+# set imap_user = 'username@example.com'
+# set imap_pass = 'password'
+# set spoolfile = imaps://imap.gmail.com/INBOX
+# set folder = imaps://imap.gmail.com/
+# set record="imaps://imap.gmail.com/[Gmail]/Sent Mail"
+# set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
+# set mbox="imaps://imap.gmail.com/[Gmail]/All Mail"
+#
+# # === Composition ===
+# set realname = "YOUR NAME"
+# set from = "username@gmail.com"
+
+set editor="emacsclient -a \"\" -t"
+
+# It should work with default settings. However, it’s a good idea to set the send_charset
+set send_charset="us-ascii:utf-8"
+
+set edit_headers = yes  # See the headers when editing
+set charset = UTF-8     # value of $LANG; also fallback for send_charset
+# Sender, email address, and sign-off line must match
+unset use_domain        # because joe@localhost is just embarrassing
+set use_from = yes

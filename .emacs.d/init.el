@@ -485,6 +485,11 @@ use projectile-counsel-rg instead."
     :ensure t
     :after treemacs magit))
 
+(leaf mail-mode
+  :mode
+  ;; Mutt integration
+  (("/tmp/mutt.*" . mail-mode)))
+
 (leaf multiple-cursors
   :ensure t
   :bind (([C-M-return] . mc/edit-lines)))
