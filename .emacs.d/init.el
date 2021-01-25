@@ -664,7 +664,9 @@ Call this on `flyspell-incorrect-hook'."
                          "ricty nerd font"
                          "Ricty Nerd Font"
                          "ricty"
-                         "Ricty")))
+                         "Ricty"
+                         "cica"
+                         "CICA")))
            (size 12.5))
       (format "%s-%d" available size))
     "Font. It's detected automaticaly by default.")
