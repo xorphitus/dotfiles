@@ -129,8 +129,6 @@
                                  "google-chrome-stable"
                                  "google-chrome-beta"
                                  "firefox"))
-   ;; Set default browser
-   browse-url-browser-function 'browse-url-chromium)
   ;; yes/no -> y/n
   (fset 'yes-or-no-p 'y-or-n-p)
   ;; indent
