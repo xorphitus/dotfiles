@@ -128,7 +128,7 @@
                                  "google-chrome"
                                  "google-chrome-stable"
                                  "google-chrome-beta"
-                                 "firefox"))
+                                 "firefox")))
   ;; yes/no -> y/n
   (fset 'yes-or-no-p 'y-or-n-p)
   ;; indent
