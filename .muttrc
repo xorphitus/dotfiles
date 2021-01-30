@@ -27,3 +27,5 @@ set charset = UTF-8     # value of $LANG; also fallback for send_charset
 # Sender, email address, and sign-off line must match
 unset use_domain        # because joe@localhost is just embarrassing
 set use_from = yes
+
+set ssl_force_tls = yes

@@ -211,12 +211,16 @@ function t
   end
 end
 
+############################
+# Secret handling with Pass
 function aws_prof
   set prof $argv[1]
   set -g -x AWS_PROFILE $prof
   set -g -x AWS_ACCESS_KEY_ID (pass aws/$prof/access_key_id)
   set -g -x AWS_SECRET_ACCESS_KEY (pass aws/$prof/secret_access_key)
 end
+
+alias mutt="mutt -e 'set imap_pass='(pass email/imap)"
 
 ##################
 # fzf functions
