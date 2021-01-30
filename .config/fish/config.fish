@@ -211,6 +211,13 @@ function t
   end
 end
 
+function aws_prof
+  set prof $argv[1]
+  set -g -x AWS_PROFILE $prof
+  set -g -x AWS_ACCESS_KEY_ID (pass aws/$prof/access_key_id)
+  set -g -x AWS_SECRET_ACCESS_KEY (pass aws/$prof/secret_access_key)
+end
+
 ##################
 # fzf functions
 function fzf_yay
