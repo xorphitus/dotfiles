@@ -5,6 +5,8 @@
 [core]
 	pager = less -r
 	editor = emacsclient
+[format]
+	signoff = true
 [color]
 	ui = auto
 [commit]
