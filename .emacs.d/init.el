@@ -1389,6 +1389,14 @@ does not support PulseAudio's pacat/paplay"
   :custom
   `((org-bullets-bullet-list . '("🌕" "🌔" "🌓" "🌒" "🌑"))))
 
+(leaf org-roam
+  :ensure t
+  :init
+  (let ((roam-path "~/Documents/org-roam"))
+    (unless (f-exists? roam-path)
+      (make-directory roam-path))
+    (setq org-roam-directory roam-path)))
+
 (defconst my/elfeed-setting-dir "~/Dropbox/Settings")
 
 (leaf elfeed
