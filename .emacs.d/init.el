@@ -364,7 +364,7 @@ use projectile-counsel-rg instead."
   :req "migemo"
   :ensure t
   :commands migemo
-  :config
+  :init
   (setq migemo-command (if (executable-find "cmigemo") "cmigemo" "/usr/local/bin/cmigemo")
         migemo-options '("-q" "--emacs")
         migemo-dictionary (--find
