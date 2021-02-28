@@ -258,7 +258,7 @@ use projectile-counsel-rg instead."
     :bind (("C-c h" . counsel-recentf)
            ("M-x" . counsel-M-x)
            ("M-y" . counsel-yank-pop)
-           ("C-S-f" . my-counsel-rg)
+           ("C-S-r" . my-counsel-rg)
            ("C-x C-f" . counsel-find-file)
            ("C-x b" . counsel-switch-buffer)
            ("C-x C-b" . counsel-ibuffer))
@@ -635,6 +635,11 @@ Call this on `flyspell-incorrect-hook'."
   :ensure t
   :bind
   (("M-;" . comment-dwim-2)))
+
+(leaf deadgrep
+  :ensure t
+  :bind
+  (("C-S-f" . deadgrep)))
 
 (leaf dashboard
   :ensure t
