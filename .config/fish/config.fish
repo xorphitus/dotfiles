@@ -69,11 +69,6 @@ set hiliter (which src-hilite-lesspipe.sh)
 set -x LESSOPEN "| $hiliter %s"
 
 ###########################################################
-# fxxk
-thefuck --alias | source
-alias f='fuck'
-
-###########################################################
 # aliases
 alias ls='lsd'
 alias ack='rg'
