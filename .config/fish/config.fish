@@ -284,7 +284,7 @@ function _setup_fishenv
   fisher add jethrokuan/z jethrokuan/fzf masa0x80/ghq_cd_keybind.fish
 
   # theme
-  fisher add https://github.com/amio/fish-theme-eden
+  fisher install IlanCosman/tide
 
   # tpm
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
