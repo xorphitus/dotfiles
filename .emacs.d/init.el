@@ -235,6 +235,23 @@ use projectile-counsel-rg instead."
                 :initial-input initial-input
                 :action #'find-file
                 :caller 'counsel-ghq)))
+
+  (defun my/ivy-migemo-re-builder (str)
+    "This function enables migemo search on an ivy interface. See the following for the detail.
+https://www.yewton.net/2020/05/21/migemo-ivy/
+Alternative: https://tsuu32.hatenablog.com/entry/2020/09/22/234749"
+    (let* ((sep " \\|\\^\\|\\.\\|\\*")
+           (splitted (--map (s-join "" it)
+                            (--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
+                                            (s-split "" str t)))))
+      (s-join "" (--map (cond ((s-equals? it " ") ".*?")
+                              ((s-matches? sep it) it)
+                              (t (migemo-get-pattern it)))
+                        splitted))))
+
+  (setq ivy-re-builders-alist '((t . ivy--regex-plus)
+                                (swiper . my/ivy-migemo-re-builder)
+                                (org-roam-find-file . my/ivy-migemo-re-builder)))
   :config
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t)
