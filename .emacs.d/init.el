@@ -325,6 +325,9 @@ Alternative: https://tsuu32.hatenablog.com/entry/2020/09/22/234749"
     (ivy-prescient-mode))
 
   (leaf counsel-gtags
+    :ensure t)
+
+  (leaf counsel-jq
     :ensure t))
 
 (leaf alert
