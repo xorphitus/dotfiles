@@ -257,7 +257,8 @@ Alternative: https://tsuu32.hatenablog.com/entry/2020/09/22/234749"
 
   (setq ivy-re-builders-alist '((t . ivy--regex-plus)
                                 (swiper . my/ivy-migemo-re-builder)
-                                (org-roam-find-file . my/ivy-migemo-re-builder)))
+                                (org-roam-find-file . my/ivy-migemo-re-builder)
+                                (org-roam-insert . my/ivy-migemo-re-builder)))
   :config
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t)
