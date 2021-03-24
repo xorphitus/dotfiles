@@ -22,3 +22,4 @@ var
 wget-log*
 *.sqlite
 bookmarks
+el-get

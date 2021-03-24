@@ -44,6 +44,12 @@
 (install-leaf)
 (leaf leaf-tree :ensure t)
 
+(leaf el-get
+  :doc "The primary option is MELPA, however rarely it doesn't distribute a required package. Therefore el-get is enabled for such a case"
+  :ensure t
+  :init
+  (add-to-list 'load-path "~/.emacs.d/el-get/el-get"))
+
 (leaf esup
   :doc "Enable this package when I want to measure performance"
   :disabled t
@@ -920,6 +926,17 @@ Call this on `flyspell-incorrect-hook'."
     :ensure t))
 
 (leaf restclient
+  :ensure t
+  :init
+  ;; restclient-jq is not provided by MELPA
+  ;; therefore use el-get instead
+  (el-get-bundle restclient-jq
+    :url "https://raw.githubusercontent.com/pashky/restclient.el/master/restclient-jq.el")
+  :config
+  (require 'restclient-jq))
+
+(leaf jq-mode
+  :doc "This package is required by restclient-jq"
   :ensure t)
 
 (leaf slime
