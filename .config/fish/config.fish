@@ -107,17 +107,6 @@ function update-home-bin
   asdf update
   asdf plugin update --all
   rustup update
-
-  set targets '.tmux/plugins/tpm'
-  for target in $targets
-    cd $HOME/$target
-    if test -d .git
-      echo update $target
-      git pull
-    else
-      echo $target is not version controled
-    end
-  end
 end
 
 function update-skk-dict
@@ -280,9 +269,6 @@ function _setup_fishenv
 
   # theme
   fisher install IlanCosman/tide
-
-  # tpm
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 end
 
 set fish_individual_config ~/.config/fish/individual.fish
