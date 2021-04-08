@@ -140,6 +140,9 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindcode 121 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh toggle"
 bindcode 122 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh down"
 bindcode 123 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh up"
+bindcode 172 exec "playerctl --player=spotify play-pause"
+bindcode 176 exec "playerctl --player=spotify previous"
+bindcode 216 exec "playerctl --player=spotify next"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
