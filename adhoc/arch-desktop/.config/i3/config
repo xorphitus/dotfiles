@@ -175,8 +175,7 @@ bindsym Mod1+space exec rofi -combi-modi -font "hack 10" -show
 
 # i3 appearance
 font xft:Noto Sans 11
-default_border pixel 3
-hide_edge_borders smart
+
 # class                 border  backgr. text    indicator child_border
 client.focused          #333333 #333333 #ccccff #2e9ef4   #ccccff
 client.focused_inactive #2a2a2a #2a2a2a #6d6d88 #484e50   #5f676a
@@ -196,10 +195,13 @@ bar {
          # class           border  backgr. text
          focused_workspace #001199 #ccccff #001199
     }
+
+    # Show task bar only on the primary monitor
+    tray_output primary
 }
 
 # i3-gaps
-for_window [class=".*"] border pixel 1
+for_window [class=".*"] border pixel 2
 gaps inner 10
 gaps outer 0
 smart_gaps on
