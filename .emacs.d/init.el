@@ -309,6 +309,7 @@ Alternative: https://tsuu32.hatenablog.com/entry/2020/09/22/234749"
           '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
 
   (leaf ivy-posframe
+    :disabled t
     :ensure t
     :after (ivy)
     :diminish
