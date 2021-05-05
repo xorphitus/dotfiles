@@ -1,0 +1,3 @@
+.include /etc/pulse/default.pa
+
+ set-default-sink bluez_sink.20_74_CF_59_71_EA.a2dp_sink
