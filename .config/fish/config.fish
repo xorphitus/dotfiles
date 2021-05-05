@@ -44,12 +44,12 @@ end
 test -e ~/.asdf/asdf.fish ; and source ~/.asdf/asdf.fish
 
 ###########################################################
-# Erlang
-set -x ERLANG_HOME /usr/lib/erlang
+# Common Lisp
+alias sbcl='rlwrap sbcl'
 
 ###########################################################
-# Scala
-set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
+# Erlang
+set -x ERLANG_HOME /usr/lib/erlang
 
 ###########################################################
 # Go
@@ -57,12 +57,12 @@ set -x GOPATH ~/go
 set -x PATH $GOPATH/bin:$PATH
 
 ###########################################################
-# Rust
-set -x PATH ~/.cargo/bin:$PATH
+# Scala
+set -x ENSIME_ROOT $HOME/lib/aemoncannon-ensime-38627ca/src/main/
 
 ###########################################################
-# Common Lisp
-alias sbcl='rlwrap sbcl'
+# Rust
+set -x PATH ~/.cargo/bin:$PATH
 
 ###########################################################
 # less
