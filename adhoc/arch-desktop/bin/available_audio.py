@@ -38,6 +38,8 @@ def convert_sink(s):
         return 'HDMI'
     if 'TREKZ Titanium' in s:
         return 'Titanium'
+    if 'MB16AMT' in s:
+        return 'MB16AMT'
     return s
 
 def get_sources():
