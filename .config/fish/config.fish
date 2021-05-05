@@ -57,6 +57,10 @@ set -x GOPATH ~/go
 set -x PATH $GOPATH/bin:$PATH
 
 ###########################################################
+# Rust
+set -x PATH ~/.cargo/bin:$PATH
+
+###########################################################
 # Common Lisp
 alias sbcl='rlwrap sbcl'
 
