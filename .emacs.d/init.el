@@ -803,6 +803,11 @@ Call this on `flyspell-incorrect-hook'."
     :hook
     ((treemacs-mode) . hide-mode-line-mode))
 
+  (leaf beacon
+    :ensure t
+    :config
+    (beacon-mode 1))
+
   (leaf git-gutter-fringe
     ;; FIXME it makes display wrong when `global-linum-mode' is enabled
     :disabled t
