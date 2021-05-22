@@ -1446,20 +1446,25 @@ does not support PulseAudio's pacat/paplay"
       (make-directory roam-path))
     (setq org-roam-directory roam-path)))
 
-(defconst my/elfeed-setting-dir "~/Dropbox/Settings")
-
-(leaf elfeed
-   :ensure t
-   :init
-   :config
-   (setq elfeed-db-directory (f-join my/elfeed-setting-dir "elfeeddb"))
-   (setq-default elfeed-search-filter "@6-months-ago +unread -sub"))
-
-(leaf elfeed-org
-  :ensure t
+(leaf *information
   :config
-  (elfeed-org)
-  (setq rmh-elfeed-org-files (list (f-join my/elfeed-setting-dir "elfeed.org"))))
+  (leaf elpher
+    :ensure t)
+ 
+  (defconst my/elfeed-setting-dir "~/Dropbox/Settings")
+
+  (leaf elfeed
+    :ensure t
+    :init
+    :config
+    (setq elfeed-db-directory (f-join my/elfeed-setting-dir "elfeeddb"))
+    (setq-default elfeed-search-filter "@6-months-ago +unread -sub"))
+
+  (leaf elfeed-org
+    :ensure t
+    :config
+    (elfeed-org)
+    (setq rmh-elfeed-org-files (list (f-join my/elfeed-setting-dir "elfeed.org")))))
 
 (leaf *char-encoding
   :config
