@@ -248,9 +248,13 @@ function _install_asdf
   git switch (git describe --abbrev=0 --tags)
   cd -
   test -e ~/.asdf/asdf.fish ; and source ~/.asdf/asdf.fish
-  # Setup Node.js
+  # Node.js
   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
   bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
+  # Golang
+  asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
+  # Terraform
+  asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.git
 end
 
 function _setup_fishenv
