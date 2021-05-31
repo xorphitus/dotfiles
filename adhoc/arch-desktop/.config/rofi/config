@@ -1,5 +1,0 @@
-rofi.modi:  window,run,drun,system:~/.config/rofi/rofi_system.sh
-rofi.sidebar-mode: true
-rofi.hide-scrollbar: true
-rofi.kb-cancel: Escape
-rofi.theme: /usr/share/rofi/themes/glue_pro_blue.rasi
