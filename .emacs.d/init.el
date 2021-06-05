@@ -821,8 +821,8 @@ Call this on `flyspell-incorrect-hook'."
 
 (leaf ddskk
   :ensure t
-  :bind (("C-o"     . skk-mode)
-         ("C-x C-j" . skk-mode))
+  :bind
+  (("C-o" . skk-mode))
   :init
   (defcustom my-skk-jisyo-root
     (-find 'f-directory? '("/usr/share/skk" "~/skk"))
