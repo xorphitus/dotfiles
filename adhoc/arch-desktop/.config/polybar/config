@@ -51,12 +51,12 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+font-0 = Ricty Discord Nerd Font:style=Regular:pixelsize=10
+font-1 = Material Icons:pixelsize=10
+font-2 = DejaVu Sans:pixelsize=10
 
 modules-left = i3
-modules-right = filesystem pulseaudio xkeyboard memory cpu wlan eth temperature date powermenu
+modules-right = cpu memory filesystem wlan eth pulseaudio temperature date
 
 tray-position = right
 tray-padding = 2
@@ -79,29 +79,15 @@ cursor-scroll = ns-resize
 type = internal/xwindow
 label = %title:0:30:...%
 
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
-
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
-
 [module/filesystem]
 type = internal/fs
 interval = 25
 
-mount-0 = /
+format-mounted-prefix = ""
+format-mounted-prefix-foreground = ${colors.foreground-alt}
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+mount-0 = /
+label-mounted = " %free% Free"
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -145,7 +131,7 @@ label-urgent-padding = 2
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 label = %percentage:2%%
@@ -153,7 +139,8 @@ label = %percentage:2%%
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+
+format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
 label = %percentage_used%%
@@ -182,11 +169,11 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = vetha95a32b
+interface = enp8s0
 interval = 3.0
 
 format-connected-underline = #55aa55
-format-connected-prefix = " "
+format-connected-prefix = "⇄"
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
@@ -206,7 +193,7 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
+format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
@@ -215,8 +202,10 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
+format-volume-prefix = " "
+format-volume-prefix-foreground = ${colors.foreground-alt}
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+label-volume = "%percentage%%"
 label-volume-foreground = ${root.foreground}
 
 label-muted = 🔇 muted
@@ -239,8 +228,12 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
+click-right = pavucontrol
+
 [module/temperature]
 type = internal/temperature
+hwmon-path = /sys/devices/platform/it87.2656/hwmon/hwmon2/temp2_input
+
 thermal-zone = 0
 warn-temperature = 60
 
@@ -257,35 +250,6 @@ ramp-0 = 
 ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
-
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true
