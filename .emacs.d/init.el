@@ -688,18 +688,20 @@ Call this on `flyspell-incorrect-hook'."
     (let* ((fonts (font-family-list))
            (available (-find
                        (lambda (f) (when (-contains? fonts f) f))
-                       '("ricty discord nerd font"
+                       '("HackGenNerd"
+                         "ricty discord nerd font"
                          "Ricty Discord Nerd Font"
                          "ricty discord"
                          "Ricty Discord"
                          "ricty nerd font"
                          "Ricty Nerd Font"
+                         "HackGen"
                          "ricty"
                          "Ricty"
                          "cica"
                          "CICA")))
-           (size 12.5))
-      (format "%s-%d" available size))
+           (size "12.5"))
+      (format "%s-%s" available size))
     "Font. It's detected automaticaly by default.")
 
   :config
