@@ -12,7 +12,6 @@ xset b off
 kitty &
 fcitx5 &
 dropbox &
-volumeicon &
 redshift-gtk &
 psensor &
 blueman-tray &

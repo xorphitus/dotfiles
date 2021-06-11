@@ -27,12 +27,10 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
-[bar/example]
-;monitor = ${env:MONITOR:HDMI-1}
+[bar/main]
+monitor = ${env:MONITOR:DP-0}
 width = 100%
 height = 27
-;offset-x = 1%
-;offset-y = 1%
 radius = 6.0
 fixed-center = false
 
@@ -53,31 +51,48 @@ module-margin-right = 2
 
 font-0 = Ricty Discord Nerd Font:style=Regular:pixelsize=10
 font-1 = Material Icons:pixelsize=10
-font-2 = DejaVu Sans:pixelsize=10
+font-2 = Symbola:pixelsize=10
 
 modules-left = i3
 modules-right = cpu memory filesystem wlan eth pulseaudio temperature date
 
 tray-position = right
 tray-padding = 2
-;tray-background = #0063ff
-
-;wm-restack = i3
-
-;override-redirect = true
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
+[bar/sub]
+monitor = ${env:MONITOR:HDMI-0}
+width = 100%
+height = 27
+radius = 6.0
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = Ricty Discord Nerd Font:style=Regular:pixelsize=10
+font-1 = Material Icons:pixelsize=10
+font-2 = Symbola:pixelsize=10
+
+modules-left = i3
+modules-right = cpu memory filesystem wlan eth pulseaudio temperature date
+
+cursor-click = pointer
+cursor-scroll = ns-resize
 
 [module/filesystem]
 type = internal/fs
@@ -98,7 +113,7 @@ index-sort = true
 wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
-;pin-workspaces = true
+pin-workspaces = true
 
 label-mode-padding = 2
 label-mode-foreground = #000
@@ -125,9 +140,6 @@ label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-; Separator in between workspaces
-; label-separator = |
-
 [module/cpu]
 type = internal/cpu
 interval = 2
@@ -140,7 +152,7 @@ label = %percentage:2%%
 type = internal/memory
 interval = 2
 
-format-prefix = ""
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
 label = %percentage_used%%
@@ -155,10 +167,6 @@ format-connected-underline = #9f78e1
 label-connected = %essid%
 
 format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 ramp-signal-0 = 
 ramp-signal-1 = 
@@ -262,5 +270,3 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-
-; vim:ft=dosini
