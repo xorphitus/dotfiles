@@ -211,6 +211,6 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # i3-gaps
 for_window [class=".*"] border pixel 2
 gaps inner 10
-gaps outer 0
+gaps top -8
 smart_gaps on
 smart_borders on
