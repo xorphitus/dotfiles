@@ -17,10 +17,8 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
 background = #222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
@@ -54,6 +52,7 @@ font-1 = Material Icons:pixelsize=10
 font-2 = Symbola:pixelsize=10
 
 modules-left = i3
+modules-center = dev-camera dev-audio pomodoro
 modules-right = cpu memory filesystem wlan eth pulseaudio temperature date
 
 tray-position = right
@@ -89,6 +88,7 @@ font-1 = Material Icons:pixelsize=10
 font-2 = Symbola:pixelsize=10
 
 modules-left = i3
+modules-center = dev-camera dev-audio pomodoro
 modules-right = cpu memory filesystem wlan eth pulseaudio temperature date
 
 cursor-click = pointer
@@ -186,10 +186,6 @@ format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
 format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
 type = internal/date
@@ -259,13 +255,24 @@ ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
+[module/dev-camera]
+type = custom/script
+exec = ~/dotfiles/adhoc/arch-desktop/bin/camera.sh
+interval = 2
+
+[module/dev-audio]
+type = custom/script
+exec = ~/dotfiles/adhoc/arch-desktop/bin/available_audio.py
+interval = 2
+
+[module/pomodoro]
+type = custom/script
+exec = ~/dotfiles/adhoc/arch-desktop/bin/pomodoro.sh
+exec-if = pgrep -x emacs
+interval = 1
+
 [settings]
 screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = false
 
 [global/wm]
 margin-top = 5
