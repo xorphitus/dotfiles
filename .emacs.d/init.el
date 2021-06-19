@@ -105,15 +105,55 @@
                  (lambda (prettify-map)
                    (push prettify-map prettify-symbols-alist))))))
 
-;; TODO ivy to vertico
-(leaf *completion
-  :disabled t
+(leaf *base
+  :config
+  (setq
+   ;; show explicit file name
+   explicit-shell-file-name shell-file-name
+   ;; file name completion ignore case
+   completion-ignore-case t
+   read-file-name-completion-ignore-case t
+   ;; without backup-file
+   backup-inhibited t
+   ;; delete auto save files when quit
+   delete-auto-save-files t
+   ;; disable beep sound flash
+   ring-bell-function 'ignore
+   ;; For time locale for org-mode to avoid Japanese time locale format
+   ;; However this is not an org-mode specific setting but a global setting, written here
+   system-time-locale "C"
+   ;; tab-width
+   default-tab-width 4
+   ;; specify browser
+   browse-url-browser-function 'browse-url-generic
+   browse-url-generic-program (--first
+                               (executable-find it)
+                               '("vivaldi"
+                                 "vivaldi-stable"
+                                 "chromium-browser"
+                                 "google-chrome"
+                                 "google-chrome-stable"
+                                 "google-chrome-beta"
+                                 "firefox")))
+  ;; yes/no -> y/n
+  (fset 'yes-or-no-p 'y-or-n-p)
+  ;; indent
+  (setq-default indent-tabs-mode  nil)
+  ;; set close paren automatically
+  (electric-pair-mode t))
 
+(leaf *completion
   :config
   (leaf vertico
     :ensure t
     :init
     (vertico-mode))
+
+  (leaf marginalia
+    :ensure t
+    :init
+    ;; Must be in the :init section
+    (marginalia-mode))
 
   (leaf orderless
     :ensure t
@@ -124,50 +164,10 @@
 
   (leaf consult
     :ensure t
-    ;; Replace bindings. Lazily loaded due by `use-package'.
-    :bind (;; C-c bindings (mode-specific-map)
-           ("C-c h" . consult-history)
-           ("C-c m" . consult-mode-command)
-           ("C-c b" . consult-bookmark)
-           ("C-c k" . consult-kmacro)
-           ;; C-x bindings (ctl-x-map)
-           ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-           ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
-           ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-           ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-           ;; Custom M-# bindings for fast register access
-           ("M-#" . consult-register-load)
-           ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
-           ("C-M-#" . consult-register)
-           ;; Other custom bindings
-           ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-           ("<help> a" . consult-apropos)            ;; orig. apropos-command
-           ;; M-g bindings (goto-map)
-           ("M-g e" . consult-compile-error)
-           ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
-           ("M-g g" . consult-goto-line)             ;; orig. goto-line
-           ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-           ("M-g o" . consult-outline)
-           ("M-g m" . consult-mark)
-           ("M-g k" . consult-global-mark)
-           ("M-g i" . consult-imenu)
-           ("M-g I" . consult-project-imenu)
-           ;; M-s bindings (search-map)
-           ("M-s f" . consult-find)
-           ("M-s L" . consult-locate)
-           ("M-s g" . consult-grep)
-           ("M-s G" . consult-git-grep)
-           ("M-s r" . consult-ripgrep)
-           ("M-s l" . consult-line)
-           ("M-s m" . consult-multi-occur)
-           ("M-s k" . consult-keep-lines)
-           ("M-s u" . consult-focus-lines)
-           ;; Isearch integration
-           ("M-s e" . consult-isearch)
-           :map isearch-mode-map
-           ("M-e" . consult-isearch)                 ;; orig. isearch-edit-string
-           ("M-s e" . consult-isearch)               ;; orig. isearch-edit-string
-           ("M-s l" . consult-line))                 ;; required by consult-line to detect isearch
+    :bind
+    (("M-y" . consult-yank-from-kill-ring)
+     ("C-x b" . consult-buffer)
+     ("C-c h" . consult-recent-file))
 
     ;; Enable automatic preview at point in the *Completions* buffer.
     ;; This is relevant when you use the default completion UI,
@@ -230,44 +230,12 @@
     ;; (setq consult-project-root-function #'vc-root-dir)
   ;;;; 4. locate-dominating-file
     ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
-    ))
+    )
 
-(leaf *base
-  :config
-  (setq
-   ;; show explicit file name
-   explicit-shell-file-name shell-file-name
-   ;; file name completion ignore case
-   completion-ignore-case t
-   read-file-name-completion-ignore-case t
-   ;; without backup-file
-   backup-inhibited t
-   ;; delete auto save files when quit
-   delete-auto-save-files t
-   ;; disable beep sound flash
-   ring-bell-function 'ignore
-   ;; For time locale for org-mode to avoid Japanese time locale format
-   ;; However this is not an org-mode specific setting but a global setting, written here
-   system-time-locale "C"
-   ;; tab-width
-   default-tab-width 4
-   ;; specify browser
-   browse-url-browser-function 'browse-url-generic
-   browse-url-generic-program (--first
-                               (executable-find it)
-                               '("vivaldi"
-                                 "vivaldi-stable"
-                                 "chromium-browser"
-                                 "google-chrome"
-                                 "google-chrome-stable"
-                                 "google-chrome-beta"
-                                 "firefox")))
-  ;; yes/no -> y/n
-  (fset 'yes-or-no-p 'y-or-n-p)
-  ;; indent
-  (setq-default indent-tabs-mode  nil)
-  ;; set close paren automatically
-  (electric-pair-mode t))
+  (leaf consult-ghq
+    :ensure t
+    :config
+    (setq consult-ghq-find-function #'consult-find)))
 
 (leaf autorevert
   :doc "Auto reload buffer which modified by external programs"
@@ -332,132 +300,6 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
         do-enable-flex-matching t
         ido-vertical-define-keys 'C-n-C-p-up-down-left-right))
 
-(leaf ivy
-  :ensure t
-  :diminish (ivy-mode . "🅘")
-  :global-minor-mode ivy-mode
-  :init
-  (defun my-counsel-rg (&optional initial-input initial-directory extra-rg-args rg-prompt)
-    "This is a counsel-rg alternative. It searches a text in the current directory.
-It you need to search a text in a project root directory,
-use projectile-counsel-rg instead."
-    (interactive)
-    (let ((counsel-ag-base-command
-           (if (listp counsel-rg-base-command)
-               (append counsel-rg-base-command (counsel--rg-targets))
-             (concat counsel-rg-base-command " "
-                     (mapconcat #'shell-quote-argument (counsel--rg-targets) " "))))
-          (counsel--grep-tool-look-around
-           (let ((rg (car (if (listp counsel-rg-base-command) counsel-rg-base-command
-                            (split-string counsel-rg-base-command))))
-                 (switch "--pcre2"))
-             (and (eq 0 (call-process rg nil nil nil switch "--pcre2-version"))
-                  switch))))
-      (counsel-ag initial-input default-directory extra-rg-args rg-prompt
-                  :caller 'counsel-rg)))
-
-  (defun counsel-ghq (&optional initial-input)
-    "Open a file using the ghq shell command."
-    (interactive)
-    (let ((candidates (split-string
-                       (shell-command-to-string
-                        "ghq list --full-path")
-                       "\n")))
-      (ivy-read "ghq: "
-                candidates
-                :initial-input initial-input
-                :action #'find-file
-                :caller 'counsel-ghq)))
-
-  (defun my/ivy-migemo-re-builder (str)
-    "This function enables migemo search on an ivy interface. See the following for the detail.
-https://www.yewton.net/2020/05/21/migemo-ivy/
-Alternative: https://tsuu32.hatenablog.com/entry/2020/09/22/234749"
-    (let* ((sep " \\|\\^\\|\\.\\|\\*")
-           (splitted (--map (s-join "" it)
-                            (--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
-                                            (s-split "" str t)))))
-      (s-join "" (--map (cond ((s-equals? it " ") ".*?")
-                              ((s-matches? sep it) it)
-                              (t (migemo-get-pattern it)))
-                        splitted))))
-
-  (setq ivy-re-builders-alist '((t . ivy--regex-plus)
-                                (swiper . my/ivy-migemo-re-builder)
-                                (org-roam-find-file . my/ivy-migemo-re-builder)
-                                (org-roam-insert . my/ivy-migemo-re-builder)))
-  :config
-  (setq ivy-use-virtual-buffers t
-        enable-recursive-minibuffers t)
-
-  (leaf counsel
-    :doc
-    "How to edit the result lines
- 1. search with swiper, counsel-rg, etc.
- 2. (optional) ivy-avy (C-') : search a target
- 3. ivy-occur (C-c C-o) : start occur to edit
- 4. ivy-wgrep-change-to-wgrep-mode (C-x C-q) : start editing
- 5. wgrep-finish-edit (C-c C-c) : commit
-
- How to change counsel-rg directory
-
- 1. search with cousel-rg which searches in a project root directory
- 2. counsel-cd (C-x C-d)"
-    :req "ripgrep" "ghq"
-    :ensure t
-    :after (ivy)
-    :bind (("C-c h" . counsel-recentf)
-           ("M-x" . counsel-M-x)
-           ("M-y" . counsel-yank-pop)
-           ("C-S-r" . my-counsel-rg)
-           ("C-x C-f" . counsel-find-file)
-           ("C-x b" . counsel-switch-buffer)
-           ("C-x C-b" . counsel-ibuffer))
-    :config
-    ;; The following glob setting doesn't work. Maybe it should be invoked later
-    ;; (push '(counsel-rg . "--glob '**' -- ") ivy-initial-inputs-alist)
-    (ivy-set-actions
-     'my-counsel-rg
-     '(("j" counsel-find-library-other-window "other window")
-       ("f" counsel-find-library-other-frame "other frame")))
-    :custom
-    `((counsel-yank-pop-separator . "\n――――――――\n")))
-
-  (leaf swiper
-    :ensure t
-    :after (ivy))
-
-  (leaf all-the-icons-ivy
-    :ensure t
-    :after all-the-icons
-    :config
-    (all-the-icons-ivy-setup)
-    (setq all-the-icons-ivy-file-commands
-          '(counsel-find-file counsel-file-jump counsel-recentf counsel-projectile-find-file counsel-projectile-find-dir)))
-
-  (leaf ivy-posframe
-    :disabled t
-    :ensure t
-    :after (ivy)
-    :diminish
-    :config
-    (setq ivy-posframe-display-functions-alist
-          '((swiper . nil)
-            (t      . ivy-posframe-display-at-window-center)))
-    (ivy-posframe-mode 1))
-
-  (leaf ivy-prescient
-    :ensure t
-    :after (ivy)
-    :config
-    (ivy-prescient-mode))
-
-  (leaf counsel-gtags
-    :ensure t)
-
-  (leaf counsel-jq
-    :ensure t))
-
 (leaf alert
   :ensure t
   :config
@@ -472,11 +314,6 @@ Alternative: https://tsuu32.hatenablog.com/entry/2020/09/22/234749"
   :ensure t
   :config
   (bind-key "C-c C-e" 'wdired-change-to-wdired-mode dired-mode-map))
-
-(leaf prescient
-  :ensure t
-  :config
-  (prescient-persist-mode))
 
 (leaf company
   :ensure t
@@ -672,13 +509,29 @@ Alternative: https://tsuu32.hatenablog.com/entry/2020/09/22/234749"
   :config
   (setq anzu-cons-mode-line-p nil))
 
+
+(defun my-ace-isearch-consult-line-from-isearch ()
+  "Invoke `consult-line' from ace-isearch."
+  (interactive)
+  (let (($query (if isearch-regexp
+                    isearch-string
+                  (regexp-quote isearch-string))))
+    (isearch-update-ring isearch-string isearch-regexp)
+    (let (search-nonincremental-instead)
+      (ignore-errors (isearch-done t t)))
+    (consult-line $query)))
+
 (leaf ace-isearch
   :ensure t
   :diminish ace-isearch-mode
   :global-minor-mode global-ace-isearch-mode
+  :init
+  ;; ace-isearch requires either helm-swoop, helm-occur or swiper.
+  ;; so this is a dummy swiper to prevent an error.
+  (provide 'swiper)
   :config
   (setq ace-isearch-function 'avy-goto-char
-        ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch))
+        ace-isearch-function-from-isearch 'my-ace-isearch-consult-line-from-isearch))
 
 (leaf ace-window
   :ensure t
@@ -727,8 +580,23 @@ See http://d.hatena.ne.jp/rubikitch/20100210/emacs"
   :ensure t
   :diminish (eldoc-mode . "📖"))
 
+(leaf popper
+  :ensure t
+  :disabled t
+  ;; :bind (("C-`"   . popper-toggle-latest)
+  ;;        ("M-`"   . popper-cycle)
+  ;;        ("C-M-`" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          help-mode
+          compilation-mode))
+  (popper-mode +1))
+
 (leaf shackle
   :doc "Popup interface"
+  :disabled t
   :ensure t
   :global-minor-mode shackle-mode
   :config
