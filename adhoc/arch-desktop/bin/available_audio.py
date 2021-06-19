@@ -51,4 +51,4 @@ def get_sinks():
 if __name__ == '__main__':
     sources = ', '.join(get_sources())
     sinks = ', '.join(get_sinks())
-    print('🎙{} 📢{}'.format(sources, sinks))
+    print('↳ {} / {} ↴'.format(sources, sinks))
