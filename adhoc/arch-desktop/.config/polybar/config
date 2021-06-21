@@ -61,7 +61,7 @@ cursor-scroll = ns-resize
 inherit = bar/base
 monitor = ${env:MONITOR:DP-0}
 
-modules-right = cpu memory filesystem wlan eth pulseaudio temperature date
+modules-right = cpu memory filesystem wlan eth pulseaudio temperature date-full
 
 tray-position = right
 tray-padding = 2
@@ -70,7 +70,7 @@ tray-padding = 2
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI-0}
 
-modules-right = spotify pulseaudio date
+modules-right = spotify pulseaudio date-mini
 
 [module/filesystem]
 type = internal/fs
@@ -161,7 +161,20 @@ label-connected = %local_ip%
 
 format-disconnected =
 
-[module/date]
+[module/date-full]
+type = internal/date
+interval = 5
+
+date = " %Y-%m-%d"
+
+time = %H:%M:%S
+
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-alt}
+
+label = %date% %time%
+
+[module/date-mini]
 type = internal/date
 interval = 5
 
