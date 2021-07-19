@@ -199,6 +199,11 @@ function t
   end
 end
 
+function netctl-switch
+  netctl stop-all
+  netctl start $argv[1]
+end
+
 ############################
 # Secret handling with Pass
 function aws_prof
