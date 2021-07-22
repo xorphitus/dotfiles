@@ -200,8 +200,8 @@ function t
 end
 
 function netctl-switch
-  netctl stop-all
-  netctl start $argv[1]
+  sudo netctl stop-all
+  sudo netctl start $argv[1]
 end
 
 ############################
