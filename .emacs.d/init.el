@@ -155,12 +155,13 @@
     ;; Must be in the :init section
     (marginalia-mode)
     :config
-    ;; Categorize =org-roam-node-find= as =file=.
-    ;; It enables migemo to the command. See the
-    ;; orderless setting which enables migemo to
-    ;; the =file= category.
+    ;; Categorize org-roam functions. It enables migemo
+    ;; to the command. See the orderless setting which
+    ;; enables migemo to some categories.
     (add-to-list 'marginalia-command-categories
-                 '(org-roam-node-find . file)))
+                 '(org-roam-node-find . unicode-name))
+    (add-to-list 'marginalia-command-categories
+                 '(org-roam-node-insert . unicode-name)))
 
   (leaf orderless
     :ensure t
