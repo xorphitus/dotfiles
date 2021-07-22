@@ -158,9 +158,26 @@
   (leaf orderless
     :ensure t
     :init
+    (defun my-orderless-migemo (component)
+      "Helper function to enable migemo to Vertico via Orderless"
+      (let ((pattern (migemo-get-pattern component)))
+        (condition-case nil
+            (progn (string-match-p pattern "") pattern)
+          (invalid-regexp nil))))
+
+    (orderless-define-completion-style orderless-migemo-style
+      (orderless-matching-styles '(; orderless-literal
+                                   ; orderless-regexp
+                                   my-orderless-migemo)))
+
     (setq completion-styles '(orderless)
           completion-category-defaults nil
-          completion-category-overrides '((file (styles . (partial-completion))))))
+          completion-category-overrides
+          '((file (styles orderless-migemo-style))
+            (buffer (styles orderless-migemo-style))
+            (consult-location (styles orderless-migemo-style))
+            (consult-multi (styles orderless-migemo-style))
+            (unicode-name (styles orderless-migemo-style)))))
 
   (leaf consult
     :ensure t
