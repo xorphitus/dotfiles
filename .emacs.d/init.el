@@ -153,7 +153,14 @@
     :ensure t
     :init
     ;; Must be in the :init section
-    (marginalia-mode))
+    (marginalia-mode)
+    :config
+    ;; Categorize =org-roam-node-find= as =file=.
+    ;; It enables migemo to the command. See the
+    ;; orderless setting which enables migemo to
+    ;; the =file= category.
+    (add-to-list 'marginalia-command-categories
+                 '(org-roam-node-find . file)))
 
   (leaf orderless
     :ensure t
