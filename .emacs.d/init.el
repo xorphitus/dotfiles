@@ -931,13 +931,7 @@ Call this on `flyspell-incorrect-hook'."
   :config
   (projectile-global-mode)
   (setq projectile-mode-line
-        '(:eval (format " 📁 %s" (projectile-project-name))))
-
-  (leaf counsel-projectile
-    :ensure t
-    :config
-    (counsel-projectile-mode)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
+        '(:eval (format " 📁 %s" (projectile-project-name)))))
 
 (leaf yasnippet
   :ensure t
