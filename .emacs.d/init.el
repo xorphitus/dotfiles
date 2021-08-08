@@ -440,6 +440,10 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   (leaf git-timemachine
     :ensure t))
 
+(leaf olivetti
+  :doc "Let's focus on writing!"
+  :ensure t)
+
 (leaf treemacs
   :ensure t
   :bind
