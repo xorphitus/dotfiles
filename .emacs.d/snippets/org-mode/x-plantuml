@@ -2,6 +2,12 @@
 # name: x-plantuml
 # key: x-plantuml
 # --
-#+BEGIN_SRC plantuml :file example.png :cmdline -charset UTF-8
-
+#+BEGIN_SRC plantuml :file uml.png :cmdline -charset UTF-8
+/'
+Render image inline
+  C-c C-c
+  C-c C-x C-M-v (org-redisplay-inline-images)
+Open a plantuml-mode buffer
+  C-c '
+'/
 #+END_SRC

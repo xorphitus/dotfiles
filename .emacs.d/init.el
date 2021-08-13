@@ -1189,6 +1189,19 @@ Display the results in a hyperlinked *compilation* buffer."
   (setq markdown-command "multimarkdown")
   (put 'dired-find-alternate-file 'disabled nil))
 
+(leaf plantuml-mode
+  :ensure t
+  :mode
+  (("\\.plantuml\\'" . plantuml-mode))
+  :config
+  (setq plantuml-jar-path org-plantuml-jar-path)
+  (setq plantuml-default-exec-mode 'jar)
+
+  (leaf flycheck-plantuml
+    :ensure t
+    :config
+    (flycheck-plantuml-setup)))
+
 (leaf php-mode
   :ensure t
   :commands php-mode
@@ -1390,6 +1403,8 @@ Display the results in a hyperlinked *compilation* buffer."
           ("C-," . nil)))
   :init
   (setq org-agenda-files (list "~/Documents/org"))
+  ;; syntax highlight within begin_src block
+  (setq org-src-fontify-natively t)
 
   (leaf org-babel
     :doc "How to use org-babel
