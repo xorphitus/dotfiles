@@ -73,6 +73,10 @@ set hiliter (which src-hilite-lesspipe.sh)
 set -x LESSOPEN "| $hiliter %s"
 
 ###########################################################
+# other utilities
+zoxide init fish | source
+
+###########################################################
 # aliases
 alias ls='lsd'
 alias ack='rg'
@@ -228,8 +232,7 @@ function fzf_ps
 end
 
 function fzfz
-  set dir (z -l $argv | awk '{print $2}' | fzf +m --reverse)
-  cd $dir
+  echo 'Hey! Use `zi` instead!'
 end
 
 function fzf_ssh
@@ -263,7 +266,7 @@ function _install_asdf
 end
 
 function _setup_fishenv
-  set packages 'fzf' 'direnv' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff' 'thefuck'
+  set packages 'fzf' 'direnv' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff' 'zoxide'
   switch (uname)
     case Linux
       yay -S       $packages python-pygments wmctrl
@@ -278,7 +281,7 @@ function _setup_fishenv
   curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 
   # plugins
-  fisher add jethrokuan/z jethrokuan/fzf masa0x80/ghq_cd_keybind.fish
+  fisher add jethrokuan/fzf masa0x80/ghq_cd_keybind.fish
 
   # theme
   fisher install IlanCosman/tide
