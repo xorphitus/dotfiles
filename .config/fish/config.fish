@@ -95,9 +95,9 @@ switch (uname)
     alias slack='slack --use-gl=desktop'
     alias vivaldi='vivaldi-stable --use-gl=desktop'
     # Arch Linux short cuts
-    alias p-purge='yay -Rns'
-    alias p-aurs='yay -Qm'
-    alias p-orphans='yay -Qdt'
+    alias p-purge='paru -Rns'
+    alias p-aurs='paru -Qm'
+    alias p-orphans='paru -Qdt'
 end
 
 ###########################################################
@@ -211,18 +211,15 @@ end
 ############################
 # Secret handling with Pass
 function aws_prof
-  set prof $argv[1]
-  set -g -x AWS_PROFILE $prof
-  set -g -x AWS_ACCESS_KEY_ID (pass aws/$prof/access_key_id)
-  set -g -x AWS_SECRET_ACCESS_KEY (pass aws/$prof/secret_access_key)
+  echo 'Hey! Use aws-vault instead!'
 end
 
 alias mutt="mutt -e 'set imap_pass='(pass email/imap)"
 
 ##################
 # fzf functions
-function fzf_yay
-  yay -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1
+function fzf_paru
+  paru -Ss --color $argv | awk 'NR%2!=0' | sort | sed '1d' | fzf -m --ansi | cut -d" " -f1
 end
 
 function fzf_ps
@@ -269,7 +266,7 @@ function _setup_fishenv
   set packages 'fzf' 'direnv' 'source-highlight' 'ghq' 'go' 'rlwrap' 'sbcl' 'ctags' 'global' 'lsd' 'colordiff' 'zoxide'
   switch (uname)
     case Linux
-      yay -S       $packages python-pygments wmctrl
+      paru -S      $packages python-pygments wmctrl
     case Darwin
       brew install $packages terminal-notifier
   end
