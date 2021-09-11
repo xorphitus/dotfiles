@@ -166,6 +166,10 @@
   (leaf orderless
     :ensure t
     :init
+    ;; TODO I really wanna remove this require, cuz I'm using leaf.
+    ;; But somehow I failed to call orderless-define-completion-style
+    ;; without this require.
+    (require 'orderless)
     (defun my-orderless-migemo (component)
       "Helper function to enable migemo to Vertico via Orderless"
       (let ((pattern (migemo-get-pattern component)))
@@ -173,6 +177,7 @@
             (progn (string-match-p pattern "") pattern)
           (invalid-regexp nil))))
 
+    :config
     (orderless-define-completion-style orderless-migemo-style
       (orderless-matching-styles '(; orderless-literal
                                    ; orderless-regexp
