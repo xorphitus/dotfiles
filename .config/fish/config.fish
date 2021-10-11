@@ -117,6 +117,15 @@ function update-home-bin
   rustup update
 end
 
+# Fish version ssh-agent
+# `eval (ssh-agent-fish)`
+function ssh-agent-fish
+  ssh-agent \
+    | sed -e 's/; .*/;/g' \
+    | sed -e 's/SSH_/set -x SSH_/g' \
+    | sed -e 's/=/ /g'
+end
+
 function update-skk-dict
   mkdir -p $SKK_DICT_PATH
 
