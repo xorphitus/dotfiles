@@ -136,11 +136,12 @@ function update-skk-dict
   mkdir -p $tmppath
   cd $tmppath
 
-  wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz
-  wget http://openlab.jp/skk/dic/SKK-JISYO.geo.gz
-  wget http://openlab.jp/skk/dic/SKK-JISYO.jinmei.gz
-  wget http://openlab.jp/skk/dic/SKK-JISYO.propernoun.gz
-  wget http://openlab.jp/skk/dic/SKK-JISYO.station.gz
+  set url https://skk-dev.github.io/dict
+  wget $url/SKK-JISYO.L.gz
+  wget $url/SKK-JISYO.geo.gz
+  wget $url/SKK-JISYO.jinmei.gz
+  wget $url/SKK-JISYO.propernoun.gz
+  wget $url/SKK-JISYO.station.gz
   gunzip ./*.gz
 
   switch (uname)
