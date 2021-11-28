@@ -10,4 +10,5 @@ Render image inline
 Open a plantuml-mode buffer
   C-c '
 '/
+!theme toy
 #+END_SRC
