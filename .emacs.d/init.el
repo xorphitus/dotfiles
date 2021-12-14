@@ -1341,6 +1341,9 @@ Display the results in a hyperlinked *compilation* buffer."
   (setq sh-basic-offset 2
         sh-indentation 2))
 
+(leaf terraform-mode
+  :ensure t)
+
 (leaf typescript
   :init
   (defun setup-tide-mode ()
