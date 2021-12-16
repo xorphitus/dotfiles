@@ -72,6 +72,10 @@
   (leaf f
     :tag "library"
     :ensure t
+    :require t)
+  (leaf diminish
+    :doc "This is not a library, but it's required for leaf DSL"
+    :ensure t
     :require t))
 
 ;; Constants
@@ -342,8 +346,9 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
 (leaf wdired
   :doc "Edit dired result directory"
   :ensure t
-  :config
-  (bind-key "C-c C-e" 'wdired-change-to-wdired-mode dired-mode-map))
+  :bind
+  ((:dired-mode-map
+    ("C-c C-e" . wdired-change-to-wdired-mode))))
 
 (leaf company
   :ensure t
@@ -969,10 +974,12 @@ Call this on `flyspell-incorrect-hook'."
   :diminish (yas-minor-mode . "🅨")
   :config
   (yas-global-mode 1)
-  (bind-key "M-=" 'yas-insert-snippet yas-minor-mode-map)
   :config
   (leaf yasnippet-snippets
-    :ensure t))
+    :ensure t)
+  :bind
+  ((:yas-minor-mode-map
+    ("M-=" . yas-insert-snippet))))
 
 (leaf restclient
   :ensure t
@@ -1073,9 +1080,12 @@ Display the results in a hyperlinked *compilation* buffer."
   (leaf clj-refactor
     ensure t
     :config
-    (clj-refactor-mode 1)
-    (yas-minor-mode 1)
-    (cljr-add-keybindings-with-prefix "C-c j"))
+    (defun my-clojure-mode-hook ()
+      (clj-refactor-mode 1)
+      (yas-minor-mode 1) ; for adding require/use/import statements
+      ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+      (cljr-add-keybindings-with-prefix "C-c C-m"))
+    (add-hook 'clojure-mode-hook #'my-clojure-mode-hook))
 
   ;; compojure indentation
   (add-hook 'clojure-mode-hook
@@ -1509,7 +1519,7 @@ does not support PulseAudio's pacat/paplay"
   :config
   (leaf elpher
     :ensure t)
- 
+
   (defconst my/elfeed-setting-dir "~/Dropbox/Settings")
 
   (leaf elfeed
