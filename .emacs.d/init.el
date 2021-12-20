@@ -918,7 +918,9 @@ Call this on `flyspell-incorrect-hook'."
   (leaf dumb-jump
     :ensure t
     :config
-    (dumb-jump-mode))
+    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+    ;; for ivy
+    (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 
   (leaf smart-jump
     :ensure t
