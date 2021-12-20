@@ -967,7 +967,10 @@ Call this on `flyspell-incorrect-hook'."
   :config
   (projectile-global-mode)
   (setq projectile-mode-line
-        '(:eval (format " 📁 %s" (projectile-project-name)))))
+        '(:eval (format " 📁 %s" (projectile-project-name))))
+
+  (leaf consult-projectile
+    :ensure t))
 
 (leaf yasnippet
   :ensure t
