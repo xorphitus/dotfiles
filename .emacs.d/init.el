@@ -269,7 +269,32 @@
   (leaf consult-ghq
     :ensure t
     :config
-    (setq consult-ghq-find-function #'consult-find)))
+    (setq consult-ghq-find-function #'consult-find))
+
+  (leaf embark
+    :ensure t
+
+    :bind
+    (("C-'" . embark-act)         ;; pick some comfortable binding
+     ("C-;" . embark-dwim)        ;; good alternative: M-.
+     ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+    :init
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
+
+    :config
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none)))))
+
+  (leaf embark-consult
+    :ensure t
+    :after (embark consult)
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode)))
 
 (leaf autorevert
   :doc "Auto reload buffer which modified by external programs"
@@ -1568,3 +1593,20 @@ does not support PulseAudio's pacat/paplay"
         alert-default-style 'osx-notifier))
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-archives
+   '(("org" . "https://orgmode.org/elpa/")
+     ("melpa" . "https://melpa.org/packages/")
+     ("gnu" . "https://elpa.gnu.org/packages/")))
+ '(package-selected-packages
+   '(consult-projectile embark yasnippet-snippets yaml-mode wrap-region which-key wgrep web-mode vue-mode volatile-highlights visual-regexp-steroids vertico undo-tree treemacs-projectile treemacs-magit treemacs-icons-dired tide terraform-mode sound-wav smartrep smart-jump slime-company slim-mode shell-pop shackle scss-mode scala-mode sass-mode rustic ruby-electric robe rinari restclient rainbow-delimiters quickrun protobuf-mode plantuml-mode php-mode parinfer org-roam org-pomodoro org-bullets org-analyzer org-alert orderless open-junk-file nginx-mode marginalia lua-mode leaf-tree leaf-keywords kotlin-mode js2-mode jq-mode ivy-prescient ivy-posframe init-loader ido-vertical-mode highlight-indentation hide-mode-line helm-swoop helm-rg helm-ag haskell-mode google-translate google-c-style go-mode gitignore-mode gitconfig-mode git-timemachine git-gutter-fringe forge flycheck-posframe fish-mode eyebrowse expand-region esup emmet-mode elpher elm-mode elfeed-org el-get eglot dumb-jump drag-stuff doom-modeline dockerfile-mode direnv diminish deadgrep ddskk-posframe dashboard counsel-projectile counsel-jq counsel-gtags consult-ghq company-prescient company-box comment-dwim-2 coffee-mode clj-refactor bind-key beacon avy-migemo atom-one-dark-theme anzu all-the-icons-ivy ace-isearch)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:height 4.0 :foreground "#f1fa8c"))) nil "Customized with leaf in `ace-window' block at `/home/tomoyuki/.emacs.d/init.el'"))
