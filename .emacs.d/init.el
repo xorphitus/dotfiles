@@ -1196,6 +1196,10 @@ Display the results in a hyperlinked *compilation* buffer."
      go-mode-hook
      my-const/relational-prettify-symbols-alist))
 
+(leaf js-mode
+  :doc "Only for a JSON file"
+  :config
+  (setq js-indent-level 2))
 (leaf js2-mode
   :ensure t
   :req "eslint"
