@@ -1108,7 +1108,7 @@ Display the results in a hyperlinked *compilation* buffer."
                              (figwheel-sidecar.repl-api/cljs-repl))"))
 
   (leaf clj-refactor
-    ensure t
+    :ensure t
     :config
     (defun my-clojure-mode-hook ()
       (clj-refactor-mode 1)
@@ -1200,6 +1200,7 @@ Display the results in a hyperlinked *compilation* buffer."
   :doc "Only for a JSON file"
   :config
   (setq js-indent-level 2))
+
 (leaf js2-mode
   :ensure t
   :req "eslint"
