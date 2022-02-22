@@ -1547,9 +1547,10 @@ does not support PulseAudio's pacat/paplay"
   (let ((roam-path "~/Documents/org-roam"))
     (unless (f-exists? roam-path)
       (make-directory roam-path))
-    (setq org-roam-directory roam-path))
-  ;; Disable org-roam v2 migration message
-  (setq org-roam-v2-ack t))
+    (setq org-roam-directory   roam-path)
+    (setq org-roam-db-location (format "%s/org-roam.db" roam-path)))
+  :config
+  (org-roam-db-autosync-mode))
 
 (leaf *information
   :config
