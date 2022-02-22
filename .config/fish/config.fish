@@ -77,6 +77,10 @@ set -x LESSOPEN "| $hiliter %s"
 
 ###########################################################
 # other utilities
+# This environmental variable is required when `ls` is an
+# alias of `lsd`. Otherwise their incompatibility causes
+# an error.
+set -x _ZO_FZF_OPTS '--preview="/usr/bin/ls -p {2..}"'
 zoxide init fish | source
 
 ###########################################################
