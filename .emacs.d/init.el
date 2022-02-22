@@ -1414,7 +1414,8 @@ Display the results in a hyperlinked *compilation* buffer."
 
 (leaf yaml-mode
   :commands yaml-mode
-  :mode (("\\.yml$" . yaml-mode))
+  :ensure t
+  :mode (("\\.ya?ml$" . yaml-mode))
   :init
   (add-hook 'yaml-mode-hook
             '(lambda ()
