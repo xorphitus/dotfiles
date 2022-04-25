@@ -333,10 +333,12 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   :init
   ;; C-x C-c -> "exit" command
   (defalias 'exit 'save-buffers-kill-emacs)
+  ;; NOTE: This settings is disabled - it collides some org-mode key-bindigs
   ;; windmove
   ;; Shift + Arrow keys
   ;; http://d.hatena.ne.jp/tomoya/20120512/1336832436
-  (windmove-default-keybindings))
+  ;; (windmove-default-keybindings)
+  )
 
 (leaf uniquify
   :doc "Easy to descern buffers of same name files"
