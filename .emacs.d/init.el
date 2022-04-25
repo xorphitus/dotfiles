@@ -97,7 +97,7 @@
            '(("not" . ?¬)
              ("nil" . ?∅))))
 
-(defconst my-const/arror-prettify-symbols-alist
+(defconst my-const/arrow-prettify-symbols-alist
   '(("->" . ?→)
     ("=>" . ?⇒)))
 
@@ -1223,7 +1223,7 @@ Display the results in a hyperlinked *compilation* buffer."
   (my-macro/prettify-symbols
    js2-mode-hook
    (-concat '(("function" . ?ƒ))
-            my-const/arror-prettify-symbols-alist
+            my-const/arrow-prettify-symbols-alist
             my-const/relational-prettify-symbols-alist))
   :config
   (setq js2-basic-offset 2
@@ -1326,7 +1326,7 @@ Display the results in a hyperlinked *compilation* buffer."
   (my-macro/prettify-symbols
    ruby-mode-hook
    (-concat my-const/lambda-prettify-symbols-alist
-            my-const/arror-prettify-symbols-alist
+            my-const/arrow-prettify-symbols-alist
             my-const/relational-prettify-symbols-alist))
 
   ;; ruby-electric
@@ -1449,7 +1449,7 @@ Display the results in a hyperlinked *compilation* buffer."
   (my-macro/prettify-symbols
      web-mode-hook
      (-concat '(("function" . ?ƒ))
-              my-const/arror-prettify-symbols-alist
+              my-const/arrow-prettify-symbols-alist
               my-const/relational-prettify-symbols-alist))
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
