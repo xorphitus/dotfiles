@@ -381,7 +381,7 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   :global-minor-mode global-company-mode
   :bind
   ((:company-mode-map
-    ("C-i" . company-complete))
+    ("<M-return>" . company-complete))
    (:company-active-map
     ("C-n" . company-select-next)
     ("C-p" . company-select-previous)
