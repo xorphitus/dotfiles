@@ -184,7 +184,7 @@ function e
   if test (uname) = Linux
     # Auto focus to Emacs window
     # see: http://syohex.hatenablog.com/entry/20110127/1296141148
-    set emacs_wid (wmctrl -l | grep 'emacs@'(hostname) | awk '{print $1}')
+    set emacs_wid (wmctrl -l | grep 'Emacs at '(hostname) | awk '{print $1}')
     if test -n $emacs_wid
       wmctrl -i -a $emacs_wid
     end
