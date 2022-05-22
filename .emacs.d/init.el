@@ -412,7 +412,9 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
 (leaf undo-tree
   :ensure t
   :diminish (undo-tree-mode . "🅤")
-  :global-minor-mode global-undo-tree-mode)
+  :global-minor-mode global-undo-tree-mode
+  :config
+  (setq undo-tree-auto-save-history nil))
 
 (leaf migemo
   :req "migemo"
