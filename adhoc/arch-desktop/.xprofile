@@ -5,11 +5,11 @@ export XMODIFIERS=@im=fcitx
 # for kitty
 export GLFW_IM_MODULE=ibus
 
-export QT_QPA_PLATFORMTHEME=gtk2
-
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 xset b off
+
+export QT_STYLE_OVERRIDE=kvantum
 
 kitty &
 fcitx5 &
