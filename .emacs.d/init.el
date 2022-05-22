@@ -782,6 +782,11 @@ Call this on `flyspell-incorrect-hook'."
   :config
   (setq default-frame-alist (list (cons 'font  my-font)))
   (set-frame-font my-font)
+  (set-face-font 'default my-font)
+  (set-face-font 'variable-pitch my-font)
+  ;; Mainly for org-mode inline code and tables
+  (set-face-font 'fixed-pitch my-font)
+  (set-face-background 'fixed-pitch "#202020")
 
   (setq
    ;; skip startup screen
