@@ -1539,16 +1539,16 @@ does not support PulseAudio's pacat/paplay"
   (leaf org-alert
     :doc "Set alerts for scheduled tasks"
     :after alert
-    :ensure t))
+    :ensure t)
 
-;; I doesn't work when I nest this `(leaf)` into `(leaf org-mode)`
-(leaf org-bullets
-  :doc "Beautify org-mode list bullets"
-  :ensure t
-  :hook
-  (org-mode-hook . (lambda () (org-bullets-mode 1)))
-  :custom
-  `((org-bullets-bullet-list . '("🌕" "🌔" "🌓" "🌒" "🌑"))))
+  (leaf org-superstar
+    :doc "Beautify org-mode appearance"
+    :ensure t
+    :hook
+    (org-mode-hook . (lambda () (org-superstar-mode 1)))
+    :config
+    ;; Show a "DONE" annotated task with a checkbox
+    (setq org-superstar-special-todo-items t)))
 
 (leaf org-roam
   :ensure t
