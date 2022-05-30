@@ -127,10 +127,8 @@ end
 # Fish version ssh-agent
 # `eval (ssh-agent-fish)`
 function ssh-agent-fish
-  ssh-agent \
-    | sed -e 's/; .*/;/g' \
-    | sed -e 's/SSH_/set -x SSH_/g' \
-    | sed -e 's/=/ /g'
+  # Once I applied `sed` to `ssh-agent` stdout, but actually I don't need that.
+  ssh-agent -c
 end
 
 function update-skk-dict
