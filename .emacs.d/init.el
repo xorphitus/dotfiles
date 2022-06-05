@@ -1507,7 +1507,8 @@ To show the image file inline, use the following.
   (leaf org-pomodoro
     :ensure t
     :custom
-    `((org-pomodoro-audio-player . ,(or (executable-find "pacat")
+    `((org-pomodoro-long-break-length . 15)
+      (org-pomodoro-audio-player . ,(or (executable-find "pacat")
                                         (executable-find "paplay")
                                         (executable-find "aplay")
                                         (executable-find "afplay")))
