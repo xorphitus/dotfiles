@@ -1312,7 +1312,16 @@ Display the results in a hyperlinked *compilation* buffer."
   :config
   (setq rustic-lsp-client 'eglot)
   (setq rustic-lsp-server 'rust-analyzer)
-  (push 'rustic-clippy flycheck-checkers))
+  (push 'rustic-clippy flycheck-checkers)
+  (setq rustic-ansi-faces
+        ["black"
+         "#FF3F43" ; changed from "red3". it's too dark
+         "green3"
+         "yellow3"
+         "#4068FF" ; changed from "blue2". it's too dark
+         "magenta3"
+         "cyan3"
+         "white"]))
 
 (leaf ruby-mode
   :mode (("Gemfile" . ruby-mode)
