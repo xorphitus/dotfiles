@@ -377,7 +377,24 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   ((:dired-mode-map
     ("C-c C-e" . wdired-change-to-wdired-mode))))
 
+
+(leaf corfu
+  :ensure t
+  :init
+  (global-corfu-mode))
+
+(leaf cape
+    :ensure t
+    :bind
+    (("<M-tab>" . completion-at-point))
+    :init
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-ispell)
+    (add-to-list 'completion-at-point-functions #'cape-symbol))
+
 (leaf company
+  :disabled t
   :ensure t
   :diminish (company-mode . "🅒")
   :global-minor-mode global-company-mode
@@ -713,7 +730,9 @@ Call this on `flyspell-incorrect-hook'."
     :config
     (setq ispell-program-name (executable-find "hunspell")
           ispell-dictionary "en_US-large"
-          ispell-really-hunspell t))
+          ispell-really-hunspell t
+          ;; for completion
+          ispell-complete-word-dict "/usr/share/hunspell/en_US.dic"))
 
   (leaf flyspell
     :ensure t
