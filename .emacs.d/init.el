@@ -1040,8 +1040,8 @@ Call this on `flyspell-incorrect-hook'."
 
   ;; compile C-c
   (add-hook 'c-mode-common-hook
-            '(lambda ()
-               (define-key mode-specific-map "c" 'compile)))
+            (lambda ()
+              (define-key mode-specific-map "c" 'compile)))
 
   (leaf google-c-style
     :ensure t
@@ -1056,7 +1056,7 @@ Call this on `flyspell-incorrect-hook'."
    ;; show I/O buffer
    gdb-use-separate-io-buffer t)
   ;; show value of variable when mouse cursor on
-  (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t))))
+  (add-hook 'gdb-mode-hook (lambda () (gud-tooltip-mode t))))
 
 (leaf clojure-mode
   :ensure t
@@ -1277,11 +1277,11 @@ Display the results in a hyperlinked *compilation* buffer."
   :init
   (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
   (add-hook 'python-mode-hook
-            '(lambda()
-               (setq indent-tabs-mode nil
-                     indent-level 4
-                     python-indent 4
-                     tab-width 4)))
+            (lambda()
+              (setq indent-tabs-mode nil
+                    indent-level 4
+                    python-indent 4
+                    tab-width 4)))
   ;; flycheck
   ;;  required package: pylint
   (add-hook 'python-mode-hook 'flycheck-mode)
@@ -1422,8 +1422,8 @@ Display the results in a hyperlinked *compilation* buffer."
   :mode (("\\.ya?ml$" . yaml-mode))
   :init
   (add-hook 'yaml-mode-hook
-            '(lambda ()
-               (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+            (lambda ()
+              (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
   ;; flycheck
   (add-hook 'yaml-mode-hook 'flycheck-mode))
 
