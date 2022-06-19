@@ -496,50 +496,17 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   (leaf git-timemachine
     :ensure t))
 
-(defun focus-with-olivetti (width)
-  "Focus on the active window"
-  (interactive "sSet width: ")
-  (progn
-    (delete-other-windows)
-    (olivetti-mode t)
-    (olivetti-set-width (string-to-number width))))
-
-(leaf *window-layout
-  (leaf shackle
-    :doc "Popup interface"
-    :disabled t
-    :ensure t
-    :global-minor-mode shackle-mode
-    :config
-    (setq shackle-default-rule '(:other t)
-          shackle-rules '(("*undo-tree*"         :regexp t :align right :size 0.25)
-                          ("*Backtrace*"         :regexp t :align t     :size 0.4)
-                          ("*Warnings*"          :regexp t :align t     :size 0.4)
-                          ("*cider-error*"    :inhibit-window-quit t)
-                          ;("\\`\\*magit.*?\\*\\'" :regexp t :select t   :inhibit-window-quit t :same t)
-                          )))
-
-  (leaf popper
-    :doc "Show / hide popup windows"
-    :ensure t
-    ;;:disabled t
-    ;; :bind (("C-`"   . popper-toggle-latest)
-    ;;        ("M-`"   . popper-cycle)
-    ;;        ("C-M-`" . popper-toggle-type))
-    :init
-    (setq popper-reference-buffers
-          '("\\*Messages\\*"
-            "Output\\*$"
-            help-mode
-            compilation-mode))
-    (popper-mode +1))
-
-  (leaf golden-ratio
-    :ensure t)
-
-  (leaf olivetti
-    :doc "Let's focus on writing!"
-    :ensure t))
+(leaf olivetti
+  :doc "Let's focus on writing!"
+  :ensure t
+  :config
+  (defun focus-with-olivetti (width)
+    "Focus on the active window"
+    (interactive "sSet width: ")
+    (progn
+      (delete-other-windows)
+      (olivetti-mode t)
+      (olivetti-set-width (string-to-number width)))))
 
 (leaf treemacs
   :ensure t
