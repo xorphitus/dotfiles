@@ -4,3 +4,4 @@ GTAGS
 TAGS
 .idea/
 .DS_Store
+*~undo-tree~
