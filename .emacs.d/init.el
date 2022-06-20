@@ -927,9 +927,10 @@ Call this on `flyspell-incorrect-hook'."
 (leaf dumb-jump
   :ensure t
   :config
-  ;; See the `dumb-jump-xref-activate' function document.
-  ;; "It is recommended to add it to the end, so that it
-  ;; only gets activated when no better"
+  ;; See the `dumb-jump-xref-activate' function document. It doesn't override
+  ;; the behavior, but appends a fallback method with dumb-jump.
+  ;; "It is recommended to add it to the end, so that it only gets activated
+  ;; when no better"
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   ;; for completion frameworks
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
