@@ -924,41 +924,15 @@ Call this on `flyspell-incorrect-hook'."
     :config
     (ddskk-posframe-mode t)))
 
-(leaf *code-jump
-  :init
-  (defun my-smart-jump-configuration-with-gtags (modes)
-    "smart-jump helper function"
-    (progn
-      (smart-jump-register :modes modes
-                           :jump-fn 'counsel-gtags-find-definition)
-      (smart-jump-register :modes modes
-                           :jump-fn 'xref-find-definitions)))
-
+(leaf dumb-jump
+  :ensure t
   :config
-  (leaf dumb-jump
-    :ensure t
-    :config
-    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-    ;; for ivy
-    (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
-
-  (leaf smart-jump
-    :ensure t
-    :config
-    (smart-jump-setup-default-registers)
-    ;; xref config
-    ;; eglot uses xref: it means that no special configurations are needed for language servers
-    (smart-jump-register :modes '(shell-mode
-                                  haskell-mode
-                                  rust-mode))
-    ;; xref (lsp) -> gtags config
-    (my-smart-jump-configuration-with-gtags '(c-mode-hook
-                                              c++-mode-hook
-                                              lisp-mode-hook
-                                              ruby-mode-hook
-                                              js2-mode-hook
-                                              python-mode-hook
-                                              php-mode-hook))))
+  ;; See the `dumb-jump-xref-activate' function document.
+  ;; "It is recommended to add it to the end, so that it
+  ;; only gets activated when no better"
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  ;; for completion frameworks
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 
 (leaf eglot
   :ensure t
