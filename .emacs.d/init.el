@@ -386,6 +386,9 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
     :ensure t
     :bind
     (("<M-tab>" . completion-at-point))
+    :custom
+    ;; Requires the hunspell-en_us package
+    (cape-dict-file . "/usr/share/myspell/dicts/en_US-large.dic")
     :init
     (add-to-list 'completion-at-point-functions #'cape-file)
     (add-to-list 'completion-at-point-functions #'cape-dabbrev)
