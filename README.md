@@ -34,8 +34,17 @@ Create `~/home/.gitconfig` file as following.
 ```
 [include]
 	path = /path/to/dotfiles/.gitconfig
-
-# additional settings for each environment
+[sendemail]
+	smtpserver     = example.com
+	smtpserverport = 587
+	smtpencryption = tls
+	smtpuser       = xorphitus@example.com
+[credential]
+	helper = cache
+[core]
+	autocrlf = input
+[init]
+	defaultBranch = main
 ```
 
 ### git / diff-highlight
