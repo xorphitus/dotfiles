@@ -1,15 +1,15 @@
 xorphitus dotfiles
 
-## setup
+## Setup
 
-execute setup.sh
+execute `envs/${my_env}/setup.sh` or `setup.sh`.
 
-## require
+## Require
 
 https://github.com/xorphitus/package-installer
 
-### for Emacs
-some Rust components
+### For Emacs
+Rust components
 
 * rls
 * rust-src

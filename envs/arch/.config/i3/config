@@ -142,9 +142,9 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth
 
-bindcode 121 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh toggle"
-bindcode 122 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh down"
-bindcode 123 exec "~/dotfiles/adhoc/arch-desktop/bin/volume.sh up"
+bindcode 121 exec "~/dotfiles/envs/arch/bin/volume.sh toggle"
+bindcode 122 exec "~/dotfiles/envs/arch/bin/volume.sh down"
+bindcode 123 exec "~/dotfiles/envs/arch/bin/volume.sh up"
 bindcode 172 exec "playerctl --player=spotify play-pause"
 bindcode 176 exec "playerctl --player=spotify previous"
 bindcode 216 exec "playerctl --player=spotify next"
