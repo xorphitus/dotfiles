@@ -29,6 +29,8 @@ def convert_source(s):
         return 'Webcam'
     if 'TREKZ Titanium' in s:
         return 'Titanium'
+    if 'Sound Blaster Play' in s:
+        return 'SBP! IN'
     return s
 
 def convert_sink(s):
@@ -40,6 +42,8 @@ def convert_sink(s):
         return 'Titanium'
     if 'MB16AMT' in s:
         return 'MB16AMT'
+    if 'Sound Blaster Play' in s:
+        return 'SBP! OUT'
     return s
 
 def get_sources():
