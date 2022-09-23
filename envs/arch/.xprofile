@@ -11,7 +11,7 @@ xset b off
 
 export QT_STYLE_OVERRIDE=kvantum
 
-kitty &
+wezterm &
 fcitx5 &
 dropbox &
 redshift-gtk &
