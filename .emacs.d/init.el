@@ -377,12 +377,14 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
     ("C-c C-e" . wdired-change-to-wdired-mode))))
 
 
-(leaf corfu
-  :ensure t
-  :init
-  (global-corfu-mode))
+(leaf *completion
+  :config
+  (leaf corfu
+    :ensure t
+    :init
+    (global-corfu-mode))
 
-(leaf cape
+  (leaf cape
     :ensure t
     :bind
     (("<M-tab>" . completion-at-point))
@@ -395,38 +397,37 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
     (add-to-list 'completion-at-point-functions #'cape-ispell)
     (add-to-list 'completion-at-point-functions #'cape-symbol))
 
-(leaf company
-  :disabled t
-  :ensure t
-  :diminish (company-mode . "🅒")
-  :global-minor-mode global-company-mode
-  :bind
-  ((:company-mode-map
-    ("<M-tab>" . company-complete))
-   (:company-active-map
-    ("C-n" . company-select-next)
-    ("C-p" . company-select-previous)
-    ("C-s" . company-search-words-regexp))
-   (:company-search-map
-    ("C-n" . company-select-next)
-    ("C-p" . company-select-previous)))
-  :config
-  (setq company-idle-delay 0.1
-        company-minimum-prefix-length 2
-        company-selection-wrap-around t
-        company-dabbrev-downcase nil)
-
-  (leaf company-box
+  (leaf company
+    :doc "Though I generally use Corfu and Cape, some packages (Eglot) still require Company"
     :ensure t
-    :diminish
-    :hook
-    (company-mode . company-box-mode))
-
-  (leaf company-prescient
-    :ensure t
-    :after (company)
+    :diminish (company-mode . "🅒")
+    :bind
+    ((:company-mode-map
+      ("<M-tab>" . company-complete))
+     (:company-active-map
+      ("C-n" . company-select-next)
+      ("C-p" . company-select-previous)
+      ("C-s" . company-search-words-regexp))
+     (:company-search-map
+      ("C-n" . company-select-next)
+      ("C-p" . company-select-previous)))
     :config
-    (company-prescient-mode)))
+    (setq company-idle-delay 0.1
+          company-minimum-prefix-length 2
+          company-selection-wrap-around t
+          company-dabbrev-downcase nil)
+
+    (leaf company-box
+      :ensure t
+      :diminish
+      :hook
+      (company-mode . company-box-mode))
+
+    (leaf company-prescient
+      :ensure t
+      :after (company)
+      :config
+      (company-prescient-mode))))
 
 (leaf undo-tree
   :ensure t
@@ -940,10 +941,11 @@ Call this on `flyspell-incorrect-hook'."
 (leaf eglot
   :ensure t
   :hook
-  ((eglot--managed-mode-hook . (lambda () (flymake-mode 1))))
+  ((eglot--managed-mode-hook . (lambda () (flymake-mode 1)))
+   (eglot--managed-mode-hook . (lambda () (company-mode 1))))
   :config
   (leaf flymake
-    :doc "Basically I use flycheck, but eglot requries flymake"
+    :doc "Though I generally use flycheck, Eglot requries flymake"
     :ensure t
     :config
     (leaf flymake-cursor
