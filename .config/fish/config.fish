@@ -293,7 +293,7 @@ function _setup_fishenv
   curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 
   # plugins
-  fisher add jethrokuan/fzf masa0x80/ghq_cd_keybind.fish
+  fisher install jethrokuan/fzf masa0x80/ghq_cd_keybind.fish
 
   # theme
   fisher install IlanCosman/tide
