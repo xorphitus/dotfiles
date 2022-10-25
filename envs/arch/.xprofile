@@ -7,6 +7,8 @@ export GLFW_IM_MODULE=ibus
 
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
+export LC_TIME=C
+
 xset b off
 
 export QT_STYLE_OVERRIDE=kvantum
