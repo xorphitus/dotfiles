@@ -1,3 +1,2 @@
 {:java {:download-jdk-source? true
-        :jdk-source-uri "file:///usr/lib/jvm/java-18-openjdk/lib/src.zip"
-        }}
+        :jdk-source-uri "file:///usr/lib/jvm/java-18-openjdk/lib/src.zip"}}
