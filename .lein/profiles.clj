@@ -1,8 +1,8 @@
-{:user {:dependencies [[org.clojure/tools.nrepl "0.2.13"]
+{:user {:dependencies [[org.clojure/tools.nrepl "RELEASE"]
                        [slamhound "RELEASE"]
                        [org.clojure/tools.trace "RELEASE"]
-                       [criterium "0.4.4"]]
+                       [criterium "0.4.5"]]
         :plugins [[lein-kibit "RELEASE"]
                   [jonase/eastwood "RELEASE"]
-                  [refactor-nrepl "2.4.0-SNAPSHOT"]
-                  [cider/cider-nrepl "0.18.0-SNAPSHOT"]]}}
+                  [refactor-nrepl "3.5.5"]
+                  [cider/cider-nrepl "0.28.6"]]}}
