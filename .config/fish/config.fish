@@ -4,7 +4,9 @@ set -x EDITOR emacsclient
 set -x ALTERNATE_EDITOR vim
 
 # SSH with GPG
-set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+if test -z $SSH_CONNECTION
+  set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+end
 
 ###########################################################
 # direnv
