@@ -120,6 +120,8 @@
    backup-inhibited t
    ;; delete auto save files when quit
    delete-auto-save-files t
+   ;; well, I'd like to avoid auto save files themselves since I don't use them
+   auto-save-default nil
    ;; disable beep sound flash
    ring-bell-function 'ignore
    ;; For time locale for org-mode to avoid Japanese time locale format
