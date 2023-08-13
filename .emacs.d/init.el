@@ -397,39 +397,7 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
     (add-to-list 'completion-at-point-functions #'cape-file)
     (add-to-list 'completion-at-point-functions #'cape-dabbrev)
     (add-to-list 'completion-at-point-functions #'cape-ispell)
-    (add-to-list 'completion-at-point-functions #'cape-symbol))
-
-  (leaf company
-    :doc "Though I generally use Corfu and Cape, some packages (Eglot) still require Company"
-    :ensure t
-    :diminish (company-mode . "🅒")
-    :bind
-    ((:company-mode-map
-      ("<M-tab>" . company-complete))
-     (:company-active-map
-      ("C-n" . company-select-next)
-      ("C-p" . company-select-previous)
-      ("C-s" . company-search-words-regexp))
-     (:company-search-map
-      ("C-n" . company-select-next)
-      ("C-p" . company-select-previous)))
-    :config
-    (setq company-idle-delay 0.1
-          company-minimum-prefix-length 2
-          company-selection-wrap-around t
-          company-dabbrev-downcase nil)
-
-    (leaf company-box
-      :ensure t
-      :diminish
-      :hook
-      (company-mode . company-box-mode))
-
-    (leaf company-prescient
-      :ensure t
-      :after (company)
-      :config
-      (company-prescient-mode))))
+    (add-to-list 'completion-at-point-functions #'cape-symbol)))
 
 (leaf undo-tree
   :ensure t
@@ -479,14 +447,11 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   :config
   (leaf magit
     :req "git"
-    :after company
     :ensure t
     :commands magit
     ;; same as IntelliJ IDEA short cut
     :bind (("M-9" . magit-status))
     :config
-    (add-hook 'magit-status-mode-hook (lambda ()
-                                        (company-mode -1)))
     (setq magit-diff-refine-hunk t)
 
     (leaf forge
@@ -940,21 +905,6 @@ Call this on `flyspell-incorrect-hook'."
   ;; for completion frameworks
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 
-(leaf eglot
-  :ensure t
-  :hook
-  ((eglot--managed-mode-hook . (lambda () (flymake-mode 1)))
-   (eglot--managed-mode-hook . (lambda () (company-mode 1))))
-  :config
-  (leaf flymake
-    :doc "Though I generally use flycheck, Eglot requries flymake"
-    :ensure t
-    :config
-    (leaf flymake-cursor
-      :ensure t
-      :config
-      (flymake-cursor-mode))))
-
 (leaf paredit
   :ensure t
   :config
@@ -1008,11 +958,7 @@ Call this on `flyspell-incorrect-hook'."
   (setq inferior-lisp-program "sbcl")
   :ensure t
   :config
-  (slime-setup '(slime-repl slime-fancy slime-banner))
-  (slime-setup '(slime-fancy slime-company))
-  :config
-  (leaf slime-company
-    :ensure t))
+  (slime-setup '(slime-repl slime-fancy slime-banner)))
 
 (leaf *c-c++
   :config
@@ -1268,6 +1214,10 @@ Display the results in a hyperlinked *compilation* buffer."
   ;; highlight indentation
   (add-hook 'python-mode-hook 'highlight-indentation-mode))
 
+(leaf lsp-mode
+  :ensure t
+  :commands lsp)
+
 (leaf rustic
   :doc "Rust"
   :ensure t
@@ -1276,15 +1226,14 @@ Display the results in a hyperlinked *compilation* buffer."
   :mode
   (("\\.rs\\'" . rustic-mode))
   :config
-  (setq rustic-lsp-client 'eglot)
   (setq rustic-lsp-server 'rust-analyzer)
   (push 'rustic-clippy flycheck-checkers)
   (setq rustic-ansi-faces
         ["black"
-         "#FF3F43" ; changed from "red3". it's too dark
+         "#FF3F43"                ; changed from "red3". it's too dark
          "green3"
          "yellow3"
-         "#4068FF" ; changed from "blue2". it's too dark
+         "#4068FF"               ; changed from "blue2". it's too dark
          "magenta3"
          "cyan3"
          "white"]))
@@ -1381,16 +1330,13 @@ Display the results in a hyperlinked *compilation* buffer."
     (flycheck-mode +1)
     (setq flycheck-check-syntax-automatically '(save mode-enabled))
     (eldoc-mode +1)
-    (tide-hl-identifier-mode +1)
-    (company-mode +1))
+    (tide-hl-identifier-mode +1))
 
   (leaf tide
     :ensure t
     :mode (("\\.ts" . tide-mode)
            ("\\.tsx" . tide-mode))
     :config
-    ;; aligns annotation to the right hand side
-    (setq company-tooltip-align-annotations t)
     ;; formats the buffer before saving
     (add-hook 'before-save-hook 'tide-format-before-save)
     (add-hook 'typescript-mode-hook #'setup-tide-mode)))
