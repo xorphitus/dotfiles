@@ -818,10 +818,11 @@ Call this on `flyspell-incorrect-hook'."
     (setq hl-line-face 'underline)
     (global-hl-line-mode))
 
-  (leaf global-linum-mode
+
+  (leaf global-display-line-numbers-mode
     :doc "Line number"
     :init
-    (global-linum-mode 1)
+    (global-display-line-numbers-mode 1)
     (setq linum-format "%4d."))
 
   (leaf whitespace
@@ -977,7 +978,7 @@ Call this on `flyspell-incorrect-hook'."
 (leaf yasnippet
   :ensure t
   :diminish (yas-minor-mode . "🅨")
-  :config
+  :init
   (yas-global-mode 1)
   :config
   (leaf yasnippet-snippets
@@ -1133,7 +1134,6 @@ Display the results in a hyperlinked *compilation* buffer."
   :doc "Install :req packages with `npm i -g`"
   :req "elm" "elm-test" "elm-format" "@elm-tooling/elm-language-server"
   :config
-  (add-to-list 'company-backends 'elm-company)
   (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
 
 (leaf emacs-lisp-mode
