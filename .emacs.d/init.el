@@ -827,10 +827,8 @@ Call this on `flyspell-incorrect-hook'."
 
   (leaf doom-modeline
     :ensure t
-    :global-minor-mode doom-modeline-mode
-    :config
-    (line-number-mode 0)
-    (column-number-mode 1))
+    :init
+    (doom-modeline-mode 1))
 
   (leaf volatile-highlights
     :ensure t
