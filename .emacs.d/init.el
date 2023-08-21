@@ -1214,7 +1214,17 @@ Display the results in a hyperlinked *compilation* buffer."
 
 (leaf lsp-mode
   :ensure t
-  :commands lsp)
+  :commands lsp
+  :custom
+  ;; Use Corfu instead of Company
+  ;; See https://github.com/minad/corfu/wiki#configuring-corfu-for-lsp-mode
+  (lsp-completion-provider . :none)
+  :init
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(flex))) ; Configure flex for Corfu
+  :hook
+  (lsp-completion-mode . my/lsp-mode-setup-completion))
 
 (leaf rustic
   :doc "Rust"
