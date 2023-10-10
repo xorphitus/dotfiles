@@ -1,14 +1,7 @@
 #!/bin/sh
-DATA=$(playerctl --player=spotify metadata)
+DATA=$(nc -W 1 -U ~/.cache/ncspot/ncspot.sock)
 
-extract() {
-  data="$1"
-  attr="$2"
-  echo "$data" | grep "$attr" | awk '{c="";for(i=3;i<=NF;i++) c=c $i" "; print c}'
-}
-
-
-title=$(extract "$DATA" 'xesam:title')
-artist=$(extract "$DATA" 'xesam:albumArtist')
+title=$(echo "$DATA" | jq -r '.playable.title')
+artist=$(echo "$DATA" | jq -r '.playable.artists[0]')
 
 echo "${title} / ${artist}" | sed 's/  */ /g'

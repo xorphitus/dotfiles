@@ -145,9 +145,9 @@ bindsym $mod+Shift+b move container to workspace back_and_forth
 bindcode 121 exec "~/dotfiles/envs/arch/bin/volume.sh toggle"
 bindcode 122 exec "~/dotfiles/envs/arch/bin/volume.sh down"
 bindcode 123 exec "~/dotfiles/envs/arch/bin/volume.sh up"
-bindcode 172 exec "playerctl --player=spotify play-pause"
-bindcode 176 exec "playerctl --player=spotify previous"
-bindcode 216 exec "playerctl --player=spotify next"
+bindcode 172 exec "echo playpause | nc -W 1 -U ~/.cache/ncspot/ncspot.sock"
+bindcode 176 exec "echo previous  | nc -W 1 -U ~/.cache/ncspot/ncspot.sock"
+bindcode 216 exec "echo next      | nc -W 1 -U ~/.cache/ncspot/ncspot.sock"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
