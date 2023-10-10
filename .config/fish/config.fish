@@ -298,7 +298,7 @@ function _setup_fishenv
   fisher install jethrokuan/fzf masa0x80/ghq_cd_keybind.fish
 
   # theme
-  fisher install IlanCosman/tide
+  fisher install IlanCosman/tide@v5
 end
 
 set fish_individual_config ~/.config/fish/individual.fish
