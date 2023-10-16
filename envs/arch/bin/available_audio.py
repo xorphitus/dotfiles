@@ -44,6 +44,8 @@ def convert_sink(s):
         return 'MB16AMT'
     if 'Sound Blaster Play' in s:
         return 'SBP! OUT'
+    if 'JBL Pebbles ' in s:
+        return 'JBL Pebbles'
     return s
 
 def get_sources():
