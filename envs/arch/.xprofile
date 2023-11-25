@@ -19,7 +19,9 @@ dropbox &
 redshift-gtk &
 psensor &
 radeon-profile &
-blueman-tray &
+# blueman-tray &
+jetbrains-toolbox &
+obs --startvirtualcam --scene "Virtual Camera" --minimize-to-tray &
 
 xss-lock -- $HOME/dotfiles/adhoc/arch-desktop/bin/lock.sh &
 dunst &
