@@ -1,4 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# JBL Pebbles cannot make sound when the volume is less than 87%, and somehow
+# 87% seems not be able to let the both left and right speakers work appropriately.
+# Therefore, 88% may be the best as the minimum volume.
+MIN_VOLUME_PERCENT=88
 
 sinks() {
   pacmd list-sinks \
@@ -16,8 +21,29 @@ toggle() {
   notify-send -u low ' / 🔇'
 }
 
+# Parse the following format output and obtain only the first volume with the % unit.
+# In the following example, `88` percent of the `front-left` volume will be plucked.
+#
+# Volume: front-left: 57434 /  88% / -3.44 dB,   front-right: 57428 /  88% / -3.44 dB
+#         balance -0.00
+get_current_volume_percent() {
+  index=$1
+  pactl get-sink-volume "$index" | head -n 1 | cut -d '/' -f 2 | sed -e 's/ *//g' | sed -e 's/%//'
+}
+
+ensure_min() {
+  for sink in $(sinks); do
+    vol=$(get_current_volume_percent "$sink")
+
+    if [[ "$vol" =~ ^[0-9]+$ ]] && [ "$vol" -lt "$MIN_VOLUME_PERCENT" ]; then
+      ctl "${MIN_VOLUME_PERCENT}%"
+    fi
+  done
+}
+
 down() {
   ctl '-5%'
+  ensure_min
   notify-send -u low '🔉' # '🔈'
 }
 
