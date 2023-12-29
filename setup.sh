@@ -4,6 +4,7 @@ set -eux
 
 DIR=$(cd $(dirname "$0"); pwd)
 
+mkdir -p ~/.lein
 files=( .emacs.d .lein/profiles.clj .muttrc .vimrc .config/fish/config.fish .config/wezterm )
 for i in "${files[@]}"
 do
