@@ -26,9 +26,9 @@
 	sw = switch
 	push-f = push --force-with-lease
 [pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
+	log = bat
+	show = bat
+	diff = bat
 [ghq]
 	root = ~/go/src
 	root = ~/.ghq
