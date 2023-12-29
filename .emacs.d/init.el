@@ -1454,7 +1454,7 @@ does not support PulseAudio's pacat/paplay"
             (sound-wav--do-play-by-afplay files)
           ;; for PulseAudio
           (deferred:$
-            (apply 'deferred:process org-pomodoro-audio-player (concat "--volume=" (number-to-string vol)) files)))))
+           (apply 'deferred:process org-pomodoro-audio-player (concat "--volume=" (number-to-string vol)) files)))))
 
     (leaf sound-wav
       :doc "Required by org-pomodoro implicitly"
