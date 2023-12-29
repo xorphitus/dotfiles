@@ -389,14 +389,14 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   (leaf cape
     :ensure t
     :bind
-    (("<M-tab>" . completion-at-point))
+    (("<C-tab>" . completion-at-point))
     :custom
     ;; Requires the hunspell-en_us package
     (cape-dict-file . "/usr/share/myspell/dicts/en_US-large.dic")
     :init
     (add-to-list 'completion-at-point-functions #'cape-file)
     (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-    (add-to-list 'completion-at-point-functions #'cape-ispell)
+    (add-to-list 'completion-at-point-functions #'cape-dict)
     (add-to-list 'completion-at-point-functions #'cape-symbol)))
 
 (leaf undo-tree
@@ -1427,7 +1427,9 @@ To show the image file inline, use the following.
        '("/usr/share/java/plantuml/plantuml.jar")))
     (org-babel-do-load-languages
      'org-babel-load-languages
-     '((plantuml . t))))
+     '((plantuml . t)
+       (shell . t)
+       (python . t))))
 
   (leaf org-pomodoro
     :ensure t
