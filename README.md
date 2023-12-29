@@ -25,7 +25,10 @@ OS packages
 * rg
 * PlantUML
 
-and execute `M-x all-the-icons-install-fonts`
+and execute the followings
+
+* `M-x all-the-icons-install-fonts`
+* `M-x nerd-icons-install-fonts`
 
 ### gitconfig
 
