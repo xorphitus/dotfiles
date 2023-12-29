@@ -457,10 +457,7 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
     (leaf forge
       :ensure t))
 
-  (leaf gitignore-mode
-    :ensure t)
-
-  (leaf gitconfig-mode
+  (leaf git-modes
     :ensure t)
 
   (leaf git-timemachine
