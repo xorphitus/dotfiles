@@ -787,8 +787,7 @@ Call this on `flyspell-incorrect-hook'."
   (leaf global-display-line-numbers-mode
     :doc "Line number"
     :init
-    (global-display-line-numbers-mode 1)
-    (setq linum-format "%4d."))
+    (global-display-line-numbers-mode 1))
 
   (leaf whitespace
     :doc "Show spaces"
