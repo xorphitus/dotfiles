@@ -1487,7 +1487,13 @@ does not support PulseAudio's pacat/paplay"
     (setq org-roam-directory   roam-path)
     (setq org-roam-db-location (format "%s/org-roam.db" roam-path)))
   :config
-  (org-roam-db-autosync-mode))
+  (org-roam-db-autosync-mode)
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :target (file+head "%<%Y%m%d%H%M%S>.org"
+                              "#+title: ${title}\n")
+           :unnarrowed t)))
+  )
 
 (leaf *information
   :config
