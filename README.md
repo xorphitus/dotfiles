@@ -30,6 +30,13 @@ and execute the followings
 * `M-x all-the-icons-install-fonts`
 * `M-x nerd-icons-install-fonts`
 
+For AI packages:
+
+* OS package installation
+  * ollama
+* Install AI models for Olamma and run `ollama serve`
+* Set `openai-key` to Pass
+
 ### gitconfig
 
 Create `~/home/.gitconfig` file as following.

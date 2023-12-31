@@ -1534,7 +1534,14 @@ does not support PulseAudio's pacat/paplay"
                               (make-llm-ollama
                                :chat-model default-provider :embedding-model default-provider))))
                 (message "No Ollama model is available")))
-          (message "Error: `ollama server` is not running"))))))
+          (message "Error: `ollama server` is not running")))))
+
+  (leaf chatgpt-shell
+    :ensure t
+    :config
+    (setq chatgpt-shell-openai-key
+          (lambda ()
+            (nth 0 (process-lines "pass" "show" "openai-key"))))))
 
 (leaf *information
   :config
