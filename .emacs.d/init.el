@@ -1506,19 +1506,21 @@ does not support PulseAudio's pacat/paplay"
     (defun my-load-ollama-models ()
       "Dynamically load Ollama models."
       (interactive)
-      (let ((server-running (= 0 (call-process "pgrep" nil nil nil "-f" "ollama serve"))))
+      (let* ((prior-default-models `("deepseek-coder:33b"
+                                     "deepseek-coder:6.7b"
+                                     "deepseek-coder:1.3b"
+                                     "deepseek-coder:latest"
+                                     "dolphin-mixtral:latest"
+                                     "zephyr:latest"))
+             (server-running (zerop (call-process "pgrep" nil nil nil "-f" "ollama serve"))))
         (if server-running
-            (let* ((prior-default-models `("deepseek-coder:33b"
-                                           "deepseek-coder:6.7b"
-                                           "deepseek-coder:1.3b"
-                                           "deepseek-coder:latest"
-                                           "dolphin-mixtral:latest"
-                                           "zephyr:latest"))
-                   (command-out (shell-command-to-string "ollama list"))
-                   (lines (s-lines (s-chomp command-out)))
-                   (models (cdr lines))
-                   (provider-names (--map (car (split-string it)) models))
-                   (available-models (make-hash-table :test 'equal))
+            (let* ((available-models (make-hash-table :test 'equal))
+                   (provider-names (->> (shell-command-to-string "ollama list")
+                                        s-chomp
+                                        s-lines
+                                        cdr
+                                        (-map #'split-string)
+                                        (-map #'car)))
                    (providers (--map
                                (cons it `(make-llm-ollama :chat-model ,it :embedding-model ,it))
                                provider-names)))
