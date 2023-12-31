@@ -1495,6 +1495,47 @@ does not support PulseAudio's pacat/paplay"
            :unnarrowed t)))
   )
 
+(leaf *ai
+  :config
+  (leaf ellama
+    :ensure t
+    :init
+    (setopt ellama-language "English")
+    (require 'llm-ollama)
+
+    (defun my-load-ollama-models ()
+      "Dynamically load Ollama models."
+      (interactive)
+      (let ((server-running (= 0 (call-process "pgrep" nil nil nil "-f" "ollama serve"))))
+        (if server-running
+            (let* ((prior-default-models `("deepseek-coder:33b"
+                                           "deepseek-coder:6.7b"
+                                           "deepseek-coder:1.3b"
+                                           "deepseek-coder:latest"
+                                           "dolphin-mixtral:latest"
+                                           "zephyr:latest"))
+                   (command-out (shell-command-to-string "ollama list"))
+                   (lines (s-lines (s-chomp command-out)))
+                   (models (cdr lines))
+                   (provider-names (--map (car (split-string it)) models))
+                   (available-models (make-hash-table :test 'equal))
+                   (providers (--map
+                               (cons it `(make-llm-ollama :chat-model ,it :embedding-model ,it))
+                               provider-names)))
+              (if (> (length providers) 0)
+                  (progn
+                    (--each provider-names (puthash it t available-models))
+                    (setopt ellama-providers providers)
+                    (setopt ellama-provider
+                            (let* ((primary-provider (--first (gethash it available-models) prior-default-models))
+                                   (default-provider (or
+                                                      primary-provider
+                                                      (car provider-names))))
+                              (make-llm-ollama
+                               :chat-model default-provider :embedding-model default-provider))))
+                (message "No Ollama model is available")))
+          (message "Error: `ollama server` is not running"))))))
+
 (leaf *information
   :config
   (leaf elpher
