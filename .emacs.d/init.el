@@ -1501,6 +1501,7 @@ does not support PulseAudio's pacat/paplay"
     :ensure t
     :init
     (setopt ellama-language "English")
+    (setopt ellama-ollama-binary "ollama")
     (require 'llm-ollama)
 
     (defun my-load-ollama-models ()
@@ -1512,10 +1513,14 @@ does not support PulseAudio's pacat/paplay"
                                      "deepseek-coder:latest"
                                      "dolphin-mixtral:latest"
                                      "zephyr:latest"))
-             (server-running (zerop (call-process "pgrep" nil nil nil "-f" "ollama serve"))))
+             (bin ellama-ollama-binary)
+             (server-running (->> (concat bin " serve")
+                                  (call-process "pgrep" nil nil nil "-f")
+                                  zerop)))
         (if server-running
             (let* ((available-models (make-hash-table :test 'equal))
-                   (provider-names (->> (shell-command-to-string "ollama list")
+                   (provider-names (->> (concat bin " list")
+                                        shell-command-to-string
                                         s-chomp
                                         s-lines
                                         cdr
