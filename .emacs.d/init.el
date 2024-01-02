@@ -440,6 +440,7 @@ http://d.hatena.ne.jp/gifnksm/20100131/1264956220"
   :ensure t
   :commands open-junk-file
   :config
+  (setq open-junk-file-format "/var/tmp/emacsjunk/%Y-%m-%d-%H%M%S.")
   ;; open junk file in a current window
   (setq open-junk-file-find-file-function 'find-file))
 
