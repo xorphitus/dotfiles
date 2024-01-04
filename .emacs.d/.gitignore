@@ -24,3 +24,4 @@ wget-log*
 bookmarks
 el-get
 forge-database*
+.lsp-session*
