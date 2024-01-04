@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 B='#00000099'  # blank
 C='#00000099'  # clear ish

@@ -6,7 +6,7 @@ function main() {
   # can not use some special charactors
   # e.g. ( )
   local -Ar menu=(
-    ['Lock']='$HOME/dotfiles/envs/arch/bin/lock.sh'
+    ['Lock']="$HOME/dotfiles/envs/arch/bin/lock.sh"
     ['Standby']='xset dpms force standby'
     ['Hibernate']='systemctl hibernate'
   )
