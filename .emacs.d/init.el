@@ -1482,19 +1482,31 @@ does not support PulseAudio's pacat/paplay"
 (leaf org-roam
   :ensure t
   :init
-  (let ((roam-path "~/Documents/org-roam"))
+  (let ((roam-path (format "%s/Documents/org-roam" (getenv "HOME"))))
     (unless (f-exists? roam-path)
       (make-directory roam-path))
     (setq org-roam-directory   roam-path)
     (setq org-roam-db-location (format "%s/org-roam.db" roam-path)))
   :config
   (org-roam-db-autosync-mode)
+  (defun gen-subtemplates (roam-path)
+    "Dynamically generates Org-roam capture templates with checking subdirectories. This function assumes there's no directory named as `defautl', and all subdirectories have different initials."
+    (->> (directory-files roam-path t "^[^.]")
+         (-filter #'file-directory-p)
+         (--map (s-chop-prefix (concat roam-path "/") it))
+         (--map `(,(s-left 1 it)
+                  ,it
+                  plain
+                  "%?"
+                  :target (file+head ,(concat it "/%<%Y%m%d%H%M%S>.org")
+                                     "#+title: ${title}\n")
+                  :unnarrowed t))))
   (setq org-roam-capture-templates
-        '(("d" "default" plain "%?"
-           :target (file+head "%<%Y%m%d%H%M%S>.org"
-                              "#+title: ${title}\n")
-           :unnarrowed t)))
-  )
+        (-concat '(("d" "default" plain "%?"
+                    :target (file+head "%<%Y%m%d%H%M%S>.org"
+                                       "#+title: ${title}\n")
+                    :unnarrowed t))
+                 (gen-subtemplates org-roam-directory))))
 
 (leaf *ai
   :config
