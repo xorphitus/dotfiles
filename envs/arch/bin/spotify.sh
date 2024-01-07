@@ -26,8 +26,15 @@ ncspot_stat() {
   fi
 }
 
-if pgrep -x spotifyd > /dev/null; then
-  spotifyd_stat
-elif pgrep -x ncspot > /dev/null; then
+# Disabled spotifyd support: The status should be displayed in another machine
+# via Spotify Connect
+#
+# if pgrep -x spotifyd > /dev/null; then
+#   spotifyd_stat
+# elif pgrep -x ncspot > /dev/null; then
+#   ncspot_stat
+# fi
+
+if pgrep -x ncspot > /dev/null; then
   ncspot_stat
 fi
