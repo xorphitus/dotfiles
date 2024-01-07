@@ -1,13 +1,33 @@
 #!/usr/bin/env bash
-DATA=$(nc -W 1 -U ~/.cache/ncspot/ncspot.sock)
+spotifyd_stat() {
+  meta=$(playerctl metadata -p spotifyd)
+  title=$(echo "$meta" | grep title | awk '{print $3}')
+  artist=$(echo "$meta" | grep artist | awk '{print $3}')
+  echo "${title} / ${artist}" | sed 's/  */ /g'
+}
 
-title=$(echo "$DATA" | jq -r '.playable.title')
-artist=$(echo "$DATA" | jq -r '.playable.artists[0]')
+ncspot_stat() {
+  sock="$HOME/.cache/ncspot/ncspot.sock"
+  if [ -f "$sock" ]; then
+    DATA=$(nc -W 1 -U "$sock")
 
-stat="♪"
-playing=$(echo "$DATA" | jq '.mode.Playing')
-if [ "$playing" = "null" ]; then
-  stat="⏸"
+    title=$(echo "$DATA" | jq -r '.playable.title')
+    artist=$(echo "$DATA" | jq -r '.playable.artists[0]')
+
+    stat="♪"
+    playing=$(echo "$DATA" | jq '.mode.Playing')
+    if [ "$playing" = "null" ]; then
+      stat="⏸"
+    fi
+
+    echo "${stat}" "${title} / ${artist}" | sed 's/  */ /g'
+  else
+    echo "${sock} does not exist"
+  fi
+}
+
+if pgrep -x spotifyd > /dev/null; then
+  spotifyd_stat
+elif pgrep -x ncspot > /dev/null; then
+  ncspot_stat
 fi
-
-echo "${stat}" "${title} / ${artist}" | sed 's/  */ /g'
