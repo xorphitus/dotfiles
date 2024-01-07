@@ -8,7 +8,7 @@ spotifyd_stat() {
 
 ncspot_stat() {
   sock="$HOME/.cache/ncspot/ncspot.sock"
-  if [ -f "$sock" ]; then
+  if [ -e "$sock" ]; then
     DATA=$(nc -W 1 -U "$sock")
 
     title=$(echo "$DATA" | jq -r '.playable.title')
