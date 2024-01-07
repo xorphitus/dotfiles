@@ -1502,11 +1502,16 @@ does not support PulseAudio's pacat/paplay"
                                      "#+title: ${title}\n")
                   :unnarrowed t))))
   (setq org-roam-capture-templates
-        (-concat '(("d" "default" plain "%?"
+        (-concat '(("0" "default" plain "%?"
                     :target (file+head "%<%Y%m%d%H%M%S>.org"
                                        "#+title: ${title}\n")
                     :unnarrowed t))
-                 (gen-subtemplates org-roam-directory))))
+                 (gen-subtemplates org-roam-directory)))
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: Daily %<%Y-%m-%d>\n")))))
 
 (leaf *ai
   :config
