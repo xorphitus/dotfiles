@@ -1490,7 +1490,7 @@ does not support PulseAudio's pacat/paplay"
   :config
   (org-roam-db-autosync-mode)
   (defun gen-subtemplates (roam-path)
-    "Dynamically generates Org-roam capture templates with checking subdirectories. This function assumes there's no directory named as `defautl', and all subdirectories have different initials."
+    "Dynamically generates Org-roam capture templates with checking subdirectories. This function assumes there's no directory named as `default', and all subdirectories have different initials."
     (->> (directory-files roam-path t "^[^.]")
          (-filter #'file-directory-p)
          (--map (s-chop-prefix (concat roam-path "/") it))
