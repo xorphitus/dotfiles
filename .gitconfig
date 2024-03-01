@@ -15,6 +15,8 @@
 	default = tracking
 [merge]
 	ff = false
+[rebase]
+	autostash = true
 [branch]
 	autosetuprebase = always
 [pull]
