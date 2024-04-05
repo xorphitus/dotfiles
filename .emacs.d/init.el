@@ -1520,10 +1520,7 @@ does not support PulseAudio's pacat/paplay"
 (leaf *ai
   :config
   (leaf ellama
-    ;; Use my fork
-    ;; :ensure t
-    :vc ( :url "https://github.com/xorphitus/ellama.git"
-          :branch "enable-markdown-mode-instant-buffer")
+    :ensure t
     :init
     (setopt ellama-language "English")
     (setopt ellama-ollama-binary "ollama")
