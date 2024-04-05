@@ -101,12 +101,16 @@
     ("=>" . ?⇒)))
 
 ;; Macros
-(defmacro my-macro/prettify-symbols (hook symbols-alist)
+
+;; Somehow, this macro causes an issue that Emacs suddenly doesn't accept keyboard inputs.
+;; Stop using this one for now.
+(defmacro skip--my-macro/prettify-symbols (hook symbols-alist)
   `(add-hook ',hook
              (lambda ()
                (-each ,symbols-alist
                  (lambda (prettify-map)
                    (push prettify-map prettify-symbols-alist))))))
+(defmacro my-macro/prettify-symbols (hook symbols-alist))
 
 (leaf *base
   :config
