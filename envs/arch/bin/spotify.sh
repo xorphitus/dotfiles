@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 spotifyd_stat() {
   meta=$(playerctl metadata -f '{{status}} {{title}} / {{artist}}' -p spotifyd)
-  echo "$meta" | sed 's/  */ /g' | sed 's/Playing/♪/g' | sed 's/Paused/⏸/g'
+  echo "$meta" | sed 's/  */ /g' | sed 's/Playing/♪/g' | sed 's/Paused/⏸/g' | sed 's/Stopped/⏹/g'
 }
 
 spotifyd_play_pause() {
