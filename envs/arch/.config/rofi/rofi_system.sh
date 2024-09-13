@@ -8,7 +8,7 @@ function main() {
   local -Ar menu=(
     ['Lock']="$HOME/dotfiles/envs/arch/bin/lock.sh"
     ['Standby']='xset dpms force standby'
-    ['Hibernate']='systemctl hibernate'
+    ['Hibernate']="$HOME/dotfiles/envs/arch/bin/hibernate.sh"
   )
 
   local -r IFS=$'\n'
