@@ -11,19 +11,23 @@ export LC_TIME=C
 
 xset b off
 
+# Look and feel configuration
 export QT_STYLE_OVERRIDE=kvantum
+export JDK_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
+# Start required processes
 wezterm &
 fcitx5 &
 dropbox &
 redshift-gtk &
 psensor &
 radeon-profile &
-# blueman-tray &
+blueman-manager &
 jetbrains-toolbox &
 obs --startvirtualcam --scene "Virtual Camera" --minimize-to-tray &
 
-xss-lock -- $HOME/dotfiles/adhoc/arch-desktop/bin/lock.sh &
+# xss-lock -- $HOME/dotfiles/adhoc/arch-desktop/bin/lock.sh &
+xss-lock --transfer-sleep-lock -- i3lock --nofork &
 dunst &
 nitrogen --restore &
 picom -b
