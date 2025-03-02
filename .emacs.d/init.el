@@ -1522,18 +1522,16 @@ does not support PulseAudio's pacat/paplay"
   (leaf ellama
     :ensure t
     :init
-    (setopt ellama-language "English")
+    (setopt ellama-language "Japanese")
     (setopt ellama-ollama-binary "ollama")
     (require 'llm-ollama)
 
     (defun my-load-ollama-models ()
       "Dynamically load Ollama models."
       (interactive)
-      (let* ((prior-default-models `("deepseek-coder:33b"
-                                     "deepseek-coder:6.7b"
-                                     "deepseek-coder:1.3b"
-                                     "deepseek-coder:latest"
-                                     "dolphin-mixtral:latest"
+      (let* ((prior-default-models `("deepseek-coder:6.7b-instruct"
+                                     "elyza:7b-fast-instruct-q6_K"
+                                     "llama3:8b-instruct-q6_K"
                                      "zephyr:latest"))
              (bin ellama-ollama-binary)
              (server-running (->> (concat bin " serve")
