@@ -1617,4 +1617,22 @@ does not support PulseAudio's pacat/paplay"
   (setq ns-use-srgb-colorspace nil
         alert-default-style 'osx-notifier))
 
+(defun my-speech-note-import ()
+  "Run the speech note processing script and insert the result into the current buffer.
+The script is executed with the -r option to remove the original files after processing."
+  (interactive)
+  (let* ((script-path (expand-file-name "~/bin/speech_note.sh")) ;; Path to the script
+         (input-dir (expand-file-name "~/Subsync/iPhone/speech_note")) ;; Directory containing text files
+         (model "elyza:llama3-jp-8b")                                ;; Model name
+         (command (format "%s -r -m %s %s 2>/dev/null"
+                          (shell-quote-argument script-path)
+                          (shell-quote-argument model)
+                          (shell-quote-argument input-dir)))
+         (output (shell-command-to-string command)))
+    (save-excursion
+      (goto-char (point-max))
+      (insert output))
+    (message "Inserted processed speech notes into the current buffer.")))
+
+
 ;;; init.el ends here
