@@ -1519,49 +1519,88 @@ does not support PulseAudio's pacat/paplay"
 
 (leaf *ai
   :config
+  (defun my-speech-note-import ()
+    "Run the speech note processing script and insert the result into the current buffer.
+The script is executed with the -r option to remove the original files after processing."
+    (interactive)
+    (let* ((script-path (expand-file-name "~/bin/speech_note.sh"))
+           (input-dir (expand-file-name "~/Subsync/iPhone/speech_note"))
+           (model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest")
+           (command (format "%s -r -m %s %s 2>/dev/null"
+                            (shell-quote-argument script-path)
+                            (shell-quote-argument model)
+                            (shell-quote-argument input-dir)))
+           (output (shell-command-to-string command)))
+      (save-excursion
+        (goto-char (point-max))
+        (insert output))
+      (message "Inserted processed speech notes into the current buffer.")))
+
   (leaf ellama
     :ensure t
+    :bind ("C-c e" . ellama-transient-main-menu)
+    ;; send last message in chat buffer with C-c C-c
+    :hook (org-ctrl-c-ctrl-c-final . ellama-chat-send-last-message)
     :init
+    ;; setup key bindings
+    ;; (setopt ellama-keymap-prefix "C-c e")
+    ;; language you want ellama to translate to
     (setopt ellama-language "Japanese")
-    (setopt ellama-ollama-binary "ollama")
+    ;; could be llm-openai for example
     (require 'llm-ollama)
-
-    (defun my-load-ollama-models ()
-      "Dynamically load Ollama models."
-      (interactive)
-      (let* ((prior-default-models `("deepseek-coder:6.7b-instruct"
-                                     "elyza:7b-fast-instruct-q6_K"
-                                     "llama3:8b-instruct-q6_K"
-                                     "zephyr:latest"))
-             (bin ellama-ollama-binary)
-             (server-running (->> (concat bin " serve")
-                                  (call-process "pgrep" nil nil nil "-f")
-                                  zerop)))
-        (if server-running
-            (let* ((available-models (make-hash-table :test 'equal))
-                   (provider-names (->> (concat bin " list")
-                                        shell-command-to-string
-                                        s-chomp
-                                        s-lines
-                                        cdr
-                                        (-map #'split-string)
-                                        (-map #'car)))
-                   (providers (--map
-                               (cons it `(make-llm-ollama :chat-model ,it :embedding-model ,it))
-                               provider-names)))
-              (if (> (length providers) 0)
-                  (progn
-                    (--each provider-names (puthash it t available-models))
-                    (setopt ellama-providers providers)
-                    (setopt ellama-provider
-                            (let* ((primary-provider (--first (gethash it available-models) prior-default-models))
-                                   (default-provider (or
-                                                      primary-provider
-                                                      (car provider-names))))
-                              (make-llm-ollama
-                               :chat-model default-provider :embedding-model default-provider))))
-                (message "No Ollama model is available")))
-          (message "Error: `ollama server` is not running")))))
+    (setopt ellama-provider
+            (make-llm-ollama
+             ;; this model should be pulled to use it
+             ;; value should be the same as you print in terminal during pull
+             :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params '(("num_ctx" . 8192))))
+    (setopt ellama-summarization-provider
+            (make-llm-ollama
+             :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params '(("num_ctx" . 32768))))
+    (setopt ellama-coding-provider
+            (make-llm-ollama
+             :chat-model "qwen2.5-coder:7b"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params '(("num_ctx" . 32768))))
+    ;; Predefined llm providers for interactive switching.
+    ;; You shouldn't add ollama providers here - it can be selected interactively
+    ;; without it. It is just example.
+    (setopt ellama-providers
+            '(("elyza" . (make-llm-ollama
+                          :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"
+                          :embedding-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"))
+              ("qwen2.5" . (make-llm-ollama
+                            :chat-model "qwen2.5:7b"
+                            :embedding-model "qwen2.5:7b"))))
+    ;; Naming new sessions with llm
+    (setopt ellama-naming-provider
+            (make-llm-ollama
+             :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params '(("stop" . ("\n")))))
+    (setopt ellama-naming-scheme 'ellama-generate-name-by-llm)
+    ;; Translation llm provider
+    (setopt ellama-translation-provider
+            (make-llm-ollama
+             :chat-model "qwen2.5:7b"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params
+             '(("num_ctx" . 32768))))
+    (setopt ellama-extraction-provider (make-llm-ollama
+                                        :chat-model "qwen2.5-coder:7b"
+                                        :embedding-model "nomic-embed-text"
+                                        :default-chat-non-standard-params
+                                        '(("num_ctx" . 32768))))
+    ;; customize display buffer behavior
+    ;; see ~(info "(elisp) Buffer Display Action Functions")~
+    (setopt ellama-chat-display-action-function #'display-buffer-full-frame)
+    (setopt ellama-instant-display-action-function #'display-buffer-at-bottom)
+    :config
+    ;; show ellama context in header line in all buffers
+    (ellama-context-header-line-global-mode +1))
 
   (leaf chatgpt-shell
     :ensure t
@@ -1616,23 +1655,5 @@ does not support PulseAudio's pacat/paplay"
   ;; https://github.com/milkypostman/powerline/issues/54
   (setq ns-use-srgb-colorspace nil
         alert-default-style 'osx-notifier))
-
-(defun my-speech-note-import ()
-  "Run the speech note processing script and insert the result into the current buffer.
-The script is executed with the -r option to remove the original files after processing."
-  (interactive)
-  (let* ((script-path (expand-file-name "~/bin/speech_note.sh")) ;; Path to the script
-         (input-dir (expand-file-name "~/Subsync/iPhone/speech_note")) ;; Directory containing text files
-         (model "elyza:llama3-jp-8b")                                ;; Model name
-         (command (format "%s -r -m %s %s 2>/dev/null"
-                          (shell-quote-argument script-path)
-                          (shell-quote-argument model)
-                          (shell-quote-argument input-dir)))
-         (output (shell-command-to-string command)))
-    (save-excursion
-      (goto-char (point-max))
-      (insert output))
-    (message "Inserted processed speech notes into the current buffer.")))
-
 
 ;;; init.el ends here
