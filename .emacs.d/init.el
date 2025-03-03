@@ -1525,7 +1525,7 @@ The script is executed with the -r option to remove the original files after pro
     (interactive)
     (let* ((script-path (expand-file-name "~/bin/speech_note.sh"))
            (input-dir (expand-file-name "~/Subsync/iPhone/speech_note"))
-           (model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest")
+           (model "gemma2:9b")
            (command (format "%s -r -m %s %s 2>/dev/null"
                             (shell-quote-argument script-path)
                             (shell-quote-argument model)
@@ -1552,12 +1552,12 @@ The script is executed with the -r option to remove the original files after pro
             (make-llm-ollama
              ;; this model should be pulled to use it
              ;; value should be the same as you print in terminal during pull
-             :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"
+             :chat-model "gemma2:9b"
              :embedding-model "nomic-embed-text"
              :default-chat-non-standard-params '(("num_ctx" . 8192))))
     (setopt ellama-summarization-provider
             (make-llm-ollama
-             :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"
+             :chat-model "gemma2:9b"
              :embedding-model "nomic-embed-text"
              :default-chat-non-standard-params '(("num_ctx" . 32768))))
     (setopt ellama-coding-provider
@@ -1569,23 +1569,32 @@ The script is executed with the -r option to remove the original files after pro
     ;; You shouldn't add ollama providers here - it can be selected interactively
     ;; without it. It is just example.
     (setopt ellama-providers
-            '(("elyza" . (make-llm-ollama
-                          :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"
-                          :embedding-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"))
+            '(("gemma2" . (make-llm-ollama
+                           :chat-model "gemma2:9b"
+                           :embedding-model "gemma2:9b"))
+              ("elyza" . (make-llm-ollama
+                          :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF"
+                          :embedding-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF"))
+              ("elyza_e" . (make-llm-ollama
+                            :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF"
+                            :embedding-model "nomic-embed-text"))
               ("qwen2.5" . (make-llm-ollama
                             :chat-model "qwen2.5:7b"
-                            :embedding-model "qwen2.5:7b"))))
+                            :embedding-model "qwen2.5:7b"))
+              ("qwen2.5_e" . (make-llm-ollama
+                              :chat-model "qwen2.5:7b"
+                              :embedding-model "nomic-embed-text"))))
     ;; Naming new sessions with llm
     (setopt ellama-naming-provider
             (make-llm-ollama
-             :chat-model "hf.co/elyza/Llama-3-ELYZA-JP-8B-GGUF:latest"
+             :chat-model "hf.co/alfredplpl/gemma-2-2b-jpn-it-gguf"
              :embedding-model "nomic-embed-text"
              :default-chat-non-standard-params '(("stop" . ("\n")))))
     (setopt ellama-naming-scheme 'ellama-generate-name-by-llm)
     ;; Translation llm provider
     (setopt ellama-translation-provider
             (make-llm-ollama
-             :chat-model "qwen2.5:7b"
+             :chat-model "hf.co/alfredplpl/gemma-2-2b-jpn-it-gguf"
              :embedding-model "nomic-embed-text"
              :default-chat-non-standard-params
              '(("num_ctx" . 32768))))
