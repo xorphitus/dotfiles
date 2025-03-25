@@ -115,6 +115,8 @@
 (leaf *base
   :config
   (setq
+   ;; Use sshx instead of ssh in tramp
+   tramp-default-method "sshx"
    ;; show explicit file name
    explicit-shell-file-name shell-file-name
    ;; file name completion ignore case
@@ -1503,12 +1505,12 @@ does not support PulseAudio's pacat/paplay"
                   plain
                   "%?"
                   :target (file+head ,(concat it "/%<%Y%m%d%H%M%S>.org")
-                                     "#+title: ${title}\n")
+                                     "#+title: ${title}\n#+date: %U\n")
                   :unnarrowed t))))
   (setq org-roam-capture-templates
         (-concat '(("0" "default" plain "%?"
                     :target (file+head "%<%Y%m%d%H%M%S>.org"
-                                       "#+title: ${title}\n")
+                                       "#+title: ${title}\n#+date: %U\n")
                     :unnarrowed t))
                  (gen-subtemplates org-roam-directory)))
   (setq org-roam-dailies-capture-templates
