@@ -1667,4 +1667,49 @@ The script is executed with the -r option to remove the original files after pro
   (setq ns-use-srgb-colorspace nil
         alert-default-style 'osx-notifier))
 
+
+;;; --- experimental ---
+
+(require 'consult)
+
+(defgroup brain-search nil
+  "Search brain knowledge base with Consult."
+  :group 'convenience
+  :prefix "brain-search-")
+
+(defcustom brain-search-command "brain"
+  "Path to the brain command."
+  :type 'string
+  :group 'brain-search)
+
+(defcustom brain-search-jq-command "jq"
+  "Path to the jq command."
+  :type 'string
+  :group 'brain-search)
+
+;;;###autoload
+(defun brain-search ()
+  "Search brain knowledge base and select a file with Consult.
+Interactively gets a query, runs brain search, and presents results with Consult."
+  (interactive)
+  (let* ((query (read-string "Brain search query: "))
+         (shell-command (format "%s --mode search-only --format json %s | %s -r '.matched_files.[].path'"
+                                brain-search-command
+                                (shell-quote-argument query)
+                                brain-search-jq-command))
+         (output (shell-command-to-string shell-command))
+         (paths (split-string output "\n" t)))
+    (if (null paths)
+        (message "No matching files found for query: %s" query)
+      (let ((selected (consult--read paths
+                                     :prompt "Select file: "
+                                     :category 'file
+                                     :sort nil
+                                     :require-match t
+                                     :preview-key consult-preview-key
+                                     :state (consult--file-preview)
+                                     :history 'brain-search-history)))
+        (when selected
+          (find-file selected))))))
+
 ;;; init.el ends here
