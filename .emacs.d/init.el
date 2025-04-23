@@ -1403,6 +1403,9 @@ Display the results in a hyperlinked *compilation* buffer."
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode)))
 
+(leaf nix-ts-mode
+  :ensure t
+  :mode "\\.nix\\'")
 
 (leaf org-mode
   :mode (("\\.org$" . org-mode))
