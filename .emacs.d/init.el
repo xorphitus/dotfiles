@@ -952,6 +952,19 @@ Call this on `flyspell-incorrect-hook'."
   :doc "This package is required by restclient-jq"
   :ensure t)
 
+(leaf tree-sitter
+  :ensure (t tree-sitter-langs)
+  :require tree-sitter-langs
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
+  ;; (leaf treesit-auto
+  ;;   :ensure t
+  ;;   :config
+  ;;   (global-treesit-auto-mode))
+  )
+
 (leaf slime
   :req "sbcl"
   :ensure t
