@@ -1,4 +1,5 @@
-xorphitus dotfiles
+# Xorphitus dotfiles
+This repository has been merged into https://github.com/xorphitus/nix-config
 
 ## Setup
 
